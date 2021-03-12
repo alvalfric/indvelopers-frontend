@@ -8,7 +8,7 @@ class PruebaService{
         return axios.get(EMPLOYEE_API_BASE_URL+"/communicate");
     }
     ListPrueba(){
-        return axios.post(EMPLOYEE_API_BASE_URL+ "/findAll");
+        return axios.get(EMPLOYEE_API_BASE_URL+ "/findAll");
     }
 }
 
