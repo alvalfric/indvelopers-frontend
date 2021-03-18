@@ -5,6 +5,7 @@ import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import PruebaComponent from './Components/PruebaComponent';
 import HeaderComponent from './Components/HeaderComponent';
 import FooterComponent from './Components/FooterComponent';
+import SignupComponent from './Components/SignupComponent';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <div>
         <Switch>
           <Route path="/" exact component={PruebaComponent}></Route>
+          <Route path="/signup" exact component={SignupComponent}></Route>
         </Switch>
         </div>
         <FooterComponent/>
