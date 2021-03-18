@@ -3,42 +3,36 @@ import React, { Component } from 'react';
 class SignupComponent extends Component {
     render() {
         return (
-            <div>
-                <SignUpForm />
-            </div>
+            <form>
+                <h3>Register</h3>
+
+                <div className="form-group">
+                    <label>First name</label>
+                    <input type="text" className="form-control" placeholder="First name" />
+                </div>
+
+                <div className="form-group">
+                    <label>Last name</label>
+                    <input type="text" className="form-control" placeholder="Last name" />
+                </div>
+
+                <div className="form-group">
+                    <label>Email</label>
+                    <input type="email" className="form-control" placeholder="Enter email" />
+                </div>
+
+                <div className="form-group">
+                    <label>Password</label>
+                    <input type="password" className="form-control" placeholder="Enter password" />
+                </div>
+
+                <button type="submit" className="btn btn-dark btn-lg btn-block">Register</button>
+                <p className="already-registered text-right">
+                    Already registered <a href="/login">log in?</a>
+                </p>
+            </form>
         );
     }
 }
-
-const FormInput = props => (
-	<div className='signUpRow'>
-		<input type={props.type} placeholder={props.placeholder} />
-	</div>
-);
-
-const FormCheckBox = props => (
-	<div className='signUpRow'>
-		<input id={props.id} type='checkbox' />
-		<label htmlFor={props.id}>{props.label}</label>
-	</div>
-);
-
-const FormButton = props => (
-	<div className='signUpRow'>
-		<button type='button'>{props.title}</button>
-	</div>
-);
-
-const SignUpForm = props => (
-	<div id='signUpFormContainer'>
-		<form id="signUpForm">
-			<FormInput type="text" placeholder="email" />
-				<FormInput type="password" placeholder="password" />
-				<FormInput type="password" placeholder="confirm" />
-				<FormCheckBox id="terms" label="I agree to the terms and conditions" />
-				<FormButton title="Sign Up" />
-		</form>
-	</div>
-);
 
 export default SignupComponent;
