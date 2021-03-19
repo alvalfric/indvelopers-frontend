@@ -12,6 +12,7 @@ function App() {
     <Router>
      
       <HeaderComponent/>
+      <body>
         <div className="App-header">
           <div className="Back" >
           <Switch>
@@ -20,7 +21,7 @@ function App() {
           </div>
         </div>
       <FooterComponent/>
-     
+      </body>
     </Router>
    </React.Fragment>
   );
