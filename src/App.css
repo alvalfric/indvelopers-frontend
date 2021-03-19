@@ -14,12 +14,11 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #004A1E;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -35,4 +34,42 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.footer {
+  position: bottom;
+  width:100%;
+  height: 100px;
+  background-color: black;
+  text-align: center;
+  color: white;
+}
+
+.Back{
+  background-color:#456F56;
+}
+
+.lista {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.elemento {
+  float: left;
+}
+
+.linkElemento {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.linkElemento:hover {
+  background-color: #111;
 }
