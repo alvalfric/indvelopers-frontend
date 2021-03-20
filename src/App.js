@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
@@ -11,23 +11,23 @@ import LoginComponent from './Components/LoginComponent';
 function App() {
   return (
     <React.Fragment>
-      <Router>
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <HeaderComponent/>
-        </header>
-        <div>
-        <Switch>
-          <Route path="/" exact component={PruebaComponent}></Route>
-          <Route path="/signup" exact component={SignupComponent}></Route>
-          <Route path="/login" exact component={LoginComponent}></Route>
-        </Switch>
+    <Router>
+     
+      <HeaderComponent/>
+      <body>
+        <div className="App-header">
+          <div className="Back" >
+          <Switch>
+             <Route path="/prueba" exact component={PruebaComponent}></Route>
+             <Route path="/signup" exact component={SignupComponent}></Route>
+             <Route path="/login" exact component={LoginComponent}></Route>
+          </Switch>
+          </div>
         </div>
-        <FooterComponent/>
-    </div>
+      <FooterComponent/>
+      </body>
     </Router>
-    </React.Fragment>
+   </React.Fragment>
   );
 }
 
