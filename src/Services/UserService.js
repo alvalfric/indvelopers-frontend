@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AuthService } from './AuthService';
-import { UrlProvider } from './../providers/UrlProvider';
+import { UrlProvider } from '../providers/UrlProvider';
 
 
 // TODO: REVISAR

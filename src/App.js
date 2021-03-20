@@ -7,6 +7,7 @@ import HeaderComponent from './Components/HeaderComponent';
 import FooterComponent from './Components/FooterComponent';
 import SignupComponent from './Components/SignupComponent';
 import LoginComponent from './Components/LoginComponent';
+import GamesComponent from './Components/Games/GamesComponent';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
              <Route path="/prueba" exact component={PruebaComponent}></Route>
              <Route path="/signup" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
+             <Route path="/games" exact component={GamesComponent}></Route>
           </Switch>
           </div>
         </div>
