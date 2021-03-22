@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/indvelopers-frontend/static/css/main.126aace6.chunk.css",
+    "main.js": "/indvelopers-frontend/static/js/main.69557138.chunk.js",
+    "main.js.map": "/indvelopers-frontend/static/js/main.69557138.chunk.js.map",
+    "runtime-main.js": "/indvelopers-frontend/static/js/runtime-main.2ac93389.js",
+    "runtime-main.js.map": "/indvelopers-frontend/static/js/runtime-main.2ac93389.js.map",
+    "static/js/2.221a8ef1.chunk.js": "/indvelopers-frontend/static/js/2.221a8ef1.chunk.js",
+    "static/js/2.221a8ef1.chunk.js.map": "/indvelopers-frontend/static/js/2.221a8ef1.chunk.js.map",
+    "static/js/3.b94c4a25.chunk.js": "/indvelopers-frontend/static/js/3.b94c4a25.chunk.js",
+    "static/js/3.b94c4a25.chunk.js.map": "/indvelopers-frontend/static/js/3.b94c4a25.chunk.js.map",
+    "index.html": "/indvelopers-frontend/index.html",
+    "static/css/main.126aace6.chunk.css.map": "/indvelopers-frontend/static/css/main.126aace6.chunk.css.map",
+    "static/js/2.221a8ef1.chunk.js.LICENSE.txt": "/indvelopers-frontend/static/js/2.221a8ef1.chunk.js.LICENSE.txt",
+    "static/media/InDvelopersLogo.bf3458df.png": "/indvelopers-frontend/static/media/InDvelopersLogo.bf3458df.png",
+    "static/media/react-logo.80045de7.png": "/indvelopers-frontend/static/media/react-logo.80045de7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2ac93389.js",
+    "static/js/2.221a8ef1.chunk.js",
+    "static/css/main.126aace6.chunk.css",
+    "static/js/main.69557138.chunk.js"
+  ]
+}
