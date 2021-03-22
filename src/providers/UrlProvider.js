@@ -1,4 +1,4 @@
-const BASE_URL="http://localhost:8080"
+const BASE_URL="https://indvelopers-level-1.herokuapp.com"
 const USERS="/users"
 
 class UrlProvider{
