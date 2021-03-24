@@ -25,6 +25,7 @@ class GamesComponent extends Component {
                 <div className='container' style={{position:"fixed"}}>
                     <h3 style={{paddingTop: '10%'}}>Lista de Juegos</h3> 
                     <div className="row row-cols-1 row-cols-md-4">
+                        {console.log(this.state.games)}
                         { this.state.games.map((item) => {
                             return(
                                 <GameCardComponent 

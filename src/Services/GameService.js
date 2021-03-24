@@ -5,8 +5,13 @@ import { UrlProvider } from '../providers/UrlProvider';
 export const GameService = {
 
     async findAll(){
-        return axios.get(UrlProvider.getGamesUrl + '/findAll').then(res => res.data)
-        .catch(error => {return error.response.status})
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getGamesUrl + '/findAll', { 
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => res.data)
+        });    
     },
 
 

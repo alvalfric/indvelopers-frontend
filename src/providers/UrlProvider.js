@@ -9,6 +9,6 @@ export const UrlProvider = {
     },
 
     getGamesUrl(){
-        return BASE_URL+USERS;
+        return BASE_URL+GAMES;
     }
 }
