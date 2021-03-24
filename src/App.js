@@ -19,6 +19,7 @@ function App() {
       <body>
         <div className="App-header">
           <div className="Back" >
+            <br/>
           <Switch>
              <Route path="/prueba" exact component={PruebaComponent}></Route>
              <Route path="/signup" exact component={SignupComponent}></Route>
