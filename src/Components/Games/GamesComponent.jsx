@@ -21,11 +21,9 @@ class GamesComponent extends Component {
 
     render() {
         return (
-            <React.Fragment>
-                <div className='container' style={{position:"fixed"}}>
-                    <h3 style={{paddingTop: '10%'}}>Lista de Juegos</h3> 
+                <div className='container'  >
+                    <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1> 
                     <div className="row row-cols-1 row-cols-md-4">
-                        {console.log(this.state.games)}
                         { this.state.games.map((item) => {
                             return(
                                 <GameCardComponent 
@@ -35,7 +33,6 @@ class GamesComponent extends Component {
                         }) }
                     </div>
                 </div>
-            </React.Fragment>
         );
     }
 }
