@@ -14,10 +14,10 @@ class GameCardComponent extends Component {
             <div className="col mb-4">
                 <div className="card">
                     <div className="card-header bg-success border-primary"> 
-                        <h2 className="card-title" class="text-dark">{ this.props.game.title }</h2>
+                        <h5 className="card-title" class="text-dark">{ this.props.game.title }</h5>
                     </div>
                     <div className="card-body"> 
-                        <p className="text-muted"> Price: { this.props.game.price }€ </p>
+                        <p class="card-text" className="text-muted"> Price: { this.props.game.price }€ </p>
                     </div>
                 </div>
             </div>
