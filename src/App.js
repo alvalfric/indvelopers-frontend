@@ -19,7 +19,7 @@ function App() {
           <div className="Back" >
           <Switch>
              <Route path="/prueba" exact component={PruebaComponent}></Route>
-             <Route path="/signup" exact component={SignupComponent}></Route>
+             <Route path="/sign-up" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
           </Switch>
           </div>
