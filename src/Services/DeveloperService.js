@@ -1,18 +1,20 @@
 import axios from 'axios';
 import { AuthService } from './AuthService';
-import { UrlProvider } from './../providers/UrlProvider';
+import { UrlProvider } from '../providers/UrlProvider';
 
 
 // TODO: REVISAR
-export const UserService = {
+export const DeveloperService = {
 
     async signup(user){
-        return axios.post(UrlProvider.getUserUrl() + '/signup', user).then(res => res.data)
+        return axios.post(UrlProvider.getDeveloperUrl() + '/sign-up', user).then(res => res.data)
         .catch(error => {return error.response.status})
     },
 
-    async login(user, pass) {
-        return axios.post(UrlProvider.getUserUrl() + '/login?username='+ user +'&secret=' + pass).then(res => res.data)
+    async login(username, password) {
+        return axios.post(UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&password=' + password)
+        .then(res => res.data)
+        .catch(error => { return error.response.status })
     },
     
     // async changePropic(propic) {
@@ -29,7 +31,7 @@ export const UserService = {
 
     async getAll() {
         return AuthService.getToken().then(token => {
-            return axios.get(UrlProvider.getUserUrl(), {
+            return axios.get(UrlProvider.getDeveloperUrl(), {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -39,7 +41,7 @@ export const UserService = {
 
     async getByUsername(username) {
         return AuthService.getToken().then(token => {
-            return axios.get(UrlProvider.getUserUrl().concat(`/${username}`), {
+            return axios.get(UrlProvider.getDeveloperUrl().concat(`/${username}`), {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }

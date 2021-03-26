@@ -1,11 +1,9 @@
 const BASE_URL="http://localhost:8080"
-const USERS="/users"
+const DEVELOPERS="/developers"
 
-class UrlProvider{
+export const UrlProvider={
 
-    getUserUrl(){
-        return BASE_URL+USERS;
+    getDeveloperUrl(){
+        return BASE_URL+DEVELOPERS;
     }
 }
-
-export default new UrlProvider();
