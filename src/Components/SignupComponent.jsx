@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { UserService } from '../Services/UserService';
+import { DeveloperService } from '../Services/DeveloperService';
 
 class SignupComponent extends Component {
 
@@ -107,7 +107,7 @@ class SignupComponent extends Component {
                 description:this.state.description,
                 technologies:this.state.technologies
             }
-            UserService.signup(userForm);
+            DeveloperService.signup(userForm);
             this.props.history.push('/login');
         }
     }

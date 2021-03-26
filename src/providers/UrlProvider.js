@@ -1,9 +1,9 @@
 const BASE_URL="http://localhost:8080"
-const USERS="/users"
+const DEVELOPERS="/developers"
 
 export const UrlProvider={
 
-    getUserUrl(){
-        return BASE_URL+USERS;
+    getDeveloperUrl(){
+        return BASE_URL+DEVELOPERS;
     }
 }

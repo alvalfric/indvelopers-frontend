@@ -16,7 +16,7 @@ export const AuthService = {
     // TODO: Revisar
     async login(username, password) {
         return axios.post(
-            UrlProvider.getUserUrl() + '/login?username='+ username +'&secret=' + password, null)
+            UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&secret=' + password, null)
         .then(res => res.data)
         .catch(error => { return error.response.status })
     },
