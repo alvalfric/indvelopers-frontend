@@ -12,7 +12,9 @@ export const DeveloperService = {
     },
 
     async login(username, password) {
-        return axios.post(UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&secret=' + password).then(res => res.data)
+        return axios.post(UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&password=' + password)
+        .then(res => res.data)
+        .catch(error => { return error.response.status })
     },
     
     // async changePropic(propic) {
