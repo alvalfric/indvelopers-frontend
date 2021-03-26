@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserLogo from '../../assets/userExample.png';
+import PublicationService from '../../Services/PublicationService';
 
 class ListPublicationComponent extends Component {
 
@@ -13,7 +14,9 @@ class ListPublicationComponent extends Component {
     this.createPublication=this.createPublication.bind(this);
     }
     componentDidMount(){
-
+      PublicationService.ListPublication().then((res)=>{
+        this.setState({publications:res.data});
+      })
     }
     createPublication(){
         this.props.history.push('/publication-Create')
@@ -21,6 +24,7 @@ class ListPublicationComponent extends Component {
     }
 
     render() {
+        
         return (
             <div>
                 <br></br>
@@ -31,7 +35,24 @@ class ListPublicationComponent extends Component {
                 </div>
                 <br/>
      {/* Generate diferent for each publication */}
-  <div class="w3-card-4" >
+     {this.state.publications.map(
+       publication=>
+       <div>
+         <br/>
+       <div class="w3-card-4" >
+    <header class="w3-container ">
+        <img/>
+        <img src={UserLogo} className="inDvelopers-logo" width="3%" height="3%"  />
+      <h5>{publication.username}</h5>
+    </header>
+
+    <div class="w3-container">
+      <p>{publication.text}</p>
+    </div>
+  </div>
+  </div>
+     )}
+  {/* <div class="w3-card-4" >
     <header class="w3-container ">
         <img/>
         <img src={UserLogo} className="inDvelopers-logo" width="3%" height="3%"  />
@@ -79,7 +100,7 @@ class ListPublicationComponent extends Component {
     <div class="w3-container">
       <p>No os rindais en vuestra lucha por entrar en la industria del videojuego. Las empresas de este mundillo buscan gente con experiencia personal. ¡Y ID LLAMANDO A LAS PUERTAS DE LAS EMPRESAS PREGUNTANDO POR PRÁCTICAS!</p>
     </div>
-  </div>
+  </div> */}
      {/* Publications ends here. I should paginate in the future or maybe generate while scrolling as many webpages do */}
                 
             </div>
