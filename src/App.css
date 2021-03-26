@@ -43,6 +43,27 @@
   color: white;
 }
 
+.PanicTitle{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  margin-top: 50px;
+  font-size: 350%;
+}
+.PanicText{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  margin-top: 20px;
+}
+.PanicLogo{
+  text-align: center;
+  background-position: center;
+  flex-direction: column;
+  height: 30%;
+}
 .Back{
   background-color:#306b48;
   margin-right:10%;

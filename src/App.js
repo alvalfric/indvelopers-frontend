@@ -9,6 +9,7 @@ import SignupComponent from './Components/SignupComponent';
 import LoginComponent from './Components/LoginComponent';
 import ListPublicationComponent from './Components/Publications/ListPublicationComponent';
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
+import PanicComponent from './Components/Panic/PanicComponent';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
              <Route path="/prueba" exact component={PruebaComponent}></Route>
              <Route path="/signup" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
+             <Route path="/panic" component={PanicComponent}></Route>
              <Route path="/publication-List" component={ListPublicationComponent}></Route>
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
           </Switch>
