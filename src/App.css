@@ -15,11 +15,8 @@
 
 .App-header {
   background-color: #004A1E;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  font-size: calc(10px + 2vmin);
   color: white;
 }
 
@@ -47,6 +44,67 @@
 
 .Back{
   background-color:#456F56;
+  margin-right:10%;
+  padding-left:5%;
+  padding-right:5%;
+  margin-left:10%;
+  padding-bottom:40%;
+}
+
+.Button{
+  background-color: #00d6fcfd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.AceptButton{
+  background-color: #00fc7efd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.CancelButton{
+  background-color: #fc0000fd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #02758a; /* Green */
+  color: black;
+}
+
+.ButtonFileLoad{
+
+  background-color: #4ec292fd;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.ValidatorMessage{
+  color:red;
+  font-size: 5;
+}
+
+.form-input{
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .lista {
