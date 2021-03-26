@@ -7,12 +7,12 @@ import { UrlProvider } from './../providers/UrlProvider';
 export const UserService = {
 
     async signup(user){
-        return axios.post(UrlProvider.getUserUrl() + '/signup', user).then(res => res.data)
+        return axios.post(UrlProvider.getUserUrl() + '/sign-up', user).then(res => res.data)
         .catch(error => {return error.response.status})
     },
 
-    async login(user, pass) {
-        return axios.post(UrlProvider.getUserUrl() + '/login?username='+ user +'&secret=' + pass).then(res => res.data)
+    async login(username, password) {
+        return axios.post(UrlProvider.getUserUrl() + '/login?username='+ username +'&secret=' + password).then(res => res.data)
     },
     
     // async changePropic(propic) {

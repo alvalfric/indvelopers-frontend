@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { UserService } from '../Services/UserService';
 
 class LoginComponent extends Component {
 
@@ -50,7 +51,7 @@ class LoginComponent extends Component {
         event.preventDefault();
         const isValid=this.validate();
         if(isValid){
-            //Change it when connect to the back end
+            UserService.login(this.state.username, this.state.password);
             this.props.history.push('/');
         }
     }

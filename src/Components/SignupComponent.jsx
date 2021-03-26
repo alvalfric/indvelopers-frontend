@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { UserService } from '../Services/UserService';
 
 class SignupComponent extends Component {
 
@@ -18,7 +19,6 @@ class SignupComponent extends Component {
             passwordError:"",
             confirmPassword:"",
             confirmPasswordError:""
-            
         }
         this.saveDeveloper=this.saveDeveloper.bind(this);
         this.changeUsernameHandler=this.changeUsernameHandler.bind(this);
@@ -100,8 +100,15 @@ class SignupComponent extends Component {
         event.preventDefault();
         const isValid=this.validate();
         if(isValid){
-            //Change it when connect to the back end
-            this.props.history.push('/');
+            let userForm={
+                username:this.state.username,
+                password:this.state.password,
+                email:this.state.email,
+                description:this.state.description,
+                technologies:this.state.technologies
+            }
+            UserService.signup(userForm);
+            this.props.history.push('/login');
         }
     }
 
