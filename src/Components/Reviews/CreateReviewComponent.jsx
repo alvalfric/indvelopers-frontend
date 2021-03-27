@@ -12,6 +12,8 @@ class CreateReviewComponent extends Component {
 			score:""
 		} 
 		this.saveReview = this.saveReview.bind(this);
+		this.changeScoreHandler = this.changeScoreHandler.bind(this);
+		this.changeTextHandler = this.changeTextHandler.bind(this);
 	}
 
 	validate =()=>{
