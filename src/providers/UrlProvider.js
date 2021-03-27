@@ -6,7 +6,9 @@ export const UrlProvider={
 
     getDeveloperUrl(){
         return BASE_URL+DEVELOPERS;
-    getGamesUrl(){
+    },
+
+    getGameUrl(){
         return BASE_URL+GAMES;
     }
 }
