@@ -23,6 +23,7 @@ class PruebaComponent extends Component {
     render() {
         return (
             <React.Fragment>
+                
                 <div className="container">
                     <h3>{this.state.Prueba}</h3>
                 </div>

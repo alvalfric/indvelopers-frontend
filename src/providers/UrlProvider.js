@@ -1,16 +1,27 @@
-const BASE_URL="http://localhost:8080"
-//const DEPLOY_URL="(Used when we deploy on heroku)"
-const USERS="/users"
+
+const BASE_URL = "http://localhost:8080"
+const DEVELOPERS = "/developers"
+const GAMES = "/Game"
+const ME = '/me'
 const PUBLICATIONS="/publications"
 
-class UrlProvider{
 
-    getUserUrl(){
-        return BASE_URL+USERS;
-    }
+export const UrlProvider={
+
+    getDeveloperUrl(){
+        return BASE_URL + DEVELOPERS;
+    },
+
+    getGameUrl(){
+        return BASE_URL + GAMES;
+    },
+
     getPublicationUrl(){
         return BASE_URL+PUBLICATIONS;
+    },
+
+
+    getMeUrl(){
+        return BASE_URL + DEVELOPERS + ME
     }
 }
-
-export default new UrlProvider();
