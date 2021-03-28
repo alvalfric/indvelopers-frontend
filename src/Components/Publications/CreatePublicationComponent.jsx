@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { AuthService } from '../../Services/AuthService';
+import PublicationService from '../../Services/PublicationService';
 
 
 
@@ -9,31 +11,24 @@ class CreatePublicationComponent extends Component {
 
         this.state={
             username:"",
-            usernameError:"",
-            image:"",
+            imagen:"",
             text:"",
             textError:"",
             userPicture:""
             
         }
         this.savePublication=this.savePublication.bind(this);
-        this.changeUsernameHandler=this.changeUsernameHandler.bind(this);
         this.changeImageHandler=this.changeImageHandler.bind(this);
         this.changeTextHandler=this.changeTextHandler.bind(this);
     }
     validate =()=>{
-        let usernameError="";
         let textError="";
-        if(this.state.username.length===0){
-            usernameError="Cannot be empty";
-        }
         if(this.state.text.length===0){
             textError="You must write something"
         }
-            this.setState({usernameError});
         
             this.setState({textError});
-        if(usernameError || textError){
+        if(textError){
             return false;
         }else{
             return true;
@@ -43,10 +38,6 @@ class CreatePublicationComponent extends Component {
 
     cancel(){
         this.props.history.push('/publication-List');
-
-    }
-    changeUsernameHandler=(event)=>{
-        this.setState({username:event.target.value});
 
     }
     changeImageHandler=(event)=>{
@@ -60,8 +51,13 @@ class CreatePublicationComponent extends Component {
         e.preventDefault();
         const isValid=this.validate();
         if(isValid){
+            let publication={username:AuthService.getUserData()['username'],userPicture:null,
+            text:this.state.text,imagen:null,developer:null}
+            console.log('Publication=>' + JSON.stringify(publication));
+            PublicationService.AddPublication(publication).then(res=>{
+                this.props.history.push('/publication-List');
+            })
             //Change it when connect to the back end
-            this.props.history.push('/publication-List');
         }
     }
 
@@ -70,15 +66,7 @@ class CreatePublicationComponent extends Component {
             <div>
                 <br></br>
                 <br></br>
-                <form>
-                 <div className="form-group">
-                      <label>User name</label>
-                      <input placeholder="Username"  name="username" className="form-control" value={this.state.username} onChange={this.changeUsernameHandler} />
-                      
-                      {this.state.usernameError?(<div className="ValidatorMessage">
-                         {this.state.usernameError} 
-                      </div>):null} 
-                </div> 
+                <form> 
                     <div className="form-group">
                       <label>Text</label>
                         <textarea placeholder="Text"  name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
