@@ -9,6 +9,7 @@ import SignupComponent from './Components/SignupComponent';
 import LoginComponent from './Components/LoginComponent';
 import GamesComponent from './Components/Games/GamesComponent';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
+import UpdateGameComponent from './Components/Games/UpdateGameComponent';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
              <Route path="/sign-up" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
              <Route path="/games" exact component={GamesComponent}></Route>
+             <Route path="/games/edit/:id" exact component={UpdateGameComponent}></Route>
              <Route path="/successful-login" exact component={SuccessfulLoginComponent}></Route>
           </Switch>
           </div>

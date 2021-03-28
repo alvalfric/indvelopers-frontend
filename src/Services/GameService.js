@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AuthService } from './AuthService';
 import { UrlProvider } from '../providers/UrlProvider';
+import UpdateGameComponent from '../Components/Games/UpdateGameComponent';
 
 export const GameService = {
 
@@ -10,6 +11,10 @@ export const GameService = {
             .catch(error => {return error.response.status})
        
     },
+
+    async getGameById(gameId){
+        return axios.get(UrlProvider.getGameUrl() + '/edit/' + gameId).then(res => res.data)
+    }
 
 
 }
