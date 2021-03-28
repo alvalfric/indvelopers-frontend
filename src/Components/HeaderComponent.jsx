@@ -74,7 +74,7 @@ class HeaderComponent extends Component {
       <img src={logo} className="inDvelopers-logo" width="260" height="50" />
   <a href="#" >Publicaciones</a>
   <a href="#">Novedades</a>
-  <a href="#">Juegos</a>
+  <a href="/games">Juegos</a>
   <a href="#">FAQ</a>
   <a href="#">Sobre nosotros</a>
   <a href="/sign-up" style={{float:"right", backgroundColor:"green"}}>Sign-up</a>
