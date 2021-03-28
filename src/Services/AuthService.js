@@ -67,7 +67,7 @@ export const AuthService = {
     },
 
     setExpirationMoment(expirationMoment) {
-        sessionStorage.getItem(EXPIRATION_MOMENT_KEY, expirationMoment)
+        sessionStorage.setItem(EXPIRATION_MOMENT_KEY, expirationMoment)
     },
 
     getRole() {
