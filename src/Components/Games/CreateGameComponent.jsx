@@ -70,16 +70,14 @@ class CreateGameComponent extends Component {
         e.preventDefault();
         const isValid = this.validate();
         if(isValid) {
-            //Redirigir a list games
-            //this.props.history.push('/list-game');
-            this.props.history.push('/');
+            //Redirigir a games
+            this.props.history.push('/games');
         }
     }
 
     cancel() {
-        //Redirigir a list games
-        //this.props.history.push('/list-game');
-        this.props.history.push("/")
+        //Redirigir a games
+        this.props.history.push('/games');
     }
 
     render() {
