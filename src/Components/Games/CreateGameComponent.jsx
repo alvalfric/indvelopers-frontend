@@ -70,7 +70,8 @@ class CreateGameComponent extends Component {
     saveGame = (e) => {
         e.preventDefault();
         const isValid = this.validate();
-        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price};
+        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
+                    , idCloud: null, isNotMalware: null, creator: null};
         console.log('game => ' + JSON.stringify(game));
         if(isValid) {
             //Redirigir a games

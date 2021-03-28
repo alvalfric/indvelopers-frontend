@@ -12,5 +12,3 @@ export const UrlProvider={
         return BASE_URL + GAMES;
     },
 }
-
-export default new UrlProvider();
