@@ -9,6 +9,6 @@ export const UrlProvider={
     },
 
     getMeUrl(){
-        return BASE_URL + ME
+        return BASE_URL + DEVELOPERS + ME
     }
 }
