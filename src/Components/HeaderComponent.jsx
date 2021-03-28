@@ -73,7 +73,7 @@ class HeaderComponent extends Component {
 
     <div className="topnav" id="myTopnav">
       <img src={logo} className="inDvelopers-logo" width="260" height="50" />
-  <a href="#" >Publicaciones</a>
+  <a href="/publication-List" >Publicaciones</a>
   <a href="#">Novedades</a>
   <a href="/games">Juegos</a>
   <a href="#">FAQ</a>
