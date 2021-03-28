@@ -4,8 +4,8 @@ import { UrlProvider } from '../providers/UrlProvider';
 
 export const GameService = {
 
-    async addGame(){
-        return axios.post(UrlProvider.getGameUrl() + '/add').then(res => res.data)
+    async addGame(game){
+        return axios.post(UrlProvider.getGameUrl(), game).then(res => res.data)
         .catch(error => {return error.response.status})
     },
 

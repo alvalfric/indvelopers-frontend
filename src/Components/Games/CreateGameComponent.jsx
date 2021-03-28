@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { GameService } from '../../Services/GameService';
 
 class CreateGameComponent extends Component {
     constructor(props){
@@ -69,9 +70,14 @@ class CreateGameComponent extends Component {
     saveGame = (e) => {
         e.preventDefault();
         const isValid = this.validate();
+        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price};
+        console.log('game => ' + JSON.stringify(game));
         if(isValid) {
             //Redirigir a games
-            this.props.history.push('/games');
+            //this.props.history.push('/games');
+            GameService.addGame(game).then(res => {
+                this.props.history.push('/games');
+            })
         }
     }
 

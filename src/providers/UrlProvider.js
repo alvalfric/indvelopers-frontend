@@ -1,11 +1,16 @@
 const BASE_URL="http://localhost:8080"
 const USERS="/users"
+const GAMES="/games"
 
-class UrlProvider{
+export const UrlProvider={
 
     getUserUrl(){
         return BASE_URL+USERS;
-    }
+    },
+
+    getGameUrl(){
+        return BASE_URL + GAMES;
+    },
 }
 
 export default new UrlProvider();
