@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {UrlProvider} from '../providers/UrlProvider'
+import { UrlProvider } from '../providers/UrlProvider'
 import { AuthService } from './AuthService';
 
 class PublicationService{
