@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import UserLogo from '../../assets/userExample.png';
 import PublicationService from '../../Services/PublicationService';
 import ReactPaginate from 'react-paginate';
+import { AuthService } from '../../Services/AuthService';
 class ListPublicationComponent extends Component {
 
     constructor(props){
@@ -50,7 +51,11 @@ class ListPublicationComponent extends Component {
       })
     }
     createPublication(){
+      if(AuthService.isAuthenticated()){
         this.props.history.push('/publication-Create')
+      }else{
+        this.props.history.push('/login')
+      }
 
     }
 
