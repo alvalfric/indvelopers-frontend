@@ -13,14 +13,12 @@ class CreateGameComponent extends Component {
             requirementsError:"",
             price:"",
             priceError:"",
-            gallery:[]
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
-        this.changeGalleryHandler = this.changeGalleryHandler.bind(this);
     }
 
     validate =()=>{
@@ -67,15 +65,6 @@ class CreateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({price: event.target.value})
     }
-
-    changeGalleryHandler = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            let img = event.target.files[0];
-            this.setState({
-                gallery: URL.createObjectURL(img)
-            });
-        }
-    };
 
     saveGame = (e) => {
         e.preventDefault();
@@ -130,13 +119,6 @@ class CreateGameComponent extends Component {
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
 
                             {this.state.priceError?(<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
-                        </div>
-                        <div className="form-group">
-                            <label>Upload Images</label>
-                            <br></br>
-                            <img src={this.state.gallery}/>
-                            <br></br>
-                            <input type="file" name="imagen" multiple onChange={this.changeGalleryHandler}/>
                         </div>
 
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
