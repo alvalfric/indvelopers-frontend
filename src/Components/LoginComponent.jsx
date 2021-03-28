@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
 
 class LoginComponent extends Component {
@@ -47,12 +48,14 @@ class LoginComponent extends Component {
     changePasswordHandler=(event)=>{
         this.setState({password:event.target.value});
     }
+    ç
     loginDeveloper=(event)=>{
         event.preventDefault();
         const isValid=this.validate();
         if(isValid){
-            DeveloperService.login(this.state.username, this.state.password);
-            this.props.history.push('/');
+            DeveloperService.login(this.state.username, this.state.password).then(data =>
+                    AuthService.authenticate(this.state.username, this.state.password, data)
+                ).then(this.props.history.push('/successful-login'));
         }
     }
 

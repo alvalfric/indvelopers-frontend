@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../assets/InDvelopersLogo.png'
 import '../App.css';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthService } from '../Services/AuthService';
 
 class HeaderComponent extends Component {
     constructor(props){
@@ -77,8 +78,14 @@ class HeaderComponent extends Component {
   <a href="/games">Juegos</a>
   <a href="#">FAQ</a>
   <a href="#">Sobre nosotros</a>
-  <a href="/sign-up" style={{float:"right", backgroundColor:"green"}}>Sign-up</a>
-  <a href="/login" style={{float:"right", backgroundColor:"green"}}>Login</a>
+  {AuthService.isAuthenticated()?
+    <a href="/me" style={{float:"right", backgroundColor:"green"}}>User Details</a>
+  :
+    <React.Fragment>
+      <a href="/sign-up" style={{float:"right", backgroundColor:"green"}}>Sign-up</a>
+      <a href="/login" style={{float:"right", backgroundColor:"green"}}>Login</a>
+    </React.Fragment>
+  }
   <a href="#!" className="icon" onclick={this.showElements}>&#9776;</a>
 </div>
 // <nav className="Navbar">
