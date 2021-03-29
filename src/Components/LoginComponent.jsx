@@ -11,7 +11,8 @@ class LoginComponent extends Component {
             username:"",
             usernameError:"",
             password:"",
-            passwordError:""
+            passwordError:"",
+            submitError:"",
             
         }
         this.loginDeveloper=this.loginDeveloper.bind(this);
@@ -48,14 +49,17 @@ class LoginComponent extends Component {
     changePasswordHandler=(event)=>{
         this.setState({password:event.target.value});
     }
-    ç
     loginDeveloper=(event)=>{
         event.preventDefault();
         const isValid=this.validate();
         if(isValid){
             DeveloperService.login(this.state.username, this.state.password).then(data =>
-                    AuthService.authenticate(this.state.username, this.state.password, data)
-                ).then(this.props.history.push('/successful-login'));
+                {if(typeof data == "string") {
+                    AuthService.authenticate(this.state.username, this.state.password, data).then(this.props.history.push('/successful-login'))
+                } else {
+                    this.setState({submitError:"Invalid credentials!"});
+                }}
+                );
         }
     }
 
@@ -80,7 +84,10 @@ class LoginComponent extends Component {
                       </div>):null}
                 </div>
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block"  onClick={this.loginDeveloper}>Sign in</button>
+                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.loginDeveloper}>Sign in</button>
+                {this.state.submitError?(<div className="ValidatorMessage">
+                         {this.state.submitError}
+                      </div>):null}
                 <p className="not-registered-yet text-right">
                     Not registered yet? <a href="/sign-up">sign up!</a>
                 </p>
