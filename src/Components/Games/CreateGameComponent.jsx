@@ -73,7 +73,7 @@ class CreateGameComponent extends Component {
             //Redirigir a games
             //this.props.history.push('/games');
             if(this.state.price.length===0) {
-                this.state.price = this.price.setState({price:0});
+                this.setState({price:0});
             }
             GameService.addGame(game).then(res => {
                 this.props.history.push('/games');
