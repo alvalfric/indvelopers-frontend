@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
 import GameCardComponent from './GameCardComponent';
 
@@ -10,6 +11,7 @@ class GamesComponent extends Component {
         this.state={
             games : []
         }
+        this.createGame = this.createGame.bind(this);
     }
 
     componentDidMount(){
@@ -19,10 +21,22 @@ class GamesComponent extends Component {
 
     }
 
+    createGame(){
+        if(AuthService.isAuthenticated()){
+          this.props.history.push('/game-Create')
+        }else{
+          this.props.history.push('/login')
+        }
+  
+      }
+
     render() {
         return (
                 <div className='container'  >
-                    <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1> 
+                    <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1>
+                    <div className="row">
+                        <button className="Button" onClick={this.createGame}>Crear juego</button>
+                    </div>
                     <div className="row row-cols-1 row-cols-md-4">
                         { this.state.games.map((item) => {
                             return(

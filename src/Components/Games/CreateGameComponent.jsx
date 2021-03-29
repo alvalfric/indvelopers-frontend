@@ -13,7 +13,6 @@ class CreateGameComponent extends Component {
             requirements:"",
             requirementsError:"",
             price:"",
-            priceError:"",
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -26,7 +25,7 @@ class CreateGameComponent extends Component {
         let titleError="";
         let descriptionError="";
         let requirementsError="";
-        let priceError="";
+        //let priceError="";
         if(this.state.title.length===0) {
             titleError="The game needs a title";
         }
@@ -36,15 +35,12 @@ class CreateGameComponent extends Component {
         if(this.state.requirements.length===0) {
             requirementsError="The game needs a specification of the minimun requirements"
         }
-        if(this.state.price.length===0) {
-            priceError="The game needs a price"
-        }
 
         this.setState({titleError});
         this.setState({descriptionError});
         this.setState({requirementsError});
-        this.setState({priceError});
-        if(titleError || descriptionError || requirementsError || priceError){
+        //this.setState({priceError});
+        if(titleError || descriptionError || requirementsError){
             return false;
         }else{
             return true;
@@ -76,6 +72,9 @@ class CreateGameComponent extends Component {
         if(isValid) {
             //Redirigir a games
             //this.props.history.push('/games');
+            if(this.state.price.length===0) {
+                this.state.price = this.price.setState({price:0});
+            }
             GameService.addGame(game).then(res => {
                 this.props.history.push('/games');
             })
@@ -122,8 +121,6 @@ class CreateGameComponent extends Component {
                             <label>Price</label>
                             <input placeholder="Price" name="price" className="form-control" type="number"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
-
-                            {this.state.priceError?(<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
 
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
