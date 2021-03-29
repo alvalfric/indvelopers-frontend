@@ -16,7 +16,7 @@ export const AuthService = {
     // TODO: Revisar
     async login(username, password) {
         return axios.post(
-            UrlProvider.getUserUrl() + '/login?username='+ username +'&secret=' + password, null)
+            UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&password=' + password, null)
         .then(res => res.data)
         .catch(error => { return error.response.status })
     },
@@ -67,7 +67,7 @@ export const AuthService = {
     },
 
     setExpirationMoment(expirationMoment) {
-        sessionStorage.getItem(EXPIRATION_MOMENT_KEY, expirationMoment)
+        sessionStorage.setItem(EXPIRATION_MOMENT_KEY, expirationMoment)
     },
 
     getRole() {

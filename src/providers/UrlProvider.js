@@ -1,14 +1,27 @@
-const BASE_URL="http://localhost:8080"
-const USERS="/users"
-const GAMES="/games"
+
+const BASE_URL = "http://localhost:8080"
+const DEVELOPERS = "/developers"
+const GAMES = "/games"
+const ME = '/me'
+const PUBLICATIONS="/publications"
+
 
 export const UrlProvider={
 
-    getUserUrl(){
-        return BASE_URL+USERS;
+    getDeveloperUrl(){
+        return BASE_URL + DEVELOPERS;
     },
 
     getGameUrl(){
         return BASE_URL + GAMES;
     },
+
+    getPublicationUrl(){
+        return BASE_URL+PUBLICATIONS;
+    },
+
+
+    getMeUrl(){
+        return BASE_URL + DEVELOPERS + ME
+    }
 }
