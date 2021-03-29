@@ -6,7 +6,7 @@ class UpdateGameComponent extends Component {
         super(props)
 
         this.state={
-            id: this.props.match.params.id,
+            _id: this.props.match.params._id,
             title:"",
             titleError:"",
             description:"",
@@ -14,7 +14,6 @@ class UpdateGameComponent extends Component {
             requirements:"",
             requirementsError:"",
             price:"",
-            priceError:"",
         }
         this.updateGame = this.updateGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -23,11 +22,37 @@ class UpdateGameComponent extends Component {
         this.changePriceHandler = this.changePriceHandler.bind(this);
     }
 
+    componentDidMount() {
+        GameService.getGameById(this.state._id).then((res) => {
+            let game = res.data;
+            this.setState({title: game.title,
+                description: game.description,
+                requirements: game.requirements,
+                price: game.price
+            });
+            console.log('game => ' + JSON.stringify(game));
+        });
+    }
+
+    updateGame = (e) => {
+        e.preventDefault();
+        const isValid = this.validate();
+        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
+                    , idCloud: null, isNotMalware: null, creator: null};
+        console.log('game => ' + JSON.stringify(game));
+
+        //Hasta que no funcione el id esto no va a funcionar.
+        GameService.updateGame(game, this.state._id).then(res => {
+            this.props.history.push('/games');
+        })
+        
+    }
+
     validate =()=>{
         let titleError="";
         let descriptionError="";
         let requirementsError="";
-        let priceError="";
+        //let priceError="";
         if(this.state.title.length===0) {
             titleError="The game needs a title";
         }
@@ -37,36 +62,16 @@ class UpdateGameComponent extends Component {
         if(this.state.requirements.length===0) {
             requirementsError="The game needs a specification of the minimun requirements"
         }
-        if(this.state.price.length===0) {
-            priceError="The game needs a price"
-        }
 
         this.setState({titleError});
         this.setState({descriptionError});
         this.setState({requirementsError});
-        this.setState({priceError});
-        if(titleError || descriptionError || requirementsError || priceError){
+        //this.setState({priceError});
+        if(titleError || descriptionError || requirementsError){
             return false;
         }else{
             return true;
         }
-    }
-
-    updateGame = (e) => {
-        e.preventDefault();
-        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price};
-        console.log('game => ' + JSON.stringify(game));
-    }
-
-    componentDidMount() {
-        GameService.getGameById(this.state.id).then((res) => {
-            let game = res.data;
-            this.setState({title: game.title,
-                description: game.description,
-                requirements: game.requirements,
-                price: game.price
-            });
-        });
     }
 
     changeTitleHandler = (event) => {
@@ -85,15 +90,6 @@ class UpdateGameComponent extends Component {
         this.setState({price: event.target.value})
     }
 
-    updateGame = (e) => {
-        e.preventDefault();
-        const isValid = this.validate();
-        if(isValid) {
-            //Redirigir a games
-            this.props.history.push('/games');
-        }
-    }
-
     cancel() {
         //Redirigir a games
         this.props.history.push('/games');
@@ -106,7 +102,7 @@ class UpdateGameComponent extends Component {
                 <br></br>
                 <br></br>
                 <br></br>
-                <h2>Update Game</h2>
+                <h2>Add Game</h2>
                 <br></br>
                     <form>
                         <div className="form-group">
@@ -134,11 +130,9 @@ class UpdateGameComponent extends Component {
                             <label>Price</label>
                             <input placeholder="Price" name="price" className="form-control" type="number"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
-
-                            {this.state.priceError?(<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
 
-                        <button className="AceptButton" onClick={this.updateGame}>Actualizar juego</button>
+                        <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>
                     </form>
                 </div>

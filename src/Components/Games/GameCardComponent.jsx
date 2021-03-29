@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { AuthService } from '../../Services/AuthService';
+import { GameService } from '../../Services/GameService';
 
 class GameCardComponent extends Component {
 
@@ -6,6 +8,25 @@ class GameCardComponent extends Component {
         super(props)
 
         this.state={
+            game: []
+        }
+        this.editGame = this.editGame.bind(this);
+    }
+
+    componentDidMount() {
+        GameService.findAll().then((res) => {
+            this.setState({ game : res.data })
+        })
+    }  
+
+    editGame(_id) {
+        if(AuthService.isAuthenticated()) {
+//          GameService.getGameById(id).then(res => {
+//              this.props.history.push(`/game-Update/${id}`);
+//          })
+            console.log('game => ' + JSON.stringify(_id))
+        } else {
+            this.props.history.push('/login')
         }
     }
 
@@ -18,6 +39,9 @@ class GameCardComponent extends Component {
                     </div>
                     <div className="card-body"> 
                         <p class="card-text" className="text-muted"> Price: { this.props.game.price }€ </p>
+                        <p>
+                            <button onClick={(game) => this.editGame(game._id)} className="ModifyButton">Modificar juego</button>
+                        </p>
                     </div>
                 </div>
             </div>

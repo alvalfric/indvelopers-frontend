@@ -1,7 +1,7 @@
 
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
-const GAMES = "/Game"
+const GAMES = "/games"
 const ME = '/me'
 const PUBLICATIONS="/publications"
 

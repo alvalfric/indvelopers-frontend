@@ -30,12 +30,11 @@ function App() {
              <Route path="/sign-up" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
              <Route path="/games" exact component={GamesComponent}></Route>
-             <Route path="/games/edit/:id" exact component={UpdateGameComponent}></Route>
              <Route path="/successful-login" exact component={SuccessfulLoginComponent}></Route>
              <Route path="/panic" component={PanicComponent}></Route>
              <Route path="/publication-List" component={ListPublicationComponent}></Route>
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
-             <Route path="/game-Update" component={UpdateGameComponent}></Route>
+             <Route path="/game-Update/:id" component={UpdateGameComponent}></Route>
           </Switch>
           </div>
         </div>
