@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { AuthService } from '../../Services/AuthService';
+import { GameService } from '../../Services/GameService';
 
 class GameCardComponent extends Component {
 
@@ -6,21 +8,22 @@ class GameCardComponent extends Component {
         super(props)
 
         this.state={
+            game: []
         }
+        this.editGame = this.editGame.bind(this);
     }
 
+    componentDidMount() {
+        GameService.findAll().then((res) => {
+            this.setState({ game : res.data })
+        })
+    }  
+
+    
+
     render() {
-        return (
-            <div className="col mb-4">
-                <div className="card">
-                    <div className="card-header bg-success border-primary"> 
-                        <h5 className="card-title" class="text-dark">{ this.props.game.title }</h5>
-                    </div>
-                    <div className="card-body"> 
-                        <p class="card-text" className="text-muted"> Price: { this.props.game.price }€ </p>
-                    </div>
-                </div>
-            </div>
+        return(
+            <div></div>
         );
     }
 }

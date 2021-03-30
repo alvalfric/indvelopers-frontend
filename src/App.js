@@ -10,6 +10,7 @@ import LoginComponent from './Components/LoginComponent';
 import CreateGameComponent from './Components/Games/CreateGameComponent';
 import GamesComponent from './Components/Games/GamesComponent';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
+import UpdateGameComponent from './Components/Games/UpdateGameComponent';
 import ListPublicationComponent from './Components/Publications/ListPublicationComponent';
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
 import PanicComponent from './Components/Panic/PanicComponent';
@@ -34,6 +35,7 @@ function App() {
              <Route path="/panic" component={PanicComponent}></Route>
              <Route path="/publication-List" component={ListPublicationComponent}></Route>
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
+             <Route path="/game-Update/:id" component={UpdateGameComponent}></Route>
              <Route path="/game-Create" component={CreateGameComponent}></Route>
           </Switch>
           </div>

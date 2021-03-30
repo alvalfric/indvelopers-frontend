@@ -138,6 +138,15 @@
   text-decoration: none;
   font-size: 16px;
 }
+.ModifyButton{
+  background-color: #008bfcfd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
 .button:hover {
   background-color: #02758a; /* Green */
   color: black;
