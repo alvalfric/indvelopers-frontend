@@ -27,7 +27,14 @@ export const GameService = {
     },
 
     updateGame(game, id) {
-        return axios.put(UrlProvider.getGameUrl() + "/edit/" + id, game);
+        return AuthService.getToken().then(token=>{
+            return axios.put(UrlProvider.getGameUrl() + "/edit/" + id, game,{
+                headers:{
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
+                }
+            })
+        });
     }
 
 }
