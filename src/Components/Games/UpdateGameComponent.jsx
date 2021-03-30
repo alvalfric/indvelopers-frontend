@@ -6,7 +6,7 @@ class UpdateGameComponent extends Component {
         super(props)
 
         this.state={
-            _id: this.props.match.params._id,
+            id: this.props.match.params.id,
             title:"",
             titleError:"",
             description:"",
@@ -14,6 +14,9 @@ class UpdateGameComponent extends Component {
             requirements:"",
             requirementsError:"",
             price:"",
+            idCloud:"",
+            isNotMalware:"",
+            creator:""
         }
         this.updateGame = this.updateGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -23,12 +26,15 @@ class UpdateGameComponent extends Component {
     }
 
     componentDidMount() {
-        GameService.getGameById(this.state._id).then((res) => {
+        GameService.getGameById(this.state.id).then((res) => {
             let game = res.data;
             this.setState({title: game.title,
                 description: game.description,
                 requirements: game.requirements,
-                price: game.price
+                price: game.price,
+                idCloud: game.idCloud,
+                isNotMalware: game.isNotMalware,
+                creator: game.creator
             });
             console.log('game => ' + JSON.stringify(game));
         });
@@ -38,11 +44,11 @@ class UpdateGameComponent extends Component {
         e.preventDefault();
         const isValid = this.validate();
         let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                    , idCloud: null, isNotMalware: null, creator: null};
+                    , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator};
         console.log('game => ' + JSON.stringify(game));
 
         //Hasta que no funcione el id esto no va a funcionar.
-        GameService.updateGame(game, this.state._id).then(res => {
+        GameService.updateGame(game, this.state.id).then(res => {
             this.props.history.push('/games');
         })
         
@@ -102,7 +108,7 @@ class UpdateGameComponent extends Component {
                 <br></br>
                 <br></br>
                 <br></br>
-                <h2>Add Game</h2>
+                <h2>Edit Game</h2>
                 <br></br>
                     <form>
                         <div className="form-group">

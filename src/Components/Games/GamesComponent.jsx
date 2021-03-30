@@ -30,6 +30,17 @@ class GamesComponent extends Component {
   
       }
 
+      editGame(id) {
+        if(AuthService.isAuthenticated()) {
+            GameService.getGameById(id).then(res => {
+                this.props.history.push(`/game-Update/${id}`);
+            })
+            console.log('game => ' + JSON.stringify(id))
+        } else {
+            this.props.history.push('/login')
+        }
+    }
+
     render() {
         return (
                 <div className='container'  >
@@ -38,13 +49,21 @@ class GamesComponent extends Component {
                         <button className="Button" onClick={this.createGame}>Crear juego</button>
                     </div>
                     <div className="row row-cols-1 row-cols-md-4">
-                        { this.state.games.map((item) => {
-                            return(
-                                <GameCardComponent 
-                                    game = { item }
-                                />
-                            )
-                        }) }
+                        { this.state.games.map((item) =>
+                            <div className="col mb-4">
+                            <div className="card">
+                                <div className="card-header bg-success border-primary"> 
+                                    <h5 className="card-title" class="text-dark">{ item.title }</h5>
+                                </div>
+                                <div className="card-body"> 
+                                    <p class="card-text" className="text-muted"> Price: { item.price }€ </p>
+                                    <p>
+                                        <button onClick={() => this.editGame(item.id)} className="ModifyButton">Detalles</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        ) }
                     </div>
                 </div>
         );

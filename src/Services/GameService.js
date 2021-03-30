@@ -12,9 +12,9 @@ export const GameService = {
     },
 
     getGameById(id){
-        return axios.get(UrlProvider.getGameUrl()+"/edit/"+id)
+        return axios.get(UrlProvider.getGameUrl()+ "/" + id)
     },
-    
+
     addGame(game){
         return AuthService.getToken().then(token=>{
             return axios.post(UrlProvider.getGameUrl()+"/add",game,{
