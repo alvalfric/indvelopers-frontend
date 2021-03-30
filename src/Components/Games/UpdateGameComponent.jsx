@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
+import { AuthService } from '../../Services/AuthService';
+import portada from '../../assets/JuegoPortada.jpg';
 
 class UpdateGameComponent extends Component {
     constructor(props){
@@ -19,6 +21,7 @@ class UpdateGameComponent extends Component {
             creator:""
         }
         this.updateGame = this.updateGame.bind(this);
+        this.deleteGame=this.deleteGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
@@ -38,6 +41,12 @@ class UpdateGameComponent extends Component {
             });
             console.log('game => ' + JSON.stringify(game));
         });
+    }
+    deleteGame= (e)=>{
+        e.preventDefault()
+        GameService.deleteGame(this.state.id).then(()=>{
+            this.props.history.push('/games');
+        })
     }
 
     updateGame = (e) => {
@@ -108,38 +117,106 @@ class UpdateGameComponent extends Component {
                 <br></br>
                 <br></br>
                 <br></br>
-                <h2>Edit Game</h2>
+                {AuthService.getUserData()['username']===this.state.creator.username?(<h2>Edit Game</h2>):null}
+                
                 <br></br>
                     <form>
                         <div className="form-group">
+                        {AuthService.getUserData()['username']===this.state.creator.username?(
+                            <React.Fragment>
                             <label>Title</label>
                             <input placeholder="Title" name="title" className="form-control"
                                 value={this.state.title} onChange={this.changeTitleHandler}></input>
-
+                                </React.Fragment>
+                            ):
+                            <React.Fragment>
+                            <div className="w3-display-container w3-text-white">
+                           <img src={portada}  style={{width:"100%", height:"100%",marginLeft:"auto",marginRight:"auto",display:"block"}}/>
+                           <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
+                            </div>
+                            </React.Fragment>
+                            }
                             {this.state.titleError?(<div className="ValidatorMessage">{this.state.titleError}</div>) : null} 
+                            
                         </div>
                         <div className="form-group">
+                        {AuthService.getUserData()['username']===this.state.creator.username?(
+                            <React.Fragment>
                             <label>Description</label>
                             <input placeholder="Description" name="description" className="form-control"
                                 value={this.state.description} onChange={this.changeDescriptionHandler}></input>
-
+                                </React.Fragment>
+                            ): 
+                            <React.Fragment>
+                                 <div>
+                                <br/>
+                              <div className="w3-card-2" >
+                            <header className="w3-container ">
+                           <img/>
+                           <h5>Descripcion</h5>
+                          </header>
+                             <div className="w3-container">
+                             <p>{this.state.description}</p>
+                             </div>
+                             </div>
+                              </div>
+                                </React.Fragment>
+                            }
                             {this.state.descriptionError?(<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
                         <div className="form-group">
+                        {AuthService.getUserData()['username']===this.state.creator.username?(
+                            <React.Fragment>
                             <label>Minimum requirements</label>
                             <input placeholder="Requirements" name="requirements" className="form-control"
                                 value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
-
+                                </React.Fragment>
+                            ):
+                            <React.Fragment>
+                                 <div>
+                                <br/>
+                              <div className="w3-card-2" >
+                            <header className="w3-container ">
+                           <img/>
+                           <h5>Requisitos del sistema</h5>
+                          </header>
+                             <div className="w3-container">
+                             <p>{this.state.requirements}</p>
+                             </div>
+                             </div>
+                              </div>
+                                </React.Fragment>
+                            }
                             {this.state.requirementsError?(<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                         </div>
                         <div className="form-group">
+                        {AuthService.getUserData()['username']===this.state.creator.username?(
+                            <React.Fragment>
                             <label>Price</label>
                             <input placeholder="Price" name="price" className="form-control" type="number"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
+                                </React.Fragment>
+                            ):
+                            <React.Fragment>
+                                 <div>
+                                <br/>
+                              <div className="w3-card-2" >
+                            <header className="w3-container ">
+                           <img/>
+                           <h5>Precio: {this.state.price}€</h5>
+                          </header>
+                             </div>
+                              </div>
+                                </React.Fragment>
+                            }
                         </div>
-
+                        {AuthService.getUserData()['username']===this.state.creator.username?(
+                        <React.Fragment>
                         <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>
+                        <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
+                        </React.Fragment>
+                        ):null}
+                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Volver</button>
                     </form>
                 </div>
             </div>

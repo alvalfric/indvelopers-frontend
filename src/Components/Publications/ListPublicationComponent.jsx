@@ -75,14 +75,14 @@ class ListPublicationComponent extends Component {
        publication=>
        <div>
          <br/>
-       <div class="w3-card-4" >
-    <header class="w3-container ">
+       <div className="w3-card-4" >
+    <header className="w3-container ">
         <img/>
         <img src={UserLogo} className="inDvelopers-logo" width="3%" height="3%"  />
       <h5>{publication.username}</h5>
     </header>
 
-    <div class="w3-container">
+    <div className="w3-container">
       <p>{publication.text}</p>
     </div>
   </div>

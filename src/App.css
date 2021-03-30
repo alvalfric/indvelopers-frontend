@@ -57,6 +57,7 @@
   margin-top: 50px;
   font-size: 350%;
 }
+
 .PanicText{
   text-align: center;
   display: flex;
@@ -131,6 +132,15 @@
 }
 .CancelButton{
   background-color: #fc0000fd;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+.DeleteButton{
+  background-color: #8f1485fd;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -278,6 +288,7 @@ Video de youtube #9AD263
 
 /*W3Schools==================================================================================00*/
 .topnav {
+  z-index: 2;
   width: 100%;
   position:fixed;
   background-color: #9AD263;
