@@ -17,11 +17,11 @@ export const UrlProvider={
     },
 
     getPublicationUrl(){
-        return BASE_URL+PUBLICATIONS;
+        return BASE_URL + PUBLICATIONS;
     },
 
 
     getMeUrl(){
-        return BASE_URL + DEVELOPERS + ME
+        return BASE_URL + DEVELOPERS + ME;
     }
 }
