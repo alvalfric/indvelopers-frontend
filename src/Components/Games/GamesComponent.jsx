@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
-import GameCardComponent from './GameCardComponent';
 
 class GamesComponent extends Component {
 

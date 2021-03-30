@@ -35,6 +35,16 @@ export const GameService = {
                 }
             })
         });
+    },
+    deleteGame(id){
+        return AuthService.getToken().then(token=>{
+            return axios.delete(UrlProvider.getGameUrl()+"/delete/"+id,{
+                headers:{
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
+                }
+            })
+        })
     }
 
 }
