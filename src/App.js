@@ -35,7 +35,7 @@ function App() {
              <Route path="/panic" component={PanicComponent}></Route>
              <Route path="/publication-List" component={ListPublicationComponent}></Route>
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
-             <Route path="/game-Update/:id" component={UpdateGameComponent}></Route>
+             <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
              <Route path="/game-Create" component={CreateGameComponent}></Route>
           </Switch>
           </div>
