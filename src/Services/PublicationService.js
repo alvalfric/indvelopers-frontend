@@ -12,7 +12,8 @@ class PublicationService{
         return AuthService.getToken().then(token=>{
             return axios.post(UrlProvider.getPublicationUrl()+"/add",publication,{
                 headers:{
-                    'Authorization':'Bearer '+token
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
                 }
             }).catch(error=>{return error})
         })

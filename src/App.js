@@ -7,6 +7,7 @@ import HeaderComponent from './Components/HeaderComponent';
 import FooterComponent from './Components/FooterComponent';
 import SignupComponent from './Components/SignupComponent';
 import LoginComponent from './Components/LoginComponent';
+import CreateGameComponent from './Components/Games/CreateGameComponent';
 import GamesComponent from './Components/Games/GamesComponent';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
 import UpdateGameComponent from './Components/Games/UpdateGameComponent';
@@ -35,6 +36,7 @@ function App() {
              <Route path="/publication-List" component={ListPublicationComponent}></Route>
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
              <Route path="/game-Update/:id" component={UpdateGameComponent}></Route>
+             <Route path="/game-Create" component={CreateGameComponent}></Route>
           </Switch>
           </div>
         </div>

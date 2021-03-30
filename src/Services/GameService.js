@@ -12,8 +12,12 @@ export const GameService = {
     },
 
     getGameById(id){
+        return axios.get(UrlProvider.getGameUrl()+"/edit/"+id)
+    },
+    
+    addGame(game){
         return AuthService.getToken().then(token=>{
-            return axios.get(UrlProvider.getGameUrl()+"/edit/"+id,{
+            return axios.post(UrlProvider.getGameUrl()+"/add",game,{
                 headers:{
                     'Authorization':'Bearer '+token,
                     'Accept': '*/*'
