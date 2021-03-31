@@ -9,6 +9,7 @@ before_script:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
 script:
   - npm test
+
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
 branches:
@@ -16,3 +17,4 @@ branches:
   - main
   - develop
   - B#10
+
