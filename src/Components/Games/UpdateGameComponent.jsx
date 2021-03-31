@@ -20,6 +20,7 @@ class UpdateGameComponent extends Component {
             isNotMalware:"",
             creator:""
         }
+        this.buyGame=this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame=this.deleteGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -57,10 +58,15 @@ class UpdateGameComponent extends Component {
         console.log('game => ' + JSON.stringify(game));
 
         //Hasta que no funcione el id esto no va a funcionar.
+        if(isValid){
         GameService.updateGame(game, this.state.id).then(res => {
             this.props.history.push('/games');
         })
+    }
         
+    }
+    buyGame(id){
+        this.props.history.push(`/purchase-game/${id}`);
     }
 
     validate =()=>{
@@ -215,7 +221,10 @@ class UpdateGameComponent extends Component {
                         <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                         <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                         </React.Fragment>
-                        ):null}
+                        ):
+                        <React.Fragment>
+                            <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>
+                        </React.Fragment>}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Volver</button>
                     </form>
                 </div>
