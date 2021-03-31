@@ -9,7 +9,7 @@ install:
 before_script:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
 script:
-  - npm test
+  - npm test --passWithNoTests
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
 branches:
