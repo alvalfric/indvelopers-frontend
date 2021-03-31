@@ -4,6 +4,7 @@ const DEVELOPERS = "/developers"
 const GAMES = "/games"
 const ME = '/me'
 const PUBLICATIONS="/publications"
+const REVIEWS="/reviews"
 
 
 export const UrlProvider={
@@ -20,8 +21,11 @@ export const UrlProvider={
         return BASE_URL + PUBLICATIONS;
     },
 
-
     getMeUrl(){
         return BASE_URL + DEVELOPERS + ME;
+    },
+
+    getReviewUrl(){
+        return BASE_URL + REVIEWS;
     }
 }

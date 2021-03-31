@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import { AuthService } from '../../Services/AuthService';
 import portada from '../../assets/JuegoPortada.jpg';
+import ListReviewComponent from '../Reviews/ListReviewComponent';
 
 class UpdateGameComponent extends Component {
     constructor(props){
@@ -210,6 +211,11 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                         </div>
+
+                        <div>
+                            <ListReviewComponent gameId={this.state.id}/>
+                        </div>
+
                         {AuthService.getUserData()['username']===this.state.creator.username?(
                         <React.Fragment>
                         <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>

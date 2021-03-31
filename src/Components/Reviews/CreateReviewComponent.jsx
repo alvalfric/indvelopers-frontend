@@ -24,7 +24,7 @@ class CreateReviewComponent extends Component {
 			textError = "Cannot be empty";
 		}
 		if(this.state.score.length==0){
-			scoreError == "Cannot be empty";
+			scoreError = "Cannot be empty";
 		}
 		this.setState({textError});
 		this.setState({scoreError});
@@ -59,6 +59,7 @@ class CreateReviewComponent extends Component {
 
 
 	render(){
+		return (
 		<div>
 			<br></br>
 			<br></br>
@@ -89,6 +90,7 @@ class CreateReviewComponent extends Component {
 			</form>
 
 		</div>
+		);
 	}
 
 }
