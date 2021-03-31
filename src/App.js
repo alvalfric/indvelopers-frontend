@@ -20,7 +20,6 @@ function App() {
   return (
     <React.Fragment>
     <Router>
-     
       <HeaderComponent/>
       <body>
         <div className="App-header">

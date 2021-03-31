@@ -13,14 +13,6 @@ const USER_ROLE = 'ROLE_USER'
 
 export const AuthService = {
 
-    // TODO: Revisar
-    async login(username, password) {
-        return axios.post(
-            UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&password=' + password, null)
-        .then(res => res.data)
-        .catch(error => { return error.response.status })
-    },
-
     isAuthenticated() {
         let authenticated = (sessionStorage.getItem(AUTHENTICATED_FLAG_KEY) === "true") && (this.getUserData() !== "" && this.getUserData() !== null)
 
