@@ -15,6 +15,8 @@ import ListPublicationComponent from './Components/Publications/ListPublicationC
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
 import PanicComponent from './Components/Panic/PanicComponent';
 import OwnedGameComponent from './Components/OwnedGames/OwnedGameComponent';
+import ListOwnedGamesComponent from './Components/OwnedGames/ListOwnedGamesComponent';
+import ShowOwnedGameComponent from './Components/OwnedGames/ShowOwnedGameComponent';
 
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
              <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
              <Route path="/game-Create" component={CreateGameComponent}></Route>
              <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
+             <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
+             <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
           </Switch>
           </div>
         </div>
