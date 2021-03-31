@@ -2,5 +2,13 @@ language: node_js
 sudo: false
 node_js:
   - lts/*
-script:
+before_script:
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
   - yarn install
+after_success:
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh)
+branches:
+  only:
+  - main
+  - develop
+  - B#10
