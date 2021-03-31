@@ -1,19 +1,8 @@
 language: node_js
+sudo: false
 node_js:
   - lts/*
-cache: npm
 install:
-  - npm install
-  - npm i react-scripts
-  - yarn install
-before_script:
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
+  - cd istanbul-mocha && npm install && cd ..
 script:
-  - npm test
-after_success:
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh)
-branches:
-  only:
-  - main
-  - develop
-  - B#10
+  - cd istanbul-mocha && npm test
