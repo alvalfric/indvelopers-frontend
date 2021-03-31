@@ -14,7 +14,7 @@ import UpdateGameComponent from './Components/Games/UpdateGameComponent';
 import ListPublicationComponent from './Components/Publications/ListPublicationComponent';
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
 import PanicComponent from './Components/Panic/PanicComponent';
-
+import ReviewComponent from './Components/Reviews/CreateReviewComponent'
 
 function App() {
   return (
@@ -36,6 +36,7 @@ function App() {
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
              <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
              <Route path="/game-Create" component={CreateGameComponent}></Route>
+             <Route path="/review-Create" exact component={ReviewComponent}></Route>
           </Switch>
           </div>
         </div>
