@@ -2,7 +2,3 @@ language: node_js
 sudo: false
 node_js:
   - lts/*
-install:
-  - cd istanbul-mocha && npm install && cd ..
-script:
-  - cd istanbul-mocha && npm test
