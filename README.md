@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/alvalfric/indvelopers-frontend.svg?branch=B%2310)](https://travis-ci.com/alvalfric/indvelopers-frontend)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3226b102691c419dbc815bbec4381849)](https://www.codacy.com/gh/alvalfric/indvelopers-frontend/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alvalfric/indvelopers-frontend&amp;utm_campaign=Badge_Grade)
+
 # inDvelopers-Frontend
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
