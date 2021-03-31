@@ -86,7 +86,7 @@ class HeaderComponent extends Component {
       <a href="/login" style={{float:"right", backgroundColor:"green"}}>Login</a>
     </React.Fragment>
   }
-  <a href="#!" className="icon" onclick={this.showElements}>&#9776;</a>
+  <a href="#!" className="icon" onClick={this.showElements}>&#9776;</a>
 </div>
 // <nav className="Navbar">
  // <div className="Nav-container">
