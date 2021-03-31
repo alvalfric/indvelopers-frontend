@@ -4,8 +4,8 @@ node_js:
   - lts/*
 cache: npm
 install:
+  - npm ci
   - npm i react-scripts
-  - npm install npm@latest -g
 before_script:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
 script:
