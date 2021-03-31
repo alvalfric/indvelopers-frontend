@@ -213,6 +213,8 @@ class UpdateGameComponent extends Component {
                         </div>
 
                         <div>
+                            <br/>
+                            <h3>Reviews</h3>
                             <ListReviewComponent gameId={this.state.id}/>
                         </div>
 

@@ -11,6 +11,8 @@ class ListReviewComponent extends Component {
 
     this.state = {
       reviews: null,
+      rawReviews: null,
+      offset: 0,
       perPage: 5,
       pageCount: 0,
       currentPage: 0
@@ -30,28 +32,30 @@ class ListReviewComponent extends Component {
     })
   }
 
+  loadMoreData() {
+    const data = this.state.rawReviews;
+    const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+    this.setState({
+      pageCount: Math.ceil(data.length / this.state.perPage),
+      reviews: slice
+    })
+  }
+
   componentDidMount() {
-    ReviewService.getbyGame(this.props.gameId).then(response => {
+    ReviewService.getbyGame(this.props.gameId).then(res => {
+      var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
       this.setState({
-        reviews: response
+        reviews: slice,
+        pageCount: Math.ceil(res.length / this.state.perPage),
+        rawReviews: res
       })
     })
   }
 
-  /* loadMoreData(){
-      const data = this.state.rawPublications;
-
-      const slice=data.slice(this.state.offset,this.state.offset + this.state.perPage)
-      this.setState({
-        pageCount: Math.ceil(data.length/this.state.perPage),
-        publications:slice
-      })
-    }*/
-
   showList() {
     return (
       <div>
-        { !this.state.reviews ? null : 
+        { !this.state.reviews ? null :
           this.state.reviews.map(
             review => {
               return (
@@ -59,10 +63,11 @@ class ListReviewComponent extends Component {
                   <br />
                   <div className="w3-card-4" >
                     <header className="w3-container ">
-                      <h5>{review.text}</h5>
+                      <h5>{review.game.title}</h5>
                     </header>
                     <div className="w3-container">
-                      <p>{review.score}</p>
+                      <p>{review.text}</p>
+                      <p>{review.score}/5</p>
                     </div>
                   </div>
                 </div>
