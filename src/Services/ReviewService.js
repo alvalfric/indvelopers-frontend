@@ -1,10 +1,14 @@
 import axios from 'axios';
 import UrlProvider from  '../providers/UrlProvider';
+import { AuthService } from './AuthService';
 
-class ReviewServic{
+//Buscar reviews por juego -> No funciona
+export const ReviewService ={
 
-	ListReview(){
-		//return axios.get(UrlProvider.getReviewUrl() + "/findaLL")
+	async getbyGame(){
+		return AuthService.getToken().then(token => {
+			return axios.get(UrlProvider.getGameUrl.concat(``).then(res = res.data)
+			.catch(error => {return error.response.status}))
+		})
 	}
-
 }
