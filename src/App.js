@@ -14,6 +14,7 @@ import UpdateGameComponent from './Components/Games/UpdateGameComponent';
 import ListPublicationComponent from './Components/Publications/ListPublicationComponent';
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
 import PanicComponent from './Components/Panic/PanicComponent';
+import OwnedGameComponent from './Components/OwnedGames/OwnedGameComponent';
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
              <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
              <Route path="/game-Create" component={CreateGameComponent}></Route>
+             <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
           </Switch>
           </div>
         </div>

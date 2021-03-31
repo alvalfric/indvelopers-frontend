@@ -20,6 +20,7 @@ class UpdateGameComponent extends Component {
             isNotMalware:"",
             creator:""
         }
+        this.buyGame=this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame=this.deleteGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -60,6 +61,9 @@ class UpdateGameComponent extends Component {
         GameService.updateGame(game, this.state.id).then(res => {
             this.props.history.push('/games');
         })
+        
+    }
+    buyGame(id){
         
     }
 
@@ -215,7 +219,10 @@ class UpdateGameComponent extends Component {
                         <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                         <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                         </React.Fragment>
-                        ):null}
+                        ):
+                        <React.Fragment>
+                            <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>
+                        </React.Fragment>}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Volver</button>
                     </form>
                 </div>
