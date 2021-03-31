@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../assets/InDvelopersLogo.png'
 import '../App.css';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthService } from '../Services/AuthService';
 
 class HeaderComponent extends Component {
     constructor(props){
@@ -72,12 +73,19 @@ class HeaderComponent extends Component {
 
     <div className="topnav" id="myTopnav">
       <img src={logo} className="inDvelopers-logo" width="260" height="50" />
-  <a href="#" >Publicaciones</a>
+  <a href="/publication-List" >Publicaciones</a>
   <a href="#">Novedades</a>
-  <a href="#">Juegos</a>
+  <a href="/games">Juegos</a>
   <a href="#">FAQ</a>
   <a href="#">Sobre nosotros</a>
-  <a href="#" style={{float:"right", backgroundColor:"green"}}>Login</a>
+  {AuthService.isAuthenticated()?
+    <a href="/me" style={{float:"right", backgroundColor:"green"}}>{AuthService.getUserData()['username']}</a>
+  :
+    <React.Fragment>
+      <a href="/sign-up" style={{float:"right", backgroundColor:"green"}}>Sign-up</a>
+      <a href="/login" style={{float:"right", backgroundColor:"green"}}>Login</a>
+    </React.Fragment>
+  }
   <a href="#!" className="icon" onclick={this.showElements}>&#9776;</a>
 </div>
 // <nav className="Navbar">
