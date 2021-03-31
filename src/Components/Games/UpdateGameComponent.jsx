@@ -58,13 +58,15 @@ class UpdateGameComponent extends Component {
         console.log('game => ' + JSON.stringify(game));
 
         //Hasta que no funcione el id esto no va a funcionar.
+        if(isValid){
         GameService.updateGame(game, this.state.id).then(res => {
             this.props.history.push('/games');
         })
+    }
         
     }
     buyGame(id){
-        
+        this.props.history.push(`/purchase-game/${id}`);
     }
 
     validate =()=>{

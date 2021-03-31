@@ -4,7 +4,7 @@ import { AuthService } from './AuthService';
 
 class OwnedGameService{
 
-    findAllMyOwnedGames(){
+   async findAllMyOwnedGames(){
         return AuthService.getToken().then(token=>
             {
                 return axios.get(UrlProvider.getOwnedGamesUrl()+"/findOwnedGames",{
@@ -15,9 +15,9 @@ class OwnedGameService{
                 }).catch(error=>{return error})
             })
     }
-    buyGame(gameId){
+   async buyGame(gameId){
         return AuthService.getToken().then(token=>{
-            return axios.post(UrlProvider.getOwnedGamesUrl()+"/buy/"+gameId,{
+            return axios.post(UrlProvider.getOwnedGamesUrl()+"/buy/"+gameId,[],{
                 headers:{
                     'Authorization':'Bearer '+token,
                     'Accept': '*/*'
