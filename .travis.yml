@@ -1,12 +1,15 @@
 language: node_js
 node_js:
-  - 14.16.0
+  - lts/*
 cache: npm
 install:
   - npm i react-scripts
   - npm install npm@latest -g
+  - yarn install
 before_script:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
+script:
+  - yarn test
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
 branches:
