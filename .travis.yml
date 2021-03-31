@@ -4,12 +4,11 @@ node_js:
 cache: npm
 install:
   - npm i react-scripts
-  - npm install npm@latest -g
   - yarn install
 before_script:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) download
 script:
-  - yarn test
+  - npm test
 after_success:
   - bash <(curl -Ls https://coverage.codacy.com/get.sh)
 branches:
@@ -17,4 +16,3 @@ branches:
   - main
   - develop
   - B#10
-
