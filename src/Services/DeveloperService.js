@@ -2,11 +2,9 @@ import axios from 'axios';
 import { AuthService } from './AuthService';
 import { UrlProvider } from '../providers/UrlProvider';
 
-
-// TODO: REVISAR
 export const DeveloperService = {
 
-    async signup(user){
+    async signup(user) {
         return axios.post(UrlProvider.getDeveloperUrl() + '/sign-up', user).then(res => res.data)
         .catch(error => {return error.response.status})
     },

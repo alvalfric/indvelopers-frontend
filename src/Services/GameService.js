@@ -4,18 +4,17 @@ import { UrlProvider } from '../providers/UrlProvider';
 
 export const GameService = {
 
-    findAll(){
+    async findAll() {
             //return axios.get( UrlProvider.getGamesUrl + `/findAll`).then(res => res.data)
             return axios.get(UrlProvider.getGameUrl() + '/findAll').then(res => res.data)
             .catch(error => {return error.response.status})
-       
     },
 
-    getGameById(id){
+    async getGameById(id) {
         return axios.get(UrlProvider.getGameUrl()+ "/" + id)
     },
 
-    addGame(game){
+    async addGame(game) {
         return AuthService.getToken().then(token=>{
             return axios.post(UrlProvider.getGameUrl()+"/add",game,{
                 headers:{
@@ -26,7 +25,7 @@ export const GameService = {
         })
     },
 
-    updateGame(game, id) {
+    async updateGame(game, id) {
         return AuthService.getToken().then(token=>{
             return axios.put(UrlProvider.getGameUrl() + "/edit/" + id, game,{
                 headers:{
@@ -36,7 +35,8 @@ export const GameService = {
             })
         });
     },
-    deleteGame(id){
+    
+    async deleteGame(id) {
         return AuthService.getToken().then(token=>{
             return axios.delete(UrlProvider.getGameUrl()+"/delete/"+id,{
                 headers:{
@@ -46,5 +46,4 @@ export const GameService = {
             })
         })
     }
-
 }
