@@ -25,7 +25,6 @@ class CreateReviewComponent extends Component {
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
                 if (AuthService.getUserData()['username'] === review.developer.username) {
-					console.log('asdf')
                     this.props.history.push('/game-View/' + this.state.gameId)
                 }
             })
