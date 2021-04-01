@@ -21,6 +21,17 @@ class CreateReviewComponent extends Component {
 		this.changeTextHandler = this.changeTextHandler.bind(this);
 	}
 
+	componentDidMount() {
+		ReviewService.getbyGame(this.state.gameId).then(data => {
+            data.forEach(review => {
+                if (AuthService.getUserData()['username'] === review.developer.username) {
+					console.log('asdf')
+                    this.props.history.push('/game-View/' + this.state.gameId)
+                }
+            })
+        })
+	}
+
 	validate = () => {
 		let textError = "";
 		let scoreError = "";

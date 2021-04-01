@@ -11,6 +11,7 @@ class UpdateGameComponent extends Component {
 
         this.state = {
             id: this.props.match.params.id,
+            createReviewCheck: false,
             title: "",
             titleError: "",
             description: "",
@@ -44,6 +45,16 @@ class UpdateGameComponent extends Component {
             });
             console.log('game => ' + JSON.stringify(game));
         });
+        ReviewService.getbyGame(this.state.id).then(data => {
+            data.forEach(review => {
+                console.log(review)
+                if (AuthService.getUserData()['username'] === review.developer.username) {
+                    this.setState({
+                        createReviewCheck: true
+                    })
+                }
+            })
+        })
     }
     deleteGame = (e) => {
         e.preventDefault()
@@ -230,24 +241,12 @@ class UpdateGameComponent extends Component {
                         </div>
                         <div>
                             <br />
-                            <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
-
-                            {/* TODO */}
-                            {/* {ReviewService.getbyGame(this.state.id).then(data => {
-                                let reviewCreada = false
-                                data.forEach(review => {
-                                    if(!reviewCreada) {
-                                        if(AuthService.getUserData()['username'] === review.developer.username){
-                                            reviewCreada = true
-                                        }
-                                    }
-                                })
-                                reviewCreada ?
-                                    <p>Ya has creado una review a este juego</p>
-                                    :
-                                    <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
-                            })} */}
-                            
+                            {/* <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button> */}
+                            {this.state.createReviewCheck ?
+                                <h5>Ya has creado una review a este juego</h5>
+                                :
+                                <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
+                            }
                             <br />
                             <br />
                         </div>
