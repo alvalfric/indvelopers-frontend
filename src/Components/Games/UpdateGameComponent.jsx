@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import { AuthService } from '../../Services/AuthService';
 import portada from '../../assets/JuegoPortada.jpg';
+import OwnedGameService from '../../Services/OwnedGameService';
 import ListReviewComponent from '../Reviews/ListReviewComponent';
 import { ReviewService } from '../../Services/ReviewService';
 
@@ -12,17 +13,19 @@ class UpdateGameComponent extends Component {
         this.state = {
             id: this.props.match.params.id,
             createReviewCheck: false,
-            title: "",
-            titleError: "",
-            description: "",
-            descriptionError: "",
-            requirements: "",
-            requirementsError: "",
-            price: "",
-            idCloud: "",
-            isNotMalware: "",
-            creator: ""
+            title:"",
+            titleError:"",
+            description:"",
+            descriptionError:"",
+            requirements:"",
+            requirementsError:"",
+            price:"",
+            idCloud:"",
+            isNotMalware:"",
+            creator:"",
+            isBought:false
         }
+        this.buyGame=this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame = this.deleteGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -43,7 +46,9 @@ class UpdateGameComponent extends Component {
                 isNotMalware: game.isNotMalware,
                 creator: game.creator
             });
-            console.log('game => ' + JSON.stringify(game));
+            OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
+                this.setState({isBought:res.data})
+            })
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -66,17 +71,16 @@ class UpdateGameComponent extends Component {
     updateGame = (e) => {
         e.preventDefault();
         const isValid = this.validate();
-        let game = {
-            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-            , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator
-        };
-        console.log('game => ' + JSON.stringify(game));
-
-        //Hasta que no funcione el id esto no va a funcionar.
+        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
+                    , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator};
+        if(isValid){
         GameService.updateGame(game, this.state.id).then(res => {
             this.props.history.push('/games');
         })
-
+    }
+    }
+    buyGame(id){
+        this.props.history.push(`/purchase-game/${id}`);
     }
 
     validate = () => {
@@ -233,7 +237,6 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                         </div>
-
                         <div>
                             <br />
                             <h3>Reviews</h3>
@@ -256,7 +259,8 @@ class UpdateGameComponent extends Component {
                                 <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                                 <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                             </React.Fragment>
-                        ) : null}
+                        ) : this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
+                         <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
                     </form>
                 </div>

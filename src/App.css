@@ -294,6 +294,22 @@ Video de youtube #9AD263
   background-color: #9AD263;
   overflow: hidden;
 }
+.gridContainer {
+  display: grid;
+  grid-template-areas: 
+    'header header header header header header' 
+    'left left middle middle right right' 
+    'footer footer footer footer footer footer';
+}
+.sidenav {
+float:left;
+grid-area: left;
+}
+.sidenav2 {
+float:right;
+grid-area: right;
+padding-right:80px;
+}
 
 /* Style the links inside the navigation bar */
 .topnav a {

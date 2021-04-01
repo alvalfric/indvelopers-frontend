@@ -20,7 +20,7 @@ class CreateReviewComponent extends Component {
 		this.changeScoreHandler = this.changeScoreHandler.bind(this);
 		this.changeTextHandler = this.changeTextHandler.bind(this);
 	}
-
+  
 	componentDidMount() {
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
@@ -127,7 +127,6 @@ class CreateReviewComponent extends Component {
 			</div>
 		);
 	}
-
 }
 
 export default CreateReviewComponent;
