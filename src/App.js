@@ -17,7 +17,7 @@ import PanicComponent from './Components/Panic/PanicComponent';
 import OwnedGameComponent from './Components/OwnedGames/OwnedGameComponent';
 import ListOwnedGamesComponent from './Components/OwnedGames/ListOwnedGamesComponent';
 import ShowOwnedGameComponent from './Components/OwnedGames/ShowOwnedGameComponent';
-import ReviewComponent from './Components/Reviews/CreateReviewComponent'
+import CreateReviewComponent from './Components/Reviews/CreateReviewComponent';
 
 
 function App() {
@@ -43,8 +43,7 @@ function App() {
              <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
              <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
              <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
-             <Route path="/review-Create" exact component={ReviewComponent}></Route>
-
+             <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
           </Switch>
           </div>
         </div>

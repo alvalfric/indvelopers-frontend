@@ -5,6 +5,7 @@ const GAMES = "/games"
 const ME = '/me'
 const PUBLICATIONS="/publications"
 const OWNEDGAMES="/ownedGames"
+const REVIEWS="/reviews"
 
 
 export const UrlProvider={
@@ -27,5 +28,9 @@ export const UrlProvider={
     
     getOwnedGamesUrl(){
         return BASE_URL + OWNEDGAMES;
+    },
+
+    getReviewUrl(){
+        return BASE_URL + REVIEWS;
     }
 }
