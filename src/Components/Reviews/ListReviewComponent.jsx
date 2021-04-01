@@ -13,12 +13,12 @@ class ListReviewComponent extends Component {
       reviews: null,
       rawReviews: null,
       offset: 0,
-      perPage: 5,
+      perPage: 2,
       pageCount: 0,
       currentPage: 0
     }
 
-    this.handlePageClick = this.handlePageClick
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   handlePageClick = (e) => {
@@ -63,7 +63,7 @@ class ListReviewComponent extends Component {
                   <br />
                   <div className="w3-card-4" >
                     <header className="w3-container ">
-                      <h5>{review.game.title}</h5>
+                      <h5>{review.developer.username}</h5>
                     </header>
                     <div className="w3-container">
                       <p>{review.text}</p>
