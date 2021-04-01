@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import { AuthService } from '../../Services/AuthService';
 import portada from '../../assets/JuegoPortada.jpg';
+import OwnedGameService from '../../Services/OwnedGameService';
 
 class UpdateGameComponent extends Component {
     constructor(props){
@@ -18,7 +19,8 @@ class UpdateGameComponent extends Component {
             price:"",
             idCloud:"",
             isNotMalware:"",
-            creator:""
+            creator:"",
+            isBought:false
         }
         this.buyGame=this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
@@ -40,7 +42,9 @@ class UpdateGameComponent extends Component {
                 isNotMalware: game.isNotMalware,
                 creator: game.creator
             });
-            console.log('game => ' + JSON.stringify(game));
+            OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
+                this.setState({isBought:res.data})
+            })
         });
     }
     deleteGame= (e)=>{
@@ -55,9 +59,6 @@ class UpdateGameComponent extends Component {
         const isValid = this.validate();
         let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                     , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator};
-        console.log('game => ' + JSON.stringify(game));
-
-        //Hasta que no funcione el id esto no va a funcionar.
         if(isValid){
         GameService.updateGame(game, this.state.id).then(res => {
             this.props.history.push('/games');
@@ -221,10 +222,9 @@ class UpdateGameComponent extends Component {
                         <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                         <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                         </React.Fragment>
-                        ):
-                        <React.Fragment>
-                            <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>
-                        </React.Fragment>}
+                        ):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
+                         <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>
+                        }
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Volver</button>
                     </form>
                 </div>

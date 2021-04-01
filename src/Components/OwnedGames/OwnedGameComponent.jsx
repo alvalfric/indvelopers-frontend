@@ -11,7 +11,8 @@ class OwnedGameComponent extends Component {
             id: this.props.match.params.id,
             acceptedPurchase:false,
             game:"",
-            AcceptMessage:""
+            AcceptMessage:"",
+            isBought:false
         }
         this.changeConfirmHandler=this.changeConfirmHandler.bind(this);
         this.purchaseGame=this.purchaseGame.bind(this);
@@ -20,11 +21,19 @@ class OwnedGameComponent extends Component {
     changeConfirmHandler= (event)=>{
         this.setState({acceptedPurchase: event.target.value})
     }
+    
     componentDidMount(){
+        OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
+            this.setState({isBought:res.data})
+        console.log("isBought=>"+ JSON.stringify(this.state.isBought))
+        })
+        if(this.state.isBought){
+            this.props.history.push(`/game-View/${this.state.id}`);
+        }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
-            console.log('game => ' + JSON.stringify(this.state.game));
         })
+    }
     }
     validate=()=>{
         let AcceptMessage="";
@@ -50,8 +59,15 @@ class OwnedGameComponent extends Component {
     render() {
         return (
             <div>
+                {this.state.isBought?(<React.Fragment>
+                    <br/>
+                    <br/>
+                    <h1 style={{marginTop:"100px"}}>NO DEBERIAS ESTAR AQUI, VUELVE POR DONDE HAS VENIDO</h1>
+                </React.Fragment>):
+                <React.Fragment>
                 <br/>
                 <br/>
+                
                 <h2>Finalizar compra</h2>
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
@@ -89,6 +105,8 @@ class OwnedGameComponent extends Component {
                 <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalizar compra</button>
                 </div>
                 </div>
+                </React.Fragment>
+                }
             </div>
         );
     }
