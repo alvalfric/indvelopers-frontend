@@ -25,6 +25,16 @@ class OwnedGameService{
             })
         })
     }
+    async CheckGameOwned(gameId){
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getOwnedGamesUrl()+"/checkGameOwned/"+gameId,{
+                headers:{
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
+                }
+            })
+        })
+    }
 
 }
 export default new OwnedGameService();

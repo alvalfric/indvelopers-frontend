@@ -31,7 +31,7 @@ class ListOwnedGamesComponent extends Component {
                     <div className="card-body"> 
                         <p class="card-text" className="text-muted"> description: { game.description } </p>
                         <p>
-                            <button className="ModifyButton">Descargar</button>
+                            <button className="ModifyButton">Descargar(Próximamente)</button>
                         </p>
                     </div>
                 </div>
