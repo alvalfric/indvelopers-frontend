@@ -18,6 +18,7 @@ class GamesComponent extends Component {
         }
         this.handlePageClick=this.handlePageClick.bind(this);
         this.createGame = this.createGame.bind(this);
+        this.MyOwnedGames=this.MyOwnedGames.bind(this);
     }
     handlePageClick= (e)=>{
         const selectedPage=e.selected;
@@ -56,6 +57,14 @@ class GamesComponent extends Component {
         }
   
       }
+      MyOwnedGames(){
+        if(AuthService.isAuthenticated()){
+            this.props.history.push('/purchased-games')
+          }else{
+            this.props.history.push('/login')
+          }
+
+      }
 
       editGame(id) {
         if(AuthService.isAuthenticated()) {
@@ -74,6 +83,8 @@ class GamesComponent extends Component {
                     <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1>
                     <div className="row">
                         <button className="Button" onClick={this.createGame}>Crear juego</button>
+                        
+                        <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
                     </div>
                     <br/>
                     <div className="row row-cols-1 row-cols-md-4">

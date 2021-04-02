@@ -14,6 +14,10 @@ import UpdateGameComponent from './Components/Games/UpdateGameComponent';
 import ListPublicationComponent from './Components/Publications/ListPublicationComponent';
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
 import PanicComponent from './Components/Panic/PanicComponent';
+import OwnedGameComponent from './Components/OwnedGames/OwnedGameComponent';
+import ListOwnedGamesComponent from './Components/OwnedGames/ListOwnedGamesComponent';
+import ShowOwnedGameComponent from './Components/OwnedGames/ShowOwnedGameComponent';
+import CreateReviewComponent from './Components/Reviews/CreateReviewComponent';
 import UserDetailsComponent from './Components/Users/UserDetailsComponent';
 import EditUserDetailsComponent from './Components/Users/EditUserDetailsComponent';
 
@@ -22,7 +26,6 @@ function App() {
   return (
     <React.Fragment>
     <Router>
-     
       <HeaderComponent/>
       <body>
         <div className="App-header">
@@ -39,6 +42,10 @@ function App() {
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
              <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
              <Route path="/game-Create" component={CreateGameComponent}></Route>
+             <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
+             <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
+             <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
+             <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
              <Route path="/me" component={UserDetailsComponent}></Route>
              <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
           </Switch>
