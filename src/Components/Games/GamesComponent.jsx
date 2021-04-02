@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
 import ReactPaginate from 'react-paginate';
+import portada from '../../assets/JuegoPortada.jpg';
 
 class GamesComponent extends Component {
 
@@ -78,45 +79,48 @@ class GamesComponent extends Component {
     }
 
     render() {
-        return (
-                <div className='container'  >
-                    <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1>
-                    <div className="row">
-                        <button className="Button" onClick={this.createGame}>Crear juego</button>
-                        
-                        <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
-                    </div>
-                    <br/>
-                    <div className="row row-cols-1 row-cols-md-4">
-                        { this.state.games.map((item) =>
-                            <div className="col mb-4">
-                            <div className="card">
-                                <div className="card-header bg-success border-primary"> 
-                                    <h5 className="card-title" class="text-dark">{ item.title }</h5>
-                                </div>
-                                <div className="card-body"> 
-                                    <p class="card-text" className="text-muted"> Price: { item.price }€ </p>
-                                    <p>
-                                        <button onClick={() => this.editGame(item.id)} className="ModifyButton">Detalles</button>
-                                    </p>
-                                </div>
-                            </div>
+      return (
+        <div className='container'  >
+            <h1 style={{paddingTop: '5%'}}>Lista de Juegos</h1>
+            <div className="row">
+                <button className="Button" onClick={this.createGame}>Crear juego</button>
+                
+                <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
+            </div>
+            <br/>
+            <div>
+                { this.state.games.map((item) =>
+                <div className="pb-4">
+                    <div className="w3-card-4">
+                    <div className="w3-container">
+                        <div className="card-header bg-transparent">
+                            <h4 className="w3-container pt-2">{ item.title }</h4>
                         </div>
-                        ) }
+                        <div className="w3-container p-3">
+                            <p class="card-text"> 
+                              <img src={portada} style={{ width: "10%", height: "10%", marginRight: "50px" }}></img>
+                              Price: { item.price }€ 
+                              <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right mt-2">Detalles</button>
+                            </p>
+                        </div>
                     </div>
-                    <ReactPaginate previousLabel={"prev"}
-     nextLabel={"next"}
-     breakLabel={"..."}
-     breakClassName={"break-me"}
-     pageCount={this.state.pageCount}
-     marginPagesDisplayed={2}
-     pageRangeDisplayed={5}
-     onPageChange={this.handlePageClick}
-     containerClassName={"pagination"}
-     subContainerClassName={"pages pagination"}
-     activeClassName={"active"}/>
                 </div>
-        );
+                </div>
+                ) }
+            </div>
+            <ReactPaginate previousLabel={"prev"}
+nextLabel={"next"}
+breakLabel={"..."}
+breakClassName={"break-me"}
+pageCount={this.state.pageCount}
+marginPagesDisplayed={2}
+pageRangeDisplayed={5}
+onPageChange={this.handlePageClick}
+containerClassName={"pagination"}
+subContainerClassName={"pages pagination"}
+activeClassName={"active"}/>
+        </div>
+);
     }
 }
 
