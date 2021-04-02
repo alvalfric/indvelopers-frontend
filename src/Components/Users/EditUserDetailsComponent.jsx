@@ -35,10 +35,8 @@ class EditUserDetailsComponent extends Component {
         console.log('profile => ' + JSON.stringify(profile));
         if(isValid){
             DeveloperService.updateProfile(this.state.id, profile).then(res => {
-                sessionStorage.setItem("userData".description, res.description);
-                sessionStorage.setItem("userData".email, res.email);
-                sessionStorage.setItem("userData".technologies, res.technologies);
-                this.props.history.push('/me');
+                AuthService.loadUserData();
+                this.props.history.push('/');
             })   
         }else{
             this.setState({submitError:"Invalid credentials!"});
@@ -51,13 +49,17 @@ class EditUserDetailsComponent extends Component {
         let technologiesError="";
 
         if(this.state.description.length===0) {
-            descriptionError="Profile needs a description";
+            descriptionError="Profile needs a description.";
         }
         if(this.state.email.length===0) {
-            emailError="Profile needs an email"
+            emailError="Profile needs an email."
+        }
+        var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+        if (!pattern.test(this.state.email)) {
+            emailError = "Please enter valid email address.";
         }
         if(this.state.technologies.length===0) {
-            technologiesError="Profile needs technologies"
+            technologiesError="Profile needs technologies."
         }
 
         this.setState({descriptionError});
@@ -143,28 +145,29 @@ class EditUserDetailsComponent extends Component {
 
                         <div className="form-group">
                         {AuthService.getUserData()['username']===this.state.username?(
-                            <React.Fragment>
+                        <React.Fragment>
+                            
+                        <div className="form-group">
                             <label>Technologies</label>
-                            <input placeholder={this.props.history.location.state.profile.technologies} name="technologies" className="form-control"
-                                value={this.props.history.location.state.profile.technologies} onChange={this.changeTechnologiesHandler}></input>
-                                </React.Fragment>
-                            ):
-                            <React.Fragment>
-                                 <div>
-                                <br/>
-                              <div className="w3-card-2" >
-                            <header className="w3-container ">
-                           <h5>Tecnologies</h5>
-                          </header>
-                             <div className="w3-container">
-                             <p>{this.state.technologies}</p>
-                             </div>
-                             </div>
-                              </div>
-                                </React.Fragment>
-                            }
-                            {this.state.technologiesError?(<div className="ValidatorMessage">{this.state.technologiesError}</div>) : null}
+                            <input type="text" className="form-control" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />    
                         </div>
+                        </React.Fragment>
+                        ):
+                        
+                        <div>
+                            <br/>
+                            <div className="w3-card-2" >
+                                <header className="w3-container ">
+                                    <h5>Tecnologies</h5>
+                                </header>
+                                <div className="w3-container">
+                                    <p>{this.state.technologies}</p>
+                                </div>
+                            </div>
+                        </div>}
+                        {this.state.technologiesError?(<div className="ValidatorMessage">{this.state.technologiesError}</div>) : null}
+                        </div>
+                        
                         {AuthService.getUserData()['username']===this.state.username?(
                         <React.Fragment>
                         <button className="AceptButton" onClick={this.updateProfile}>Modificar Perfil</button>
