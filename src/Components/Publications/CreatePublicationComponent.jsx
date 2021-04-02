@@ -18,7 +18,7 @@ class CreatePublicationComponent extends Component {
             
         }
         this.savePublication=this.savePublication.bind(this);
-        this.changeImageHandler=this.changeImageHandler.bind(this);
+        this.changeImagenHandler=this.changeImagenHandler.bind(this);
         this.changeTextHandler=this.changeTextHandler.bind(this);
     }
     validate =()=>{
@@ -40,8 +40,8 @@ class CreatePublicationComponent extends Component {
         this.props.history.push('/publication-List');
 
     }
-    changeImageHandler=(event)=>{
-        this.setState({Image:event.target.value});
+    changeImagenHandler=(event)=>{
+        this.setState({imagen:event.target.value});
 
     }
     changeTextHandler=(event)=>{
@@ -52,7 +52,7 @@ class CreatePublicationComponent extends Component {
         const isValid=this.validate();
         if(isValid){
             let publication={username:AuthService.getUserData()['username'],userPicture:null,
-            text:this.state.text,imagen:null,developer:null}
+            text:this.state.text,imagen:this.state.imagen,developer:null}
             console.log('Publication=>' + JSON.stringify(publication));
             PublicationService.AddPublication(publication).then(res=>{
                 this.props.history.push('/publication-List');
@@ -79,7 +79,7 @@ class CreatePublicationComponent extends Component {
                     </div>
                     <div className="form-group">
                     <label>Image:</label>
-                    <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} />
+                    <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
                     <button className="AceptButton" onClick={this.savePublication}>Crear publicación</button>
                     <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>   
