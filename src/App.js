@@ -18,6 +18,8 @@ import OwnedGameComponent from './Components/OwnedGames/OwnedGameComponent';
 import ListOwnedGamesComponent from './Components/OwnedGames/ListOwnedGamesComponent';
 import ShowOwnedGameComponent from './Components/OwnedGames/ShowOwnedGameComponent';
 import CreateReviewComponent from './Components/Reviews/CreateReviewComponent';
+import UserDetailsComponent from './Components/Users/UserDetailsComponent';
+import EditUserDetailsComponent from './Components/Users/EditUserDetailsComponent';
 
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
              <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
              <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
              <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
+             <Route path="/me" component={UserDetailsComponent}></Route>
+             <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
           </Switch>
           </div>
         </div>
