@@ -13,12 +13,14 @@ class CreateGameComponent extends Component {
             requirements:"",
             requirementsError:"",
             price:"",
+            image: null,
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changeImageHandler=this.changeImageHandler.bind(this);
     }
 
     validate =()=>{
@@ -63,6 +65,10 @@ class CreateGameComponent extends Component {
         this.setState({price: event.target.value})
     }
 
+    changeImageHandler=(event)=>{
+        this.setState({image:event.target.value});
+    }
+
     saveGame = (e) => {
         e.preventDefault();
         const isValid = this.validate();
@@ -73,7 +79,7 @@ class CreateGameComponent extends Component {
                 this.state.price = 0.0;
             }
             let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: null, isNotMalware: null, creator: null};
+                , idCloud: null, isNotMalware: null, creator: null, image: this.state.image};
             console.log('game => ' + JSON.stringify(game));
             GameService.addGame(game).then(res => {
                 this.props.history.push('/games');
@@ -122,7 +128,10 @@ class CreateGameComponent extends Component {
                             <input placeholder="Price" name="price" className="form-control" type="number"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                         </div>
-
+                        <div className="form-group">
+                        <label>Image:</label>
+                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} />
+                        </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>
                     </form>
