@@ -47,6 +47,16 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
+    }, 
+
+    async updateProfile(profileId, profiledto) {
+        return AuthService.getToken().then(token => {
+            return axios.put(UrlProvider.getDeveloperUrl().concat(`/edit/${profileId}`), profiledto, {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => res.data)
+        })
     } 
 
 }
