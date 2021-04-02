@@ -10,11 +10,11 @@ class EditUserDetailsComponent extends Component {
         this.state={
             id: this.props.history.location.state.profile.id,
             username: this.props.history.location.state.profile.username,
-            description: this.props.history.location.state.profile.description,
+            description: this.props.history.location.state.profile.description==null?"":this.props.history.location.state.profile.description,
             descriptionError:"",
             email: this.props.history.location.state.profile.email,
             emailError:"",
-            technologies:this.props.history.location.state.profile.technologies,
+            technologies: this.props.history.location.state.profile.technologies==null?"":this.props.history.location.state.profile.technologies,
             technologiesError:"",
             gameList:"",
             userRole:this.props.history.location.state.profile.technologies,
