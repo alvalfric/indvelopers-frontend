@@ -11,10 +11,10 @@ class CreatePublicationComponent extends Component {
 
         this.state={
             username:"",
-            imagen:"",
+            imagen:null,
             text:"",
             textError:"",
-            userPicture:""
+            userPicture:null
             
         }
         this.savePublication=this.savePublication.bind(this);
@@ -24,7 +24,7 @@ class CreatePublicationComponent extends Component {
     validate =()=>{
         let textError="";
         if(this.state.text.length===0){
-            textError="You must write something"
+            textError="Debes escribir algo para publicar"
         }
         
             this.setState({textError});
@@ -68,8 +68,8 @@ class CreatePublicationComponent extends Component {
                 <br></br>
                 <form> 
                     <div className="form-group">
-                      <label>Text</label>
-                        <textarea placeholder="Text"  name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
+                      <label>Descripción</label>
+                        <textarea placeholder="Descripción"  name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
                        {this.state.textError ?( <div className="ValidatorMessage">
                             {this.state.textError}
                         </div> ): null}
