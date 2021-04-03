@@ -151,7 +151,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
-                                    <label>Title</label>
+                                    <label>Título</label>
                                     <input placeholder="Title" name="title" className="form-control"
                                         value={this.state.title} onChange={this.changeTitleHandler}></input>
                                 </React.Fragment>
@@ -169,7 +169,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
-                                    <label>Description</label>
+                                    <label>Descripción</label>
                                     <input placeholder="Description" name="description" className="form-control"
                                         value={this.state.description} onChange={this.changeDescriptionHandler}></input>
                                 </React.Fragment>
@@ -194,7 +194,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
-                                    <label>Minimum requirements</label>
+                                    <label>Requisitos del sistema</label>
                                     <input placeholder="Requirements" name="requirements" className="form-control"
                                         value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
                                 </React.Fragment>

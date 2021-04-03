@@ -29,7 +29,7 @@ class ListOwnedGamesComponent extends Component {
                         <h5 className="card-title" class="text-dark">{ game.title }</h5>
                     </div>
                     <div className="card-body"> 
-                        <p class="card-text" className="text-muted"> description: { game.description } </p>
+                        <p class="card-text" className="text-muted">{ game.description } </p>
                         <p>
                             <button className="ModifyButton">Descargar(Próximamente)</button>
                         </p>

@@ -99,37 +99,37 @@ class CreateGameComponent extends Component {
                 <br></br>
                 <br></br>
                 <br></br>
-                <h2>Add Game</h2>
+                <h2>Crear un juego</h2>
                 <br></br>
                     <form>
                         <div className="form-group">
-                            <label>Title</label>
+                            <label>Título</label>
                             <input placeholder="Title" name="title" className="form-control"
                                 value={this.state.title} onChange={this.changeTitleHandler}></input>
 
                             {this.state.titleError?(<div className="ValidatorMessage">{this.state.titleError}</div>) : null} 
                         </div>
                         <div className="form-group">
-                            <label>Description</label>
+                            <label>Descripción</label>
                             <input placeholder="Description" name="description" className="form-control"
                                 value={this.state.description} onChange={this.changeDescriptionHandler}></input>
 
                             {this.state.descriptionError?(<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Minimum requirements</label>
+                            <label>Requisitos mínimos</label>
                             <input placeholder="Requirements" name="requirements" className="form-control"
                                 value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
 
                             {this.state.requirementsError?(<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Price</label>
+                            <label>Precio</label>
                             <input placeholder="Price" name="price" className="form-control" type="number"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                         </div>
                         <div className="form-group">
-                        <label>Image:</label>
+                        <label>Imagen:</label>
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} />
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
