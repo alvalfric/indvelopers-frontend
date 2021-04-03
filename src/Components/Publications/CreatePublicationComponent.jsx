@@ -11,10 +11,10 @@ class CreatePublicationComponent extends Component {
 
         this.state={
             username:"",
-            imagen:"",
+            imagen:null,
             text:"",
             textError:"",
-            userPicture:""
+            userPicture:null
             
         }
         this.savePublication=this.savePublication.bind(this);
