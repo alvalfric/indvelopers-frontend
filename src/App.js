@@ -7,6 +7,7 @@ import HeaderComponent from './Components/HeaderComponent';
 import FooterComponent from './Components/FooterComponent';
 import SignupComponent from './Components/SignupComponent';
 import LoginComponent from './Components/LoginComponent';
+import LogoutComponent from './Components/LogoutComponent';
 import CreateGameComponent from './Components/Games/CreateGameComponent';
 import GamesComponent from './Components/Games/GamesComponent';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
@@ -35,6 +36,7 @@ function App() {
              <Route path="/prueba" exact component={PruebaComponent}></Route>
              <Route path="/sign-up" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
+             <Route path="/logout" exact component={LogoutComponent}></Route>
              <Route path="/games" exact component={GamesComponent}></Route>
              <Route path="/successful-login" exact component={SuccessfulLoginComponent}></Route>
              <Route path="/panic" component={PanicComponent}></Route>

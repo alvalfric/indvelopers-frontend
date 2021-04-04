@@ -52,7 +52,7 @@ class CreatePublicationComponent extends Component {
         const isValid=this.validate();
         if(isValid){
             let publication={username:AuthService.getUserData()['username'],userPicture:null,
-            text:this.state.text,imagen:this.state.imagen,developer:null}
+            text:this.state.text,imagen:null,developer:null}
             console.log('Publication=>' + JSON.stringify(publication));
             PublicationService.AddPublication(publication).then(res=>{
                 this.props.history.push('/publication-List');
