@@ -130,7 +130,8 @@ class CreateGameComponent extends Component {
                         </div>
                         <div className="form-group">
                         <label>Imagen:</label>
-                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} />
+                        <p>Subida de imágenes WIP</p>
+                        {/* <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} /> */}
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>
