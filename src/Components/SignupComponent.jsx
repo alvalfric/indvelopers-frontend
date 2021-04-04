@@ -110,14 +110,13 @@ class SignupComponent extends Component {
                 technologies: this.state.technologies
             }
             DeveloperService.signup(userForm).then(data => {
-                if (typeof data == Object) {
+                if (typeof data == "object") {
                     this.props.history.push('/login')
                 } else {
                     this.setState({ submitError: "Username or email already in use" });
                 }
             }
             );
-            this.props.history.push('/login');
         }
     }
 
