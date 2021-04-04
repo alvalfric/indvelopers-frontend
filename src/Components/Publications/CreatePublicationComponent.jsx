@@ -78,8 +78,9 @@ class CreatePublicationComponent extends Component {
                         <input name="userPicture" type="hidden" className="form-control" value={this.state.userPicture} />
                     </div>
                     <div className="form-group">
-                    <label>Image:</label>
-                    <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                    <label>Imagen:</label>
+                    <p>Subida de imágenes WIP</p>
+                    {/* <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.imagen} onChange={this.changeImagenHandler} /> */}
                     </div>
                     <button className="AceptButton" onClick={this.savePublication}>Crear publicación</button>
                     <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>   
