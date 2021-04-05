@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
 
 class CreateGameComponent extends Component {
@@ -13,6 +14,7 @@ class CreateGameComponent extends Component {
             requirements:"",
             requirementsError:"",
             price:"",
+            priceError: "",
             image: null,
         }
         this.saveGame = this.saveGame.bind(this);
@@ -78,6 +80,9 @@ class CreateGameComponent extends Component {
             if(this.state.price.length===0) {
                 this.state.price = 0.0;
             }
+            if(AuthService.getUserData()['isPremium'] !== true) {
+                this.state.price = 0.0;
+            }
             let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                 , idCloud: null, isNotMalware: null, creator: null, image: this.state.image};
             console.log('game => ' + JSON.stringify(game));
@@ -125,6 +130,7 @@ class CreateGameComponent extends Component {
                         </div>
                         <div className="form-group">
                             <label>Precio</label>
+                            <p>Nota: Si eres un usuario NO PREMIUM el precio será 0 siempre</p>
                             <input placeholder="Price" name="price" className="form-control" type="number"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                         </div>
