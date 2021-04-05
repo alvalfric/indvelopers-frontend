@@ -86,8 +86,13 @@ class CreateGameComponent extends Component {
             let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                 , idCloud: null, isNotMalware: null, creator: null, image: this.state.image};
             console.log('game => ' + JSON.stringify(game));
-            GameService.addGame(game).then(res => {
-                this.props.history.push('/games');
+            GameService.addGame(game).then(data => {
+                console.log(data);
+                if (typeof data == "string") {
+                    this.props.history.push('/games')
+                } else {
+                    this.setState({ titleError: "A game with that title is already created!" });
+                }
             })
         }
     }
