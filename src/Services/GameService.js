@@ -28,7 +28,8 @@ export const GameService = {
                     'Authorization':'Bearer '+token,
                     'Accept': '*/*'
                 }
-            }).catch(error=>{return error})
+            }).then(res => res.data)
+            .catch(error=>{return error})
         })
     },
 
