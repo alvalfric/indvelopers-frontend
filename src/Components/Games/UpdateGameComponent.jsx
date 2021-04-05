@@ -26,7 +26,7 @@ class UpdateGameComponent extends Component {
             creator:"",
             isBought:false
         }
-        this.buyGame=this.buyGame.bind(this);
+        this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame = this.deleteGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -42,7 +42,7 @@ class UpdateGameComponent extends Component {
                 title: game.title,
                 description: game.description,
                 requirements: game.requirements,
-                price: game.price,
+                price: game.price + "",
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator
@@ -101,7 +101,7 @@ class UpdateGameComponent extends Component {
         let titleError = "";
         let descriptionError = "";
         let requirementsError = "";
-        let priceError="";
+        let priceError = "";
 
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
