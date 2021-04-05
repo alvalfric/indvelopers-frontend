@@ -44,6 +44,9 @@ class CreateReviewComponent extends Component {
 		if (this.state.score < 0 || this.state.score > 5) {
 			scoreError = "Score must be a number between 0 and 5";
 		}
+		if (this.state.score.split('.').length == 2 && this.state.score.split('.')[1].length > 1) {
+			scoreError = "Score must not have more than 1 decimal!"
+		}
 
 		this.setState({ textError });
 		this.setState({ scoreError });

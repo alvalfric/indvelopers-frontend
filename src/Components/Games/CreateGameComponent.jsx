@@ -30,7 +30,8 @@ class CreateGameComponent extends Component {
         let titleError = "";
         let descriptionError = "";
         let requirementsError = "";
-        //let priceError="";
+        let priceError="";
+
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
         }
@@ -38,14 +39,22 @@ class CreateGameComponent extends Component {
             descriptionError = "The game needs a description"
         }
         if (this.state.requirements.length === 0) {
-            requirementsError = "The game needs a specification of the minimun requirements"
+            requirementsError = "The game needs a specification of the minimum requirements"
         }
-
+        if (AuthService.getUserData()['isPremium'] === true) {
+            if (this.state.price.length === 0) {
+                priceError = "The game needs a price!"
+            } else if (this.state.price < 0) {
+                priceError = "Price must not be negative!"
+            } else if (this.state.price.split('.').length == 2 && this.state.price.split('.')[1].length > 2) {
+                priceError = "Price must not have more than 2 decimals!"
+            }
+        }
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
-        //this.setState({priceError});
-        if (titleError || descriptionError || requirementsError) {
+        this.setState({ priceError });
+        if (titleError || descriptionError || requirementsError || priceError) {
             return false;
         } else {
             return true;
@@ -74,16 +83,13 @@ class CreateGameComponent extends Component {
 
     saveGame = (e) => {
         e.preventDefault();
+        if (AuthService.getUserData()['isPremium'] !== true) {
+            this.state.price = 0.0;
+        }
         const isValid = this.validate();
         if (isValid) {
             //Redirigir a games
             //this.props.history.push('/games');
-            if (this.state.price.length === 0) {
-                this.state.price = 0.0;
-            }
-            if (AuthService.getUserData()['isPremium'] !== true) {
-                this.state.price = 0.0;
-            }
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                 , idCloud: null, isNotMalware: null, creator: null, image: this.state.image
@@ -152,8 +158,9 @@ class CreateGameComponent extends Component {
                         <div className="form-group">
                             <label>Precio</label>
                             <p>Nota: Si eres un usuario NO PREMIUM el precio será 0 siempre</p>
-                            <input placeholder="Price" name="price" className="form-control" type="number"
+                            <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
+                            {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
                         <div className="form-group">
                             <label>Imagen:</label>
