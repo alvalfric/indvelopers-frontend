@@ -19,7 +19,8 @@ class UpdateGameComponent extends Component {
             descriptionError:"",
             requirements:"",
             requirementsError:"",
-            price:"",
+            price: "",
+            priceError: "",
             idCloud:"",
             isNotMalware:"",
             creator:"",
@@ -70,12 +71,25 @@ class UpdateGameComponent extends Component {
 
     updateGame = (e) => {
         e.preventDefault();
+        if (AuthService.getUserData()['isPremium'] !== true) {
+            this.state.price = 0.0;
+        }
         const isValid = this.validate();
         let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                     , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator};
         if(isValid){
-        GameService.updateGame(game, this.state.id).then(res => {
-            this.props.history.push('/games');
+        GameService.updateGame(game, this.state.id).then(data => {
+            if (typeof data == "string") {
+                this.props.history.push('/games');
+            } else {
+                GameService.findAll().then(data => {
+                    data.forEach(g => {
+                        if (g.title === this.state.title) {
+                            this.setState({ titleError: "A game with that title is already created!" });
+                        }
+                    });
+                })
+            }
         })
     }
     }
@@ -87,7 +101,8 @@ class UpdateGameComponent extends Component {
         let titleError = "";
         let descriptionError = "";
         let requirementsError = "";
-        //let priceError="";
+        let priceError="";
+
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
         }
@@ -95,14 +110,23 @@ class UpdateGameComponent extends Component {
             descriptionError = "The game needs a description"
         }
         if (this.state.requirements.length === 0) {
-            requirementsError = "The game needs a specification of the minimun requirements"
+            requirementsError = "The game needs a specification of the minimum requirements"
+        }
+        if (AuthService.getUserData()['isPremium'] === true) {
+            if (this.state.price.length === 0) {
+                priceError = "The game needs a price!"
+            } else if (this.state.price < 0) {
+                priceError = "Price must not be negative!"
+            } else if (this.state.price.split('.').length == 2 && this.state.price.split('.')[1].length > 2) {
+                priceError = "Price must not have more than 2 decimals!"
+            }
         }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
-        //this.setState({priceError});
-        if (titleError || descriptionError || requirementsError) {
+        this.setState({ priceError });
+        if (titleError || descriptionError || requirementsError || priceError) {
             return false;
         } else {
             return true;
@@ -220,7 +244,7 @@ class UpdateGameComponent extends Component {
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
                                     <label>Price</label>
-                                    <input placeholder="Price" name="price" className="form-control" type="number"
+                                    <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                         value={this.state.price} onChange={this.changePriceHandler}></input>
                                 </React.Fragment>
                             ) :
@@ -236,6 +260,7 @@ class UpdateGameComponent extends Component {
                                     </div>
                                 </React.Fragment>
                             }
+                            {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
                         <div>
                             <br />
