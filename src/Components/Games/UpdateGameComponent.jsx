@@ -59,8 +59,6 @@ class UpdateGameComponent extends Component {
                  break;
              }
          }
-         console.log("es admin?=>"+JSON.stringify(this.state.isAdmin))
-         console.log("isNotMalware=>"+JSON.stringify(this.state.isNotMalware))
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
