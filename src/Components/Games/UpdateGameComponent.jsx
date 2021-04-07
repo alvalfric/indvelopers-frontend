@@ -24,7 +24,8 @@ class UpdateGameComponent extends Component {
             idCloud:"",
             isNotMalware:"",
             creator:"",
-            isBought:false
+            isBought:false,
+            isAdmin:false
         }
         this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
@@ -33,6 +34,7 @@ class UpdateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changeConfirmHandler=this.changeConfirmHandler.bind(this);
     }
 
     componentDidMount() {
@@ -50,6 +52,15 @@ class UpdateGameComponent extends Component {
             OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
                 this.setState({isBought:res.data})
             })
+         var roles= AuthService.getUserData()['roles']
+         for(var i=0;i<roles.length;i++){
+             if(roles[i]=="ADMIN"){
+                 this.setState({isAdmin:true})
+                 break;
+             }
+         }
+         console.log("es admin?=>"+JSON.stringify(this.state.isAdmin))
+         console.log("isNotMalware=>"+JSON.stringify(this.state.isNotMalware))
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -147,6 +158,9 @@ class UpdateGameComponent extends Component {
 
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
+    }
+    changeConfirmHandler= (event)=>{
+        this.setState({isNotMalware: event.target.value})
     }
 
     cancel() {
@@ -262,6 +276,13 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
+                        {this.state.isAdmin?(
+                        <div class="custom-control custom-checkbox">
+                        <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware}/>
+                       <label style={{color:"#838383"}}>¿Es seguro este software para la comunidad indie?</label>
+                             </div>)
+                             :null}
+                        
                         <div>
                             <br />
                             <h3>Reviews</h3>
@@ -284,7 +305,11 @@ class UpdateGameComponent extends Component {
                                 <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                                 <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                             </React.Fragment>
-                        ) : this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
+                        ) :this.state.isAdmin?(<React.Fragment>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} >Descargar</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} >Modificar juego</button>
+                            <button className="DeleteButton" style={{ marginLeft: "10px" }} >Borrar Juego</button>
+                        </React.Fragment>):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
                          <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
                     </form>
