@@ -40,7 +40,7 @@ class GamesComponent extends Component {
         })
       }
     componentDidMount(){
-        GameService.findAll().then(data => {
+        GameService.findVerified().then(data => {
             var slice=data.slice(this.state.offset,this.state.offset + this.state.perPage)
             this.setState({ games : slice,
             pageCount: Math.ceil(data.length/this.state.perPage),
