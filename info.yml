@@ -5,60 +5,56 @@ project:
   identities:
     github:
       url: 'https://github.com/alvalfric/indvelopers-frontend'
-    pivotal:
-      url: 'https://github.com/alvalfric/indvelopers-frontend'
     heroku:
       url: 'https://continuous-indvelopers.herokuapp.com/'
     travis:
       url: 'https://travis-ci.com/github/alvalfric/indvelopers-frontend'
-    codacy:
-      url: 'https://app.codacy.com/gh/alvalfric/indvelopers-frontend/dashboard'
   members:
     member1:
       name: 'Álvaro Jesús'
-      surname: 'Alférez Richarte' 
+      surname: 'Alférez Richarte'
       githubUsername: 'alvalfric'
     member2:
       name: 'David'
-      surname: 'Cáceres Romero' 
+      surname: 'Cáceres Romero'
       githubUsername: 'D-RHYM'
     member3:
       name: 'Marta'
-      surname: 'Díaz Fernández' 
+      surname: 'Díaz Fernández'
       githubUsername: 'mardiafer13'
     member4:
       name: 'Elena'
-      surname: 'España González' 
+      surname: 'España González'
       githubUsername: 'eleespana'
     member5:
       name: 'Gonzalo'
-      surname: 'Fernández Jiménez' 
+      surname: 'Fernández Jiménez'
       githubUsername: 'gonferjim'
     member6:
       name: 'Francisco Javier'
-      surname: 'García Robles' 
+      surname: 'García Robles'
       githubUsername: 'fragarroa'
     member7:
       name: 'Alejandro'
-      surname: 'González Martín' 
+      surname: 'González Martín'
       githubUsername: 'Alejandrogm1'
     member8:
       name: 'Luis'
-      surname: 'Pardo López' 
+      surname: 'Pardo López'
       githubUsername: 'luiparlop1'
     member9:
       name: 'Guillermo'
-      surname: 'Pavón Vargas' 
+      surname: 'Pavón Vargas'
       githubUsername: 'guipavvar'
     member10:
       name: 'Juan Pablo'
-      surname: 'Portero Montaño' 
+      surname: 'Portero Montaño'
       githubUsername: 'juapormon'
     member11:
       name: 'Moisés'
-      surname: 'Romero Romo' 
+      surname: 'Romero Romo'
       githubUsername: 'moiromrom'
     member12:
       name: 'Fernando'
-      surname: 'Wals Rodríguez' 
-      githubUsername: 'Ferwalrod'      
+      surname: 'Wals Rodríguez'
+      githubUsername: 'Ferwalrod'
