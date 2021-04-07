@@ -1,4 +1,4 @@
-const DEPLOYED_BASE_URL="https://indvelopers-level-1.herokuapp.com"
+const DEPLOYED_URL="https://level1-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
@@ -11,26 +11,26 @@ const REVIEWS="/reviews"
 export const UrlProvider={
 
     getDeveloperUrl(){
-        return BASE_URL + DEVELOPERS;
+        return DEPLOYED_URL + DEVELOPERS;
     },
 
     getGameUrl(){
-        return BASE_URL + GAMES;
+        return DEPLOYED_URL + GAMES;
     },
 
     getPublicationUrl(){
-        return BASE_URL + PUBLICATIONS;
+        return DEPLOYED_URL + PUBLICATIONS;
     },
 
     getMeUrl(){
-        return BASE_URL + DEVELOPERS + ME;
+        return DEPLOYED_URL + DEVELOPERS + ME;
     },
     
     getOwnedGamesUrl(){
-        return BASE_URL + OWNEDGAMES;
+        return DEPLOYED_URL + OWNEDGAMES;
     },
 
     getReviewUrl(){
-        return BASE_URL + REVIEWS;
+        return DEPLOYED_URL + REVIEWS;
     }
 }
