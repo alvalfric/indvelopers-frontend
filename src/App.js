@@ -21,6 +21,7 @@ import ShowOwnedGameComponent from './Components/OwnedGames/ShowOwnedGameCompone
 import CreateReviewComponent from './Components/Reviews/CreateReviewComponent';
 import UserDetailsComponent from './Components/Users/UserDetailsComponent';
 import EditUserDetailsComponent from './Components/Users/EditUserDetailsComponent';
+import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionComponent';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
              <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
              <Route path="/me" component={UserDetailsComponent}></Route>
              <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
+             <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
           </Switch>
           </div>
         </div>
