@@ -22,7 +22,7 @@ class UpdateGameComponent extends Component {
             price: "",
             priceError: "",
             idCloud:"",
-            isNotMalware:"",
+            isNotMalware:false,
             creator:"",
             isBought:false,
             isAdmin:false
@@ -158,7 +158,7 @@ class UpdateGameComponent extends Component {
         this.setState({ price: event.target.value })
     }
     changeConfirmHandler= (event)=>{
-        this.setState({isNotMalware: event.target.value})
+        this.setState({isNotMalware: event.target.checked})
     }
 
     cancel() {
@@ -305,8 +305,8 @@ class UpdateGameComponent extends Component {
                             </React.Fragment>
                         ) :this.state.isAdmin?(<React.Fragment>
                             <button className="AdminButton" style={{ marginLeft: "10px" }} >Descargar</button>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} >Modificar juego</button>
-                            <button className="DeleteButton" style={{ marginLeft: "10px" }} >Borrar Juego</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modificar juego</button>
+                            <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Borrar Juego</button>
                         </React.Fragment>):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
                          <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
