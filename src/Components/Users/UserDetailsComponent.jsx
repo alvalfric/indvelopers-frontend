@@ -9,6 +9,7 @@ class UserDetailsComponent extends Component {
         this.state={
         }
         this.modifyUserDetails=this.modifyUserDetails.bind(this);
+        this.buySuscription=this.buySuscription.bind(this);
     }
 
     modifyUserDetails() {
@@ -18,6 +19,9 @@ class UserDetailsComponent extends Component {
         })
 
     } 
+    buySuscription(){
+        this.props.history.push("/buySubscription");
+    }
 
     getDetails = () => {
         return(
@@ -51,8 +55,10 @@ class UserDetailsComponent extends Component {
                     }
                 
                 </div>
-                <button className="Button" onClick={this.modifyUserDetails}>Edit</button> 
+                
             </div>
+            <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button> 
+            <button className="Button" onClick={this.buySuscription}>Comprar subscripción</button>
             </div>
             </React.Fragment>
         );

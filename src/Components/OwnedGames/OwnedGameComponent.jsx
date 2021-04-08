@@ -56,16 +56,10 @@ class OwnedGameComponent extends Component {
         }
     }
 
-    render() {
-        return (
-            <div>
-                {this.state.isBought?(<React.Fragment>
-                    <br/>
-                    <br/>
-                    <h1 style={{marginTop:"100px"}}>NO DEBERIAS ESTAR AQUI, VUELVE POR DONDE HAS VENIDO</h1>
-                </React.Fragment>):
-                <React.Fragment>
-                <br/>
+    getDetails=()=>{
+        return(
+        <React.Fragment>
+            <br/>
                 <br/>
                 
                 <h2>Finalizar compra</h2>
@@ -105,7 +99,16 @@ class OwnedGameComponent extends Component {
                 <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalizar compra</button>
                 </div>
                 </div>
-                </React.Fragment>
+        </React.Fragment>
+        )
+    }
+    render() {
+        return (
+            <div>
+                {this.state.isBought?(
+                    this.props.history.push(`/game-View/${this.state.id}`)
+                ):
+                this.getDetails()
                 }
             </div>
         );

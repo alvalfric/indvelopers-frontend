@@ -88,11 +88,9 @@ class CreateGameComponent extends Component {
         }
         const isValid = this.validate();
         if (isValid) {
-            //Redirigir a games
-            //this.props.history.push('/games');
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: null, isNotMalware: null, creator: null, image: this.state.image
+                , idCloud: null, isNotMalware: false, creator: null, image: this.state.image
             };
             console.log('game => ' + JSON.stringify(game));
             GameService.addGame(game).then(data => {
