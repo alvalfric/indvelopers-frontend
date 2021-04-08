@@ -24,7 +24,14 @@ export const SubscriptionService={
             }).then(res=>res.data).catch(error=>{return error})
         })
     },
-    async getSubscription(){
-        
+    async getSubscription(DevId){
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getSubscriptionUrl()+"/get/"+DevId,{
+                headers:{
+                    'Authorization':'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res=>res.data).catch(error=>{return error})
+        })
     }
 }

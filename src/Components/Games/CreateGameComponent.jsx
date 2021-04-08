@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
+import {SubscriptionService} from '../../Services/SubscriptionService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class CreateGameComponent extends Component {
             priceError: "",
             image: null,
             submitError: "",
+            isPremium:false
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -24,6 +26,9 @@ class CreateGameComponent extends Component {
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeImageHandler = this.changeImageHandler.bind(this);
+        SubscriptionService.checkHasSubscription().then((res)=>{
+            this.setState({isPremium:res})
+        })
     }
 
     validate = () => {
@@ -41,7 +46,7 @@ class CreateGameComponent extends Component {
         if (this.state.requirements.length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
-        if (AuthService.getUserData()['isPremium'] === true) {
+        if (this.state.isPremium) {
             if (this.state.price.length === 0) {
                 priceError = "The game needs a price!"
             } else if (this.state.price < 0) {
@@ -83,7 +88,7 @@ class CreateGameComponent extends Component {
 
     saveGame = (e) => {
         e.preventDefault();
-        if (AuthService.getUserData()['isPremium'] !== true) {
+        if (this.state.isPremium !== true) {
             this.state.price = 0.0;
         }
         const isValid = this.validate();
@@ -92,7 +97,6 @@ class CreateGameComponent extends Component {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                 , idCloud: null, isNotMalware: false, creator: null, image: this.state.image
             };
-            console.log('game => ' + JSON.stringify(game));
             GameService.addGame(game).then(data => {
                 if (typeof data == "string") {
                     this.props.history.push('/games')
