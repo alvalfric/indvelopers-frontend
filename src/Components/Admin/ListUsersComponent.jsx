@@ -41,7 +41,6 @@ class ListUsersComponent extends Component {
     }
 
     componentDidMount() {
-        console.log(AuthService.getUserData()['roles'].indexOf('ADMIN'))
         if (AuthService.getUserData()['roles'].indexOf('ADMIN') == -1) {
             this.props.history.push('/')
         }
