@@ -55,6 +55,16 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
+    },
+
+    async deleteDeveloper(developerId) {
+        return AuthService.getToken().then(token => {
+            return axios.delete(UrlProvider.getDeveloperUrl().concat(`/delete/${developerId}`), {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => res.data)
+        })
     } 
 
 }

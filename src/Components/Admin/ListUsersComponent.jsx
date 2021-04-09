@@ -7,17 +7,19 @@ class ListUsersComponent extends Component {
 
     constructor(props) {
         super(props)
-
+        this.usuario = null
         this.state = {
             users: null,
             rawUsers: null,
             offset: 0,
             perPage: 5,
             pageCount: 0,
-            currentPage: 0
+            currentPage: 0,
+            user : null
         }
 
         this.handlePageClick = this.handlePageClick.bind(this);
+        this.getUserDetails = this.getUserDetails.bind(this);
     }
 
     handlePageClick = (e) => {
@@ -54,12 +56,24 @@ class ListUsersComponent extends Component {
         })
     }
 
+    getUserDetails(user) {
+        if (AuthService.getUserData()['roles'].indexOf('ADMIN') == -1) {
+            this.props.history.push('/')
+        }else{
+                this.props.history.push({
+                    pathname:`/admin/edit/` + user.id,
+                    state: { profile: user }
+                })
+        }
+    }
+
     showList() {
         return (
             <div>
                 { !this.state.users ? null :
                     this.state.users.map(
                         user => {
+                            this.usuario = user
                             return (
                                 <div>
                                     <br />
@@ -70,6 +84,9 @@ class ListUsersComponent extends Component {
                                         <div className="w3-container">
                                             <p>Roles: {user.roles.join(', ')}</p>
                                         </div>
+                                        <div>
+                                        <button className="Button" onClick={() => this.getUserDetails(user)}>Detalles de usuario</button>
+                                        </div>    
                                     </div>
                                 </div>
                             )
