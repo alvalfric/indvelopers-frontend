@@ -33,6 +33,7 @@ class AboutUsComponent extends Component{
 								<img src={user} alt="Fernando" width={50}/>
 								<h3> Fernando Wals</h3>
 								<p>Project Manager</p>
+								<p>Desarrollador</p>
 							</div>
 
 							<div class="container">
@@ -43,13 +44,15 @@ class AboutUsComponent extends Component{
 
 							<div class="container">
 								<img src={user} alt="Moises" width={50}/>
-								<h3> Moises Romero</h3>
+								<h3> Moisés Romero</h3>
 								<p>Desarrollador</p>
 							</div>
 
+							<br></br>
+
 							<div class="container">
 								<img src={user} alt="David" width={50}/>
-								<h3> Davi Cáceres</h3>
+								<h3> David Cáceres</h3>
 								<p>Desarrollador</p>
 							</div>
 						
@@ -58,13 +61,14 @@ class AboutUsComponent extends Component{
 						
 							<div class="container">
 								<img src={user} alt="Alvaro" width={50}/>
-								<h3> Alvaro Alferez</h3>
+								<h3> Álvaro Alferez</h3>
 								<p>Jefe Back End</p>
+								<p>Desarrollador</p>
 							</div>
 
 							<div class="container">
 								<img src={user} alt="Alejandro" width={50}/>
-								<h3> Alejandro Gonzalez</h3>
+								<h3> Alejandro González</h3>
 								<p>Desarrollador</p>
 							</div>
 
@@ -73,6 +77,8 @@ class AboutUsComponent extends Component{
 								<h3> Gonzalo Fernández</h3>
 								<p>Desarrollador</p>
 							</div>
+
+							<br></br>
 
 							<div class="container">
 								<img src={user} alt="Marta" width={50}/>
@@ -89,9 +95,13 @@ class AboutUsComponent extends Component{
 								<p>Desarrollador</p>
 							</div>
 
+							<br></br>
+							
+
 							<div class="container">
 								<img src={user} alt="Elena" width={50}/>
 								<h3> Elena España</h3>
+								<p>Directora Marketing</p>
 								<p>Desarrollador</p>
 							</div>
 
