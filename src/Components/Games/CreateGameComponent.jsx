@@ -174,6 +174,7 @@ class CreateGameComponent extends Component {
                             {this.state.submitError}
                         </div>) : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
+                        <p className="text-danger">* No verás tu juego publicado hasta que no sea revisado por un admin</p>
                     </form>
                 </div>
             </div>

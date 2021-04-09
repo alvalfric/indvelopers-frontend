@@ -18,7 +18,9 @@ class GamesComponent extends Component {
         }
         this.handlePageClick=this.handlePageClick.bind(this);
         this.createGame = this.createGame.bind(this);
-        this.MyOwnedGames=this.MyOwnedGames.bind(this);
+        this.MyOwnedGames = this.MyOwnedGames.bind(this);
+        this.ListGamesToRevise = this.ListGamesToRevise.bind(this);
+        this.componentDidMount = this.componentDidMount.bind(this);
     }
     handlePageClick= (e)=>{
         const selectedPage=e.selected;
@@ -44,7 +46,7 @@ class GamesComponent extends Component {
             var slice=data.slice(this.state.offset,this.state.offset + this.state.perPage)
             this.setState({ games : slice,
             pageCount: Math.ceil(data.length/this.state.perPage),
-        rawGames:data})
+            rawGames:data})
         })
 
     }
@@ -75,6 +77,21 @@ class GamesComponent extends Component {
         } else {
             this.props.history.push('/login')
         }
+      }
+
+      ListGamesToRevise() {
+        if(AuthService.isAuthenticated()) {
+            GameService.findGamesToRevise().then(res => {
+              var slice=res.slice(this.state.offset,this.state.offset + this.state.perPage)
+              this.setState({
+                pageCount: Math.ceil(res.length/this.state.perPage),
+                games : slice,
+                rawGames : res
+              })
+            })
+        } else {
+            this.props.history.push('/login')
+        }
     }
 
     render() {
@@ -83,8 +100,16 @@ class GamesComponent extends Component {
                     <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1>
                     <div className="row">
                         <button className="Button" onClick={this.createGame}>Crear juego</button>
-                        
                         <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
+                        {AuthService.isAuthenticated()?  
+                          AuthService.getUserData().roles.includes("ADMIN")?
+                            <React.Fragment>
+                            <button onClick={this.componentDidMount} style={{marginLeft:"10px", backgroundColor:"yellow", color:"black"}}>Juegos Revisados</button>
+                            <button onClick={this.ListGamesToRevise} style={{marginLeft:"10px", backgroundColor:"yellow", color:"black"}}>Juegos para revisar</button>
+                            </React.Fragment>
+                            :null
+                        :null
+                        }
                     </div>
                     <br/>
                     <div className="row row-cols-1 row-cols-md-4">
