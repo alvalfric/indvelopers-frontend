@@ -85,7 +85,7 @@ class HeaderComponent extends Component {
 
             {AuthService.getUserData()['roles'].indexOf('ADMIN') != -1 ?
               <React.Fragment>
-                <a href="/listUsers" style={{ float: "left", backgroundColor: "purple" }}>List users</a>
+                <a href="/listUsers" style={{ float: "left", backgroundColor: "yellow", color: "black" }}>List users</a>
               </React.Fragment>
               :
               <React.Fragment>
