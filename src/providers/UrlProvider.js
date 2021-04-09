@@ -6,6 +6,7 @@ const ME = '/me'
 const PUBLICATIONS="/publications"
 const OWNEDGAMES="/ownedGames"
 const REVIEWS="/reviews"
+const ABOUTUS="/about-us"
 
 
 export const UrlProvider={
@@ -32,5 +33,9 @@ export const UrlProvider={
 
     getReviewUrl(){
         return DEPLOYED_URL + REVIEWS;
+    },
+    
+    getAboutUsUrl(){
+        return DEPLOYED_URL + ABOUTUS;
     }
 }
