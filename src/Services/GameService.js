@@ -58,5 +58,11 @@ export const GameService = {
                 }
             })
         })
+    },
+
+    async findGamesToRevise() {
+        return axios.get(UrlProvider.getGameUrl() + '/findNotRevised').then(res => res.data)
+        .catch(error => {return error.response.status})
     }
+
 }
