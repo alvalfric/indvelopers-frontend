@@ -104,8 +104,8 @@ class GamesComponent extends Component {
                         {AuthService.isAuthenticated()?  
                           AuthService.getUserData().roles.includes("ADMIN")?
                             <React.Fragment>
-                            <button onClick={this.componentDidMount} style={{marginLeft:"10px", backgroundColor:"yellow", color:"black"}}>Juegos Revisados</button>
-                            <button onClick={this.ListGamesToRevise} style={{marginLeft:"10px", backgroundColor:"yellow", color:"black"}}>Juegos para revisar</button>
+                            <button onClick={this.componentDidMount} className="AdminButton" style={{marginLeft:"10px"}}>Juegos Revisados</button>
+                            <button onClick={this.ListGamesToRevise} className="AdminButton" style={{marginLeft:"10px"}}>Juegos para revisar</button>
                             </React.Fragment>
                             :null
                         :null
