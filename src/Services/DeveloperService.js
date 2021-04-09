@@ -55,6 +55,16 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
-    } 
+    },
+
+    async changeToAdmin(userId) {
+        return AuthService.getToken().then(token => {
+            return axios.put(UrlProvider.getDeveloperUrl().concat(`/changeToAdmin/${userId}`), {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => res.data)
+        })
+    }
 
 }

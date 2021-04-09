@@ -20,14 +20,17 @@ class ListUsersComponent extends Component {
         this.handlePageClick = this.handlePageClick.bind(this);
     }
 
-    handlePageClick = (e) => {
-        const selectedPage = e.selected;
-        const offset = selectedPage * this.state.perPage;
-        this.setState({
-            currentPage: selectedPage,
-            offset: offset
-        }, () => {
-            this.loadMoreData()
+    componentDidMount() {
+        if (!AuthService.isAuthenticated() || AuthService.getUserData()['roles'].indexOf('ADMIN') == -1) {
+            this.props.history.push('/')
+        }
+        DeveloperService.getAll().then(res => {
+            var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
+            this.setState({
+                users: slice,
+                pageCount: Math.ceil(res.length / this.state.perPage),
+                rawUsers: res
+            })
         })
     }
 
@@ -40,18 +43,19 @@ class ListUsersComponent extends Component {
         })
     }
 
-    componentDidMount() {
-        if (AuthService.getUserData()['roles'].indexOf('ADMIN') == -1) {
-            this.props.history.push('/')
-        }
-        DeveloperService.getAll().then(res => {
-            var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
-            this.setState({
-                users: slice,
-                pageCount: Math.ceil(res.length / this.state.perPage),
-                rawUsers: res
-            })
+    handlePageClick = (e) => {
+        const selectedPage = e.selected;
+        const offset = selectedPage * this.state.perPage;
+        this.setState({
+            currentPage: selectedPage,
+            offset: offset
+        }, () => {
+            this.loadMoreData()
         })
+    }
+
+    changeToAdmin(id) {
+        DeveloperService.changeToAdmin(id).then(() => this.props.history.push('/'))
     }
 
     showList() {
@@ -68,7 +72,11 @@ class ListUsersComponent extends Component {
                                             <h5>{user.username}</h5>
                                         </header>
                                         <div className="w3-container">
-                                            <p>Roles: {user.roles.join(', ')}</p>
+                                            <p>Roles: {user.roles.join(', ')} {user.roles.indexOf('ADMIN') == -1 ?
+                                                <button className="AdminButton" style={{ float: "right" }} onClick={() => this.changeToAdmin(user.id)}>Change user to admin</button>
+                                                :
+                                                null
+                                            }</p>
                                         </div>
                                     </div>
                                 </div>
