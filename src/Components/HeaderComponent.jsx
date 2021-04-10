@@ -31,7 +31,7 @@ class HeaderComponent extends Component {
         <a href="#">Novedades</a>
         <a href="/games">Juegos</a>
         <a href="#">FAQ</a>
-        <a href="#">Sobre nosotros</a>
+        <a href="/about-us">Sobre nosotros</a>
         {AuthService.isAuthenticated() ?
           <React.Fragment>
             <a href="/logout" style={{ float: "right", backgroundColor: "red" }}>Logout</a>

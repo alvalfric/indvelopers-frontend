@@ -1,4 +1,4 @@
-const DEPLOYED_BASE_URL="https://indvelopers-level-1.herokuapp.com"
+const DEPLOYED_URL="https://continuous-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
@@ -7,6 +7,7 @@ const PUBLICATIONS="/publications"
 const OWNEDGAMES="/ownedGames"
 const REVIEWS="/reviews"
 const SUBSCRIPTION="/subscription"
+
 
 
 export const UrlProvider={
@@ -37,4 +38,5 @@ export const UrlProvider={
     getSubscriptionUrl(){
         return BASE_URL + SUBSCRIPTION;
     }
+
 }
