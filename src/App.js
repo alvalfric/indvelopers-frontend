@@ -23,6 +23,7 @@ import UserDetailsComponent from './Components/Users/UserDetailsComponent';
 import EditUserDetailsComponent from './Components/Users/EditUserDetailsComponent';
 import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionComponent';
 import ListUsersComponent from './Components/Admin/ListUsersComponent';
+import ListMyGamesComponent from './Components/MyGames/ListMyGamesComponent';
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
              <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
              <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
              <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
+             <Route path="/my-games" component={ListMyGamesComponent}></Route>
              <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
              <Route path="/me" component={UserDetailsComponent}></Route>
              <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>

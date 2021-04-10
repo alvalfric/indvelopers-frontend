@@ -19,6 +19,7 @@ class GamesComponent extends Component {
         this.handlePageClick=this.handlePageClick.bind(this);
         this.createGame = this.createGame.bind(this);
         this.MyOwnedGames = this.MyOwnedGames.bind(this);
+        this.MyCreatedGames = this.MyCreatedGames.bind(this);
         this.ListGamesToRevise = this.ListGamesToRevise.bind(this);
         this.componentDidMount = this.componentDidMount.bind(this);
     }
@@ -68,6 +69,14 @@ class GamesComponent extends Component {
 
       }
 
+      MyCreatedGames() {
+        if(AuthService.isAuthenticated()){
+          this.props.history.push('/my-games')
+        }else{
+          this.props.history.push('/login')
+        }
+      }
+
       editGame(id) {
         if(AuthService.isAuthenticated()) {
             GameService.getGameById(id).then(res => {
@@ -101,6 +110,7 @@ class GamesComponent extends Component {
                     <div className="row">
                         <button className="Button" onClick={this.createGame}>Crear juego</button>
                         <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
+                        <button className="Button" onClick={this.MyCreatedGames} style={{marginLeft:"10px"}}> Mis juegos creados</button>
                         {AuthService.isAuthenticated()?  
                           AuthService.getUserData().roles.includes("ADMIN")?
                             <React.Fragment>
