@@ -179,8 +179,19 @@ class CreateGameComponent extends Component {
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Imagen:</label>
-                            <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                        {this.state.base64TextString !== "" ?
+                            <React.Fragment>
+                                <label>Imágen actual: </label>
+                                < br />
+                                <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
+                            </React.Fragment>
+                        :
+                            <React.Fragment>
+                                <label>Imágen: </label>
+                            </React.Fragment>
+                        }
+                        < br />
+                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">
