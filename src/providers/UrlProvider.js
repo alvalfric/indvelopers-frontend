@@ -6,37 +6,33 @@ const ME = '/me'
 const PUBLICATIONS="/publications"
 const OWNEDGAMES="/ownedGames"
 const REVIEWS="/reviews"
-const ABOUTUS="/about-us"
 
 
 
 export const UrlProvider={
 
     getDeveloperUrl(){
-        return DEPLOYED_URL + DEVELOPERS;
+        return BASE_URL + DEVELOPERS;
     },
 
     getGameUrl(){
-        return DEPLOYED_URL + GAMES;
+        return BASE_URL + GAMES;
     },
 
     getPublicationUrl(){
-        return DEPLOYED_URL + PUBLICATIONS;
+        return BASE_URL + PUBLICATIONS;
     },
 
     getMeUrl(){
-        return DEPLOYED_URL + DEVELOPERS + ME;
+        return BASE_URL + DEVELOPERS + ME;
     },
     
     getOwnedGamesUrl(){
-        return DEPLOYED_URL + OWNEDGAMES;
+        return BASE_URL + OWNEDGAMES;
     },
 
     getReviewUrl(){
-        return DEPLOYED_URL + REVIEWS;
+        return BASE_URL + REVIEWS;
     },
     
-    getAboutUsUrl(){
-        return BASE_URL + ABOUTUS;
-    }
 }
