@@ -16,7 +16,8 @@ class CreateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
-            image: null,
+            imagen: "",
+            base64TextString: "",
             submitError: "",
             isPremium:false
         }
@@ -25,7 +26,7 @@ class CreateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
-        this.changeImageHandler = this.changeImageHandler.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
@@ -82,8 +83,21 @@ class CreateGameComponent extends Component {
         this.setState({ price: event.target.value })
     }
 
-    changeImageHandler = (event) => {
-        this.setState({ image: event.target.value });
+    changeImagenHandler = (event) => {
+        console.log("File to upload: ", event.target.files[0])
+        let file = event.target.files[0]
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this)
+            reader.readAsBinaryString(file)
+        }
+        this.setState({ imagen: event.target.value });
+    }
+    _handleReaderLoaded = (readerEvt) => {
+        let binaryString = readerEvt.target.result
+        this.setState({
+            base64TextString: btoa(binaryString)
+        })
     }
 
     saveGame = (e) => {
@@ -95,7 +109,7 @@ class CreateGameComponent extends Component {
         if (isValid) {
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: null, isNotMalware: false, creator: null, image: this.state.image
+                , idCloud: null, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             GameService.addGame(game).then(data => {
                 if (typeof data == "string") {
@@ -166,8 +180,7 @@ class CreateGameComponent extends Component {
                         </div>
                         <div className="form-group">
                             <label>Imagen:</label>
-                            <p>Subida de imágenes WIP</p>
-                            {/* <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} /> */}
+                            <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">
