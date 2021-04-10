@@ -9,6 +9,7 @@ const REVIEWS="/reviews"
 const ABOUTUS="/about-us"
 
 
+
 export const UrlProvider={
 
     getDeveloperUrl(){
@@ -36,6 +37,6 @@ export const UrlProvider={
     },
     
     getAboutUsUrl(){
-        return DEPLOYED_URL + ABOUTUS;
+        return BASE_URL + ABOUTUS;
     }
 }
