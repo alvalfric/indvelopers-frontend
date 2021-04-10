@@ -22,6 +22,9 @@ import CreateReviewComponent from './Components/Reviews/CreateReviewComponent';
 import UserDetailsComponent from './Components/Users/UserDetailsComponent';
 import EditUserDetailsComponent from './Components/Users/EditUserDetailsComponent';
 import AboutUsComponent from './Components/AboutUsComponent';
+import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionComponent';
+import ListUsersComponent from './Components/Admin/ListUsersComponent';
+
 
 
 function App() {
@@ -52,6 +55,8 @@ function App() {
              <Route path="/me" component={UserDetailsComponent}></Route>
              <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
              <Route path="/about-us" component={AboutUsComponent}></Route>
+             <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
+             <Route path="/listUsers" component={ListUsersComponent}></Route>
           </Switch>
           </div>
         </div>

@@ -6,6 +6,7 @@ const ME = '/me'
 const PUBLICATIONS="/publications"
 const OWNEDGAMES="/ownedGames"
 const REVIEWS="/reviews"
+const SUBSCRIPTION="/subscription"
 
 
 
@@ -34,5 +35,8 @@ export const UrlProvider={
     getReviewUrl(){
         return BASE_URL + REVIEWS;
     },
-    
+    getSubscriptionUrl(){
+        return BASE_URL + SUBSCRIPTION;
+    }
+
 }
