@@ -50,9 +50,8 @@ class UpdateGameComponent extends Component {
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
-                imagen: game.imagen
+                base64TextString: game.imagen
             });
-            console.log(this.state.imagen)
             OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
                 this.setState({isBought:res.data})
             })
@@ -90,6 +89,7 @@ class UpdateGameComponent extends Component {
         const isValid = this.validate();
         let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
                     , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString};
+        console.log('game: ' + JSON.stringify(game))
         if(isValid){
         GameService.updateGame(game, this.state.id).then(data => {
             if (typeof data == "string") {
@@ -209,14 +209,17 @@ class UpdateGameComponent extends Component {
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
                                     <label>Título</label>
-                                    <input placeholder="Title" name="title" className="form-control"
-                                        value={this.state.title} onChange={this.changeTitleHandler}></input>
+                                    <input placeholder="Title" name="title" className="form-control" value={this.state.title} onChange={this.changeTitleHandler} />
+                                    <label>Imágen actual: </label>
+                                    < br />
+                                    <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
+                                    < br />
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64,"+this.state.imagen} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                                        <img src={"data:image/png;base64,"+this.state.base64TextString} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>
