@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import OwnedGameService from '../../Services/OwnedGameService';
+import {CloudService} from '../../Services/CloudService';
 
 class ListOwnedGamesComponent extends Component {
 
@@ -8,11 +9,19 @@ class ListOwnedGamesComponent extends Component {
         this.state={
             myGames:[]
         }
+        this.downloadGame=this.downloadGame.bind(this);
     }
 
     componentDidMount(){
         OwnedGameService.findAllMyOwnedGames().then((res)=>{
             this.setState({myGames:res.data});
+        })
+    }
+    downloadGame=(e,id)=>{
+        e.preventDefault()
+        CloudService.downloadFile(id).then(res=>{
+            const FileDownload = require('js-file-download')
+            FileDownload(res,'game.zip')
         })
     }
     render() {
@@ -31,7 +40,7 @@ class ListOwnedGamesComponent extends Component {
                     <div className="card-body"> 
                         <p class="card-text" className="text-muted">{ game.description } </p>
                         <p>
-                            <button className="ModifyButton">Descargar(Próximamente)</button>
+                            <button className="ModifyButton" onClick={(e)=>this.downloadGame(e,game.idCloud)}>Descargar</button>
                         </p>
                     </div>
                 </div>

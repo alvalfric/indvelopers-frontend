@@ -33,7 +33,7 @@ export const DeveloperService = {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
-            }).then(res => res.data)
+            }).then(res => res.data).catch(error => {return error.response.status})
         })
     },
 

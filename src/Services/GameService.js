@@ -4,6 +4,10 @@ import { UrlProvider } from '../providers/UrlProvider';
 
 export const GameService = {
 
+    async findVerified(){
+        return axios.get(UrlProvider.getGameUrl()+"/findVerified").then(res=>res.data)
+        .catch(error=>{return error.response.status})
+    },
     async findAll() {
             //return axios.get( UrlProvider.getGamesUrl + `/findAll`).then(res => res.data)
             return axios.get(UrlProvider.getGameUrl() + '/findAll').then(res => res.data)
@@ -54,5 +58,11 @@ export const GameService = {
                 }
             })
         })
+    },
+
+    async findGamesToRevise() {
+        return axios.get(UrlProvider.getGameUrl() + '/findNotRevised').then(res => res.data)
+        .catch(error => {return error.response.status})
     }
+
 }

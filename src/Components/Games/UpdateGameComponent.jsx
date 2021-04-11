@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import { AuthService } from '../../Services/AuthService';
-import portada from '../../assets/JuegoPortada.jpg';
 import OwnedGameService from '../../Services/OwnedGameService';
 import ListReviewComponent from '../Reviews/ListReviewComponent';
 import { ReviewService } from '../../Services/ReviewService';
+import {CloudService} from '../../Services/CloudService';
+import saveAs from 'jszip';
+import { UrlProvider } from '../../providers/UrlProvider';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -22,10 +24,14 @@ class UpdateGameComponent extends Component {
             price: "",
             priceError: "",
             idCloud:"",
-            isNotMalware:"",
+            isNotMalware:false,
             creator:"",
-            isBought:false
+            imagen: "",
+            base64TextString: "",
+            isBought:false,
+            isAdmin:false
         }
+        this.downloadGame=this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame = this.deleteGame.bind(this);
@@ -33,6 +39,8 @@ class UpdateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
+        this.changeConfirmHandler=this.changeConfirmHandler.bind(this);
     }
 
     componentDidMount() {
@@ -45,11 +53,21 @@ class UpdateGameComponent extends Component {
                 price: game.price + "",
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
-                creator: game.creator
+                creator: game.creator,
+                imagen: game.imagen
             });
+            console.log(this.state.imagen)
+            console.log("IDCLOUD===>"+JSON.stringify(this.state.idCloud))
             OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
                 this.setState({isBought:res.data})
             })
+         var roles= AuthService.getUserData()['roles']
+         for(var i=0;i<roles.length;i++){
+             if(roles[i]=="ADMIN"){
+                 this.setState({isAdmin:true})
+                 break;
+             }
+         }
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -68,6 +86,13 @@ class UpdateGameComponent extends Component {
             this.props.history.push('/games');
         })
     }
+    downloadGame=(e)=>{
+        e.preventDefault()
+        CloudService.downloadFile(this.state.idCloud).then(res=>{
+            const FileDownload = require('js-file-download')
+            FileDownload(res,'game.zip')
+        })
+    }
 
     updateGame = (e) => {
         e.preventDefault();
@@ -76,7 +101,7 @@ class UpdateGameComponent extends Component {
         }
         const isValid = this.validate();
         let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                    , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator};
+                    , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString};
         if(isValid){
         GameService.updateGame(game, this.state.id).then(data => {
             if (typeof data == "string") {
@@ -148,6 +173,26 @@ class UpdateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+    changeConfirmHandler= (event)=>{
+        this.setState({isNotMalware: event.target.checked})
+    }
+
+    changeImagenHandler = (event) => {
+        console.log("File to upload: ", event.target.files[0])
+        let file = event.target.files[0]
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this)
+            reader.readAsBinaryString(file)
+        }
+        this.setState({ imagen: event.target.value });
+    }
+    _handleReaderLoaded = (readerEvt) => {
+        let binaryString = readerEvt.target.result
+        this.setState({
+            base64TextString: btoa(binaryString)
+        })
+    }
 
     cancel() {
         this.props.history.push('/games');
@@ -178,11 +223,12 @@ class UpdateGameComponent extends Component {
                                     <label>Título</label>
                                     <input placeholder="Title" name="title" className="form-control"
                                         value={this.state.title} onChange={this.changeTitleHandler}></input>
+                                    <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={portada} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                                        <img src={"data:image/png;base64,"+this.state.imagen} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>
@@ -262,6 +308,13 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
+                        {this.state.isAdmin?(
+                        <div class="custom-control custom-checkbox">
+                        <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware}/>
+                       <label style={{color:"#838383"}}>¿Es seguro este software para la comunidad indie?</label>
+                             </div>)
+                             :null}
+                        
                         <div>
                             <br />
                             <h3>Reviews</h3>
@@ -284,7 +337,11 @@ class UpdateGameComponent extends Component {
                                 <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                                 <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                             </React.Fragment>
-                        ) : this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
+                        ) :this.state.isAdmin?(<React.Fragment>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e)=>this.downloadGame(e)} >Descargar</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modificar juego</button>
+                            <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Borrar Juego</button>
+                        </React.Fragment>):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
                          <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
                     </form>

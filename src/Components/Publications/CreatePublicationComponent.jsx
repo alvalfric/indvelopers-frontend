@@ -6,55 +6,73 @@ import PublicationService from '../../Services/PublicationService';
 
 class CreatePublicationComponent extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
 
-        this.state={
-            username:"",
-            imagen:null,
-            text:"",
-            textError:"",
-            userPicture:null
-            
+        this.state = {
+            username: "",
+            imagen: "",
+            base64TextString: "",
+            text: "",
+            textError: "",
+            userPicture: null
+
         }
-        this.savePublication=this.savePublication.bind(this);
-        this.changeImagenHandler=this.changeImagenHandler.bind(this);
-        this.changeTextHandler=this.changeTextHandler.bind(this);
+
+        this.savePublication = this.savePublication.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
+        this.changeTextHandler = this.changeTextHandler.bind(this);
     }
-    validate =()=>{
-        let textError="";
-        if(this.state.text.length===0){
-            textError="Debes escribir algo para publicar"
+    validate = () => {
+        let textError = "";
+
+        if (this.state.text.length === 0) {
+            textError = "Debes escribir algo para publicar"
         }
-        
-            this.setState({textError});
-        if(textError){
+
+        this.setState({ textError });
+        if (textError) {
             return false;
-        }else{
+        } else {
             return true;
         }
-        
+
     }
 
-    cancel(){
+    cancel() {
         this.props.history.push('/publication-List');
+    }
+    changeTextHandler = (event) => {
+        this.setState({ text: event.target.value });
+    }
 
+    changeImagenHandler = (event) => {
+        console.log("File to upload: ", event.target.files[0])
+        let file = event.target.files[0]
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this)
+            reader.readAsBinaryString(file)
+        }
+        this.setState({ imagen: event.target.value });
     }
-    changeImagenHandler=(event)=>{
-        this.setState({imagen:event.target.value});
+    _handleReaderLoaded = (readerEvt) => {
+        let binaryString = readerEvt.target.result
+        this.setState({
+            base64TextString: btoa(binaryString)
+        })
+    }
 
-    }
-    changeTextHandler=(event)=>{
-        this.setState({text:event.target.value});
-    }
-    savePublication= (e)=>{
+    savePublication = (e) => {
         e.preventDefault();
-        const isValid=this.validate();
-        if(isValid){
-            let publication={username:AuthService.getUserData()['username'],userPicture:null,
-            text:this.state.text,imagen:null,developer:null}
+        const isValid = this.validate();
+        if (isValid) {
+            let publication = {
+                username: AuthService.getUserData()['username'], userPicture: null,
+                text: this.state.text, imagen: this.state.base64TextString, developer: null
+            }
             console.log('Publication=>' + JSON.stringify(publication));
-            PublicationService.AddPublication(publication).then(res=>{
+            PublicationService.AddPublication(publication).then(res => {
                 this.props.history.push('/publication-List');
             })
             //Change it when connect to the back end
@@ -66,25 +84,35 @@ class CreatePublicationComponent extends Component {
             <div>
                 <br></br>
                 <br></br>
-                <form> 
+                <form>
                     <div className="form-group">
-                      <label>Descripción</label>
-                        <textarea placeholder="Descripción"  name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
-                       {this.state.textError ?( <div className="ValidatorMessage">
+                        <label>Descripción</label>
+                        <textarea placeholder="Descripción" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
+                        {this.state.textError ? (<div className="ValidatorMessage">
                             {this.state.textError}
-                        </div> ): null}
+                        </div>) : null}
                     </div>
                     <div className="form-group">
                         <input name="userPicture" type="hidden" className="form-control" value={this.state.userPicture} />
                     </div>
                     <div className="form-group">
-                    <label>Imagen:</label>
-                    <p>Subida de imágenes WIP</p>
-                    {/* <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.imagen} onChange={this.changeImagenHandler} /> */}
+                        {this.state.base64TextString !== "" ?
+                            <React.Fragment>
+                                <label>Imágen actual: </label>
+                                < br />
+                                <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
+                            </React.Fragment>
+                        :
+                            <React.Fragment>
+                                <label>Imágen: </label>
+                            </React.Fragment>
+                        }
+                        < br />
+                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
                     <button className="AceptButton" onClick={this.savePublication}>Crear publicación</button>
-                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft: "10px"}}>Cancelar</button>   
-                    </form> 
+                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
+                </form>
             </div>
         );
     }
