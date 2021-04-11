@@ -88,14 +88,12 @@ class CreateGameComponent extends Component {
     }
     changeGameHandler=(event) =>{
         event.preventDefault()
-        console.warn("Game to upload==>"+event.target.files[0])
         const zip = require('jszip')();
         let file=event.target.files[0];
         zip.file(file.name,file);
         zip.generateAsync({type:"blob"}).then(content=>{
             CloudService.uploadFile(content).then(res=>{
                 this.setState({idCloud:res})
-                console.log("IDCLOUD(AQUII)====>"+JSON.stringify(this.state.idCloud))
             })
         })
         
@@ -202,7 +200,7 @@ class CreateGameComponent extends Component {
                         </div>
                         <div className="form-group">
                         <label>Game:</label>
-                        <input name="GameFile" type="file" className="ButtonFileLoad" multiple  onChange={(e)=>this.changeGameHandler(e)}/>
+                        <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">

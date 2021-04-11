@@ -4,6 +4,9 @@ import { AuthService } from '../../Services/AuthService';
 import OwnedGameService from '../../Services/OwnedGameService';
 import ListReviewComponent from '../Reviews/ListReviewComponent';
 import { ReviewService } from '../../Services/ReviewService';
+import {CloudService} from '../../Services/CloudService';
+import saveAs from 'jszip';
+import { UrlProvider } from '../../providers/UrlProvider';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -28,6 +31,7 @@ class UpdateGameComponent extends Component {
             isBought:false,
             isAdmin:false
         }
+        this.downloadGame=this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame = this.deleteGame.bind(this);
@@ -53,6 +57,7 @@ class UpdateGameComponent extends Component {
                 imagen: game.imagen
             });
             console.log(this.state.imagen)
+            console.log("IDCLOUD===>"+JSON.stringify(this.state.idCloud))
             OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
                 this.setState({isBought:res.data})
             })
@@ -79,6 +84,13 @@ class UpdateGameComponent extends Component {
         e.preventDefault()
         GameService.deleteGame(this.state.id).then(() => {
             this.props.history.push('/games');
+        })
+    }
+    downloadGame=(e)=>{
+        e.preventDefault()
+        CloudService.downloadFile(this.state.idCloud).then(res=>{
+            const FileDownload = require('js-file-download')
+            FileDownload(res,'game.zip')
         })
     }
 
@@ -326,7 +338,7 @@ class UpdateGameComponent extends Component {
                                 <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                             </React.Fragment>
                         ) :this.state.isAdmin?(<React.Fragment>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} >Descargar</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e)=>this.downloadGame(e)} >Descargar</button>
                             <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modificar juego</button>
                             <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Borrar Juego</button>
                         </React.Fragment>):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):

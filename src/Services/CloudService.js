@@ -19,13 +19,19 @@ export const CloudService={
         })
     },
     async downloadFile(idCloud){
+       // const FileDownload = require('js-file-download')
         return AuthService.getToken().then((token)=>{
             return axios.get(UrlProvider.getCloudUrl()+"/download/"+idCloud,{
                 headers:{
                     'Authorization':'Bearer '+token,
-                    'Accept': '*/*'
-                }
-            }).then(res=>res.data).catch(error=>{return error})
+                    'Accept': '*/*',
+                    'Content-Type': "application/octet-stream",
+                    'Content-Disposition': "attachment;filename=game.zip"
+                },
+                responseType:'blob'
+            }).then(res=>res.data
+                //FileDownload(res.data,'game.zip')
+            ).catch(error=>{return error})
         })
 
     },
