@@ -76,7 +76,7 @@ class HeaderComponent extends Component {
   <a href="/publication-List" >Publicaciones</a>
   <a href="#">Novedades</a>
   <a href="/games">Juegos</a>
-  <a href="#">FAQ</a>
+  <a href="/faq">FAQ</a>
   <a href="#">Sobre nosotros</a>
   {AuthService.isAuthenticated()?
     <React.Fragment>
