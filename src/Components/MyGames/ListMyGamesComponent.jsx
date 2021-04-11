@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
-import MyGameService from '../../Services/MyGameService';
 
 class ListMyGamesComponent extends Component {
     constructor(props){
@@ -26,7 +25,7 @@ class ListMyGamesComponent extends Component {
     }
 
     componentDidMount() {
-        MyGameService.findAllMyCreatedGames().then((res) => {
+        GameService.findAllMyCreatedGames().then((res) => {
             this.setState({myCreatedGames:res.data});
             
             let myg = {myCreatedGames: this.state.myCreatedGames};

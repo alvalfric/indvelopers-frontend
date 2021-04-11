@@ -63,6 +63,17 @@ export const GameService = {
     async findGamesToRevise() {
         return axios.get(UrlProvider.getGameUrl() + '/findNotRevised').then(res => res.data)
         .catch(error => {return error.response.status})
+    },
+
+    async findAllMyCreatedGames() {
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getGameUrl() + "/findMyGames",{
+                headers:{
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
+                }
+            }).catch(error=>{return error})
+        })
     }
 
 }
