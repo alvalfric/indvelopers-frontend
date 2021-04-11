@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
 import {SubscriptionService} from '../../Services/SubscriptionService';
+import saveAs from 'jszip';
+import {CloudService} from '../../Services/CloudService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -19,7 +21,8 @@ class CreateGameComponent extends Component {
             imagen: "",
             base64TextString: "",
             submitError: "",
-            isPremium:false
+            isPremium:false,
+            idCloud:""
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -27,6 +30,7 @@ class CreateGameComponent extends Component {
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
+        this.changeGameHandler=this.changeGameHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
@@ -82,6 +86,18 @@ class CreateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+    changeGameHandler=(event) =>{
+        event.preventDefault()
+        const zip = require('jszip')();
+        let file=event.target.files[0];
+        zip.file(file.name,file);
+        zip.generateAsync({type:"blob"}).then(content=>{
+            CloudService.uploadFile(content).then(res=>{
+                this.setState({idCloud:res})
+            })
+        })
+        
+    }
 
     changeImagenHandler = (event) => {
         console.log("File to upload: ", event.target.files[0])
@@ -109,7 +125,7 @@ class CreateGameComponent extends Component {
         if (isValid) {
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: null, isNotMalware: false, creator: null, imagen: this.state.base64TextString
+                , idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             GameService.addGame(game).then(data => {
                 if (typeof data == "string") {
@@ -192,6 +208,10 @@ class CreateGameComponent extends Component {
                         }
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                        </div>
+                        <div className="form-group">
+                        <label>Game:</label>
+                        <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">
