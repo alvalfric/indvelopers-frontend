@@ -106,7 +106,7 @@ class GamesComponent extends Component {
     render() {
         return (
                 <div className='container'  >
-                    <h1 style={{paddingTop: '10%'}}>Lista de Juegos</h1>
+                    <h1 style={{paddingTop: '5%'}}>Lista de Juegos</h1>
                     <div className="row">
                         <button className="Button" onClick={this.createGame}>Crear juego</button>
                         <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
@@ -122,18 +122,23 @@ class GamesComponent extends Component {
                         }
                     </div>
                     <br/>
-                    <div className="row row-cols-1 row-cols-md-4">
+                    <div>
                         { this.state.games.map((item) =>
-                            <div className="col mb-4">
-                            <div className="card">
-                                <div className="card-header bg-success border-primary"> 
-                                    <h5 className="card-title" class="text-dark">{ item.title }</h5>
+                            <div className="pb-4">
+                            <div className="w3-card-4">
+                              <div className="w3-container">
+                                <div className="container">
+                                  <img className="p-5" src={"data:image/png;base64,"+this.state.imagen} style={{ width: "100%", display: "block" }} />
+                                    <h4>{ item.title }</h4>
                                 </div>
-                                <div className="card-body"> 
-                                    <p class="card-text" className="text-muted"> Price: { item.price }€ </p>
-                                    <p>
-                                        <button onClick={() => this.editGame(item.id)} className="ModifyButton">Detalles</button>
+                                <div className="w3-container p-3"> 
+                                    <p class="card-text">
+
+                                      Price: { item.price }€
+
+                                      <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Detalles</button>
                                     </p>
+                                </div>
                                 </div>
                             </div>
                         </div>

@@ -31,20 +31,25 @@ class ListOwnedGamesComponent extends Component {
                 <br/>
                 <h1>Juegos comprados</h1>
                 <br/>
+                <div>
             {this.state.myGames.map(game=>
-                <div className="col mb-4">
-                <div className="card">
-                    <div className="card-header bg-success border-primary"> 
-                        <h5 className="card-title" class="text-dark">{ game.title }</h5>
+                <div className="pb-4">
+                <div className="w3-card-4">
+                <div className="w3-container">
+                    <div className="card-header bg-transparent"> 
+                        <h5 className="w3-container pt-2">{ game.title }</h5>
                     </div>
-                    <div className="card-body"> 
-                        <p class="card-text" className="text-muted">{ game.description } </p>
-                        <p>
-                            <button className="ModifyButton" onClick={(e)=>this.downloadGame(e,game.idCloud)}>Descargar</button>
+                    <div className="w3-container p-3"> 
+                        <p class="card-text">
+                            <img src={"data:image/png;base64,"+this.state.imagen} style={{ width: "10%", height: "10%", marginRight: "50px"}} />
+                            Descripción: { game.description }
+                            <button className="ModifyButton float-right" onClick={(e)=>this.downloadGame(e,game.idCloud)}>Descargar</button>
                         </p>
+                    </div>
                     </div>
                 </div>
             </div>)}
+            </div>
             </div>
         );
     }
