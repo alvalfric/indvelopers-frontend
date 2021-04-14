@@ -21,9 +21,12 @@ import ShowOwnedGameComponent from './Components/OwnedGames/ShowOwnedGameCompone
 import CreateReviewComponent from './Components/Reviews/CreateReviewComponent';
 import UserDetailsComponent from './Components/Users/UserDetailsComponent';
 import EditUserDetailsComponent from './Components/Users/EditUserDetailsComponent';
+import FAQComponent from './Components/FAQComponent';
+import AboutUsComponent from './Components/AboutUsComponent';
 import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionComponent';
 import ListUsersComponent from './Components/Admin/ListUsersComponent';
 import UserDetailsForAdminComponent from './Components/Admin/UserDetailsForAdminComponent';
+import ListMyGamesComponent from './Components/MyGames/ListMyGamesComponent';
 
 
 function App() {
@@ -50,9 +53,12 @@ function App() {
              <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
              <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
              <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
+             <Route path="/my-games" component={ListMyGamesComponent}></Route>
              <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
              <Route path="/me" component={UserDetailsComponent}></Route>
              <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
+             <Route path="/faq" component={FAQComponent}></Route>
+             <Route path="/about-us" component={AboutUsComponent}></Route>
              <Route path="/admin/edit/:id" component={UserDetailsForAdminComponent}></Route>
              <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
              <Route path="/listUsers" component={ListUsersComponent}></Route>

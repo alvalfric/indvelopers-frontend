@@ -81,9 +81,11 @@ class ListPublicationComponent extends Component {
         <img src={UserLogo} className="inDvelopers-logo" width="3%" height="3%"  />
       <h5>{publication.username}</h5>
     </header>
-
     <div className="w3-container">
       <p>{publication.text}</p>
+    </div>
+    <div className="w3-container">
+      <img src={"data:image/png;base64,"+publication.imagen} />
     </div>
   </div>
   </div>

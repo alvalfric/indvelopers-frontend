@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
 import {SubscriptionService} from '../../Services/SubscriptionService';
+import saveAs from 'jszip';
+import {CloudService} from '../../Services/CloudService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -16,16 +18,19 @@ class CreateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
-            image: null,
+            imagen: "",
+            base64TextString: "",
             submitError: "",
-            isPremium:false
+            isPremium:false,
+            idCloud:""
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
-        this.changeImageHandler = this.changeImageHandler.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
+        this.changeGameHandler=this.changeGameHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
@@ -81,9 +86,34 @@ class CreateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+    changeGameHandler=(event) =>{
+        event.preventDefault()
+        const zip = require('jszip')();
+        let file=event.target.files[0];
+        zip.file(file.name,file);
+        zip.generateAsync({type:"blob"}).then(content=>{
+            CloudService.uploadFile(content).then(res=>{
+                this.setState({idCloud:res})
+            })
+        })
+        
+    }
 
-    changeImageHandler = (event) => {
-        this.setState({ image: event.target.value });
+    changeImagenHandler = (event) => {
+        console.log("File to upload: ", event.target.files[0])
+        let file = event.target.files[0]
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this)
+            reader.readAsBinaryString(file)
+        }
+        this.setState({ imagen: event.target.value });
+    }
+    _handleReaderLoaded = (readerEvt) => {
+        let binaryString = readerEvt.target.result
+        this.setState({
+            base64TextString: btoa(binaryString)
+        })
     }
 
     saveGame = (e) => {
@@ -95,7 +125,7 @@ class CreateGameComponent extends Component {
         if (isValid) {
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: null, isNotMalware: false, creator: null, image: this.state.image
+                , idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             GameService.addGame(game).then(data => {
                 if (typeof data == "string") {
@@ -165,9 +195,23 @@ class CreateGameComponent extends Component {
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Imagen:</label>
-                            <p>Subida de imágenes WIP</p>
-                            {/* <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" value={this.state.image} onChange={this.changeImageHandler} /> */}
+                        {this.state.base64TextString !== "" ?
+                            <React.Fragment>
+                                <label>Imágen actual: </label>
+                                < br />
+                                <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
+                            </React.Fragment>
+                        :
+                            <React.Fragment>
+                                <label>Imágen: </label>
+                            </React.Fragment>
+                        }
+                        < br />
+                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                        </div>
+                        <div className="form-group">
+                        <label>Game:</label>
+                        <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">
