@@ -18,20 +18,22 @@ class EditUserDetailsComponent extends Component {
             technologiesError:"",
             gameList:"",
             userRole:this.props.history.location.state.profile.technologies,
-            image: this.props.history.location.state.profile.image,
+            imagen: "",
+            base64TextString: this.props.history.location.state.profile.image,
             isPremium: this.props.history.location.state.profile.isPremium
         }
         this.updateProfile = this.updateProfile.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changeTechnologiesHandler = this.changeTechnologiesHandler.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
     }
 
     updateProfile = (e) => {
         e.preventDefault();
         const isValid = this.validate();
         let profile = {id: this.state.id, username: this.state.username, email: this.state.email, gameList: this.gameList,
-            image: this.state.image, userRole: this.state.userRole, description: this.state.description, technologies: this.state.technologies, isPremium: this.state.isPremium};
+            userImage: this.state.base64TextString, userRole: this.state.userRole, description: this.state.description, technologies: this.state.technologies, isPremium: this.state.isPremium};
         console.log('profile => ' + JSON.stringify(profile));
         if(isValid){
             DeveloperService.updateProfile(this.state.id, profile).then(res => {
@@ -85,6 +87,23 @@ class EditUserDetailsComponent extends Component {
         this.setState({technologies: event.target.value})
     }
 
+    changeImagenHandler = (event) => {
+        console.log("File to upload: ", event.target.files[0])
+        let file = event.target.files[0]
+        if(file) {
+            const reader = new FileReader();
+            reader.onload = this._handleReaderLoaded.bind(this)
+            reader.readAsBinaryString(file)
+        }
+        this.setState({ imagen: event.target.value });
+    }
+    _handleReaderLoaded = (readerEvt) => {
+        let binaryString = readerEvt.target.result
+        this.setState({
+            base64TextString: btoa(binaryString)
+        })
+    }
+
     cancel() {
         //Redirigir a games
         this.props.history.push('/me');
@@ -116,6 +135,21 @@ class EditUserDetailsComponent extends Component {
                             </React.Fragment>
                             }
                             {this.state.descriptionError?(<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}     
+                        </div>
+
+                        <div className="form-group">
+                            {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                                <React.Fragment>
+                                    <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                                </React.Fragment>
+                            ) :
+                                <React.Fragment>
+                                    <div className="w3-display-container w3-text-white">
+                                        <img src={"data:image/png;base64,"+this.state.base64TextString} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                                        <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
+                                    </div>
+                                </React.Fragment>
+                            }
                         </div>
 
                         <div className="form-group">
