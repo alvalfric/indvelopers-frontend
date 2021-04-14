@@ -39,6 +39,7 @@ class UserDetailsForAdminComponent extends Component {
 
     deleteUser(){
         DeveloperService.deleteDeveloper(this.profile.id).then((res)=>{
+            alert(res);
             this.props.history.push("/listUsers");
         })
     }
