@@ -142,15 +142,15 @@ class EditUserDetailsComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
-                                    {this.state.base64TextString !== "" ?
+                                    {typeof this.state.base64TextString == 'undefined' ?
+                                        <React.Fragment>
+                                        <label>Imágen</label>
+                                        </React.Fragment>
+                                        :
                                         <React.Fragment>
                                             <label>Imágen actual</label>
                                             < br />
                                             <img src={"data:image/png;base64," + this.state.base64TextString} width="120" height="80" />
-                                        </React.Fragment>
-                                        :
-                                        <React.Fragment>
-                                            <label>Imágen</label>
                                         </React.Fragment>
                                     }
                                     < br />
