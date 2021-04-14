@@ -128,7 +128,7 @@ class GamesComponent extends Component {
                             <div className="w3-card-4">
                               <div className="w3-container">
                                 <div className="container">
-                                  <img className="p-5" src={"data:image/png;base64,"+this.state.imagen} style={{ width: "100%", display: "block" }} />
+                                  <img className="p-5" src={"data:image/png;base64,"+item.imagen} style={{ width: "100%", display: "block" }} />
                                     <h4>{ item.title }</h4>
                                 </div>
                                 <div className="w3-container p-3"> 
