@@ -65,7 +65,7 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
-    } 
+    }, 
 
     async changeToAdmin(userId) {
         return AuthService.getToken().then(token => {
