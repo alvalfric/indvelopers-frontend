@@ -48,7 +48,7 @@ class UserDetailsForAdminComponent extends Component {
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={ this.profile.userImage } className="rounded float-start" alt="ProfileImage" /> 
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } className="rounded float-start" alt="ProfileImage" /> 
                     {this.state.isPremium?(
                     <React.Fragment>
                     <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ {this.profile.username} is premium! ⭐</p>

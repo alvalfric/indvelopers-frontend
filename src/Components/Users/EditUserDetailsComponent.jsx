@@ -138,7 +138,7 @@ class EditUserDetailsComponent extends Component {
                         </div>
 
                         <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                            {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                                 </React.Fragment>
