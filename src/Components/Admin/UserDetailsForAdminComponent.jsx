@@ -31,8 +31,8 @@ class UserDetailsForAdminComponent extends Component {
             state: { profile: this.profile }
         })
 
-    } 
-
+    }
+    
     deleteUser(){
         DeveloperService.deleteDeveloper(this.profile.id).then((res)=>{
             alert(res);
@@ -81,7 +81,7 @@ class UserDetailsForAdminComponent extends Component {
             <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button>
             :null
             }
-            {AuthService.getUserData().roles.includes("ADMIN")?
+            {AuthService.getUserData().username != this.profile.username & AuthService.getUserData().roles.includes("ADMIN")?
                 <button className="AdminButton" onClick={this.deleteUser} >Borrar desarrollador</button>
             :null
             }

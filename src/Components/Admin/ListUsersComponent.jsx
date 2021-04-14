@@ -85,7 +85,7 @@ class ListUsersComponent extends Component {
                                             <p>Roles: {user.roles.join(', ')}</p>
                                         </div>
                                         <div>
-                                        <button className="Button" onClick={() => this.getUserDetails(user)}>Detalles de usuario</button>
+                                        <button className="AdminButton" onClick={() => this.getUserDetails(user)}>Detalles de usuario</button>
                                         </div>    
                                     </div>
                                 </div>
