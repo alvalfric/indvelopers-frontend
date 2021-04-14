@@ -14,6 +14,18 @@ export const SubscriptionService={
             }).then(res=>res.data).catch(error=>{return error})
         })
     },
+
+    async checkHasSubscriptionById(profileId){
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getSubscriptionUrl()+"/checkSubscription/" + profileId,{
+                headers:{
+                    'Authorization':'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res=>res.data).catch(error=>{return error})
+        })
+    },
+
     async buySubscription(){
         return AuthService.getToken().then(token=>{
             return axios.post(UrlProvider.getSubscriptionUrl()+"/buy",[],{

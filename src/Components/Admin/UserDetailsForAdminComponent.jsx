@@ -13,10 +13,9 @@ class UserDetailsForAdminComponent extends Component {
             endSubs:""
         }
         this.modifyUserDetails=this.modifyUserDetails.bind(this);
-        this.buySuscription=this.buySuscription.bind(this);
         this.deleteUser=this.deleteUser.bind(this);
-
-        SubscriptionService.checkHasSubscription().then((res)=>{
+        
+        SubscriptionService.checkHasSubscriptionById(this.profile.id).then((res)=>{
             this.setState({isPremium:res})
         })
         SubscriptionService.getSubscription(this.profile.id).then((res)=>{
@@ -33,9 +32,6 @@ class UserDetailsForAdminComponent extends Component {
         })
 
     } 
-    buySuscription(){
-        this.props.history.push("/buySubscription");
-    }
 
     deleteUser(){
         DeveloperService.deleteDeveloper(this.profile.id).then((res)=>{
@@ -52,11 +48,11 @@ class UserDetailsForAdminComponent extends Component {
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={ this.profile.email } className="rounded float-start" alt="ProfileImage" /> 
+                    <img src={ this.profile.userImage } className="rounded float-start" alt="ProfileImage" /> 
                     {this.state.isPremium?(
                     <React.Fragment>
-                    <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ You are premium! ⭐</p>
-                    <p>Tu subscripción caduca en: {this.state.endSubs}</p>
+                    <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ {this.profile.username} is premium! ⭐</p>
+                    <p>La subscripción caduca en: {this.state.endSubs}</p>
                     </React.Fragment>
                     ):null
                     }  
@@ -81,10 +77,12 @@ class UserDetailsForAdminComponent extends Component {
                 </div>
                 
             </div>
-            <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button> 
-            <button className="Button" onClick={this.buySuscription}>Comprar subscripción</button>
+            {AuthService.getUserData().username === this.profile.username?
+            <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button>
+            :null
+            }
             {AuthService.getUserData().roles.includes("ADMIN")?
-                <button className="AdminButton" onClick={this.deleteUser} style={{marginLeft:"10px"}}>Borrar desarrollador</button>
+                <button className="AdminButton" onClick={this.deleteUser} >Borrar desarrollador</button>
             :null
             }
             
