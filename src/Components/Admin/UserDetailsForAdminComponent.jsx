@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
+import { DeveloperService } from '../../Services/DeveloperService';
 import {SubscriptionService} from '../../Services/SubscriptionService';
 
-class UserDetailsComponent extends Component {
+class UserDetailsForAdminComponent extends Component {
 
     constructor(props){
         super(props)
-        this.profile = AuthService.getUserData()
+        this.profile = this.props.history.location.state.profile
         this.state={
             isPremium:false,
             endSubs:""
         }
         this.modifyUserDetails=this.modifyUserDetails.bind(this);
-        this.buySuscription=this.buySuscription.bind(this);
-        SubscriptionService.checkHasSubscription().then((res)=>{
+        this.deleteUser=this.deleteUser.bind(this);
+        
+        SubscriptionService.checkHasSubscriptionById(this.profile.id).then((res)=>{
             this.setState({isPremium:res})
         })
         SubscriptionService.getSubscription(this.profile.id).then((res)=>{
@@ -29,9 +31,13 @@ class UserDetailsComponent extends Component {
             state: { profile: this.profile }
         })
 
-    } 
-    buySuscription(){
-        this.props.history.push("/buySubscription");
+    }
+    
+    deleteUser(){
+        DeveloperService.deleteDeveloper(this.profile.id).then((res)=>{
+            alert(res);
+            this.props.history.push("/listUsers");
+        })
     }
 
     getDetails = () => {
@@ -42,11 +48,11 @@ class UserDetailsComponent extends Component {
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={"data:image/png;base64,"+ this.profile.userImage } class="rounded float-start" alt="ProfileImage" /> 
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } className="rounded float-start" alt="ProfileImage" /> 
                     {this.state.isPremium?(
                     <React.Fragment>
-                    <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ You are premium! ⭐</p>
-                    <p>Tu subscripción caduca en: {this.state.endSubs}</p>
+                    <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ {this.profile.username} is premium! ⭐</p>
+                    <p>La subscripción caduca en: {this.state.endSubs}</p>
                     </React.Fragment>
                     ):null
                     }  
@@ -71,8 +77,15 @@ class UserDetailsComponent extends Component {
                 </div>
                 
             </div>
-            <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button> 
-            <button className="Button" onClick={this.buySuscription}>Comprar subscripción</button>
+            {AuthService.getUserData().username === this.profile.username?
+            <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button>
+            :null
+            }
+            {AuthService.getUserData().username != this.profile.username & AuthService.getUserData().roles.includes("ADMIN")?
+                <button className="AdminButton" onClick={this.deleteUser} >Borrar desarrollador</button>
+            :null
+            }
+            
             </div>
             </React.Fragment>
         );
@@ -92,4 +105,4 @@ class UserDetailsComponent extends Component {
 
 }
 
-export default UserDetailsComponent;
+export default UserDetailsForAdminComponent;

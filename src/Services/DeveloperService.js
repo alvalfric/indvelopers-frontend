@@ -57,6 +57,16 @@ export const DeveloperService = {
         })
     },
 
+    async deleteDeveloper(developerId) {
+        return AuthService.getToken().then(token => {
+            return axios.delete(UrlProvider.getDeveloperUrl().concat(`/delete/${developerId}`), {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            }).then(res => res.data)
+        })
+    }, 
+
     async changeToAdmin(userId) {
         return AuthService.getToken().then(token => {
             return axios.put(UrlProvider.getDeveloperUrl().concat(`/changeToAdmin/${userId}`), {

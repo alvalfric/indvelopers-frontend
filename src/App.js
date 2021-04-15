@@ -25,6 +25,7 @@ import FAQComponent from './Components/FAQComponent';
 import AboutUsComponent from './Components/AboutUsComponent';
 import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionComponent';
 import ListUsersComponent from './Components/Admin/ListUsersComponent';
+import UserDetailsForAdminComponent from './Components/Admin/UserDetailsForAdminComponent';
 import ListMyGamesComponent from './Components/MyGames/ListMyGamesComponent';
 
 
@@ -58,6 +59,7 @@ function App() {
              <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
              <Route path="/faq" component={FAQComponent}></Route>
              <Route path="/about-us" component={AboutUsComponent}></Route>
+             <Route path="/admin/edit/:id" component={UserDetailsForAdminComponent}></Route>
              <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
              <Route path="/listUsers" component={ListUsersComponent}></Route>
           </Switch>
