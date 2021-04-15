@@ -1,4 +1,5 @@
 import axios from 'axios';
+import SuccessSubscriptionPaymentComponent from '../Components/Paypal/SuccessSubscriptionPaymentComponent';
 import { UrlProvider } from '../providers/UrlProvider'
 import { AuthService } from './AuthService';
 
@@ -46,8 +47,32 @@ export const PaypalService={
                     'paymentId':paymentId,
                     'PayerID':payerId,
                     'gameId':gameId
-                },
+                }
             }).then(res=>res.data).catch(error=>{return error})
+        })
+    },
+    async paySubscription(){
+        return AuthService.getToken().then(token=>{
+            return axios.post(UrlProvider.getPaymentUrl()+"/suscription",[],{
+                headers:{
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
+                }
+            }).then(res=>res.data).catch(error=>{return error})
+        })
+    },
+    async SuccessSubscription(paymentId,payerId){
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getPaymentUrl()+"/suscriptionSuccess",{
+                headers:{
+                    'Authorization':'Bearer '+token,
+                    'Accept': '*/*'
+                },
+                params:{
+                    'paymentId':paymentId,
+                    'PayerID':payerId
+                }
+            })
         })
     }
 }

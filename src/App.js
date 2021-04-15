@@ -28,6 +28,8 @@ import ListUsersComponent from './Components/Admin/ListUsersComponent';
 import ListMyGamesComponent from './Components/MyGames/ListMyGamesComponent';
 import SuccessPaymentComponent from './Components/Paypal/SuccessPaymentComponent';
 import waitingPaymentComponent from './Components/Paypal/waitingPaymentComponent';
+import SuccessSubscriptionPaymentComponent from './Components/Paypal/SuccessSubscriptionPaymentComponent';
+import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 
 
 function App() {
@@ -63,7 +65,9 @@ function App() {
              <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
              <Route path="/listUsers" component={ListUsersComponent}></Route>
              <Route path="/success" component={SuccessPaymentComponent}></Route>
+             <Route path="/suscriptionSuccess" component={SuccessSubscriptionPaymentComponent}></Route>
              <Route path="/wait" component={waitingPaymentComponent}></Route>
+             <Route path="/cancel" component={CancelPaymentComponent}></Route>
           </Switch>
           </div>
         </div>
