@@ -7,17 +7,42 @@ class ListUsersComponent extends Component {
 
     constructor(props) {
         super(props)
-
+        this.usuario = null
         this.state = {
             users: null,
             rawUsers: null,
             offset: 0,
             perPage: 5,
             pageCount: 0,
-            currentPage: 0
+            currentPage: 0,
+            user : null
         }
 
         this.handlePageClick = this.handlePageClick.bind(this);
+        this.getUserDetails = this.getUserDetails.bind(this);
+    }
+
+    componentDidMount() {
+        if (!AuthService.isAuthenticated() || AuthService.getUserData()['roles'].indexOf('ADMIN') == -1) {
+            this.props.history.push('/')
+        }
+        DeveloperService.getAll().then(res => {
+            var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
+            this.setState({
+                users: slice,
+                pageCount: Math.ceil(res.length / this.state.perPage),
+                rawUsers: res
+            })
+        })
+    }
+
+    loadMoreData() {
+        const data = this.state.rawUsers;
+        const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
+        this.setState({
+            pageCount: Math.ceil(data.length / this.state.perPage),
+            users: slice
+        })
     }
 
     handlePageClick = (e) => {
@@ -31,27 +56,19 @@ class ListUsersComponent extends Component {
         })
     }
 
-    loadMoreData() {
-        const data = this.state.rawUsers;
-        const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
-        this.setState({
-            pageCount: Math.ceil(data.length / this.state.perPage),
-            users: slice
-        })
+    changeToAdmin(id) {
+        DeveloperService.changeToAdmin(id).then(() => this.props.history.push('/'))
     }
 
-    componentDidMount() {
+    getUserDetails(user) {
         if (AuthService.getUserData()['roles'].indexOf('ADMIN') == -1) {
             this.props.history.push('/')
+        }else{
+                this.props.history.push({
+                    pathname:`/admin/edit/` + user.id,
+                    state: { profile: user }
+                })
         }
-        DeveloperService.getAll().then(res => {
-            var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
-            this.setState({
-                users: slice,
-                pageCount: Math.ceil(res.length / this.state.perPage),
-                rawUsers: res
-            })
-        })
     }
 
     showList() {
@@ -60,6 +77,7 @@ class ListUsersComponent extends Component {
                 { !this.state.users ? null :
                     this.state.users.map(
                         user => {
+                            this.usuario = user
                             return (
                                 <div>
                                     <br />
@@ -68,8 +86,15 @@ class ListUsersComponent extends Component {
                                             <h5>{user.username}</h5>
                                         </header>
                                         <div className="w3-container">
-                                            <p>Roles: {user.roles.join(', ')}</p>
+                                            <p>Roles: {user.roles.join(', ')} {user.roles.indexOf('ADMIN') == -1 ?
+                                                <button className="AdminButton" style={{ float: "right" }} onClick={() => this.changeToAdmin(user.id)}>Change user to admin</button>
+                                                :
+                                                null
+                                            }</p>
                                         </div>
+                                        <div>
+                                        <button className="AdminButton" onClick={() => this.getUserDetails(user)}>Detalles de usuario</button>
+                                        </div>    
                                     </div>
                                 </div>
                             )
