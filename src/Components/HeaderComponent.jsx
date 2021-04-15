@@ -24,9 +24,8 @@ class HeaderComponent extends Component {
   }
   render() {
     return (
-
       <div className="topnav" id="myTopnav">
-        <a href="/"><img src={logo} className="inDvelopers-logo" width="140" height="26" /></a>
+        <a href="/"><img src={logo} className="inDvelopers-logo" width="140" height="25" /></a>
         <a href="/publication-List" >Publicaciones</a>
         <a href="#">Novedades</a>
         <a href="/games">Juegos</a>
@@ -34,8 +33,8 @@ class HeaderComponent extends Component {
         <a href="/about-us">Sobre nosotros</a>
         {AuthService.isAuthenticated() ?
           <React.Fragment>
-            <a href="/logout" style={{ float: "right", backgroundColor: "red" }}>Logout</a>
-            <a href="/me" style={{ float: "right", backgroundColor: "green" }}>{AuthService.getUserData()['username']}</a>
+            <a href="/logout" style={{ float: "right", backgroundColor: "#cf0000" }}>Logout</a>
+            <a href="/me" style={{ float: "right", backgroundColor: "#2f47b4" }}>{AuthService.getUserData()['username']}</a>
 
             {AuthService.getUserData()['roles'].indexOf('ADMIN') != -1 ?
               <React.Fragment>
@@ -50,8 +49,8 @@ class HeaderComponent extends Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <a href="/sign-up" style={{ float: "right", backgroundColor: "green" }}>Sign-up</a>
-            <a href="/login" style={{ float: "right", backgroundColor: "green" }}>Login</a>
+            <a href="/sign-up" style={{ float: "right", backgroundColor: "#2f47b4" }}>Sign-up</a>
+            <a href="/login" style={{ float: "right", backgroundColor: "#2f47b4" }}>Login</a>
           </React.Fragment>
         }
         <a href="#!" className="icon" onClick={this.showElements}>&#9776;</a>

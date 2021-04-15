@@ -227,11 +227,12 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
+                                    <div className="w3-xlarge w3-padding" >{this.state.title}</div>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64,"+this.state.imagen} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
-                                        <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
+                                        <img src={"data:image/png;base64,"+this.state.imagen} style={{ width: "50%", display: "block", alignItems: "left", paddingLeft: "15px", paddingTop: "10px" }} />
                                     </div>
                                 </React.Fragment>
+                                
                             }
                             {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
 
@@ -335,7 +336,7 @@ class UpdateGameComponent extends Component {
                         {AuthService.getUserData()['username'] === this.state.creator.username ? (
                             <React.Fragment>
                                 <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
-                                <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
+                                <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame}>Borrar Juego</button>
                             </React.Fragment>
                         ) :this.state.isAdmin?(<React.Fragment>
                             <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e)=>this.downloadGame(e)} >Descargar</button>
