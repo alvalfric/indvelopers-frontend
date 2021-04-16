@@ -40,20 +40,25 @@ class ListMyGamesComponent extends Component {
                 <br/>
                 <h1>Mis juegos creados</h1>
                 <br/>
+                <div>
                 {this.state.myCreatedGames.map(game=>
-                <div className="col mb-4">
-                <div className="card">
-                    <div className="card-header bg-success border-primary"> 
-                        <h5 className="card-title" class="text-dark">{ game.title }</h5>
-                    </div>
-                    <div className="card-body"> 
-                        <p class="card-text" className="text-muted">{ game.description } </p>
-                        <p>
-                            <button onClick={() => this.editGame(game.id)} className="ModifyButton">Detalles</button>
-                        </p>
+                <div className="pb-4">
+                    <div className="w3-card-4">
+                        <div className="w3-container">
+                        <div className="card-header bg-transparent"> 
+                            <h5 className="w3-container pt-2">{ game.title }</h5>
+                        </div>
+                        <div className="w3-container p-3"> 
+                            <p class="card-text">
+                                <img src={"data:image/png;base64,"+game.imagen} style={{ width: "10%", height: "10%", marginRight: "50px"}} />
+                                Description: { game.description }
+                                <button onClick={() => this.editGame(game.id)} className="ModifyButton float-right mt-2">Detalles</button>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>)}            
+                </div>)}
+                </div>      
             </div>
         );
     }
