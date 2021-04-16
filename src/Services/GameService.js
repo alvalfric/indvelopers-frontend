@@ -74,6 +74,21 @@ export const GameService = {
                 }
             }).catch(error=>{return error})
         })
+    },
+
+    async getTopGames(){
+        return axios.get(UrlProvider.getGameUrl() + '/findByTopSellers').then(res=>res.data)
+        .catch(error=>{return error.response.status})
+    },
+
+    async getNewGames(){
+        return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
+        .catch(error=>{return error.response.status})
     }
 
 }
+
+
+
+
+
