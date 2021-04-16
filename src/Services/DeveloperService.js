@@ -31,7 +31,8 @@ export const DeveloperService = {
         return AuthService.getToken().then(token => {
             return axios.get(UrlProvider.getDeveloperUrl(), {
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
                 }
             }).then(res => res.data).catch(error => {return error.response.status})
         })
@@ -41,7 +42,8 @@ export const DeveloperService = {
         return AuthService.getToken().then(token => {
             return axios.get(UrlProvider.getDeveloperUrl().concat(`/${username}`), {
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
                 }
             }).then(res => res.data)
         })
@@ -51,7 +53,8 @@ export const DeveloperService = {
         return AuthService.getToken().then(token => {
             return axios.put(UrlProvider.getDeveloperUrl().concat(`/edit/${profileId}`), profiledto, {
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
                 }
             }).then(res => res.data)
         })
@@ -61,7 +64,8 @@ export const DeveloperService = {
         return AuthService.getToken().then(token => {
             return axios.delete(UrlProvider.getDeveloperUrl().concat(`/delete/${developerId}`), {
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
                 }
             }).then(res => res.data)
         })
@@ -71,7 +75,8 @@ export const DeveloperService = {
         return AuthService.getToken().then(token => {
             return axios.put(UrlProvider.getDeveloperUrl().concat(`/changeToAdmin/${userId}`), {
                 headers: {
-                    'Authorization': 'Bearer ' + token
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
                 }
             }).then(res => res.data)
         })

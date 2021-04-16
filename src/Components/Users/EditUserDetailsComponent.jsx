@@ -19,7 +19,7 @@ class EditUserDetailsComponent extends Component {
             gameList: "",
             userRole: this.props.history.location.state.profile.technologies,
             imagen: "",
-            base64TextString: this.props.history.location.state.profile.image,
+            base64TextString: this.props.history.location.state.profile.userImage,
             isPremium: this.props.history.location.state.profile.isPremium
         }
         this.updateProfile = this.updateProfile.bind(this);

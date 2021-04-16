@@ -4,7 +4,7 @@ import { AuthService } from '../../Services/AuthService';
 import OwnedGameService from '../../Services/OwnedGameService';
 import ListReviewComponent from '../Reviews/ListReviewComponent';
 import { ReviewService } from '../../Services/ReviewService';
-import {CloudService} from '../../Services/CloudService';
+import { CloudService } from '../../Services/CloudService';
 import saveAs from 'jszip';
 import { UrlProvider } from '../../providers/UrlProvider';
 
@@ -15,23 +15,23 @@ class UpdateGameComponent extends Component {
         this.state = {
             id: this.props.match.params.id,
             createReviewCheck: false,
-            title:"",
-            titleError:"",
-            description:"",
-            descriptionError:"",
-            requirements:"",
-            requirementsError:"",
+            title: "",
+            titleError: "",
+            description: "",
+            descriptionError: "",
+            requirements: "",
+            requirementsError: "",
             price: "",
             priceError: "",
-            idCloud:"",
-            isNotMalware:false,
-            creator:"",
+            idCloud: "",
+            isNotMalware: false,
+            creator: "",
             imagen: "",
             base64TextString: "",
-            isBought:false,
-            isAdmin:false
+            isBought: false,
+            isAdmin: false
         }
-        this.downloadGame=this.downloadGame.bind(this);
+        this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
         this.deleteGame = this.deleteGame.bind(this);
@@ -40,7 +40,7 @@ class UpdateGameComponent extends Component {
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
-        this.changeConfirmHandler=this.changeConfirmHandler.bind(this);
+        this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
     }
 
     componentDidMount() {
@@ -54,25 +54,25 @@ class UpdateGameComponent extends Component {
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
-                imagen: game.imagen
+                base64TextString: game.imagen
             });
-            console.log(this.state.imagen)
-            console.log("IDCLOUD===>"+JSON.stringify(this.state.idCloud))
-            OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
-                this.setState({isBought:res.data})
-            })
-         var roles= AuthService.getUserData()['roles']
-         for(var i=0;i<roles.length;i++){
-             if(roles[i]=="ADMIN"){
-                 this.setState({isAdmin:true})
-                 break;
-             }
-         }
+            if (AuthService.isAuthenticated()) {
+                OwnedGameService.CheckGameOwned(this.state.id).then((res) => {
+                    this.setState({ isBought: res.data })
+                })
+                var roles = AuthService.getUserData()['roles']
+                for (var i = 0; i < roles.length; i++) {
+                    if (roles[i] == "ADMIN") {
+                        this.setState({ isAdmin: true })
+                        break;
+                    }
+                }
+            }
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
                 console.log(review)
-                if (AuthService.getUserData()['username'] === review.developer.username) {
+                if (AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) {
                     this.setState({
                         createReviewCheck: true
                     })
@@ -86,11 +86,11 @@ class UpdateGameComponent extends Component {
             this.props.history.push('/games');
         })
     }
-    downloadGame=(e)=>{
+    downloadGame = (e) => {
         e.preventDefault()
-        CloudService.downloadFile(this.state.idCloud).then(res=>{
+        CloudService.downloadFile(this.state.idCloud).then(res => {
             const FileDownload = require('js-file-download')
-            FileDownload(res,'game.zip')
+            FileDownload(res, 'game.zip')
         })
     }
 
@@ -100,25 +100,27 @@ class UpdateGameComponent extends Component {
             this.state.price = 0.0;
         }
         const isValid = this.validate();
-        let game = {title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                    , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString};
-        if(isValid){
-        GameService.updateGame(game, this.state.id).then(data => {
-            if (typeof data == "string") {
-                this.props.history.push('/games');
-            } else {
-                GameService.findAll().then(data => {
-                    data.forEach(g => {
-                        if (g.title === this.state.title) {
-                            this.setState({ titleError: "A game with that title is already created!" });
-                        }
-                    });
-                })
-            }
-        })
+        let game = {
+            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
+            , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+        };
+        if (isValid) {
+            GameService.updateGame(game, this.state.id).then(data => {
+                if (typeof data == "string") {
+                    this.props.history.push('/games');
+                } else {
+                    GameService.findAll().then(data => {
+                        data.forEach(g => {
+                            if (g.title === this.state.title) {
+                                this.setState({ titleError: "A game with that title is already created!" });
+                            }
+                        });
+                    })
+                }
+            })
+        }
     }
-    }
-    buyGame(id){
+    buyGame(id) {
         this.props.history.push(`/purchase-game/${id}`);
     }
 
@@ -173,14 +175,14 @@ class UpdateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
-    changeConfirmHandler= (event)=>{
-        this.setState({isNotMalware: event.target.checked})
+    changeConfirmHandler = (event) => {
+        this.setState({ isNotMalware: event.target.checked })
     }
 
     changeImagenHandler = (event) => {
         console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
-        if(file) {
+        if (file) {
             const reader = new FileReader();
             reader.onload = this._handleReaderLoaded.bind(this)
             reader.readAsBinaryString(file)
@@ -213,22 +215,34 @@ class UpdateGameComponent extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
-                    {AuthService.getUserData()['username'] === this.state.creator.username ? (<h2>Edit Game</h2>) : null}
+                    {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (<h2>Edit Game</h2>) : null}
 
                     <br></br>
                     <form>
                         <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
                                     <label>Título</label>
                                     <input placeholder="Title" name="title" className="form-control"
                                         value={this.state.title} onChange={this.changeTitleHandler}></input>
+                                    {this.state.base64TextString !== "" ?
+                                        <React.Fragment>
+                                            <label>Imágen actual: </label>
+                                            < br />
+                                            <img src={"data:image/png;base64," + this.state.base64TextString} width="120" height="80" />
+                                        </React.Fragment>
+                                        :
+                                        <React.Fragment>
+                                            <label>Imágen: </label>
+                                        </React.Fragment>
+                                    }
+                                    < br />
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64,"+this.state.imagen} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>
@@ -237,7 +251,7 @@ class UpdateGameComponent extends Component {
 
                         </div>
                         <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
                                     <label>Descripción</label>
                                     <input placeholder="Description" name="description" className="form-control"
@@ -262,7 +276,7 @@ class UpdateGameComponent extends Component {
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
                                     <label>Requisitos del sistema</label>
                                     <input placeholder="Requirements" name="requirements" className="form-control"
@@ -287,7 +301,7 @@ class UpdateGameComponent extends Component {
                             {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
                                     <label>Price</label>
                                     <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
@@ -308,13 +322,13 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
-                        {this.state.isAdmin?(
-                        <div class="custom-control custom-checkbox">
-                        <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware}/>
-                       <label style={{color:"#838383"}}>¿Es seguro este software para la comunidad indie?</label>
-                             </div>)
-                             :null}
-                        
+                        {this.state.isAdmin ? (
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware} />
+                                <label style={{ color: "#838383" }}>¿Es seguro este software para la comunidad indie?</label>
+                            </div>)
+                            : null}
+
                         <div>
                             <br />
                             <h3>Reviews</h3>
@@ -322,27 +336,30 @@ class UpdateGameComponent extends Component {
                         </div>
                         <div>
                             <br />
-                            {/* <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button> */}
                             {this.state.createReviewCheck ?
                                 <h5>Ya has creado una review a este juego</h5>
                                 :
-                                <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
+                                AuthService.isAuthenticated() ?
+                                    <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
+                                    : null
                             }
                             <br />
                             <br />
                         </div>
 
-                        {AuthService.getUserData()['username'] === this.state.creator.username ? (
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                             <React.Fragment>
                                 <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
                                 <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
                             </React.Fragment>
-                        ) :this.state.isAdmin?(<React.Fragment>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e)=>this.downloadGame(e)} >Descargar</button>
+                        ) : this.state.isAdmin ? (<React.Fragment>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e) => this.downloadGame(e)} >Descargar</button>
                             <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modificar juego</button>
                             <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Borrar Juego</button>
-                        </React.Fragment>):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
-                         <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>}
+                        </React.Fragment>) : this.state.isBought ? (<p>Ya lo tienes en tu lista de juegos comprados</p>) :
+                            AuthService.isAuthenticated() ?
+                                <button className="DeleteButton" onClick={() => this.buyGame(this.props.match.params.id)}>Comprar</button>
+                                : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
                     </form>
                 </div>
