@@ -53,7 +53,7 @@ export const PaypalService={
     },
     async paySubscription(){
         return AuthService.getToken().then(token=>{
-            return axios.post(UrlProvider.getPaymentUrl()+"/suscription",[],{
+            return axios.post(UrlProvider.getPaymentUrl()+"/subscription",[],{
                 headers:{
                     'Authorization':'Bearer '+token,
                     'Accept': '*/*'
@@ -63,7 +63,7 @@ export const PaypalService={
     },
     async SuccessSubscription(paymentId,payerId){
         return AuthService.getToken().then(token=>{
-            return axios.get(UrlProvider.getPaymentUrl()+"/suscriptionSuccess",{
+            return axios.get(UrlProvider.getPaymentUrl()+"/subscriptionSuccess",{
                 headers:{
                     'Authorization':'Bearer '+token,
                     'Accept': '*/*'

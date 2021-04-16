@@ -65,7 +65,7 @@ function App() {
              <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
              <Route path="/listUsers" component={ListUsersComponent}></Route>
              <Route path="/success" component={SuccessPaymentComponent}></Route>
-             <Route path="/suscriptionSuccess" component={SuccessSubscriptionPaymentComponent}></Route>
+             <Route path="/subscriptionSuccess" component={SuccessSubscriptionPaymentComponent}></Route>
              <Route path="/wait" component={waitingPaymentComponent}></Route>
              <Route path="/cancel" component={CancelPaymentComponent}></Route>
           </Switch>
