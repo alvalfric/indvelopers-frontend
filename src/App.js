@@ -27,6 +27,7 @@ import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionC
 import ListUsersComponent from './Components/Admin/ListUsersComponent';
 import UserDetailsForAdminComponent from './Components/Admin/UserDetailsForAdminComponent';
 import ListMyGamesComponent from './Components/MyGames/ListMyGamesComponent';
+import NovedadesComponent from './Components/NovedadesComponent';
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
              <Route path="/admin/edit/:id" component={UserDetailsForAdminComponent}></Route>
              <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
              <Route path="/listUsers" component={ListUsersComponent}></Route>
+             <Route path="/novedades" component={NovedadesComponent}></Route>
           </Switch>
           </div>
         </div>
