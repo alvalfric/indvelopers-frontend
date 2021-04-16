@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import OwnedGameService from '../../Services/OwnedGameService';
 import portada from '../../assets/JuegoPortada.jpg';
+import {PaypalService} from '../../Services/PaypalService';
+import paypal from 'paypal-checkout';
 
 class OwnedGameComponent extends Component {
     constructor(props){
@@ -50,8 +52,17 @@ class OwnedGameComponent extends Component {
     purchaseGame(id){
         const isValid = this.validate();
         if(isValid){
-            OwnedGameService.buyGame(id).then(()=>{
-                this.props.history.push("/games");
+            // OwnedGameService.buyGame(id).then(()=>{
+            //     this.props.history.push("/games");
+            // })
+            PaypalService.summary(id).then(order=>{
+                console.warn("ORDER===>"+JSON.stringify(order))
+                PaypalService.payment(order).then(code=>{
+                    console.warn("URL====>"+JSON.stringify(code))
+                    window.open(code,"paypal",true)
+                    this.props.history.push("/wait")
+                    
+                })
             })
         }
     }
@@ -96,7 +107,8 @@ class OwnedGameComponent extends Component {
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
               
-                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalizar compra</button>
+                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Pagar</button>
+               
                 </div>
                 </div>
         </React.Fragment>

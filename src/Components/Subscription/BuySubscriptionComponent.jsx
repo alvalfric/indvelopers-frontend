@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {SubscriptionService} from '../../Services/SubscriptionService';
 import portada from '../../assets/InDvelopersLogo.png';
 import {AuthService} from '../../Services/AuthService';
+import {PaypalService} from '../../Services/PaypalService';
 
 class BuySubscriptionComponent extends Component {
 
@@ -17,8 +18,12 @@ class BuySubscriptionComponent extends Component {
     buySubscription(){
         const isValid=this.validate();
         if(isValid){
-            SubscriptionService.buySubscription().then(()=>{
-                this.props.history.push("/me")
+            // SubscriptionService.buySubscription().then(()=>{
+            //     this.props.history.push("/me")
+            // })
+            PaypalService.paySubscription().then(paypalUrl=>{
+                window.open(paypalUrl,"paypal",true)
+                this.props.history.push("/wait")
             })
         }
 

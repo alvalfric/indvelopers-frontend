@@ -27,7 +27,12 @@ import BuySubscriptionComponent from './Components/Subscription/BuySubscriptionC
 import ListUsersComponent from './Components/Admin/ListUsersComponent';
 import UserDetailsForAdminComponent from './Components/Admin/UserDetailsForAdminComponent';
 import ListMyGamesComponent from './Components/MyGames/ListMyGamesComponent';
+import SuccessPaymentComponent from './Components/Paypal/SuccessPaymentComponent';
+import waitingPaymentComponent from './Components/Paypal/waitingPaymentComponent';
+import SuccessSubscriptionPaymentComponent from './Components/Paypal/SuccessSubscriptionPaymentComponent';
+import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 import NovedadesComponent from './Components/NovedadesComponent';
+
 
 
 function App() {
@@ -63,6 +68,10 @@ function App() {
              <Route path="/admin/edit/:id" component={UserDetailsForAdminComponent}></Route>
              <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
              <Route path="/listUsers" component={ListUsersComponent}></Route>
+             <Route path="/success" component={SuccessPaymentComponent}></Route>
+             <Route path="/subscriptionSuccess" component={SuccessSubscriptionPaymentComponent}></Route>
+             <Route path="/wait" component={waitingPaymentComponent}></Route>
+             <Route path="/cancel" component={CancelPaymentComponent}></Route>
              <Route path="/novedades" component={NovedadesComponent}></Route>
           </Switch>
           </div>

@@ -8,6 +8,7 @@ const OWNEDGAMES="/ownedGames"
 const REVIEWS="/reviews"
 const SUBSCRIPTION="/subscription"
 const CLOUD="/file"
+const PAYMENT="/payments"
 
 
 
@@ -41,6 +42,9 @@ export const UrlProvider={
     },
     getCloudUrl(){
         return BASE_URL + CLOUD
+    },
+    getPaymentUrl(){
+        return BASE_URL + PAYMENT;
     }
 
 }
