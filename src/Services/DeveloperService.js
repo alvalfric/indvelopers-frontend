@@ -78,7 +78,7 @@ export const DeveloperService = {
                     'Authorization': 'Bearer ' + token,
                     'Accept': '*/*'
                 }
-            }).then(res => res.data)
+            }).then(res => res.data).catch(error => {return error.response.status})
         })
     }
 
