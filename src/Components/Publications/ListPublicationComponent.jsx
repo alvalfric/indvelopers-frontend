@@ -85,7 +85,7 @@ class ListPublicationComponent extends Component {
       <p>{publication.text}</p>
     </div>
     <div className="w3-container">
-      <img src={"data:image/png;base64,"+publication.imagen} />
+      <img src={"data:image/png;base64,"+publication.imagen} width="400" height="300" />
     </div>
   </div>
   </div>

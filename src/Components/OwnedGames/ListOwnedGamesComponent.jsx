@@ -41,7 +41,7 @@ class ListOwnedGamesComponent extends Component {
                     </div>
                     <div className="w3-container p-3"> 
                         <p class="card-text">
-                            <img src={"data:image/png;base64,"+game.imagen} style={{ width: "10%", height: "10%", marginRight: "50px"}} />
+                            <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} width="400" height="300" />
                             Descripción: { game.description }
                             <button className="ModifyButton float-right" onClick={(e)=>this.downloadGame(e,game.idCloud)}>Descargar</button>
                         </p>
