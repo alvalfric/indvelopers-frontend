@@ -26,11 +26,11 @@ class HeaderComponent extends Component {
     return (
       <div className="topnav" id="myTopnav">
         <a href="/"><img src={logo} className="inDvelopers-logo" width="140" height="25" /></a>
-        <a href="/publication-List" >Publicaciones</a>
-        <a href="#">Novedades</a>
-        <a href="/games">Juegos</a>
+        <a href="/publication-List" >Publications</a>
+        <a href="#">News</a>
+        <a href="/games">Games</a>
           <a href="/faq">FAQ</a>
-        <a href="/about-us">Sobre nosotros</a>
+        <a href="/about-us">About us</a>
         {AuthService.isAuthenticated() ?
           <React.Fragment>
             <a href="/logout" style={{ float: "right", backgroundColor: "#cf0000" }}>Logout</a>

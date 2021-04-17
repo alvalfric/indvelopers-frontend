@@ -93,7 +93,7 @@ class ListUsersComponent extends Component {
                                             }</p>
                                         </div>
                                         <div>
-                                        <button className="AdminButton" onClick={() => this.getUserDetails(user)}>Detalles de usuario</button>
+                                        <button className="AdminButton" onClick={() => this.getUserDetails(user)}>User Details</button>
                                         </div>    
                                     </div>
                                 </div>

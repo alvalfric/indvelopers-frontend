@@ -7,8 +7,8 @@ class LoginComponent extends Component {
             <React.Fragment>
                 <br />
                 <br />
-                <h1>¡Te has logueado correctamente!</h1>
-                <h2>Pulsa aquí para volver a la <a href="/">Página inicial</a></h2>
+                <h1>¡You logged successfully!</h1>
+                <h2>Click here to go back to the <a href="/">Main site</a></h2>
             </React.Fragment>
         );
     }

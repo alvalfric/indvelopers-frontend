@@ -220,7 +220,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
-                                    <label>Título</label>
+                                    <label>Title</label>
                                     <input placeholder="Title" name="title" className="form-control"
                                         value={this.state.title} onChange={this.changeTitleHandler}></input>
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
@@ -240,7 +240,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
-                                    <label>Descripción</label>
+                                    <label>Description</label>
                                     <input placeholder="Description" name="description" className="form-control"
                                         value={this.state.description} onChange={this.changeDescriptionHandler}></input>
                                 </React.Fragment>
@@ -251,7 +251,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Descripcion</h5>
+                                                <h5>Description</h5>
                                             </header>
                                             <div className="w3-container">
                                                 <p>{this.state.description}</p>
@@ -265,7 +265,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.creator.username ? (
                                 <React.Fragment>
-                                    <label>Requisitos del sistema</label>
+                                    <label>System requirements</label>
                                     <input placeholder="Requirements" name="requirements" className="form-control"
                                         value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
                                 </React.Fragment>
@@ -276,7 +276,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Requisitos del sistema</h5>
+                                                <h5>System requirements</h5>
                                             </header>
                                             <div className="w3-container">
                                                 <p>{this.state.requirements}</p>
@@ -301,7 +301,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Precio: {this.state.price}€</h5>
+                                                <h5>Price: {this.state.price}€</h5>
                                             </header>
                                         </div>
                                     </div>
@@ -312,7 +312,7 @@ class UpdateGameComponent extends Component {
                         {this.state.isAdmin?(
                         <div class="custom-control custom-checkbox">
                         <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware}/>
-                       <label style={{color:"#838383"}}>¿Es seguro este software para la comunidad indie?</label>
+                       <label style={{color:"#838383"}}>¿This software is reliable for the community?</label>
                              </div>)
                              :null}
                         
@@ -325,7 +325,7 @@ class UpdateGameComponent extends Component {
                             <br />
                             {/* <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button> */}
                             {this.state.createReviewCheck ?
-                                <h5>Ya has creado una review a este juego</h5>
+                                <h5>You've already reviewed this game</h5>
                                 :
                                 <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
                             }
@@ -335,16 +335,16 @@ class UpdateGameComponent extends Component {
 
                         {AuthService.getUserData()['username'] === this.state.creator.username ? (
                             <React.Fragment>
-                                <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
-                                <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame}>Borrar Juego</button>
+                                <button className="AceptButton" onClick={this.updateGame}>Modify game</button>
+                                <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame}>Delete game</button>
                             </React.Fragment>
                         ) :this.state.isAdmin?(<React.Fragment>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e)=>this.downloadGame(e)} >Descargar</button>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modificar juego</button>
-                            <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Borrar Juego</button>
-                        </React.Fragment>):this.state.isBought?(<p>Ya lo tienes en tu lista de juegos comprados</p>):
-                         <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Comprar</button>}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e)=>this.downloadGame(e)} >Download</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modify game</button>
+                            <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Delete game</button>
+                        </React.Fragment>):this.state.isBought?(<p>You have it in your purchased game list</p>):
+                         <button className="DeleteButton" onClick={()=>this.buyGame(this.props.match.params.id)}>Buy</button>}
+                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Back</button>
                     </form>
                 </div>
             </div>

@@ -45,7 +45,7 @@ class BuySubscriptionComponent extends Component {
                 <br/>
                 <br/>
                 
-                <h2>Finalizar compra</h2>
+                <h2>Finalize purchase</h2>
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
                 <div className="sidenav">
@@ -59,24 +59,24 @@ class BuySubscriptionComponent extends Component {
                   </header>
 
                   <div className="w3-container">
-                  <p>Subscripcion a inDvelopers</p>
+                  <p>Subscription to inDvelopers</p>
                   </div>
                   </div>
                  </div>
                 </div >
                 <div className="sidenav2">
-                <h4 style={{color:"#838383"}}>Precio:7.99 €</h4>
+                <h4 style={{color:"#838383"}}>Price:7.99 €</h4>
                 <h4 style={{color:"#838383"}}>______________________________________________</h4>
                 <h4 style={{color:"#838383"}}>total:7.99 €</h4>
-                <h3>Método de pago</h3>
+                <h3>Purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
                  <input type="checkbox" onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Haz click para confirmar tu compra</label>
+                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
               
-                <button className="AceptButton"  onClick={this.buySubscription}>Finalizar compra</button>
+                <button className="AceptButton"  onClick={this.buySubscription}>Finalixe purchase</button>
                 </div>
                 </div>
             </React.Fragment>

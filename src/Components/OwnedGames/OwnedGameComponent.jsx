@@ -62,7 +62,7 @@ class OwnedGameComponent extends Component {
             <br/>
                 <br/>
                 
-                <h2>Finalizar compra</h2>
+                <h2>Finalize purchase</h2>
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
                 <div className="sidenav">
@@ -82,21 +82,21 @@ class OwnedGameComponent extends Component {
                  </div>
                 </div >
                 <div className="sidenav2">
-                <h3>Titulo del juego</h3>
+                <h3>Game title</h3>
                 <h3>{this.state.game.title}</h3>
-                <h4 style={{color:"#838383"}}>Precio:{this.state.game.price} €</h4>
-                <h4 style={{color:"#838383"}}>Descuento:0€</h4>
+                <h4 style={{color:"#838383"}}>Price:{this.state.game.price} €</h4>
+                <h4 style={{color:"#838383"}}>Discount:0€</h4>
                 <h4 style={{color:"#838383"}}>______________________________________________</h4>
                 <h4 style={{color:"#838383"}}>total:{this.state.game.price} €</h4>
-                <h3>Método de pago</h3>
+                <h3>purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
                  <input type="checkbox" onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Haz click para confirmar tu compra</label>
+                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
               
-                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalizar compra</button>
+                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalize purchase</button>
                 </div>
                 </div>
         </React.Fragment>

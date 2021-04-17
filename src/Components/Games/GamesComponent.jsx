@@ -106,16 +106,16 @@ class GamesComponent extends Component {
     render() {
         return (
                 <div className='container'  >
-                    <h1 style={{paddingTop: '5%'}}>Lista de Juegos</h1>
+                    <h1 style={{paddingTop: '5%'}}>Game list</h1>
                     <div className="row">
-                        <button className="Button" onClick={this.createGame}>Crear juego</button>
-                        <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>Mis juegos comprados</button>
-                        <button className="Button" onClick={this.MyCreatedGames} style={{marginLeft:"10px"}}> Mis juegos creados</button>
+                        <button className="Button" onClick={this.createGame}>Create a game</button>
+                        <button className="Button" onClick={this.MyOwnedGames} style={{marginLeft:"10px"}}>My games purchased</button>
+                        <button className="Button" onClick={this.MyCreatedGames} style={{marginLeft:"10px"}}> My games created</button>
                         {AuthService.isAuthenticated()?  
                           AuthService.getUserData().roles.includes("ADMIN")?
                             <React.Fragment>
-                            <button onClick={this.componentDidMount} className="AdminButton" style={{marginLeft:"10px"}}>Juegos Revisados</button>
-                            <button onClick={this.ListGamesToRevise} className="AdminButton" style={{marginLeft:"10px"}}>Juegos para revisar</button>
+                            <button onClick={this.componentDidMount} className="AdminButton" style={{marginLeft:"10px"}}>Games checked</button>
+                            <button onClick={this.ListGamesToRevise} className="AdminButton" style={{marginLeft:"10px"}}>Games to check</button>
                             </React.Fragment>
                             :null
                         :null
@@ -136,7 +136,7 @@ class GamesComponent extends Component {
 
                                       Price: { item.price }€
 
-                                      <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Detalles</button>
+                                      <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
                                     </p>
                                 </div>
                                 </div>
