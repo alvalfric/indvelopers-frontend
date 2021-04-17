@@ -58,12 +58,12 @@ class OwnedGameComponent extends Component {
             OwnedGameService.buyGame(id).then(()=>{
                 this.props.history.push("/games");
             })
-            
+
             }else{
             PaypalService.summary(id).then(order=>{
-                console.warn("ORDER===>"+JSON.stringify(order))
+                
                 PaypalService.payment(order).then(code=>{
-                    console.warn("URL====>"+JSON.stringify(code))
+                    
                     window.open(code,"paypal",true)
                     this.props.history.push("/wait")
                     
