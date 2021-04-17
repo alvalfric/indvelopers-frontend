@@ -3,10 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ErrorBoundary from './Framework/ErrorBoundary';
 
 ReactDOM.render(
-  
+  <ErrorBoundary>
     <App />
+  </ErrorBoundary>
   ,
   document.getElementById('root')
 );
