@@ -34,6 +34,7 @@ class OwnedGameComponent extends Component {
         }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
+            console.log("PRECIO====>"+JSON.stringify(this.state.game.price))
         })
     }
     }
@@ -52,9 +53,13 @@ class OwnedGameComponent extends Component {
     purchaseGame(id){
         const isValid = this.validate();
         if(isValid){
-            // OwnedGameService.buyGame(id).then(()=>{
-            //     this.props.history.push("/games");
-            // })
+            if(this.state.game.price==0 || this.state.game.price==0.0 || this.state.game.price==undefined){
+
+            OwnedGameService.buyGame(id).then(()=>{
+                this.props.history.push("/games");
+            })
+            
+            }else{
             PaypalService.summary(id).then(order=>{
                 console.warn("ORDER===>"+JSON.stringify(order))
                 PaypalService.payment(order).then(code=>{
@@ -64,6 +69,7 @@ class OwnedGameComponent extends Component {
                     
                 })
             })
+            }
         }
     }
 
