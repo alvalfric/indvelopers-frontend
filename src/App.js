@@ -32,6 +32,7 @@ import waitingPaymentComponent from './Components/Paypal/waitingPaymentComponent
 import SuccessSubscriptionPaymentComponent from './Components/Paypal/SuccessSubscriptionPaymentComponent';
 import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 import NovedadesComponent from './Components/NovedadesComponent';
+import ErrorBoundary from './Framework/ErrorBoundary';
 
 
 
