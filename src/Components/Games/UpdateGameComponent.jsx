@@ -41,6 +41,7 @@ class UpdateGameComponent extends Component {
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
+        this.changeGameHandler=this.changeGameHandler.bind(this);
     }
 
     componentDidMount() {
@@ -85,6 +86,22 @@ class UpdateGameComponent extends Component {
         GameService.deleteGame(this.state.id).then(() => {
             this.props.history.push('/games');
         })
+    }
+    changeGameHandler=(e)=>{
+        e.preventDefault()
+        CloudService.deleteFile(this.state.idCloud).then(res=>{
+            console.log("ANTERIOR IDCLOUD===>"+JSON.stringify(this.state.idCloud))
+            const zip = require('jszip')();
+        let file=e.target.files[0];
+        zip.file(file.name,file);
+        zip.generateAsync({type:"blob"}).then(content=>{
+            CloudService.uploadFile(content).then(res=>{
+                this.setState({idCloud:res})
+                console.log("NUEVA IDCLOUD===>"+JSON.stringify(this.state.idCloud))
+            })
+        })
+        })
+
     }
     downloadGame = (e) => {
         e.preventDefault()
@@ -238,6 +255,11 @@ class UpdateGameComponent extends Component {
                                     }
                                     < br />
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                                    <br/>
+                                    <br/>
+                                    <label>Game:</label>
+                                    <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
+                                    
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
