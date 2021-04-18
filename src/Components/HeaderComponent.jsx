@@ -23,9 +23,10 @@ class HeaderComponent extends Component {
   }
 
   logout() {
-    AuthService.logout();
-    alert("You have logged out successfully!");
+    AuthService.logout().then(()=>{
+      alert("You have logged out successfully!");
     window.location.reload();
+    })
   }
 
   render() {
