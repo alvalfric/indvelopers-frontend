@@ -73,7 +73,7 @@ export const DeveloperService = {
 
     async changeToAdmin(userId) {
         return AuthService.getToken().then(token => {
-            return axios.put(UrlProvider.getDeveloperUrl().concat(`/changeToAdmin/${userId}`), {
+            return axios.put(UrlProvider.getDeveloperUrl().concat(`/changeToAdmin/${userId}`),[], {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Accept': '*/*'
