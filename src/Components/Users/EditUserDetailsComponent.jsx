@@ -42,8 +42,6 @@ class EditUserDetailsComponent extends Component {
                 AuthService.loadUserData();
                 this.props.history.push('/');
             })
-        } else {
-            this.setState({ submitError: "Invalid credentials!" });
         }
     }
 
