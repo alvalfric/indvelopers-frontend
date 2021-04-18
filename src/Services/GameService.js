@@ -13,6 +13,18 @@ export const GameService = {
         return axios.get(UrlProvider.getGameUrl() + "/" + id, {
         }).catch(error => { return error.response.status })
     },
+    
+    async findAll() {
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getGameUrl() + "/findAll", {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data)
+                .catch(error => { return error })
+        })
+    },
 
     async addGame(game) {
         return AuthService.getToken().then(token => {
@@ -72,19 +84,14 @@ export const GameService = {
         })
     },
 
-    async getTopGames(){
-        return axios.get(UrlProvider.getGameUrl() + '/findByTopSellers').then(res=>res.data)
-        .catch(error=>{return error.response.status})
+    async getTopGames() {
+        return axios.get(UrlProvider.getGameUrl() + '/findByTopSellers').then(res => res.data)
+            .catch(error => { return error.response.status })
     },
 
-    async getNewGames(){
+    async getNewGames() {
         return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
-        .catch(error=>{return error.response.status})
+            .catch(error => { return error.response.status })
     }
 
 }
-
-
-
-
-
