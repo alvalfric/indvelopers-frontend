@@ -7,10 +7,8 @@ import HeaderComponent from './Components/HeaderComponent';
 import FooterComponent from './Components/FooterComponent';
 import SignupComponent from './Components/SignupComponent';
 import LoginComponent from './Components/LoginComponent';
-import LogoutComponent from './Components/LogoutComponent';
 import CreateGameComponent from './Components/Games/CreateGameComponent';
 import GamesComponent from './Components/Games/GamesComponent';
-import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
 import UpdateGameComponent from './Components/Games/UpdateGameComponent';
 import ListPublicationComponent from './Components/Publications/ListPublicationComponent';
 import CreatePublicationComponent from './Components/Publications/CreatePublicationComponent';
@@ -32,6 +30,7 @@ import waitingPaymentComponent from './Components/Paypal/waitingPaymentComponent
 import SuccessSubscriptionPaymentComponent from './Components/Paypal/SuccessSubscriptionPaymentComponent';
 import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 import NovedadesComponent from './Components/NovedadesComponent';
+import ErrorBoundary from './Framework/ErrorBoundary';
 
 
 
@@ -48,9 +47,7 @@ function App() {
              <Route path="/prueba" exact component={PruebaComponent}></Route>
              <Route path="/sign-up" exact component={SignupComponent}></Route>
              <Route path="/login" exact component={LoginComponent}></Route>
-             <Route path="/logout" exact component={LogoutComponent}></Route>
              <Route path="/games" exact component={GamesComponent}></Route>
-             <Route path="/successful-login" exact component={SuccessfulLoginComponent}></Route>
              <Route path="/panic" component={PanicComponent}></Route>
              <Route path="/publication-List" component={ListPublicationComponent}></Route>
              <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
@@ -73,6 +70,7 @@ function App() {
              <Route path="/wait" component={waitingPaymentComponent}></Route>
              <Route path="/cancel" component={CancelPaymentComponent}></Route>
              <Route path="/novedades" component={NovedadesComponent}></Route>
+             <Route path="/" exact component={GamesComponent}></Route>
           </Switch>
           </div>
         </div>

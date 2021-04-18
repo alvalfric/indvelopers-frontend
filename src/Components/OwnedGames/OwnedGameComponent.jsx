@@ -34,6 +34,7 @@ class OwnedGameComponent extends Component {
         }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
+            console.log("PRECIO====>"+JSON.stringify(this.state.game.price))
         })
     }
     }
@@ -52,18 +53,23 @@ class OwnedGameComponent extends Component {
     purchaseGame(id){
         const isValid = this.validate();
         if(isValid){
-            // OwnedGameService.buyGame(id).then(()=>{
-            //     this.props.history.push("/games");
-            // })
+            if(this.state.game.price==0 || this.state.game.price==0.0 || this.state.game.price==undefined){
+
+            OwnedGameService.buyGame(id).then(()=>{
+                this.props.history.push("/games");
+            })
+
+            }else{
             PaypalService.summary(id).then(order=>{
-                console.warn("ORDER===>"+JSON.stringify(order))
+                
                 PaypalService.payment(order).then(code=>{
-                    console.warn("URL====>"+JSON.stringify(code))
+                    
                     window.open(code,"paypal",true)
                     this.props.history.push("/wait")
                     
                 })
             })
+            }
         }
     }
 
@@ -73,11 +79,11 @@ class OwnedGameComponent extends Component {
             <br/>
                 <br/>
                 
-                <h2>Finalizar compra</h2>
+                <h2>Finalize purchase</h2>
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
                 <div className="sidenav">
-                <img src={portada}  style={{width:"70%", height:"90%",display:"block"}}/>
+                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} width="400" height="300" />
                 <div style={{marginRight:"30%"}}>
                  <br/>
                    <div className="w3-card-4" >
@@ -93,22 +99,21 @@ class OwnedGameComponent extends Component {
                  </div>
                 </div >
                 <div className="sidenav2">
-                <h3>Titulo del juego</h3>
+                <h3>Game title</h3>
                 <h3>{this.state.game.title}</h3>
-                <h4 style={{color:"#838383"}}>Precio:{this.state.game.price} €</h4>
-                <h4 style={{color:"#838383"}}>Descuento:0€</h4>
+                <h4 style={{color:"#838383"}}>Price:{this.state.game.price} €</h4>
+                <h4 style={{color:"#838383"}}>Discount:0€</h4>
                 <h4 style={{color:"#838383"}}>______________________________________________</h4>
                 <h4 style={{color:"#838383"}}>total:{this.state.game.price} €</h4>
-                <h3>Método de pago</h3>
+                <h3>purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
                  <input type="checkbox" onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Haz click para confirmar tu compra</label>
+                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
               
-                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Pagar</button>
-               
+                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalize purchase</button>
                 </div>
                 </div>
         </React.Fragment>

@@ -38,7 +38,7 @@ class ListMyGamesComponent extends Component {
             <div>
                 <br/>
                 <br/>
-                <h1>Mis juegos creados</h1>
+                <h1>My created games</h1>
                 <br/>
                 <div>
                 {this.state.myCreatedGames.map(game=>
@@ -50,9 +50,9 @@ class ListMyGamesComponent extends Component {
                         </div>
                         <div className="w3-container p-3"> 
                             <p class="card-text">
-                                <img src={"data:image/png;base64,"+game.imagen} style={{ width: "10%", height: "10%", marginRight: "50px"}} />
+                                <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} width="400" height="300" />
                                 Description: { game.description }
-                                <button onClick={() => this.editGame(game.id)} className="ModifyButton float-right mt-2">Detalles</button>
+                                <button onClick={() => this.editGame(game.id)} className="ModifyButton float-right mt-2">Details</button>
                             </p>
                         </div>
                     </div>

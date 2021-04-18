@@ -37,16 +37,16 @@ class UserDetailsComponent extends Component {
     getDetails = () => {
         return(
             <React.Fragment>
-            <h2>Detalles de usuario</h2>
+            <h2>User details</h2>
             <div className='container' style={{padding: '10px'}}>
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={"data:image/png;base64,"+ this.profile.userImage } class="rounded float-start" alt="ProfileImage" /> 
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } class="rounded float-start" alt="ProfileImage" width="400" height="300" /> 
                     {this.state.isPremium?(
                     <React.Fragment>
                     <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ You are premium! ⭐</p>
-                    <p>Tu subscripción caduca en: {this.state.endSubs}</p>
+                    <p>Your subscription ends in: {this.state.endSubs}</p>
                     </React.Fragment>
                     ):null
                     }  
@@ -72,7 +72,7 @@ class UserDetailsComponent extends Component {
                 
             </div>
             <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button> 
-            <button className="Button" onClick={this.buySuscription}>Comprar subscripción</button>
+            <button className="Button" onClick={this.buySuscription}>Buy subscription</button>
             </div>
             </React.Fragment>
         );

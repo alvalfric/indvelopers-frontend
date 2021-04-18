@@ -86,7 +86,7 @@ class CreatePublicationComponent extends Component {
                 <br></br>
                 <form>
                     <div className="form-group">
-                        <label>Descripción</label>
+                        <label>Description</label>
                         <textarea placeholder="Descripción" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
                         {this.state.textError ? (<div className="ValidatorMessage">
                             {this.state.textError}
@@ -98,20 +98,20 @@ class CreatePublicationComponent extends Component {
                     <div className="form-group">
                         {this.state.base64TextString !== "" ?
                             <React.Fragment>
-                                <label>Imágen actual: </label>
+                                <label>Actual image: </label>
                                 < br />
                                 <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
                             </React.Fragment>
                         :
                             <React.Fragment>
-                                <label>Imágen: </label>
+                                <label>Image: </label>
                             </React.Fragment>
                         }
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
-                    <button className="AceptButton" onClick={this.savePublication}>Crear publicación</button>
-                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
+                    <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
+                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                 </form>
             </div>
         );

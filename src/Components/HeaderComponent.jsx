@@ -20,26 +20,30 @@ class HeaderComponent extends Component {
     } else {
       x.className = "topnav";
     }
-
   }
+
+  logout() {
+    AuthService.logout()
+    window.location.reload()
+  }
+
   render() {
     return (
-
       <div className="topnav" id="myTopnav">
         <a href="/"><img src={logo} className="inDvelopers-logo" width="140" height="26" /></a>
-        <a href="/publication-List" >Publicaciones</a>
-        <a href="/novedades">Novedades</a>
-        <a href="/games">Juegos</a>
-          <a href="/faq">FAQ</a>
-        <a href="/about-us">Sobre nosotros</a>
+        <a href="/publication-List" >Publications</a>
+        <a href="/novedades">News</a>
+        <a href="/games">Games</a>
+        <a href="/faq">FAQ</a>
+        <a href="/about-us">About us</a>
         {AuthService.isAuthenticated() ?
           <React.Fragment>
-            <a href="/logout" style={{ float: "right", backgroundColor: "red" }}>Logout</a>
-            <a href="/me" style={{ float: "right", backgroundColor: "green" }}>{AuthService.getUserData()['username']}</a>
+            <a href="/" style={{ float: "right", backgroundColor: "#cf0000" }} onClick={this.logout}>Logout</a>
+            <a href="/me" style={{ float: "right", backgroundColor: "#2f47b4" }}>{AuthService.getUserData()['username']}</a>
 
             {AuthService.getUserData()['roles'].indexOf('ADMIN') != -1 ?
               <React.Fragment>
-                <a href="/listUsers" className="AdminButton" style={{color:"black"}}>List users</a>
+                <a href="/listUsers" className="AdminButton" style={{ color: "black" }}>List users</a>
               </React.Fragment>
               :
               <React.Fragment>
@@ -50,8 +54,8 @@ class HeaderComponent extends Component {
           </React.Fragment>
           :
           <React.Fragment>
-            <a href="/sign-up" style={{ float: "right", backgroundColor: "green" }}>Sign-up</a>
-            <a href="/login" style={{ float: "right", backgroundColor: "green" }}>Login</a>
+            <a href="/sign-up" style={{ float: "right", backgroundColor: "#2f47b4" }}>Sign-up</a>
+            <a href="/login" style={{ float: "right", backgroundColor: "#2f47b4" }}>Login</a>
           </React.Fragment>
         }
         <a href="#!" className="icon" onClick={this.showElements}>&#9776;</a>

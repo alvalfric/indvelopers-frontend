@@ -43,16 +43,16 @@ class UserDetailsForAdminComponent extends Component {
     getDetails = () => {
         return(
             <React.Fragment>
-            <h2>Detalles de usuario</h2>
+            <h2>User details</h2>
             <div className='container' style={{padding: '10px'}}>
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={"data:image/png;base64,"+ this.profile.userImage } className="rounded float-start" alt="ProfileImage" /> 
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } className="rounded float-start" alt="ProfileImage" width="400" height="300" /> 
                     {this.state.isPremium?(
                     <React.Fragment>
                     <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ {this.profile.username} is premium! ⭐</p>
-                    <p>La subscripción caduca en: {this.state.endSubs}</p>
+                    <p>your subscription ends in: {this.state.endSubs}</p>
                     </React.Fragment>
                     ):null
                     }  
@@ -82,7 +82,7 @@ class UserDetailsForAdminComponent extends Component {
             :null
             }
             {AuthService.getUserData().username != this.profile.username & AuthService.getUserData().roles.includes("ADMIN")?
-                <button className="AdminButton" onClick={this.deleteUser} >Borrar desarrollador</button>
+                <button className="AdminButton" onClick={this.deleteUser} >Delete Developer</button>
             :null
             }
             

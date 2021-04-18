@@ -16,8 +16,8 @@ class FooterComponent extends Component {
             <div>
                <footer className="footer">
                    <span className="text-muted">All rights reserved</span>
-                   <p><span className="text-muted"> Powered with:
-                   <img src={springLogo} width="50" height="50"/> and <img src={reactLogo} width="50" height="50"/>
+                   <p><span className="text-muted"> Powered with: 
+                   <img src={springLogo} style={{marginLeft: "5px"}} width="35" height="35"/> and <img src={reactLogo} width="37" height="37"/>
                    </span></p>
                </footer>
             </div>

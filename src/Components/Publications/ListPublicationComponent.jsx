@@ -65,9 +65,9 @@ class ListPublicationComponent extends Component {
             <div>
                 <br></br>
                 <br></br>
-               <h2 className="text-center">Publicaciones de la comunidad</h2> 
+               <h2 className="text-center">Publications of the community</h2> 
                <div className="row">
-                    <button className="Button" onClick={this.createPublication}>Publicar</button>
+                    <button className="Button" onClick={this.createPublication}>Publish</button>
                 </div>
                 <br/>
      {/* Generate diferent for each publication */}
@@ -85,7 +85,7 @@ class ListPublicationComponent extends Component {
       <p>{publication.text}</p>
     </div>
     <div className="w3-container">
-      <img src={"data:image/png;base64,"+publication.imagen} />
+      <img src={"data:image/png;base64,"+publication.imagen} width="400" height="300" />
     </div>
   </div>
   </div>
