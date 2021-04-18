@@ -61,10 +61,12 @@ class LoginComponent extends Component {
         if(isValid){
             DeveloperService.login(this.state.username, this.state.password).then(data =>
                 {if(typeof data == "string") {
-                    AuthService.authenticate(this.state.username, this.state.password, data);
-                    alert("You have logged in successfully!");
-                    this.props.history.push('/');
-                    window.location.reload();
+                    AuthService.authenticate(this.state.username, this.state.password, data).then((res)=>{
+                        alert("You have logged in successfully!");
+                    this.props.history.push('/successLogin');
+                    
+                    })
+                    
                 } else {
                     this.setState({submitError:"Invalid credentials!"});
                 }}
