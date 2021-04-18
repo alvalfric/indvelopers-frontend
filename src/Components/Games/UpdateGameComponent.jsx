@@ -41,6 +41,7 @@ class UpdateGameComponent extends Component {
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
+        this.changeGameHandler=this.changeGameHandler.bind(this);
     }
 
     componentDidMount() {
@@ -85,6 +86,22 @@ class UpdateGameComponent extends Component {
         GameService.deleteGame(this.state.id).then(() => {
             this.props.history.push('/games');
         })
+    }
+    changeGameHandler=(e)=>{
+        e.preventDefault()
+        CloudService.deleteFile(this.state.idCloud).then(res=>{
+            console.log("ANTERIOR IDCLOUD===>"+JSON.stringify(this.state.idCloud))
+            const zip = require('jszip')();
+        let file=e.target.files[0];
+        zip.file(file.name,file);
+        zip.generateAsync({type:"blob"}).then(content=>{
+            CloudService.uploadFile(content).then(res=>{
+                this.setState({idCloud:res})
+                console.log("NUEVA IDCLOUD===>"+JSON.stringify(this.state.idCloud))
+            })
+        })
+        })
+
     }
     downloadGame = (e) => {
         e.preventDefault()
@@ -238,11 +255,16 @@ class UpdateGameComponent extends Component {
                                     }
                                     < br />
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                                    <br/>
+                                    <br/>
+                                    <label>Game:</label>
+                                    <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
+                                    
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{  marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>

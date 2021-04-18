@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
 
 class SignupComponent extends Component {
@@ -29,6 +30,12 @@ class SignupComponent extends Component {
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
         this.changeConfirmPasswordHandler = this.changeConfirmPasswordHandler.bind(this);
     }
+
+    componentDidMount() {
+        if (AuthService.isAuthenticated()) {
+            this.props.history.push('/')
+        }
+	}
 
     validate = () => {
         let usernameError = "";

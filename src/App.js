@@ -74,6 +74,7 @@ function App() {
              <Route path="/wait" component={waitingPaymentComponent}></Route>
              <Route path="/cancel" component={CancelPaymentComponent}></Route>
              <Route path="/novedades" component={NovedadesComponent}></Route>
+             <Route path="/" exact component={GamesComponent}></Route>
           </Switch>
           </div>
         </div>
