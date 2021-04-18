@@ -62,7 +62,7 @@ class LoginComponent extends Component {
             DeveloperService.login(this.state.username, this.state.password).then(data =>
                 {if(typeof data == "string") {
                     AuthService.authenticate(this.state.username, this.state.password, data).then((res)=>{
-                        alert("You have logged in successfully!");
+                       
                     this.props.history.push('/successLogin');
                     
                     })
