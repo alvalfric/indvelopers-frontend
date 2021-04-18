@@ -41,7 +41,7 @@ class UpdateGameComponent extends Component {
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
-        this.changeGameHandler=this.changeGameHandler.bind(this);
+        this.changeGameHandler = this.changeGameHandler.bind(this);
     }
 
     componentDidMount() {
@@ -73,7 +73,7 @@ class UpdateGameComponent extends Component {
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
                 console.log(review)
-                if (AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) {
+                if (AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) {
                     this.setState({
                         createReviewCheck: true
                     })
@@ -87,19 +87,19 @@ class UpdateGameComponent extends Component {
             this.props.history.push('/games');
         })
     }
-    changeGameHandler=(e)=>{
+    changeGameHandler = (e) => {
         e.preventDefault()
-        CloudService.deleteFile(this.state.idCloud).then(res=>{
-            console.log("ANTERIOR IDCLOUD===>"+JSON.stringify(this.state.idCloud))
+        CloudService.deleteFile(this.state.idCloud).then(res => {
+            console.log("ANTERIOR IDCLOUD===>" + JSON.stringify(this.state.idCloud))
             const zip = require('jszip')();
-        let file=e.target.files[0];
-        zip.file(file.name,file);
-        zip.generateAsync({type:"blob"}).then(content=>{
-            CloudService.uploadFile(content).then(res=>{
-                this.setState({idCloud:res})
-                console.log("NUEVA IDCLOUD===>"+JSON.stringify(this.state.idCloud))
+            let file = e.target.files[0];
+            zip.file(file.name, file);
+            zip.generateAsync({ type: "blob" }).then(content => {
+                CloudService.uploadFile(content).then(res => {
+                    this.setState({ idCloud: res })
+                    console.log("NUEVA IDCLOUD===>" + JSON.stringify(this.state.idCloud))
+                })
             })
-        })
         })
 
     }
@@ -255,21 +255,21 @@ class UpdateGameComponent extends Component {
                                     }
                                     < br />
                                     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
-                                    <br/>
-                                    <br/>
+                                    <br />
+                                    <br />
                                     <label>Game:</label>
-                                    <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
-                                    
+                                    <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
+
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
                                     <div className="w3-xlarge w3-padding" >{this.state.title}</div>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{  marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
+                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>
-                                
+
                             }
                             {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
 
@@ -346,13 +346,13 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
-                        {this.state.isAdmin?(
-                        <div class="custom-control custom-checkbox">
-                        <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware}/>
-                       <label style={{color:"#838383"}}>¿This software is reliable for the community?</label>
-                             </div>)
-                             :null}
-                        
+                        {this.state.isAdmin ? (
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware} />
+                                <label style={{ color: "#838383" }}>¿This software is reliable for the community?</label>
+                            </div>)
+                            : null}
+
                         <div>
                             <br />
                             <h3>Reviews</h3>
@@ -360,13 +360,13 @@ class UpdateGameComponent extends Component {
                         </div>
                         <div>
                             <br />
-                            {this.state.createReviewCheck ?
-                                <h5>You've already reviewed this game</h5>
+                            {AuthService.isAuthenticated() ?
+                                (this.state.createReviewCheck ?
+                                    <h5>You've already reviewed this game</h5>
+                                    :
+                                    <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>)
                                 :
-                                AuthService.isAuthenticated() ?
-                                    <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
-                                    : null
-                            }
+                                null}
                             <br />
                             <br />
                         </div>

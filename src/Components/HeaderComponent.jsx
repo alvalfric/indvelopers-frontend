@@ -20,8 +20,13 @@ class HeaderComponent extends Component {
     } else {
       x.className = "topnav";
     }
-
   }
+
+  logout() {
+    AuthService.logout()
+    window.location.reload()
+  }
+
   render() {
     return (
       <div className="topnav" id="myTopnav">
@@ -29,16 +34,16 @@ class HeaderComponent extends Component {
         <a href="/publication-List" >Publications</a>
         <a href="/novedades">News</a>
         <a href="/games">Games</a>
-          <a href="/faq">FAQ</a>
+        <a href="/faq">FAQ</a>
         <a href="/about-us">About us</a>
         {AuthService.isAuthenticated() ?
           <React.Fragment>
-            <a href="/logout" style={{ float: "right", backgroundColor: "#cf0000" }}>Logout</a>
+            <a href="/" style={{ float: "right", backgroundColor: "#cf0000" }} onClick={this.logout}>Logout</a>
             <a href="/me" style={{ float: "right", backgroundColor: "#2f47b4" }}>{AuthService.getUserData()['username']}</a>
 
             {AuthService.getUserData()['roles'].indexOf('ADMIN') != -1 ?
               <React.Fragment>
-                <a href="/listUsers" className="AdminButton" style={{color:"black"}}>List users</a>
+                <a href="/listUsers" className="AdminButton" style={{ color: "black" }}>List users</a>
               </React.Fragment>
               :
               <React.Fragment>
