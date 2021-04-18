@@ -95,7 +95,7 @@ class LoginComponent extends Component {
                       </div>):null}
                 </div>
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.loginDeveloper}>Sign in</button>
+                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={(e)=>this.loginDeveloper(e)}>Sign in</button>
                 {this.state.submitError?(<div className="ValidatorMessage">
                          {this.state.submitError}
                       </div>):null}
