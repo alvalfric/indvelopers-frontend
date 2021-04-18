@@ -19,7 +19,7 @@ class EditUserDetailsComponent extends Component {
             gameList: "",
             userRole: this.props.history.location.state.profile.technologies,
             imagen: "",
-            base64TextString: this.props.history.location.state.profile.image,
+            base64TextString: this.props.history.location.state.profile.userImage,
             isPremium: this.props.history.location.state.profile.isPremium
         }
         this.updateProfile = this.updateProfile.bind(this);
@@ -42,8 +42,6 @@ class EditUserDetailsComponent extends Component {
                 AuthService.loadUserData();
                 this.props.history.push('/');
             })
-        } else {
-            this.setState({ submitError: "Invalid credentials!" });
         }
     }
 
@@ -142,7 +140,7 @@ class EditUserDetailsComponent extends Component {
                         <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
-                                    {typeof this.state.base64TextString == 'undefined' ?
+                                    {this.state.base64TextString == null ?
                                         <React.Fragment>
                                         <label>Imágen</label>
                                         </React.Fragment>
@@ -159,7 +157,7 @@ class EditUserDetailsComponent extends Component {
                             ) :
                                 <React.Fragment>
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ width: "100%", height: "100%", marginLeft: "auto", marginRight: "auto", display: "block" }} />
+                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
                                     </div>
                                 </React.Fragment>
                             }

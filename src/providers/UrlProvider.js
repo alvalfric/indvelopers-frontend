@@ -1,46 +1,52 @@
-const DEPLOYED_URL="https://continuous-indvelopers-backend.herokuapp.com"
+const DEPLOYED_URL = "https://continuous-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
 const ME = '/me'
-const PUBLICATIONS="/publications"
-const OWNEDGAMES="/ownedGames"
-const REVIEWS="/reviews"
-const SUBSCRIPTION="/subscription"
-const CLOUD="/file"
+const PUBLICATIONS = "/publications"
+const OWNEDGAMES = "/ownedGames"
+const REVIEWS = "/reviews"
+const SUBSCRIPTION = "/subscription"
+const CLOUD = "/file"
+const PAYMENT = "/payments"
 
 
+export const UrlProvider = {
 
-export const UrlProvider={
-
-    getDeveloperUrl(){
+    getDeveloperUrl() {
         return BASE_URL + DEVELOPERS;
     },
 
-    getGameUrl(){
+    getGameUrl() {
         return BASE_URL + GAMES;
     },
 
-    getPublicationUrl(){
+    getPublicationUrl() {
         return BASE_URL + PUBLICATIONS;
     },
 
-    getMeUrl(){
+    getMeUrl() {
         return BASE_URL + DEVELOPERS + ME;
     },
-    
-    getOwnedGamesUrl(){
+
+    getOwnedGamesUrl() {
         return BASE_URL + OWNEDGAMES;
     },
 
-    getReviewUrl(){
+    getReviewUrl() {
         return BASE_URL + REVIEWS;
     },
-    getSubscriptionUrl(){
+
+    getSubscriptionUrl() {
         return BASE_URL + SUBSCRIPTION;
     },
-    getCloudUrl(){
+
+    getCloudUrl() {
         return BASE_URL + CLOUD
+    },
+
+    getPaymentUrl() {
+        return BASE_URL + PAYMENT;
     }
 
 }

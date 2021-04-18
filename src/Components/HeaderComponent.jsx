@@ -25,9 +25,9 @@ class HeaderComponent extends Component {
   render() {
     return (
       <div className="topnav" id="myTopnav">
-        <a href="/"><img src={logo} className="inDvelopers-logo" width="140" height="25" /></a>
+        <a href="/"><img src={logo} className="inDvelopers-logo" width="140" height="26" /></a>
         <a href="/publication-List" >Publications</a>
-        <a href="#">News</a>
+        <a href="/novedades">News</a>
         <a href="/games">Games</a>
           <a href="/faq">FAQ</a>
         <a href="/about-us">About us</a>

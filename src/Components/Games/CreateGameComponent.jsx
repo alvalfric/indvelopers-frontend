@@ -19,10 +19,12 @@ class CreateGameComponent extends Component {
             price: "",
             priceError: "",
             imagen: "",
+            imagenError:"",
             base64TextString: "",
             submitError: "",
             isPremium:false,
-            idCloud:""
+            idCloud:"",
+            idCloudError:""
         }
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
@@ -41,6 +43,8 @@ class CreateGameComponent extends Component {
         let descriptionError = "";
         let requirementsError = "";
         let priceError="";
+        let imagenError="";
+        let idCloudError="";
 
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
@@ -50,6 +54,12 @@ class CreateGameComponent extends Component {
         }
         if (this.state.requirements.length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
+        }
+        if(this.state.idCloud.length===0){
+            idCloudError="You must upload a game"
+        }
+        if(this.state.imagen.length===0){
+            imagenError="The game needs a cover"
         }
         if (this.state.isPremium) {
             if (this.state.price.length === 0) {
@@ -64,7 +74,9 @@ class CreateGameComponent extends Component {
         this.setState({ descriptionError });
         this.setState({ requirementsError });
         this.setState({ priceError });
-        if (titleError || descriptionError || requirementsError || priceError) {
+        this.setState({imagenError});
+        this.setState({idCloudError});
+        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError) {
             return false;
         } else {
             return true;
@@ -208,10 +220,14 @@ class CreateGameComponent extends Component {
                         }
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                        {this.state.imagenError ? (<div className="ValidatorMessage">{this.state.imagenError}</div>) : null}
+
                         </div>
                         <div className="form-group">
-                        <label>Game:</label>
+                        <label>Game(.zip format):</label>
                         <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
+                        {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
+
                         </div>
                         <button className="AceptButton" onClick={this.saveGame}>Add game</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">

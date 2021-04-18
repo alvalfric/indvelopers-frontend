@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import OwnedGameService from '../../Services/OwnedGameService';
 import portada from '../../assets/JuegoPortada.jpg';
+import {PaypalService} from '../../Services/PaypalService';
+import paypal from 'paypal-checkout';
 
 class OwnedGameComponent extends Component {
     constructor(props){
@@ -32,6 +34,7 @@ class OwnedGameComponent extends Component {
         }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
+            console.log("PRECIO====>"+JSON.stringify(this.state.game.price))
         })
     }
     }
@@ -50,9 +53,23 @@ class OwnedGameComponent extends Component {
     purchaseGame(id){
         const isValid = this.validate();
         if(isValid){
+            if(this.state.game.price==0 || this.state.game.price==0.0 || this.state.game.price==undefined){
+
             OwnedGameService.buyGame(id).then(()=>{
                 this.props.history.push("/games");
             })
+
+            }else{
+            PaypalService.summary(id).then(order=>{
+                
+                PaypalService.payment(order).then(code=>{
+                    
+                    window.open(code,"paypal",true)
+                    this.props.history.push("/wait")
+                    
+                })
+            })
+            }
         }
     }
 
@@ -66,7 +83,7 @@ class OwnedGameComponent extends Component {
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
                 <div className="sidenav">
-                <img src={portada}  style={{width:"70%", height:"90%",display:"block"}}/>
+                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} width="400" height="300" />
                 <div style={{marginRight:"30%"}}>
                  <br/>
                    <div className="w3-card-4" >

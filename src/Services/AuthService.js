@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { UrlProvider } from '../providers/UrlProvider';
+import { DeveloperService } from './DeveloperService';
 
 const AUTH_TOKEN_KEY = 'authToken'
 const USER_ID_KEY = 'userId'
@@ -95,7 +96,7 @@ export const AuthService = {
     async refreshToken() {
         let username = this.getCredentials().username
         let password = this.getCredentials().password
-        return await this.login(username, password).then((token) => {
+        return await DeveloperService.login(username, password).then((token) => {
             let tokenData = JSON.parse(atob(token.split('.')[1]))
             this.setToken(token)
             this.setExpirationMoment(tokenData.exp)

@@ -20,6 +20,12 @@ class LoginComponent extends Component {
         this.changePasswordHandler=this.changePasswordHandler.bind(this);
     }
 
+    componentDidMount() {
+        if (AuthService.isAuthenticated()) {
+            this.props.history.push('/')
+        }
+	}
+
     validate=()=>{
         let usernameError="";
         let passwordError="";
