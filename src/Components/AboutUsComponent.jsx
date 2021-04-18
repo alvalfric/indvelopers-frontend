@@ -26,18 +26,18 @@ class AboutUsComponent extends Component{
 					<h1>inDvelopers</h1>
 					<br></br>
 					<p>
-						“inDvelopers” es un portal dedicado a los desarrolladores indie o indie developers. 
-						Este tipo de desarrolladores se dedican principalmente
-						al desarrollo de videojuegos de forma amateur, sin ninguna formación profesional previa. Tan
-						solo se guían por su creatividad y su curiosidad por aprender sobre el mundo de los videojuegos
-						y el trabajo y conocimiento que ello requiere.
+					"InDvelopers" is a portal dedicated to indie developers.
+                    This type of developers are mainly dedicated
+                    to the development of video games in an amateur way, without any previous professional training. So
+                    They are only guided by their creativity and their curiosity to learn about the world of video games
+                    and the work and knowledge that it requires.
 					</p>
 				</div>
 
 				<br></br>
 				<br></br>
 				<div className="text-center">
-					<h1>Nuestro equipo</h1>
+					<h1>Our team</h1>
 					<div class="row">
 						<div class="col"> 
 							<br></br>
@@ -45,13 +45,13 @@ class AboutUsComponent extends Component{
 								<img src={fernando} alt="Fernando" width={70}/>
 								<h3> Fernando Wals</h3>
 								<p>Project Manager</p>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<div class="container">
 								<img src={juan} alt="Juan Pablo" width={90}/>
 								<h3> Juan Pablo Portero</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
@@ -59,7 +59,7 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={moises} alt="Moises" width={90}/>
 								<h3> Moisés Romero</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
@@ -67,7 +67,7 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={david} alt="David" width={80}/>
 								<h3> David Cáceres</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 						
 						 </div>
@@ -76,15 +76,15 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={alvaro} alt="Alvaro" width={60}/>
 								<h3> Álvaro Alferez</h3>
-								<p>Jefe Back End</p>
-								<p>Desarrollador</p>
+								<p>Back End manager</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
 							<div class="container">
 								<img src={alejandro} alt="Alejandro" width={50}/>
 								<h3> Alejandro González</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
@@ -92,7 +92,7 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={gonzalo} alt="Gonzalo" width={75}/>
 								<h3> Gonzalo Fernández</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
@@ -100,7 +100,7 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={marta} alt="Marta" width={80}/>
 								<h3> Marta Diaz</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 						
 						</div>
@@ -109,7 +109,7 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={francisco} alt="Francisco Javier" width={60}/>
 								<h3> Francisco Javier</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
@@ -119,21 +119,21 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={elena} alt="Elena" width={140}/>
 								<h3> Elena España</h3>
-								<p>Directora Marketing</p>
-								<p>Desarrollador</p>
+								<p>Marketing director</p>
+								<p>Developer</p>
 							</div>
 
 							<div class="container">
 								<img src={guillermo} alt="Guillermo" width={90}/>
 								<h3> Guillermo Pavon</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 
 							<br></br>
 							<div class="container">
 								<img src={luis} alt="Luis" width={80}/>
 								<h3> Luis Pardo</h3>
-								<p>Desarrollador</p>
+								<p>Developer</p>
 							</div>
 						
 						</div>

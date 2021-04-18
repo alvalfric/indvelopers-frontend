@@ -175,33 +175,33 @@ class CreateGameComponent extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <h2>Crear un juego</h2>
+                    <h2>Create a game</h2>
                     <br></br>
                     <form>
                         <div className="form-group">
-                            <label>Título</label>
+                            <label>Title</label>
                             <input placeholder="Title" name="title" className="form-control"
                                 value={this.state.title} onChange={this.changeTitleHandler}></input>
 
                             {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Descripción</label>
+                            <label>Description</label>
                             <input placeholder="Description" name="description" className="form-control"
                                 value={this.state.description} onChange={this.changeDescriptionHandler}></input>
 
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Requisitos mínimos</label>
+                            <label>Minimun requirements</label>
                             <input placeholder="Requirements" name="requirements" className="form-control"
                                 value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
 
                             {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Precio</label>
-                            <p>Nota: Si eres un usuario NO PREMIUM el precio será 0 siempre</p>
+                            <label>Price</label>
+                            <p>Note: If you're a NON PREMIUM user, price will be 0€</p>
                             <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
@@ -209,13 +209,13 @@ class CreateGameComponent extends Component {
                         <div className="form-group">
                         {this.state.base64TextString !== "" ?
                             <React.Fragment>
-                                <label>Imágen actual: </label>
+                                <label>Actual image: </label>
                                 < br />
                                 <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
                             </React.Fragment>
                         :
                             <React.Fragment>
-                                <label>Imágen: </label>
+                                <label>Image: </label>
                             </React.Fragment>
                         }
                         < br />
@@ -229,12 +229,12 @@ class CreateGameComponent extends Component {
                         {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
 
                         </div>
-                        <button className="AceptButton" onClick={this.saveGame}>Añadir juego</button>
+                        <button className="AceptButton" onClick={this.saveGame}>Add game</button>
                         {this.state.submitError ? (<div className="ValidatorMessage">
                             {this.state.submitError}
                         </div>) : null}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
-                        <p className="text-danger">* No verás tu juego publicado hasta que no sea revisado por un admin</p>
+                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        <p className="text-danger">* you won't see your game published until admins check it</p>
                     </form>
                 </div>
             </div>

@@ -29,7 +29,7 @@ class ListOwnedGamesComponent extends Component {
             <div>
                 <br/>
                 <br/>
-                <h1>Juegos comprados</h1>
+                <h1>My purchased games</h1>
                 <br/>
                 <div>
             {this.state.myGames.map(game=>
@@ -42,8 +42,8 @@ class ListOwnedGamesComponent extends Component {
                     <div className="w3-container p-3"> 
                         <p class="card-text">
                             <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} width="400" height="300" />
-                            Descripción: { game.description }
-                            <button className="ModifyButton float-right" onClick={(e)=>this.downloadGame(e,game.idCloud)}>Descargar</button>
+                            Description: { game.description }
+                            <button className="ModifyButton float-right" onClick={(e)=>this.downloadGame(e,game.idCloud)}>Download</button>
                         </p>
                     </div>
                     </div>

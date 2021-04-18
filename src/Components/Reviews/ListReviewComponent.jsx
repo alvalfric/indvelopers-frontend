@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserLogo from '../../assets/userExample.png';
 import { ReviewService } from '../../Services/ReviewService';
 import ReactPaginate from 'react-paginate';
+import StarRatings from 'react-star-ratings';
 
 
 class ListReviewComponent extends Component {
@@ -62,12 +63,14 @@ class ListReviewComponent extends Component {
                 <div>
                   <br />
                   <div className="w3-card-4" >
+                  <br />
                     <header className="w3-container ">
-                      <h5>{review.developer.username}</h5>
+                      <h5>{review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score"/></h5>
                     </header>
                     <div className="w3-container">
                       <p>{review.text}</p>
-                      <p>{review.score}/5</p>
+                      
+                      <p></p>
                     </div>
                   </div>
                 </div>

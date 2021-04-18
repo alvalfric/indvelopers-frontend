@@ -239,7 +239,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    <label>Título</label>
+                                    <label>Title</label>
                                     <input placeholder="Title" name="title" className="form-control"
                                         value={this.state.title} onChange={this.changeTitleHandler}></input>
                                     {this.state.base64TextString !== "" ?
@@ -263,11 +263,13 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
+                                    <div className="w3-xlarge w3-padding" >{this.state.title}</div>
                                     <div className="w3-display-container w3-text-white">
                                         <img src={"data:image/png;base64," + this.state.base64TextString} style={{  marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>
+                                
                             }
                             {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
 
@@ -275,7 +277,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    <label>Descripción</label>
+                                    <label>Description</label>
                                     <input placeholder="Description" name="description" className="form-control"
                                         value={this.state.description} onChange={this.changeDescriptionHandler}></input>
                                 </React.Fragment>
@@ -286,7 +288,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Descripcion</h5>
+                                                <h5>Description</h5>
                                             </header>
                                             <div className="w3-container">
                                                 <p>{this.state.description}</p>
@@ -300,7 +302,7 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    <label>Requisitos del sistema</label>
+                                    <label>System requirements</label>
                                     <input placeholder="Requirements" name="requirements" className="form-control"
                                         value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
                                 </React.Fragment>
@@ -311,7 +313,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Requisitos del sistema</h5>
+                                                <h5>System requirements</h5>
                                             </header>
                                             <div className="w3-container">
                                                 <p>{this.state.requirements}</p>
@@ -336,7 +338,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Precio: {this.state.price}€</h5>
+                                                <h5>Price: {this.state.price}€</h5>
                                             </header>
                                         </div>
                                     </div>
@@ -344,13 +346,13 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
-                        {this.state.isAdmin ? (
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware} />
-                                <label style={{ color: "#838383" }}>¿Es seguro este software para la comunidad indie?</label>
-                            </div>)
-                            : null}
-
+                        {this.state.isAdmin?(
+                        <div class="custom-control custom-checkbox">
+                        <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware}/>
+                       <label style={{color:"#838383"}}>¿This software is reliable for the community?</label>
+                             </div>)
+                             :null}
+                        
                         <div>
                             <br />
                             <h3>Reviews</h3>
@@ -359,7 +361,7 @@ class UpdateGameComponent extends Component {
                         <div>
                             <br />
                             {this.state.createReviewCheck ?
-                                <h5>Ya has creado una review a este juego</h5>
+                                <h5>You've already reviewed this game</h5>
                                 :
                                 AuthService.isAuthenticated() ?
                                     <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>
@@ -371,18 +373,18 @@ class UpdateGameComponent extends Component {
 
                         {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                             <React.Fragment>
-                                <button className="AceptButton" onClick={this.updateGame}>Modificar juego</button>
-                                <button className="DeleteButton" onClick={this.deleteGame}>Borrar Juego</button>
+                                <button className="AceptButton" onClick={this.updateGame}>Modify game</button>
+                                <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame}>Delete game</button>
                             </React.Fragment>
                         ) : this.state.isAdmin ? (<React.Fragment>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e) => this.downloadGame(e)} >Descargar</button>
-                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modificar juego</button>
-                            <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Borrar Juego</button>
-                        </React.Fragment>) : this.state.isBought ? (<p>Ya lo tienes en tu lista de juegos comprados</p>) :
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={(e) => this.downloadGame(e)} >Download</button>
+                            <button className="AdminButton" style={{ marginLeft: "10px" }} onClick={this.updateGame} >Modify game</button>
+                            <button className="DeleteButton" style={{ marginLeft: "10px" }} onClick={this.deleteGame} >Delete game</button>
+                        </React.Fragment>) : this.state.isBought ? (<p>You already have it in your game library</p>) :
                             AuthService.isAuthenticated() ?
-                                <button className="DeleteButton" onClick={() => this.buyGame(this.props.match.params.id)}>Comprar</button>
+                                <button className="DeleteButton" onClick={() => this.buyGame(this.props.match.params.id)}>Buy</button>
                                 : null}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
+                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Back</button>
                     </form>
                 </div>
             </div>
