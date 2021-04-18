@@ -107,7 +107,7 @@ class GamesComponent extends Component {
       <div className='container'  >
         <h1 style={{ paddingTop: '5%' }}>Game List</h1>
         <div className="row">
-          <button className="Button" onClick={this.createGame}>Crear juego</button>
+          <button className="Button" onClick={this.createGame}>Create game</button>
           <button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button>
           <button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}> My created games</button>
           {AuthService.isAuthenticated() ?

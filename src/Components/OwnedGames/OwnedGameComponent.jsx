@@ -41,7 +41,7 @@ class OwnedGameComponent extends Component {
     validate=()=>{
         let AcceptMessage="";
         if(!this.state.acceptedPurchase){
-            AcceptMessage="Debes hacer click para finalizar la compra"
+            AcceptMessage="You must agree to the purchase before continuing"
         }
         this.setState({AcceptMessage})
         if(AcceptMessage){
@@ -108,7 +108,7 @@ class OwnedGameComponent extends Component {
                 <h3>purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
-                 <input type="checkbox" onClick={this.changeConfirmHandler} />
+                 <input type="checkbox" value={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
                  <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
