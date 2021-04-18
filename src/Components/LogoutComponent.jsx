@@ -2,19 +2,15 @@ import React, { Component } from "react";
 import { AuthService } from "../Services/AuthService";
 
 class LogoutComponent extends Component {
+
     componentDidMount() {
-		AuthService.logout()
-	}
+        AuthService.logout()
+        this.props.history.push('/')
+        window.location.reload()
+    }
 
     render() {
-        return (
-            <React.Fragment>
-                <br />
-                <br />
-                <h1>¡Has cerrado sesión correctamente!</h1>
-                <h2>Pulsa aquí para volver a la <a href="/">Página inicial</a></h2>
-            </React.Fragment>
-        );
+        return null
     }
 }
 
