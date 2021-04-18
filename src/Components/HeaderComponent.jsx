@@ -23,8 +23,9 @@ class HeaderComponent extends Component {
   }
 
   logout() {
-    AuthService.logout()
-    window.location.reload()
+    AuthService.logout();
+    alert("You have logged out successfully!");
+    window.location.reload();
   }
 
   render() {
