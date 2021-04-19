@@ -42,7 +42,7 @@ class UserDetailsComponent extends Component {
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={"data:image/png;base64,"+ this.profile.userImage } class="rounded float-start" alt="ProfileImage" width="400" height="300" /> 
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } class="rounded float-start" alt="ProfileImage" max-width="400" max-height="300" /> 
                     {this.state.isPremium?(
                     <React.Fragment>
                     <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ You are premium! ⭐</p>
