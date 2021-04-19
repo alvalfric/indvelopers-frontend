@@ -27,7 +27,7 @@ class CreatePublicationComponent extends Component {
         let textError = "";
 
         if (this.state.text.length === 0) {
-            textError = "Debes escribir algo para publicar"
+            textError = "You must type something to publish!"
         }
 
         this.setState({ textError });

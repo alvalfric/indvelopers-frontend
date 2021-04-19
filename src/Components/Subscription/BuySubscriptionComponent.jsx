@@ -41,7 +41,7 @@ class BuySubscriptionComponent extends Component {
         }
     }
     changeConfirmHandler= (event)=>{
-        this.setState({acceptedPurchase: event.target.value})
+        this.setState({acceptedPurchase: !this.props.acceptedPurchase})
     }
 
     getDetails=()=>{
@@ -76,12 +76,12 @@ class BuySubscriptionComponent extends Component {
                 <h3>Purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
-                 <input type="checkbox" onClick={this.changeConfirmHandler} />
+                 <input type="checkbox" defaultChecked={this.props.acceptedPurchase} onClick={this.changeConfirmHandler} />
                  <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
               
-                <button className="AceptButton"  onClick={this.buySubscription}>Finalixe purchase</button>
+                <button className="AceptButton"  onClick={this.buySubscription}>Finalize purchase</button>
                 </div>
                 </div>
             </React.Fragment>

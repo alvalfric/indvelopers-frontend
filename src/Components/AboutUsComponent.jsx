@@ -29,7 +29,7 @@ class AboutUsComponent extends Component{
 					"InDvelopers" is a portal dedicated to indie developers.
                     This type of developers are mainly dedicated
                     to the development of video games in an amateur way, without any previous professional training. So
-                    They are only guided by their creativity and their curiosity to learn about the world of video games
+                    they are only guided by their creativity and their curiosity to learn about the world of video games
                     and the work and knowledge that it requires.
 					</p>
 				</div>
