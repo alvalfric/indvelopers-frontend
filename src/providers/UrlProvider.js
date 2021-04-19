@@ -1,4 +1,4 @@
-const DEPLOYED_URL="https://level2-indvelopers-backend.herokuapp.com"
+const DEPLOYED_URL="https://continuous-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
