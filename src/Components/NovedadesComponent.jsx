@@ -48,7 +48,7 @@ class NovedadesComponent extends Component {
 			<div>
 				<br></br>
 				<br></br>
-				<h1 className="text-center" style={{ paddingTop: '5%' }}>Top Juegos</h1>
+				<h1 className="text-center" style={{ paddingTop: '5%' }}>Top Games</h1>
 
 				<div>
 					{this.state.topGamesAllTime.map((item) =>
@@ -73,7 +73,7 @@ class NovedadesComponent extends Component {
 					)}
 				</div>
 
-				<h1 className="text-center" style={{ paddingTop: '5%' }}>Juegos Nuevos</h1>
+				<h1 className="text-center" style={{ paddingTop: '5%' }}>New Games</h1>
 				<div>
 					{this.state.topNewGames.map((item) =>
 						<div className="pb-4">

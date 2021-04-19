@@ -15,7 +15,7 @@ class FAQComponent extends Component{
 					
 					<div className="text-center">
 						
-						<h2>Preguntas generales</h2>
+						<h2>Frequently asked questions</h2>
 						<br></br>
 
 							<ul>
