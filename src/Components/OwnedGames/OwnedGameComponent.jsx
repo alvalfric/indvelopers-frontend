@@ -21,9 +21,7 @@ class OwnedGameComponent extends Component {
 
     }
     changeConfirmHandler= (event)=>{
-        console.log('Before: ' + this.state.acceptedPurchase)
         this.setState({acceptedPurchase: !this.state.acceptedPurchase})
-        console.log('After: ' + this.state.acceptedPurchase)
     }
     
     componentDidMount(){
