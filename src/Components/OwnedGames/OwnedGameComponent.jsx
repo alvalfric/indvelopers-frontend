@@ -21,7 +21,9 @@ class OwnedGameComponent extends Component {
 
     }
     changeConfirmHandler= (event)=>{
-        this.setState({acceptedPurchase: !this.props.acceptedPurchase})
+        console.log('Before: ' + this.state.acceptedPurchase)
+        this.setState({acceptedPurchase: !this.state.acceptedPurchase})
+        console.log('After: ' + this.state.acceptedPurchase)
     }
     
     componentDidMount(){
@@ -108,7 +110,7 @@ class OwnedGameComponent extends Component {
                 <h3>Purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
-                 <input type="checkbox" defaultChecked={this.props.acceptedPurchase} onClick={this.changeConfirmHandler} />
+                 <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
                  <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
