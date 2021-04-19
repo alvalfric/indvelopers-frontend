@@ -142,11 +142,11 @@ class EditUserDetailsComponent extends Component {
                                 <React.Fragment>
                                     {this.state.base64TextString == null ?
                                         <React.Fragment>
-                                        <label>Imágen</label>
+                                        <label>Image</label>
                                         </React.Fragment>
                                         :
                                         <React.Fragment>
-                                            <label>Imágen actual</label>
+                                            <label>Current image</label>
                                             < br />
                                             <img src={"data:image/png;base64," + this.state.base64TextString} width="120" height="80" />
                                         </React.Fragment>

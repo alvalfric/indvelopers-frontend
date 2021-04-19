@@ -1,4 +1,4 @@
-const DEPLOYED_URL = "https://continuous-indvelopers-backend.herokuapp.com"
+const DEPLOYED_URL="https://level2-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
@@ -13,40 +13,37 @@ const PAYMENT = "/payments"
 
 export const UrlProvider = {
 
-    getDeveloperUrl() {
-        return BASE_URL + DEVELOPERS;
+    getDeveloperUrl(){
+        return DEPLOYED_URL + DEVELOPERS;
     },
 
-    getGameUrl() {
-        return BASE_URL + GAMES;
+    getGameUrl(){
+        return DEPLOYED_URL + GAMES;
     },
 
-    getPublicationUrl() {
-        return BASE_URL + PUBLICATIONS;
+    getPublicationUrl(){
+        return DEPLOYED_URL + PUBLICATIONS;
     },
 
-    getMeUrl() {
-        return BASE_URL + DEVELOPERS + ME;
+    getMeUrl(){
+        return DEPLOYED_URL + DEVELOPERS + ME;
+    },
+    
+    getOwnedGamesUrl(){
+        return DEPLOYED_URL + OWNEDGAMES;
     },
 
-    getOwnedGamesUrl() {
-        return BASE_URL + OWNEDGAMES;
+    getReviewUrl(){
+        return DEPLOYED_URL + REVIEWS;
     },
-
-    getReviewUrl() {
-        return BASE_URL + REVIEWS;
+    getSubscriptionUrl(){
+        return DEPLOYED_URL + SUBSCRIPTION;
     },
-
-    getSubscriptionUrl() {
-        return BASE_URL + SUBSCRIPTION;
+    getCloudUrl(){
+        return DEPLOYED_URL + CLOUD
     },
-
-    getCloudUrl() {
-        return BASE_URL + CLOUD
-    },
-
-    getPaymentUrl() {
-        return BASE_URL + PAYMENT;
+    getPaymentUrl(){
+        return DEPLOYED_URL + PAYMENT;
     }
 
 }

@@ -56,7 +56,7 @@ class CreateGameComponent extends Component {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
         if(this.state.idCloud.length===0){
-            idCloudError="You must upload a game"
+            idCloudError="You must upload a game and let it a few seconds to upload"
         }
         if(this.state.imagen.length===0){
             imagenError="The game needs a cover"
