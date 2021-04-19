@@ -1,14 +1,17 @@
-const DEPLOYED_URL="https://continuous-indvelopers-backend.herokuapp.com"
+const DEPLOYED_URL="https://level2-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
 const ME = '/me'
-const PUBLICATIONS="/publications"
-const OWNEDGAMES="/ownedGames"
-const REVIEWS="/reviews"
+const PUBLICATIONS = "/publications"
+const OWNEDGAMES = "/ownedGames"
+const REVIEWS = "/reviews"
+const SUBSCRIPTION = "/subscription"
+const CLOUD = "/file"
+const PAYMENT = "/payments"
 
 
-export const UrlProvider={
+export const UrlProvider = {
 
     getDeveloperUrl(){
         return DEPLOYED_URL + DEVELOPERS;
@@ -32,5 +35,15 @@ export const UrlProvider={
 
     getReviewUrl(){
         return DEPLOYED_URL + REVIEWS;
+    },
+    getSubscriptionUrl(){
+        return DEPLOYED_URL + SUBSCRIPTION;
+    },
+    getCloudUrl(){
+        return DEPLOYED_URL + CLOUD
+    },
+    getPaymentUrl(){
+        return DEPLOYED_URL + PAYMENT;
     }
+
 }

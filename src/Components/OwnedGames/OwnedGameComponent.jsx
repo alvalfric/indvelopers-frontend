@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import OwnedGameService from '../../Services/OwnedGameService';
 import portada from '../../assets/JuegoPortada.jpg';
+import {PaypalService} from '../../Services/PaypalService';
+import paypal from 'paypal-checkout';
 
 class OwnedGameComponent extends Component {
     constructor(props){
@@ -19,7 +21,7 @@ class OwnedGameComponent extends Component {
 
     }
     changeConfirmHandler= (event)=>{
-        this.setState({acceptedPurchase: event.target.value})
+        this.setState({acceptedPurchase: !this.state.acceptedPurchase})
     }
     
     componentDidMount(){
@@ -32,13 +34,14 @@ class OwnedGameComponent extends Component {
         }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
+            console.log("PRECIO====>"+JSON.stringify(this.state.game.price))
         })
     }
     }
     validate=()=>{
         let AcceptMessage="";
         if(!this.state.acceptedPurchase){
-            AcceptMessage="Debes hacer click para finalizar la compra"
+            AcceptMessage="You must agree to the purchase before continuing"
         }
         this.setState({AcceptMessage})
         if(AcceptMessage){
@@ -50,29 +53,37 @@ class OwnedGameComponent extends Component {
     purchaseGame(id){
         const isValid = this.validate();
         if(isValid){
+            if(this.state.game.price==0 || this.state.game.price==0.0 || this.state.game.price==undefined){
+
             OwnedGameService.buyGame(id).then(()=>{
                 this.props.history.push("/games");
             })
+
+            }else{
+            PaypalService.summary(id).then(order=>{
+                
+                PaypalService.payment(order).then(code=>{
+                    
+                    window.open(code,"paypal",true)
+                    this.props.history.push("/wait")
+                    
+                })
+            })
+            }
         }
     }
 
-    render() {
-        return (
-            <div>
-                {this.state.isBought?(<React.Fragment>
-                    <br/>
-                    <br/>
-                    <h1 style={{marginTop:"100px"}}>NO DEBERIAS ESTAR AQUI, VUELVE POR DONDE HAS VENIDO</h1>
-                </React.Fragment>):
-                <React.Fragment>
-                <br/>
+    getDetails=()=>{
+        return(
+        <React.Fragment>
+            <br/>
                 <br/>
                 
-                <h2>Finalizar compra</h2>
+                <h2>Finalize purchase</h2>
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
                 <div className="sidenav">
-                <img src={portada}  style={{width:"70%", height:"90%",display:"block"}}/>
+                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} width="400" height="300" />
                 <div style={{marginRight:"30%"}}>
                  <br/>
                    <div className="w3-card-4" >
@@ -88,24 +99,33 @@ class OwnedGameComponent extends Component {
                  </div>
                 </div >
                 <div className="sidenav2">
-                <h3>Titulo del juego</h3>
+                <h3>Game title</h3>
                 <h3>{this.state.game.title}</h3>
-                <h4 style={{color:"#838383"}}>Precio:{this.state.game.price} €</h4>
-                <h4 style={{color:"#838383"}}>Descuento:0€</h4>
+                <h4 style={{color:"#838383"}}>Price:{this.state.game.price} €</h4>
+                <h4 style={{color:"#838383"}}>Discount:0€</h4>
                 <h4 style={{color:"#838383"}}>______________________________________________</h4>
                 <h4 style={{color:"#838383"}}>total:{this.state.game.price} €</h4>
-                <h3>Método de pago</h3>
+                <h3>Purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">
-                 <input type="checkbox" onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Haz click para confirmar tu compra</label>
+                 <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
+                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               </div>
               
-                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalizar compra</button>
+                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalize purchase</button>
                 </div>
                 </div>
-                </React.Fragment>
+        </React.Fragment>
+        )
+    }
+    render() {
+        return (
+            <div>
+                {this.state.isBought?(
+                    this.props.history.push(`/game-View/${this.state.id}`)
+                ):
+                this.getDetails()
                 }
             </div>
         );

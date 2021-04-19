@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 
-class LoginComponent extends Component {
+class SuccessfulLoginComponent extends Component {
 
     render() {
         return (
             <React.Fragment>
                 <br />
                 <br />
-                <h1>¡Te has logueado correctamente!</h1>
-                <h2>Pulsa aquí para volver a la <a href="/">Página inicial</a></h2>
+                <h1>¡You've logged in successfully!</h1>
+                <h2>Click <a href="/">HERE</a> to go to the main screen</h2>
             </React.Fragment>
         );
     }
+
 }
 
-export default LoginComponent;
+export default SuccessfulLoginComponent;

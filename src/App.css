@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #004A1E;
+  background-color: #1d2d50;
   display: flex;
   flex-direction: column;
   color: white;
@@ -37,13 +37,13 @@
 .footer {
   position: bottom;
   width:100%;
-  height: 100px;
+  height: 70px;
   background-color: black;
   text-align: center;
   color: white;
 }
 .App-header {
-  background-color: #004A1E;
+  background-color: #1d2d50;
   display: flex;
   flex-direction: column;
   color: white;
@@ -72,7 +72,7 @@
   height: 30%;
 }
 .Back{
-  background-color:#306b48;
+  background-color:#133b5c;
   margin-right:10%;
   padding-left:5%;
   padding-right:5%;
@@ -87,32 +87,32 @@
   text-decoration: none;
 }
 .pagination > .active > a{
-  background-color: #47de8b ;
-  border-color: #47de8b ;
+  background-color: #1e5f74 ;
+  border-color: #1e5f74 ;
   color: #fff;
   text-decoration: none;
 }
 .pagination > li > a{
-  border: 1px solid #47de8b ;
+  border: 1px solid #1e5f74 ;
   padding: 5px 10px;
   outline: none;
   cursor: pointer;
   text-decoration: none;
 }
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-  background-color: #47de8b ;
-  border-color: #47de8b;
+  background-color: #1e5f74 ;
+  border-color: #1e5f74;
   outline: none ;
   text-decoration: none;
 }
 .pagination > li > a, .pagination > li > span{
-  color: #47de8b
+  color: #1e5f74
 }
 .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
   border-radius: unset
 }
 .Button{
-  background-color: #47de8b;
+  background-color: #1e5f74;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -122,7 +122,7 @@
   font-size: 16px;
 }
 .AceptButton{
-  background-color: #00fc7efd;
+  background-color: #01963afd;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -130,8 +130,17 @@
   text-decoration: none;
   font-size: 16px;
 }
+.AdminButton{
+  background-color: #d8bc1dfd;
+  border: none;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
 .CancelButton{
-  background-color: #fc0000fd;
+  background-color: #cf0000;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -140,7 +149,7 @@
   font-size: 16px;
 }
 .DeleteButton{
-  background-color: #8f1485fd;
+  background-color: #7c1273fd;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -163,7 +172,7 @@
 }
 .ButtonFileLoad{
 
-  background-color: #4ec292fd;
+  background-color: #4ea7c2fd;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -185,7 +194,7 @@
   margin: 0;
   padding: 15;
   overflow: hidden;
-  background-color: #9AD263;
+  background-color: #fcdab7;
 }
 
 .elemento {
@@ -198,7 +207,7 @@
   float: right;
   font-size:"150%";
   padding-right:"50px";
-  background-color: #13773B;
+  background-color: #2f93b4;
 }
 
 .linkElemento {
@@ -213,7 +222,7 @@
 
 /* Change the link color to #111 (black) on hover */
 .linkElemento:hover {
-  background-color: rgb(10, 109, 7);
+  background-color: rgb(7, 22, 109);
   color:black;
   text-decoration: none;
 }
@@ -223,7 +232,6 @@
   display: block;
   color: #f2f2f2;
   text-align: center;
-  padding-top: 10px;
   text-decoration: none;
 }
 
@@ -231,7 +239,7 @@
 Video de youtube #9AD263
 */
 .Navbar{
-  background-color: #9AD263;
+  background-color: #fcdab7;
   height: 80px;
   display:flex;
   justify-content: center;
@@ -249,7 +257,7 @@ Video de youtube #9AD263
   max-width: 1500px;
 }
 .Nav-logo{
-  color:green;
+  color:blue;
   align-items: center;
   margin-left: 20px;
   text-decoration: none;
@@ -283,7 +291,7 @@ Video de youtube #9AD263
 }
 .Nav-item:hover{
   width: 100%;
-  background: green;
+  background: blue;
 }
 
 /*W3Schools==================================================================================00*/
@@ -291,7 +299,7 @@ Video de youtube #9AD263
   z-index: 2;
   width: 100%;
   position:fixed;
-  background-color: #9AD263;
+  background-color: #2c90b1;
   overflow: hidden;
 }
 .gridContainer {
@@ -324,7 +332,7 @@ padding-right:80px;
 
 /* Add an active class to highlight the current page */
 .active {
-  background-color: #4CAF50;
+  background-color: #3dc5f3;
   color: white;
 }
 
@@ -373,7 +381,7 @@ padding-right:80px;
 
 /* Add a dark background on topnav links and the dropdown button on hover */
 .topnav a:hover, .dropdown:hover .dropbtn {
-  background-color: #4CAF50;
+  background-color: #3dc5f3;
   color: white;
 }
 

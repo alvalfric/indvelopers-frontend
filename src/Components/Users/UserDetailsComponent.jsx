@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
+import {SubscriptionService} from '../../Services/SubscriptionService';
 
 class UserDetailsComponent extends Component {
 
@@ -7,8 +8,19 @@ class UserDetailsComponent extends Component {
         super(props)
         this.profile = AuthService.getUserData()
         this.state={
+            isPremium:false,
+            endSubs:""
         }
         this.modifyUserDetails=this.modifyUserDetails.bind(this);
+        this.buySuscription=this.buySuscription.bind(this);
+        SubscriptionService.checkHasSubscription().then((res)=>{
+            this.setState({isPremium:res})
+        })
+        SubscriptionService.getSubscription(this.profile.id).then((res)=>{
+            this.setState({endSubs:res.endDate})
+        })
+        console.log("isPREMIUM==>"+JSON.stringify(this.state.isPremium))
+        console.log("DATE==>"+JSON.stringify(this.state.endSubs))
     }
 
     modifyUserDetails() {
@@ -18,19 +30,25 @@ class UserDetailsComponent extends Component {
         })
 
     } 
+    buySuscription(){
+        this.props.history.push("/buySubscription");
+    }
 
     getDetails = () => {
         return(
             <React.Fragment>
-            <h2>Detalles de usuario</h2>
+            <h2>User details</h2>
             <div className='container' style={{padding: '10px'}}>
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={ this.profile.email } class="rounded float-start" alt="ProfileImage" /> 
-                    {this.profile.isPremium?
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } class="rounded float-start" alt="ProfileImage" style={{maxWidth: '300px', maxHeight: '400px'}} /> 
+                    {this.state.isPremium?(
+                    <React.Fragment>
                     <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ You are premium! ⭐</p>
-                    :null
+                    <p>Your subscription ends in: {this.state.endSubs}</p>
+                    </React.Fragment>
+                    ):null
                     }  
                 </div>
                 <div className='col-6'>
@@ -51,8 +69,10 @@ class UserDetailsComponent extends Component {
                     }
                 
                 </div>
-                <button className="Button" onClick={this.modifyUserDetails}>Edit</button> 
+                
             </div>
+            <button className="Button" onClick={this.modifyUserDetails} style={{marginRight:"10px"}}>Edit</button> 
+            <button className="Button" onClick={this.buySuscription}>Buy subscription</button>
             </div>
             </React.Fragment>
         );
