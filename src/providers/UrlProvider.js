@@ -14,36 +14,36 @@ const PAYMENT = "/payments"
 export const UrlProvider = {
 
     getDeveloperUrl(){
-        return DEPLOYED_URL + DEVELOPERS;
+        return BASE_URL + DEVELOPERS;
     },
 
     getGameUrl(){
-        return DEPLOYED_URL + GAMES;
+        return BASE_URL + GAMES;
     },
 
     getPublicationUrl(){
-        return DEPLOYED_URL + PUBLICATIONS;
+        return BASE_URL + PUBLICATIONS;
     },
 
     getMeUrl(){
-        return DEPLOYED_URL + DEVELOPERS + ME;
+        return BASE_URL + DEVELOPERS + ME;
     },
     
     getOwnedGamesUrl(){
-        return DEPLOYED_URL + OWNEDGAMES;
+        return BASE_URL + OWNEDGAMES;
     },
 
     getReviewUrl(){
-        return DEPLOYED_URL + REVIEWS;
+        return BASE_URL + REVIEWS;
     },
     getSubscriptionUrl(){
-        return DEPLOYED_URL + SUBSCRIPTION;
+        return BASE_URL + SUBSCRIPTION;
     },
     getCloudUrl(){
-        return DEPLOYED_URL + CLOUD
+        return BASE_URL + CLOUD
     },
     getPaymentUrl(){
-        return DEPLOYED_URL + PAYMENT;
+        return BASE_URL + PAYMENT;
     }
 
 }

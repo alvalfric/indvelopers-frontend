@@ -4,7 +4,7 @@ import { ReviewService } from '../../Services/ReviewService';
 import { AuthService } from '../../Services/AuthService';
 
 
-class CreateReviewComponent extends Component {
+class EditReviewComponent extends Component {
 
 	constructor(props) {
 		super(props)
@@ -24,9 +24,13 @@ class CreateReviewComponent extends Component {
 	componentDidMount() {
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
-                if (AuthService.getUserData()['username'] === review.developer.username) {
+                if (AuthService.getUserData()['username'] !== review.developer.username) {
                     this.props.history.push('/game-View/' + this.state.gameId)
                 }
+                this.setState({
+                    text: review.text,
+                    score: review.score
+                })
             })
         })
 	}
@@ -87,13 +91,13 @@ class CreateReviewComponent extends Component {
 				let review={
 					text: this.state.text,
 					score: this.state.score,
-					edited: false,
+                    edited: true,
 					game: game,
 					developer: AuthService.getUserData()
 				}
 				console.log('Game => ' + JSON.stringify(game))
 				console.log('Review => ' + JSON.stringify(review));
-				ReviewService.addReview(this.state.gameId, review).then(res=>{
+				ReviewService.editReview(this.state.gameId, review).then(res=>{
 					this.props.history.push('/game-View/' + this.state.gameId);
 				})
 			})
@@ -124,7 +128,7 @@ class CreateReviewComponent extends Component {
 							{this.state.scoreError}
 						</div>) : null}
 					</div>
-					<button className="AceptButton" onClick={this.saveReview}>Crear Review</button>
+					<button className="AceptButton" onClick={this.saveReview}>Editar Review</button>
 					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
 				</form>
 
@@ -133,4 +137,4 @@ class CreateReviewComponent extends Component {
 	}
 }
 
-export default CreateReviewComponent;
+export default EditReviewComponent;
