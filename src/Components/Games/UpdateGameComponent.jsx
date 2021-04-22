@@ -7,6 +7,7 @@ import { ReviewService } from '../../Services/ReviewService';
 import { CloudService } from '../../Services/CloudService';
 import saveAs from 'jszip';
 import { UrlProvider } from '../../providers/UrlProvider';
+import {DeveloperService} from '../../Services/DeveloperService';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -29,7 +30,8 @@ class UpdateGameComponent extends Component {
             imagen: "",
             base64TextString: "",
             isBought: false,
-            isAdmin: false
+            isAdmin: false,
+            isFollowed:false
         }
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
@@ -42,6 +44,7 @@ class UpdateGameComponent extends Component {
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
+        this.followTheCreator=this.followTheCreator.bind(this);
     }
 
     componentDidMount() {
@@ -69,6 +72,7 @@ class UpdateGameComponent extends Component {
                     }
                 }
             }
+
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -80,6 +84,22 @@ class UpdateGameComponent extends Component {
                 }
             })
         })
+    var following=AuthService.getUserData()['following']
+    for(var i=0;i<following.length;i++){
+        if(following[i].username===this.creator.username){
+            this.setState({isFollowed:true})
+            break;
+        }
+    }
+    console.log("THE CURRENT USER IS FOLLOWING THIS CREATOR===>"+JSON.stringify(this.state.isFollowed))
+    console.log("FOLOWING====>"+JSON.stringify(AuthService.getUserData()['following']))
+    }
+    followTheCreator=(username,e)=>{
+        e.preventDefault()
+        DeveloperService.followDeveloper(username).then((res)=>{
+            this.props.history.push(`/game-View/${this.state.id}`);
+        })
+
     }
     deleteGame = (e) => {
         e.preventDefault()
@@ -298,6 +318,23 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
+                        </div>
+                        <div>
+                            <br/>
+                            <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Creator</h5>
+                                            </header>
+                                            <div className="w3-container">
+                                                <p>{this.state.creator.username}</p>
+                                                {(AuthService.isAuthenticated() && AuthService.getUserData['username']!=this.state.creator.username)? 
+                                                <React.Fragment>
+                                                    <button className="AceptButton" onClick={(e)=>this.followTheCreator(this.state.creator.username,e)}>Follow this user</button>
+                                                </React.Fragment>
+                                                :null}
+                                            </div>
+                                        </div>
                         </div>
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
