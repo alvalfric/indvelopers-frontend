@@ -3,7 +3,7 @@ import UserLogo from '../../assets/userExample.png';
 import { ReviewService } from '../../Services/ReviewService';
 import ReactPaginate from 'react-paginate';
 import StarRatings from 'react-star-ratings';
-
+import { AuthService } from '../../Services/AuthService';
 
 class ListReviewComponent extends Component {
 
@@ -53,6 +53,10 @@ class ListReviewComponent extends Component {
     })
   }
 
+  editReview(gameId) {
+    this.props.history.push(`/editReview/${gameId}`)
+  }
+
   showList() {
     return (
       <div>
@@ -63,48 +67,52 @@ class ListReviewComponent extends Component {
                 <div>
                   <br />
                   <div className="w3-card-4" >
-                  <br />
+                    <br />
                     <header className="w3-container ">
-                      <h5>{review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score"/></h5>
+                      <h5>
+                        {review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
+                        {review.edited ? <h9> (Edited review)</h9> : null}
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
+                            <button className="Button" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Editar review</button>
+                          : null}
+                      </h5>
                     </header>
-                    <div className="w3-container">
-                      <p>{review.text}</p>
-                      
-                      <p></p>
-                    </div>
+                  <div className="w3-container">
+                    <p>{review.text}</p>
+
+                    <p></p>
                   </div>
                 </div>
-              )
-            }
+                </div>
+    )
+  }
           )
-        }
-      </div>
+}
+      </div >
     )
   }
 
-  render() {
+render() {
 
-    return (
-      <div>
-        {this.showList()}
-        < br />
-        <ReactPaginate previousLabel={"prev"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"} />
+  return (
+    <div>
+      {this.showList()}
+      < br />
+      <ReactPaginate previousLabel={"prev"}
+        nextLabel={"next"}
+        breakLabel={"..."}
+        breakClassName={"break-me"}
+        pageCount={this.state.pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={this.handlePageClick}
+        containerClassName={"pagination"}
+        subContainerClassName={"pages pagination"}
+        activeClassName={"active"} />
 
-      </div >
-    );
-  }
+    </div >
+  );
+}
 }
 
 export default ListReviewComponent;
-
-

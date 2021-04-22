@@ -32,6 +32,7 @@ import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 import NovedadesComponent from './Components/NovedadesComponent';
 import ErrorBoundary from './Framework/ErrorBoundary';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
+import EditReviewComponent from './Components/Reviews/EditReviewComponent';
 
 
 
@@ -73,6 +74,7 @@ function App() {
              <Route path="/novedades" component={NovedadesComponent}></Route>
              <Route path="/" exact component={GamesComponent}></Route>
              <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
+             <Route path="/editReview/:id" component={EditReviewComponent}></Route>
           </Switch>
           </div>
         </div>
