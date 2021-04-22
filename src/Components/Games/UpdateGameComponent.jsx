@@ -7,6 +7,7 @@ import { ReviewService } from '../../Services/ReviewService';
 import { CloudService } from '../../Services/CloudService';
 import saveAs from 'jszip';
 import { UrlProvider } from '../../providers/UrlProvider';
+import {DeveloperService} from '../../Services/DeveloperService';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -29,7 +30,8 @@ class UpdateGameComponent extends Component {
             imagen: "",
             base64TextString: "",
             isBought: false,
-            isAdmin: false
+            isAdmin: false,
+            isFollowed:false
         }
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
@@ -42,6 +44,8 @@ class UpdateGameComponent extends Component {
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
+        this.follow=this.follow.bind(this);
+        this.unFollow=this.unFollow.bind(this);
     }
 
     componentDidMount() {
@@ -68,7 +72,19 @@ class UpdateGameComponent extends Component {
                         break;
                     }
                 }
+                var following=AuthService.getUserData()['following']
+                if(following.length!=0){
+                   for(var i=0;i<following.length;i++){
+                      if(following[i]['username']===this.state.creator.username){
+                       this.setState({isFollowed:true})
+                         break;
+                        }
+                    }
+                }
+                
             }
+            console.log("FOLLOWING======>"+JSON.stringify(AuthService.getUserData()['following']))
+
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -79,6 +95,30 @@ class UpdateGameComponent extends Component {
                     })
                 }
             })
+        })
+    
+    }
+    follow=(username,e)=>{
+        e.preventDefault()
+        DeveloperService.followDeveloper(username).then(()=>{
+         
+             AuthService.loadUserData().then(()=>{
+                 window.location.reload()
+                this.props.history.push(`/game-View/${this.state.id}`);
+             })
+          
+            
+        })
+
+    }
+    unFollow=(username,e)=>{
+        e.preventDefault()
+        DeveloperService.unfollowDeveloper(username).then(()=>{
+            
+           AuthService.loadUserData().then(()=>{
+            window.location.reload()
+            this.props.history.push(`/game-View/${this.state.id}`);
+         })
         })
     }
     deleteGame = (e) => {
@@ -298,6 +338,28 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
+                        </div>
+                        <div>
+                            <br/>
+                            <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Creator</h5>
+                                            </header>
+                                            <div className="w3-container">
+                                                <p>{this.state.creator.username}</p>
+                                                {(this.state.isFollowed)? 
+                                                <React.Fragment>
+                                                    <p>You are following this creator. You can unfollow the creator</p>
+                                                    <button className="DeleteButton" onClick={(e)=>this.unFollow(this.state.creator.username,e)}>Unfollow</button>
+                                                </React.Fragment>
+                                                :(AuthService.isAuthenticated() && AuthService.getUserData['username']!=this.state.creator.username)?
+                                                <React.Fragment>
+                                                    <button className="AceptButton" onClick={(e)=>this.follow(this.state.creator.username,e)}>Follow this user</button>
+                                                </React.Fragment>
+                                                :null}
+                                            </div>
+                                        </div>
                         </div>
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
