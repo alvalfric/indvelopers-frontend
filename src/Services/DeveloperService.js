@@ -83,7 +83,7 @@ export const DeveloperService = {
     },
     async followDeveloper(username){
         return AuthService.getToken().then(token=>{
-            return axios.get(UrlProvider.getDeveloperUrl()+"/follow/"+username,{
+            return axios.put(UrlProvider.getDeveloperUrl()+"/follow/"+username,[],{
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Accept': '*/*'
@@ -93,7 +93,7 @@ export const DeveloperService = {
     },
     async unfollowDeveloper(username){
         return AuthService.getToken().then(token=>{
-            return axios.get(UrlProvider.getDeveloperUrl()+"/unfollow/"+username,{
+            return axios.put(UrlProvider.getDeveloperUrl()+"/unfollow/"+username,[],{
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Accept': '*/*'
