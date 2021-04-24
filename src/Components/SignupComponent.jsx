@@ -69,6 +69,9 @@ class SignupComponent extends Component {
         if (this.state.technologies.length === 0) {
             technologiesError = "Technologies cannot be empty";
         }
+        if (new Date().getFullYear() - this.state.dateOfBirth.split('-')[0] < 13) {
+            dateOfBirthError = "You must be 13 years old or older to use this website!";
+        }
         if (this.state.dateOfBirth.split('-')[0] >= new Date().getFullYear()) {
             if(this.state.dateOfBirth.split('-')[1] >= new Date().getMonth()) {
                 if(this.state.dateOfBirth.split('-')[2] >= new Date().getDate()) {
