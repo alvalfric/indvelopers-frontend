@@ -33,7 +33,8 @@ import NovedadesComponent from './Components/NovedadesComponent';
 import ErrorBoundary from './Framework/ErrorBoundary';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
 import EditReviewComponent from './Components/Reviews/EditReviewComponent';
-
+import ListIncidentComponent from './Components/Incident/IncidentListComponent';
+import CreateIncidentComponent from './Components/Incident/CreateIncidentComponent'
 
 
 function App() {
@@ -75,6 +76,8 @@ function App() {
              <Route path="/" exact component={GamesComponent}></Route>
              <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
              <Route path="/editReview/:id" component={EditReviewComponent}></Route>
+             <Route path="/incidents" component={ListIncidentComponent}></Route>
+             <Route path="/incident-create" component={CreateIncidentComponent}></Route>
           </Switch>
           </div>
         </div>
