@@ -154,7 +154,6 @@ class TermsAndConditionsComponent extends Component {
                 <p>As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.</p>
                 <br />
                 <h2><strong>Secure protocol</strong></h2>
-                <br />
                 <p>
                     Our website uses the secure protocol HTTPS. The principal motivations for HTTPS are authentication of the accessed website, 
                     and protection of the privacy and integrity of the exchanged data while in transit. It protects against man-in-the-middle attacks, 
@@ -163,7 +162,6 @@ class TermsAndConditionsComponent extends Component {
                 </p>
                 <br />
                 <h2><strong>Failures, alerts and security breaks</strong></h2>
-                <br />
                 <p>
                     In inDvelopers we make our biggest efforts to keep the application secure and running all the time, but it is possible that some 
                     failures or security breaks happen in the future. In case that there is a failure in the website, an alert, a security break or any 
@@ -175,14 +173,12 @@ class TermsAndConditionsComponent extends Component {
                 <h2><strong>Fundamental rights</strong></h2>
                 <br />
                 <h3><strong>Right to oblivion</strong></h3>
-                <br />
                 <p>
                     As users of this website, everyone has the right to remove all of their data from the website excluding some information that we cannot lose 
                     such as purchases information. If you want us to delete your data, please contact us via email to infofews@gmail.com.
                 </p>
                 <br />
                 <h3><strong>Movement of personal data</strong></h3>
-                <br />
                 <p>
                     As users of this website, everyone has the right to move all of their data from this website to other site excluding some information that 
                     we cannot lose such as purchases information. If you want us to move your data, please contact us via email to infofews@gmail.com.
