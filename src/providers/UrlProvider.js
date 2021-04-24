@@ -9,6 +9,7 @@ const REVIEWS = "/reviews"
 const SUBSCRIPTION = "/subscription"
 const CLOUD = "/file"
 const PAYMENT = "/payments"
+const DEVDASHBOARD="/developerDashboard"
 
 
 export const UrlProvider = {
@@ -44,6 +45,9 @@ export const UrlProvider = {
     },
     getPaymentUrl(){
         return BASE_URL + PAYMENT;
+    },
+    getDeveloperDashboardUrl(){
+        return BASE_URL + DEVDASHBOARD;
     }
 
 }
