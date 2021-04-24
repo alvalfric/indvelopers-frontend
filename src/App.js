@@ -34,6 +34,7 @@ import ErrorBoundary from './Framework/ErrorBoundary';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
 import EditReviewComponent from './Components/Reviews/EditReviewComponent';
 import TermsAndConditionsComponent from './Components/TermsAndConditionsComponent';
+import PrivacyPolicyComponent from './Components/PrivacyPolicyComponent';
 
 
 
@@ -77,6 +78,7 @@ function App() {
              <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
              <Route path="/editReview/:id" component={EditReviewComponent}></Route>
              <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
+             <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
           </Switch>
           </div>
         </div>

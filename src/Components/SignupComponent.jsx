@@ -193,7 +193,7 @@ class SignupComponent extends Component {
 
                 <div className="form-group">
                     <input type="checkbox" defaultChecked={this.state.acceptedPolicy} onChange={this.changeAcceptHandler} />
-                    <label>I have read and accept the <a href="/termsAndConditions">Terms and Conditions according to the GDPR legislation</a> of the website</label>
+                    <label>I have read and accept the <a href="/termsAndConditions">Terms and Conditions according to the GDPR legislation</a> and the <a href="/privacyPolicy">Privacy Policy</a> of the website</label>
                     {this.state.acceptedError ? (<div className="ValidatorMessage">
                         {this.state.acceptedError}
                     </div>) : null}
