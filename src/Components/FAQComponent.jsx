@@ -22,7 +22,7 @@ class FAQComponent extends Component{
 								<h5>After signing up, where can I read the terms and conditions of the website again?</h5>
 								<div class="answer">In inDvelopers we value you privacy and security above everything else. We hope everythin stays
 								clear after reading the Terms and Conditions of the website, but if you want to read them again here's the link: 
-								<a href="!#">Terms and Conditions</a></div>
+								<a href="/termsAndConditions">Terms and Conditions according to the GDPR legislation</a></div>
 							</ul>
 						<br></br>
 						<br></br>
