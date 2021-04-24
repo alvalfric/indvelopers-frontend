@@ -15,7 +15,9 @@ class FollowListComponent extends Component {
             perPage: 5,
             pageCount: 0,
             currentPage: 0,
-            user : null
+            user : null,
+            followers: this.props.location.state.followers,
+            following: this.props.location.state.following,
         }
         this.handlePageClick = this.handlePageClick.bind(this);
         this.unfollow = this.unfollow.bind(this);
@@ -26,10 +28,10 @@ class FollowListComponent extends Component {
             this.props.history.push('/')
         }
         var res;
-        if(this.props.location.state.followers){
-            res = this.props.location.state.followers
+        if(this.state.followers){
+            res = this.state.followers
         }else{
-            res = this.props.location.state.following
+            res = this.state.following
         }
         var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
         this.setState({
@@ -63,9 +65,9 @@ class FollowListComponent extends Component {
         DeveloperService.unfollow(username).then((data) => {
         alert(data);
         const newFollowers = this.state.rawUsers.filter(allusers => allusers.username !== username);
-        this.setState({rawUsers: newFollowers}, () =>{window.location.reload()})
-       
-        });
+        this.setState({followers: newFollowers})
+        }).then(() =>{this.props.history.push("/me")});
+    
     }
 
     showList() {
