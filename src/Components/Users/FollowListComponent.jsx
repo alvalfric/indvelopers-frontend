@@ -26,20 +26,21 @@ class FollowListComponent extends Component {
 
     componentDidMount() {
         if (!AuthService.isAuthenticated()) {
-            this.props.history.push('/')
+            this.props.history.push('/login')
+        } else {
+            var res;
+            if (this.state.followers) {
+                res = this.state.followers
+            } else {
+                res = this.state.following
+            }
+            var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
+            this.setState({
+                users: slice,
+                pageCount: Math.ceil(res.length / this.state.perPage),
+                rawUsers: res
+            })
         }
-        var res;
-        if(this.state.followers){
-            res = this.state.followers
-        }else{
-            res = this.state.following
-        }
-        var slice = res.slice(this.state.offset, this.state.offset + this.state.perPage)
-        this.setState({
-            users: slice,
-            pageCount: Math.ceil(res.length / this.state.perPage),
-            rawUsers: res
-        })
     }
 
     loadMoreData() {
