@@ -30,8 +30,8 @@ import waitingPaymentComponent from './Components/Paypal/waitingPaymentComponent
 import SuccessSubscriptionPaymentComponent from './Components/Paypal/SuccessSubscriptionPaymentComponent';
 import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 import NovedadesComponent from './Components/NovedadesComponent';
-import ErrorBoundary from './Framework/ErrorBoundary';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
+import FollowListComponent from './Components/Users/FollowListComponent';
 
 
 
@@ -71,6 +71,7 @@ function App() {
              <Route path="/wait" component={waitingPaymentComponent}></Route>
              <Route path="/cancel" component={CancelPaymentComponent}></Route>
              <Route path="/novedades" component={NovedadesComponent}></Route>
+             <Route path="/followersList" component={FollowListComponent}></Route>
              <Route path="/" exact component={GamesComponent}></Route>
              <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
           </Switch>
