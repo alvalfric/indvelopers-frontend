@@ -18,6 +18,7 @@ class FollowListComponent extends Component {
             user : null,
             followers: this.props.location.state.followers,
             following: this.props.location.state.following,
+            mouseover: false
         }
         this.handlePageClick = this.handlePageClick.bind(this);
         this.unfollow = this.unfollow.bind(this);
@@ -87,7 +88,15 @@ class FollowListComponent extends Component {
                                         <div className="w3-container">
                                             {this.props.location.state.following?
                                             this.props.location.state.following.includes(user)?
-                                            <button className="Button" style={{ float: "right" }} onClick={() => this.unfollow(user.username)}>❤</button>  
+                                            <button className="Button" style={{ float: "right" }} 
+                                            onMouseEnter={() => this.setState({mouseover : false })}
+                                            onMouseLeave={() => this.setState({mouseover : true })}
+                                            onClick={() => this.unfollow(user.username)}>{this.state.mouseover?
+                                            "❤"
+                                            :
+                                            "Unfollow"
+                                            }
+                                            </button>  
                                             :null:null
                                             }     
                                         </div>   
