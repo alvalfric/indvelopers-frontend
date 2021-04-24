@@ -32,7 +32,7 @@ class UserDetailsComponent extends Component {
     }
 
     componentDidMount() {
-        DeveloperService.getFollowingMe().then(data => this.setState({
+        DeveloperService.getMyFollowed().then(data => this.setState({
             following: data,
             followingNumber: data.length,
         }))

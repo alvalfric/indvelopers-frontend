@@ -31,6 +31,9 @@ import SuccessSubscriptionPaymentComponent from './Components/Paypal/SuccessSubs
 import CancelPaymentComponent from './Components/Paypal/CancelPaymentComponent';
 import NovedadesComponent from './Components/NovedadesComponent';
 import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
+import EditReviewComponent from './Components/Reviews/EditReviewComponent';
+import TermsAndConditionsComponent from './Components/TermsAndConditionsComponent';
+import PrivacyPolicyComponent from './Components/PrivacyPolicyComponent';
 import FollowListComponent from './Components/Users/FollowListComponent';
 
 
@@ -74,6 +77,9 @@ function App() {
              <Route path="/followersList" component={FollowListComponent}></Route>
              <Route path="/" exact component={GamesComponent}></Route>
              <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
+             <Route path="/editReview/:id" component={EditReviewComponent}></Route>
+             <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
+             <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
           </Switch>
           </div>
         </div>

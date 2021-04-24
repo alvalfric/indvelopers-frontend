@@ -18,7 +18,7 @@ class FollowListComponent extends Component {
             user : null,
             followers: this.props.location.state.followers,
             following: this.props.location.state.following,
-            mouseover: false
+            mouseover: true
         }
         this.handlePageClick = this.handlePageClick.bind(this);
         this.unfollow = this.unfollow.bind(this);

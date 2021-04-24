@@ -18,5 +18,16 @@ export const ReviewService = {
                 }
             }).then(res => res.data).catch(error => { return error })
         })
+    },
+
+    async editReview(gameId, review) {
+        return AuthService.getToken().then(token => {
+            return axios.put(UrlProvider.getReviewUrl() + "/edit/" + gameId, review, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data).catch(error => { return error })
+        })
     }
 }
