@@ -215,13 +215,13 @@ class EditUserDetailsComponent extends Component {
 
                         {AuthService.getUserData()['username'] === this.state.username ? (
                             <React.Fragment>
-                                <button className="AceptButton" onClick={this.updateProfile}>Modificar Perfil</button>
+                                <button className="AceptButton" onClick={this.updateProfile}>Update profile</button>
                                 {this.state.submitError ? (<div className="ValidatorMessage">
                                     {this.state.submitError}
                                 </div>) : null}
                             </React.Fragment>
                         ) : null}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Volver</button>
+                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
                     </form>
                 </div>
             </div>

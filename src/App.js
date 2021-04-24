@@ -35,6 +35,7 @@ import SuccessfulLoginComponent from './Components/SuccessfulLoginComponent';
 import EditReviewComponent from './Components/Reviews/EditReviewComponent';
 import TermsAndConditionsComponent from './Components/TermsAndConditionsComponent';
 import PrivacyPolicyComponent from './Components/PrivacyPolicyComponent';
+import DeveloperDashboardComponent from './Components/Dashboard/DeveloperDashboardComponent';
 
 
 
@@ -79,6 +80,7 @@ function App() {
              <Route path="/editReview/:id" component={EditReviewComponent}></Route>
              <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
              <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
+             <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
           </Switch>
           </div>
         </div>
