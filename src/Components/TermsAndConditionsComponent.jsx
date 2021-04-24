@@ -13,7 +13,7 @@ class TermsAndConditionsComponent extends Component {
                 <p>
                     In this document the use of the website will be explained according to the GDPR legislation. As stated in said legislation,
                     not only it will be mentioned the Terms and Conditions of the website, but also guaranteeing the authenticity and adequacy
-                    of the content disclosed in the website, explaining how failiures, alerts or security breaks in the system will be reported
+                    of the content disclosed in the website, explaining how failures, alerts or security breaks in the system will be reported
                     to the users, and guaranteeing fundamental rights such as the right to oblivion and the movement of personal data.
                 </p>
                 <br />
@@ -32,7 +32,7 @@ class TermsAndConditionsComponent extends Component {
                 <p>When signing up on the website we ask you to fill in some data. All of this data is needed in the website due to a reason explained below:</p>
                 <ul>
                     <li>Username: It will be used to log into your account, and it is the name which will be shown to everybody when interacting with the webpage.</li>
-                    <li>Email: We need your email to contact you in case of failiures, alerts or security breaks of the application. Also, if someone buys a game you uploaded, this email will be the one used to give you the money you earned with the sale</li>
+                    <li>Email: We need your email to contact you in case of failures, alerts or security breaks of the application. Also, if someone buys a game you uploaded, this email will be the one used to give you the money you earned with the sale</li>
                     <li>Description: We want you to describe yourself just so that other users can read it and understand you more.</li>
                     <li>Technologies: As this website is used to develop games, this field wants you to name your best technologies so that other users can see them.</li>
                     <li>Birth date: We need your birth date to assert that you are older than 13 years old and to show you games according to your age.</li>
@@ -168,7 +168,7 @@ class TermsAndConditionsComponent extends Component {
                     In inDvelopers we make our biggest efforts to keep the application secure and running all the time, but it is possible that some 
                     failures or security breaks happen in the future. In case that there is a failure in the website, an alert, a security break or any 
                     other unintentional and malicious event on the website, we'll make sure to contact all of our users via email to make them know the current 
-                    situation. If a user detects some of these events and the administration of the website has not reported it yet, plese contact us via email 
+                    situation. If a user detects some of these events and the administration of the website has not reported it yet, please contact us via email 
                     to infofews@gmail.com.
                 </p>
                 <br />
