@@ -20,6 +20,8 @@ class SignupComponent extends Component {
             passwordError: "",
             confirmPassword: "",
             confirmPasswordError: "",
+            acceptedPolicy:false,
+            acceptedError:"",
             submitError: "",
         }
         this.saveDeveloper = this.saveDeveloper.bind(this);
@@ -29,6 +31,7 @@ class SignupComponent extends Component {
         this.changeTechnologiesHandler = this.changeTechnologiesHandler.bind(this);
         this.changePasswordHandler = this.changePasswordHandler.bind(this);
         this.changeConfirmPasswordHandler = this.changeConfirmPasswordHandler.bind(this);
+        this.changeAcceptHandler = this.changeAcceptHandler.bind(this);
     }
 
     componentDidMount() {
@@ -44,6 +47,7 @@ class SignupComponent extends Component {
         let technologiesError = "";
         let passwordError = "";
         let confirmPasswordError = "";
+        let acceptedError = "";
 
         if (this.state.username.length === 0) {
             usernameError = "Username cannot be empty";
@@ -73,6 +77,9 @@ class SignupComponent extends Component {
         if (this.state.password !== this.state.confirmPassword) {
             confirmPasswordError = "Passwords don't match";
         }
+        if (!this.state.acceptedPolicy) {
+            acceptedError = "You have to agree to the terms and conditions for signing up!";
+        }
 
         this.setState({ usernameError });
         this.setState({ emailError });
@@ -80,7 +87,8 @@ class SignupComponent extends Component {
         this.setState({ technologiesError });
         this.setState({ passwordError });
         this.setState({ confirmPasswordError });
-        if (usernameError || emailError || descriptionError || technologiesError || passwordError || confirmPasswordError) {
+        this.setState({ acceptedError });
+        if (usernameError || emailError || descriptionError || technologiesError || passwordError || confirmPasswordError || acceptedError) {
             return false;
         } else {
             return true;
@@ -104,6 +112,9 @@ class SignupComponent extends Component {
     }
     changeConfirmPasswordHandler = (event) => {
         this.setState({ confirmPassword: event.target.value });
+    }
+    changeAcceptHandler = (event)=>{
+        this.setState({acceptedPolicy: !this.state.acceptedPolicy})
     }
     saveDeveloper = (event) => {
         event.preventDefault();
@@ -177,6 +188,14 @@ class SignupComponent extends Component {
                     <input type="password" className="form-control" placeholder="Confirm password" value={this.state.confirmPassword} onChange={this.changeConfirmPasswordHandler} />
                     {this.state.confirmPasswordError ? (<div className="ValidatorMessage">
                         {this.state.confirmPasswordError}
+                    </div>) : null}
+                </div>
+
+                <div className="form-group">
+                    <input type="checkbox" defaultChecked={this.state.acceptedPolicy} onChange={this.changeAcceptHandler} />
+                    <label>I have read and accept the <a href="!#">Terms and Conditions</a> of the website</label>
+                    {this.state.acceptedError ? (<div className="ValidatorMessage">
+                        {this.state.acceptedError}
                     </div>) : null}
                 </div>
 

@@ -14,12 +14,24 @@ class FAQComponent extends Component{
 					<br></br>
 					
 					<div className="text-center">
+
+						<h2>Terms and Conditions</h2>
+						<br></br>
+
+							<ul>
+								<h5>After signing up, where can I read the terms and conditions of the website again?</h5>
+								<div class="answer">In inDvelopers we value you privacy and security above everything else. We hope everythin stays
+								clear after reading the Terms and Conditions of the website, but if you want to read them again here's the link: 
+								<a href="!#">Terms and Conditions</a></div>
+							</ul>
+						<br></br>
+						<br></br>
 						
 						<h2>Frequently asked questions</h2>
 						<br></br>
 
 							<ul>
-								<h5>¿What is inDvelopers?</h5>
+								<h5>What is inDvelopers?</h5>
 								<div class="answer">"InDvelopers" is a dedicated portal for a group of developers, specifically the
                                 indie developers or indie developers. This type of developers are mainly dedicated
                                 to the development of video games in an amateur way, without any previous professional training. So
@@ -42,21 +54,21 @@ class FAQComponent extends Component{
 						<h2>Games</h2>
 						<br></br>
 							<ul>
-								<h5>¿How can i upload games?</h5>
+								<h5>How can i upload games?</h5>
 								<div class="answer">To upload games to inDvelopers you will have to create an account, upload the game and wait for
                                 an administrator verifies it. If you want to receive benefits for your games, for only € 7.99 you can upload up to 5 games
                                 and receive everything you earn.</div>
 							</ul>
 						<br></br>
 							<ul>
-								<h5>¿How other people will find my game?</h5>
+								<h5>How other people will find my game?</h5>
 								<div class="answer">In order to all games have the opportunity to be discovered by the community we have
                                 a news page with a ranking of the highest rated games and another with the latest games that have been uploaded and
                                 verified on the platform</div>
 							</ul>
 						<br></br>
 							<ul>
-								<h5>¿Are safe the games I'm going to download?</h5>
+								<h5>Are safe the games I'm going to download?</h5>
 								<div class="answer">Of course! In inDvelopers we follow an exhaustive control of all the games that are uploaded to
                                  ensure that all users of the page can download the games they want without any problem</div>
 							</ul>
