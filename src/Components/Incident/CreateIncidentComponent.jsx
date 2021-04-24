@@ -21,7 +21,26 @@ class CreateIncidentComponent extends Component {
 		this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
 		this.changeCauseHandler = this.changeCauseHandler.bind(this);
 	}
+	validate = () => {
+		let textError = "";
 
+		if(this.state.title.length === 0){
+			textError = "Cannot be empty";
+		}
+		if(this.state.description.length === 0){
+			textError = "Cannot be empty";
+		}
+		if(this.state.cause.length === 0){
+			textError = "Cannot be empty";
+		}
+
+		this.setState({textError})
+		if(textError){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	changeTitleHandler = (event) => {
 		this.setState({ title: event.target.value })
 	}
@@ -36,17 +55,21 @@ class CreateIncidentComponent extends Component {
 
 	saveIncident = (e) => {
 		e.preventDefault();
-	    let incident = {
-			username: AuthService.getUserData()['username'],
-			title: this.state.title,
-			description: this.state.description,
-			cause: this.state.cause,
-		   	solved: false
-		}
-		console.log('Incident =>' + JSON.stringify(incident));
-	    IncidentService.addIncident(incident).then(data => {
+		const isValid = this.validate();
+
+		if(isValid){
+	    	let incident = {
+				username: AuthService.getUserData()['username'],
+				title: this.state.title,
+				description: this.state.description,
+				cause: this.state.cause,
+		   		solved: false
+			}
+			console.log('Incident =>' + JSON.stringify(incident));
+	    	IncidentService.addIncident(incident).then(data => {
 			   this.props.history.push('/incidents')
-	   })
+	   	})
+	}
     }
 	
 	render(){
