@@ -12,9 +12,9 @@ class UserDetailsComponent extends Component {
             isPremium: false,
             endSubs: "",
             followers: [],
-            following: this.profile.following,
+            following: [],
             followersNumber: 0,
-            followingNumber: this.profile.following.length
+            followingNumber: 0
         }
         this.modifyUserDetails = this.modifyUserDetails.bind(this);
         this.buySuscription = this.buySuscription.bind(this);
@@ -32,6 +32,10 @@ class UserDetailsComponent extends Component {
     }
 
     componentDidMount() {
+        DeveloperService.getFollowingMe().then(data => this.setState({
+            following: data,
+            followingNumber: data.length,
+        }))
         DeveloperService.getMyFollowers().then(data => this.setState({
             followers: data,
             followersNumber: data.length,
