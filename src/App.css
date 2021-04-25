@@ -121,6 +121,27 @@
   display: inline-block;
   font-size: 16px;
 }
+
+.searchButton{
+  background-color: #01963ace;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.cancelSearchButton{
+  background-color: #b60000cb;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+}
+
 .AceptButton{
   background-color: #01963afd;
   border: none;
@@ -180,6 +201,14 @@
   text-decoration: none;
   font-size: 12px;
 }
+
+.searchForm{
+  border-color: none;
+  padding: 3px 10px;
+  text-decoration: none;
+  font-size: 16px;
+}
+
 .ValidatorMessage{
   color:red;
   font-size: 5;

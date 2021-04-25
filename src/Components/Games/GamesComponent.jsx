@@ -9,6 +9,7 @@ class GamesComponent extends Component {
     super(props)
 
     this.state = {
+      title: '',
       games: [],
       rawGames: [],
       offset: 0,
@@ -101,6 +102,30 @@ class GamesComponent extends Component {
     }
   }
 
+  searchChangeHandler = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    });
+  }
+
+  getGameTitle(title) {
+    if(this.state.title.length === 0) {
+      GameService.findVerified().then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})});
+    } else {
+      GameService.getGameByTitle(this.state.title).then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})})
+      console.log('title => ' + JSON.stringify(title))
+    }
+  }
+
+  canselSearchHandler = () => {
+    GameService.findVerified().then((data) => {
+      var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+      this.setState({games: slice, title: ''})});
+  }
 
   render() {
     return (
@@ -120,6 +145,13 @@ class GamesComponent extends Component {
             : null
           }
         </div>
+        <br />
+        <div style={{float: 'right'}}>
+          <input className="searchForm" placeholder="Search by title" name="title" value={this.state.title} onChange={this.searchChangeHandler}/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitle(this.state.title)}>Search</button>
+          <button className="cancelSearchButton" onClick={this.canselSearchHandler}>Cancel</button>
+        </div>
+        <br />
         <br />
         <div>
           {this.state.games.map((item) =>
