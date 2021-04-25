@@ -104,6 +104,18 @@ export const GameService = {
             }).then(res => res.data)
                 .catch(error => { return error.response.status })
         })
+    },
+
+    async getGameByPrice(price) {
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getGameUrl() + '/findByPrice/' + price, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data)
+                .catch(error => { return error.response.status })
+        })
     }
 
 }

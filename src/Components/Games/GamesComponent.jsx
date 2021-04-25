@@ -10,6 +10,7 @@ class GamesComponent extends Component {
 
     this.state = {
       title: '',
+      price: '',
       games: [],
       rawGames: [],
       offset: 0,
@@ -108,7 +109,7 @@ class GamesComponent extends Component {
     });
   }
 
-  getGameTitle(title) {
+  getGameTitle() {
     if(this.state.title.length === 0) {
       GameService.findVerified().then((data) => {
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
@@ -117,14 +118,37 @@ class GamesComponent extends Component {
       GameService.getGameByTitle(this.state.title).then((data) => {
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
         this.setState({games: slice})})
-      console.log('title => ' + JSON.stringify(title))
     }
   }
 
-  canselSearchHandler = () => {
+  searchChangePriceHandler = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    });
+  }
+
+  getGamePrice() {
+    if(this.state.price.length === 0) {
+      GameService.findVerified().then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})});
+    } else {
+      GameService.getGameByPrice(this.state.price).then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})})
+    }
+  }
+
+  titleCancelSearchHandler = () => {
     GameService.findVerified().then((data) => {
       var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
       this.setState({games: slice, title: ''})});
+  }
+
+  priceCancelSearchHandler = () => {
+    GameService.findVerified().then((data) => {
+      var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+      this.setState({games: slice, price: ''})});
   }
 
   render() {
@@ -147,9 +171,16 @@ class GamesComponent extends Component {
         </div>
         <br />
         <div style={{float: 'right'}}>
-          <input className="searchForm" placeholder="Search by title" name="title" value={this.state.title} onChange={this.searchChangeHandler}/>
-          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitle(this.state.title)}>Search</button>
-          <button className="cancelSearchButton" onClick={this.canselSearchHandler}>Cancel</button>
+          <input className="searchForm" placeholder="Search by title..." name="title" value={this.state.title} onChange={this.searchChangeHandler}/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitle()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.titleCancelSearchHandler}>Cancel</button>
+        </div>
+        <br />
+        <br />
+        <div style={{float: 'right'}}>
+          <input className="searchForm" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} type="number"/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGamePrice()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.priceCancelSearchHandler}>Cancel</button>
         </div>
         <br />
         <br />
