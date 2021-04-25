@@ -121,5 +121,4 @@ export const DeveloperService = {
             }).then(res=> res.data).catch(error=>{return error.response.status})
         })
     }
-
 }
