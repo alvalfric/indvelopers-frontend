@@ -318,6 +318,11 @@ float:right;
 grid-area: right;
 padding-right:80px;
 }
+.sidenav3 {
+  float:right;
+  grid-area: right;
+  padding-right:20px;
+  }
 
 /* Style the links inside the navigation bar */
 .topnav a {

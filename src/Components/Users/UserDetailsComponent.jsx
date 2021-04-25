@@ -20,9 +20,9 @@ class UserDetailsComponent extends Component {
         this.buySuscription = this.buySuscription.bind(this);
         this.showFollowers = this.showFollowers.bind(this);
         this.showFollowing = this.showFollowing.bind(this);
-
-        SubscriptionService.checkHasSubscription().then((res) => {
-            this.setState({ isPremium: res })
+        this.goToDashboard=this.goToDashboard.bind(this);
+        SubscriptionService.checkHasSubscription().then((res)=>{
+            this.setState({isPremium:res})
         })
         SubscriptionService.getSubscription(this.profile.id).then((res) => {
             this.setState({ endSubs: res.endDate })
@@ -51,6 +51,9 @@ class UserDetailsComponent extends Component {
     }
     buySuscription() {
         this.props.history.push("/buySubscription");
+    }
+    goToDashboard(){
+        this.props.history.push("/developer-dashboard")
     }
 
     showFollowers() {
@@ -112,7 +115,9 @@ class UserDetailsComponent extends Component {
                     </div>
                     <button className="Button" onClick={this.modifyUserDetails} style={{ marginRight: "10px" }}>Edit</button>
                     <button className="Button" onClick={this.buySuscription}>Buy subscription</button>
+                    <button className="Button" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</button> 
                 </div>
+            
             </React.Fragment>
         );
     }

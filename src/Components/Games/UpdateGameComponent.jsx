@@ -83,7 +83,7 @@ class UpdateGameComponent extends Component {
                 }
                 
             }
-            console.log("FOLLOWING======>"+JSON.stringify(AuthService.getUserData()['following']))
+            
 
         });
         ReviewService.getbyGame(this.state.id).then(data => {

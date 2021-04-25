@@ -64,12 +64,16 @@ class FollowListComponent extends Component {
     }
 
     unfollow(username) {
-        DeveloperService.unfollow(username).then((data) => {
+        DeveloperService.unfollowDeveloper(username).then((data) => {
         alert(data);
         const newFollowers = this.state.rawUsers.filter(allusers => allusers.username !== username);
         this.setState({followers: newFollowers})
         }).then(() =>{this.props.history.push("/me")});
     
+    }
+
+    goBack(){
+        this.props.history.push("/me");
     }
 
     showList() {
@@ -107,6 +111,7 @@ class FollowListComponent extends Component {
                         }
                     )
                 }
+
             </div>
         )
     }
@@ -129,6 +134,8 @@ class FollowListComponent extends Component {
                     containerClassName={"pagination"}
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"} />
+                
+                <a href="/me" className="CancelButton float-right" >Back</a>
             </div >
         );
     }
