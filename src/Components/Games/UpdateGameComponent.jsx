@@ -5,11 +5,11 @@ import OwnedGameService from '../../Services/OwnedGameService';
 import ListReviewComponent from '../Reviews/ListReviewComponent';
 import { ReviewService } from '../../Services/ReviewService';
 import { CloudService } from '../../Services/CloudService';
+import { CategoryService } from '../../Services/CategoryService';
 import saveAs from 'jszip';
-import { UrlProvider } from '../../providers/UrlProvider';
 import {DeveloperService} from '../../Services/DeveloperService';
-import { Dropdown } from 'primereact/dropdown';
 import PegiAssignation from './PegiAssignation';
+import Select from "react-select";
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -28,6 +28,7 @@ class UpdateGameComponent extends Component {
             priceError: "",
             pegi:"",
             pegiError:"",
+            categorias:[],
             idCloud: "",
             isNotMalware: false,
             creator: "",
@@ -35,8 +36,19 @@ class UpdateGameComponent extends Component {
             base64TextString: "",
             isBought: false,
             isAdmin: false,
-            isFollowed:false
+            isFollowed:false,
+            selectedOption:null,
+            allCategories:[]
         }
+
+        this.categories = [
+            {value: 'Action', label: "Action"},
+            {value: 'Adventure', label: "Adventure"},
+            {value: 'Puzzle', label: "Puzzle"},
+            {value: 'Sport', label: "Sport"},
+            {value: 'Strategy', label: "Strategy"}
+        ];
+
 
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
@@ -47,6 +59,7 @@ class UpdateGameComponent extends Component {
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changePegiHandler = this.changePegiHandler.bind(this);
+        this.changePrueba = this.changePrueba.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
@@ -63,6 +76,7 @@ class UpdateGameComponent extends Component {
                 requirements: game.requirements,
                 price: game.price + "",
                 pegi: game.pegi,
+                categorias: game.categorias,
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
@@ -103,6 +117,19 @@ class UpdateGameComponent extends Component {
                 }
             })
         })
+        CategoryService.findAll().then(data => {
+            var todas = [];
+            data.map(category =>{
+                let categoria = {
+                    value: category.title, label: category.title
+                };
+                console.log(categoria)
+                todas.unshift(categoria)
+            })
+            console.log(todas);
+            this.setState({allCategories:todas})
+        });
+        
     
     }
     follow=(username,e)=>{
@@ -165,8 +192,8 @@ class UpdateGameComponent extends Component {
         }
         const isValid = this.validate();
         let game = {
-            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
-            , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
+            categorias: this.state.categorias, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
         };
         if (isValid) {
             GameService.updateGame(game, this.state.id).then(data => {
@@ -249,6 +276,12 @@ class UpdateGameComponent extends Component {
 
     changePegiHandler = (event) => {
         this.setState({ pegi: event.target.value })
+    }
+
+    changePrueba = selectedOption => {
+        this.setState({selectedOption})
+        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+
     }
 
     changeConfirmHandler = (event) => {
@@ -426,6 +459,35 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                        </div>
+                        <div>
+                           {this.state.allCategories} 
+                        </div>
+                        <div className="form-group">
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                                <React.Fragment>
+                                    <label>Categories</label>
+                                    <Select
+                                        isMulti
+                                        options={this.categories}
+                                        value={this.state.selectedOption}
+                                        onChange={this.changePrueba}
+                                        closeMenuOnSelect={false}
+                                    />
+                                </React.Fragment>
+                            ) :
+                                <React.Fragment>
+                                    <div>
+                                        <br />
+                                        <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Categories: {this.state.categorias}€</h5>
+                                            </header>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            }
                         </div>
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
