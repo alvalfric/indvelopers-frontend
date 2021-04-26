@@ -8,6 +8,8 @@ import { CloudService } from '../../Services/CloudService';
 import saveAs from 'jszip';
 import { UrlProvider } from '../../providers/UrlProvider';
 import {DeveloperService} from '../../Services/DeveloperService';
+import { Dropdown } from 'primereact/dropdown';
+import PegiAssignation from './PegiAssignation';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -24,6 +26,8 @@ class UpdateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
+            pegi:"",
+            pegiError:"",
             idCloud: "",
             isNotMalware: false,
             creator: "",
@@ -33,6 +37,7 @@ class UpdateGameComponent extends Component {
             isAdmin: false,
             isFollowed:false
         }
+
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
@@ -41,6 +46,7 @@ class UpdateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changePegiHandler = this.changePegiHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
@@ -56,6 +62,7 @@ class UpdateGameComponent extends Component {
                 description: game.description,
                 requirements: game.requirements,
                 price: game.price + "",
+                pegi: game.pegi,
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
@@ -158,7 +165,7 @@ class UpdateGameComponent extends Component {
         }
         const isValid = this.validate();
         let game = {
-            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
+            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
             , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
         };
         if (isValid) {
@@ -186,6 +193,7 @@ class UpdateGameComponent extends Component {
         let descriptionError = "";
         let requirementsError = "";
         let priceError = "";
+        let pegiError = "";
 
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
@@ -205,12 +213,18 @@ class UpdateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+        if (this.state.pegi === '') {
+            pegiError = "The game needs a pegi number!"
+        } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
+            pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
         this.setState({ priceError });
-        if (titleError || descriptionError || requirementsError || priceError) {
+        this.setState({ pegiError });
+        if (titleError || descriptionError || requirementsError || priceError || pegiError) {
             return false;
         } else {
             return true;
@@ -232,6 +246,11 @@ class UpdateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+
+    changePegiHandler = (event) => {
+        this.setState({ pegi: event.target.value })
+    }
+
     changeConfirmHandler = (event) => {
         this.setState({ isNotMalware: event.target.checked })
     }
@@ -407,6 +426,26 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                        </div>
+                        <div className="form-group">
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                                <React.Fragment>
+                                    <label>Pegi</label>
+                                    <input placeholder="Pegi" name="pegi" className="form-control" type="number" 
+                                        value={this.state.pegi} onChange={this.changePegiHandler}></input>
+                                </React.Fragment>
+                            ) :
+                                <React.Fragment>
+                                    <div>
+                                        <br />
+                                            <header className="w3-container ">
+                                                <img />
+                                                <PegiAssignation pegi = {this.state.pegi}/>
+                                            </header>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
                         {this.state.isAdmin ? (
                             <div class="custom-control custom-checkbox">

@@ -18,6 +18,8 @@ class CreateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
+            pegi:"",
+            pegiError:"",
             imagen: "",
             imagenError:"",
             base64TextString: "",
@@ -31,6 +33,7 @@ class CreateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changePegiHandler = this.changePegiHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeGameHandler=this.changeGameHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
@@ -43,6 +46,7 @@ class CreateGameComponent extends Component {
         let descriptionError = "";
         let requirementsError = "";
         let priceError="";
+        let pegiError="";
         let imagenError="";
         let idCloudError="";
 
@@ -70,13 +74,20 @@ class CreateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+        if (this.state.pegi === '') {
+            pegiError = "The game needs a pegi number!"
+        } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
+            pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
+
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
         this.setState({ priceError });
         this.setState({imagenError});
         this.setState({idCloudError});
-        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError) {
+        this.setState({ pegiError });
+        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError) {
             return false;
         } else {
             return true;
@@ -98,6 +109,11 @@ class CreateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+
+    changePegiHandler = (event) => {
+        this.setState({ pegi: event.target.value })
+    }
+
     changeGameHandler=(event) =>{
         event.preventDefault()
         const zip = require('jszip')();
@@ -136,7 +152,7 @@ class CreateGameComponent extends Component {
         const isValid = this.validate();
         if (isValid) {
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
+                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
                 , idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             GameService.addGame(game).then(data => {
@@ -205,6 +221,12 @@ class CreateGameComponent extends Component {
                             <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                        </div>
+                        <div className="form-group">
+                            <label>Pegi</label>
+                            <input placeholder="Pegi" name="pegi" className="form-control" type="number"
+                                value={this.state.pegi} onChange={this.changePegiHandler}></input>
+                            {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
                         <div className="form-group">
                         {this.state.base64TextString !== "" ?
