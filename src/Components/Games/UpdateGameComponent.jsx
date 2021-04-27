@@ -55,7 +55,7 @@ class UpdateGameComponent extends Component {
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changePegiHandler = this.changePegiHandler.bind(this);
-        this.changePrueba = this.changePrueba.bind(this);
+        this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
@@ -196,17 +196,16 @@ class UpdateGameComponent extends Component {
         if (AuthService.getUserData()['isPremium'] !== true) {
             this.state.price = 0.0;
         }
-        this.state.selectedOption.map(category=>{
-            let reformatedCategory = {id: category.id, title: category.label}
-            this.reformatedCategories.push(reformatedCategory);
-        })
         const isValid = this.validate();
-        let game = {
-            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
-            categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
-        };
-        console.log(game)
         if (isValid) {
+            this.state.selectedOption.map(category=>{
+                let reformatedCategory = {id: category.id, title: category.label}
+                this.reformatedCategories.push(reformatedCategory);
+            })
+            let game = {
+                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
+                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+            };
             GameService.updateGame(game, this.state.id).then(data => {
                 if (typeof data == "string") {
                     this.props.history.push('/games');
@@ -289,7 +288,7 @@ class UpdateGameComponent extends Component {
         this.setState({ pegi: event.target.value })
     }
 
-    changePrueba = selectedOption => {
+    changeCategoriesHandler = selectedOption => {
         this.setState({selectedOption})
         this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
 
@@ -479,7 +478,7 @@ class UpdateGameComponent extends Component {
                                         isMulti
                                         options={this.categories}
                                         value={this.state.selectedOption}
-                                        onChange={this.changePrueba}
+                                        onChange={this.changeCategoriesHandler}
                                         closeMenuOnSelect={false}
                                     />
                                 </React.Fragment>

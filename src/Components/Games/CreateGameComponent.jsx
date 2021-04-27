@@ -4,6 +4,8 @@ import { GameService } from '../../Services/GameService';
 import {SubscriptionService} from '../../Services/SubscriptionService';
 import saveAs from 'jszip';
 import {CloudService} from '../../Services/CloudService';
+import Select from "react-select";
+import { CategoryService } from '../../Services/CategoryService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -20,25 +22,43 @@ class CreateGameComponent extends Component {
             priceError: "",
             pegi:"",
             pegiError:"",
+            categorias:[],
             imagen: "",
             imagenError:"",
             base64TextString: "",
             submitError: "",
             isPremium:false,
             idCloud:"",
-            idCloudError:""
+            idCloudError:"",
+            selectedOption:null
         }
+
+        this.categories = [];
+        this.reformatedCategories = [];
+
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
         this.changePegiHandler = this.changePegiHandler.bind(this);
+        this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeGameHandler=this.changeGameHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
+    }
+
+    componentDidMount(){
+        CategoryService.findAll().then(data => {
+            data.map(category =>{
+                let categoria = {
+                    value: category.title, label: category.title, id: category.id
+                };
+                this.categories.push(categoria)
+            })
+        });      
     }
 
     validate = () => {
@@ -137,6 +157,13 @@ class CreateGameComponent extends Component {
         }
         this.setState({ imagen: event.target.value });
     }
+
+    changeCategoriesHandler = selectedOption => {
+        this.setState({selectedOption})
+        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+
+    }
+
     _handleReaderLoaded = (readerEvt) => {
         let binaryString = readerEvt.target.result
         this.setState({
@@ -149,11 +176,16 @@ class CreateGameComponent extends Component {
         if (this.state.isPremium !== true) {
             this.state.price = 0.0;
         }
+
         const isValid = this.validate();
         if (isValid) {
+            this.state.selectedOption.map(category=>{
+                let reformatedCategory = {id: category.id, title: category.label}
+                this.reformatedCategories.push(reformatedCategory);
+            })
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
-                , idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
+                ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             GameService.addGame(game).then(data => {
                 if (typeof data == "string") {
@@ -222,6 +254,14 @@ class CreateGameComponent extends Component {
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
+                            <label>Categories</label>
+                            <Select
+                                isMulti
+                                options={this.categories}
+                                value={this.state.selectedOption}
+                                onChange={this.changeCategoriesHandler}
+                                closeMenuOnSelect={false}
+                            />
                         <div className="form-group">
                             <label>Pegi</label>
                             <input placeholder="Pegi" name="pegi" className="form-control" type="number"
