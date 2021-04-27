@@ -43,6 +43,7 @@ class UpdateGameComponent extends Component {
 
         this.categories = [];
         this.beforeCategories = [];
+        this.reformatedCategories = [];
 
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
@@ -100,11 +101,12 @@ class UpdateGameComponent extends Component {
             //categorias actuales del juego formateadas para el dropdown
             game.categorias.map(category =>{
                 let categoria2 = {
-                    value: category.title, label: category.title
+                    value: category.title, label: category.title, id:category.id
                 };
                 this.beforeCategories.push(categoria2);
             })
             this.setState({ selectedOption : this.beforeCategories })
+            console.log(this.state.selectedOption)
             
         });
         ReviewService.getbyGame(this.state.id).then(data => {
@@ -121,15 +123,11 @@ class UpdateGameComponent extends Component {
         CategoryService.findAll().then(data => {
             data.map(category =>{
                 let categoria = {
-                    value: category.title, label: category.title
+                    value: category.title, label: category.title, id: category.id
                 };
                 this.categories.push(categoria)
             })
-        });
-
-        
-        
-        
+        });      
     
     }
     follow=(username,e)=>{
@@ -190,11 +188,16 @@ class UpdateGameComponent extends Component {
         if (AuthService.getUserData()['isPremium'] !== true) {
             this.state.price = 0.0;
         }
+        this.state.selectedOption.map(category=>{
+            let reformatedCategory = {id: category.id, title: category.label}
+            this.reformatedCategories.push(reformatedCategory);
+        })
         const isValid = this.validate();
         let game = {
             title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
-            categorias: this.state.categorias, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+            categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
         };
+        console.log(game)
         if (isValid) {
             GameService.updateGame(game, this.state.id).then(data => {
                 if (typeof data == "string") {
