@@ -38,12 +38,13 @@ class UpdateGameComponent extends Component {
             isAdmin: false,
             isFollowed:false,
             selectedOption:null,
-            allCategories:[]
+            allCategories:""
         }
 
         this.categories = [];
         this.beforeCategories = [];
         this.reformatedCategories = [];
+        this.readOnlyCategories = "";
 
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
@@ -103,7 +104,14 @@ class UpdateGameComponent extends Component {
                 let categoria2 = {
                     value: category.title, label: category.title, id:category.id
                 };
+                console.log(category)
                 this.beforeCategories.push(categoria2);
+                //Esto es para la vista de NO creador
+                if(this.readOnlyCategories === ""){
+                    this.readOnlyCategories = category.title
+                }else{
+                    this.readOnlyCategories = this.readOnlyCategories +", " + category.title
+                }
             })
             this.setState({ selectedOption : this.beforeCategories })
             console.log(this.state.selectedOption)
@@ -463,9 +471,6 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
-                        <div>
-                           {this.state.allCategories} 
-                        </div>
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
@@ -485,7 +490,7 @@ class UpdateGameComponent extends Component {
                                         <div className="w3-card-2" >
                                             <header className="w3-container ">
                                                 <img />
-                                                <h5>Categories: {this.state.categorias}€</h5>
+                                                <h5>Categories: {this.readOnlyCategories}</h5>
                                             </header>
                                         </div>
                                     </div>
