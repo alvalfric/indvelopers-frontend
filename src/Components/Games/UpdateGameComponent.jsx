@@ -41,14 +41,8 @@ class UpdateGameComponent extends Component {
             allCategories:[]
         }
 
-        this.categories = [
-            {value: 'Action', label: "Action"},
-            {value: 'Adventure', label: "Adventure"},
-            {value: 'Puzzle', label: "Puzzle"},
-            {value: 'Sport', label: "Sport"},
-            {value: 'Strategy', label: "Strategy"}
-        ];
-
+        this.categories = [];
+        this.beforeCategories = [];
 
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
@@ -76,7 +70,6 @@ class UpdateGameComponent extends Component {
                 requirements: game.requirements,
                 price: game.price + "",
                 pegi: game.pegi,
-                categorias: game.categorias,
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
@@ -104,8 +97,15 @@ class UpdateGameComponent extends Component {
                 }
                 
             }
+            //categorias actuales del juego formateadas para el dropdown
+            game.categorias.map(category =>{
+                let categoria2 = {
+                    value: category.title, label: category.title
+                };
+                this.beforeCategories.push(categoria2);
+            })
+            this.setState({ selectedOption : this.beforeCategories })
             
-
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -117,18 +117,18 @@ class UpdateGameComponent extends Component {
                 }
             })
         })
+        //Trae todas las categorias y las formatea para dropdown
         CategoryService.findAll().then(data => {
-            var todas = [];
             data.map(category =>{
                 let categoria = {
                     value: category.title, label: category.title
                 };
-                console.log(categoria)
-                todas.unshift(categoria)
+                this.categories.push(categoria)
             })
-            console.log(todas);
-            this.setState({allCategories:todas})
         });
+
+        
+        
         
     
     }
