@@ -453,4 +453,7 @@ padding-right:80px;
   .multiselect-demo .multiselect-custom .country-item-value img.flag {
     width: 17px;
   }
-}
+  }
+  .basic-multi-select{
+    color: #000000;
+  }

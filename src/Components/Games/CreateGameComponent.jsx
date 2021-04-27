@@ -253,13 +253,14 @@ class CreateGameComponent extends Component {
                             <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
-                        </div>
+                        </div >
                             <label>Categories</label>
                             <Select
                                 isMulti
                                 options={this.categories}
                                 value={this.state.selectedOption}
                                 onChange={this.changeCategoriesHandler}
+                                className="basic-multi-select"
                                 closeMenuOnSelect={false}
                             />
                         <div className="form-group">

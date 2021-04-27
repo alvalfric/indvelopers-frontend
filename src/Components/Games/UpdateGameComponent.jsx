@@ -479,6 +479,7 @@ class UpdateGameComponent extends Component {
                                         options={this.categories}
                                         value={this.state.selectedOption}
                                         onChange={this.changeCategoriesHandler}
+                                        className="basic-multi-select"
                                         closeMenuOnSelect={false}
                                     />
                                 </React.Fragment>
