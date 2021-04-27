@@ -10,6 +10,7 @@ const SUBSCRIPTION = "/subscription"
 const CLOUD = "/file"
 const PAYMENT = "/payments"
 const DEVDASHBOARD="/developerDashboard"
+const FOLLOWEDGAMES = "/followedGames"
 
 
 export const UrlProvider = {
@@ -48,6 +49,9 @@ export const UrlProvider = {
     },
     getDeveloperDashboardUrl(){
         return BASE_URL + DEVDASHBOARD;
+    },
+    getFollowedGames(){
+        return BASE_URL + FOLLOWEDGAMES;
     }
 
 }
