@@ -9,7 +9,7 @@ class GamesComponent extends Component {
     super(props)
 
     this.state = {
-      title: '',
+      res: '',
       price: '',
       games: [],
       rawGames: [],
@@ -109,13 +109,13 @@ class GamesComponent extends Component {
     });
   }
 
-  getGameTitle() {
-    if(this.state.title.length === 0) {
+  getGameTitleCategorie() {
+    if(this.state.res.length === 0) {
       GameService.findVerified().then((data) => {
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
         this.setState({games: slice})});
     } else {
-      GameService.getGameByTitle(this.state.title).then((data) => {
+      GameService.getGameByTitleOrCategorie(this.state.res).then((data) => {
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
         this.setState({games: slice})})
     }
@@ -139,10 +139,10 @@ class GamesComponent extends Component {
     }
   }
 
-  titleCancelSearchHandler = () => {
+  titleCategorieCancelSearchHandler = () => {
     GameService.findVerified().then((data) => {
       var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-      this.setState({games: slice, title: ''})});
+      this.setState({games: slice, res: ''})});
   }
 
   priceCancelSearchHandler = () => {
@@ -171,9 +171,9 @@ class GamesComponent extends Component {
         </div>
         <br />
         <div style={{float: 'right'}}>
-          <input className="searchForm" placeholder="Search by title..." name="title" value={this.state.title} onChange={this.searchChangeHandler}/>
-          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitle()}>Search</button>
-          <button className="cancelSearchButton" onClick={this.titleCancelSearchHandler}>Cancel</button>
+          <input className="searchForm" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitleCategorie()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.titleCategorieCancelSearchHandler}>Cancel</button>
         </div>
         <br />
         <br />

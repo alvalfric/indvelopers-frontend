@@ -94,9 +94,9 @@ export const GameService = {
             .catch(error => { return error.response.status })
     },
 
-    async getGameByTitle(title) {
+    async getGameByTitleOrCategorie(res) {
         return AuthService.getToken().then(token => {
-            return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerified/' + title, {
+            return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerifiedOrCategorie/' + res, {
                 headers: {
                     'Authorization': 'Bearer ' + token,
                     'Accept': '*/*'
