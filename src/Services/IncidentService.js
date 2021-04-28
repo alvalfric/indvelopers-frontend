@@ -5,7 +5,8 @@ import { AuthService } from './AuthService';
 export const IncidentService = {
 
 	async listUnsolvedIncidents(){
-		return axios.get(UrlProvider.getIncidentUrl() + "/notSolved")
+		return axios.get(UrlProvider.getIncidentUrl() + "/findAll").then(res => res.data)
+            .catch(error => { return error.response.status })
 	},
 
 	async addIncident(incident){
@@ -22,7 +23,7 @@ export const IncidentService = {
 
 	async deleteIncident(id){
 		return AuthService.getToken().then(token => {
-			return axios.delete(UrlProvider.getIncidentUrl() + "delete" + id, {
+			return axios.delete(UrlProvider.getIncidentUrl() + "/delete" + id, {
 				headers: {
 					'Authorization': 'Bearer' + token,
 					'Accept': '*/*'
