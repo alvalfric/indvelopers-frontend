@@ -1,4 +1,4 @@
-const DEPLOYED_URL="https://level2-indvelopers-backend.herokuapp.com"
+const DEPLOYED_URL="https://level3-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
@@ -9,6 +9,7 @@ const REVIEWS = "/reviews"
 const SUBSCRIPTION = "/subscription"
 const CLOUD = "/file"
 const PAYMENT = "/payments"
+const DEVDASHBOARD="/developerDashboard"
 
 
 export const UrlProvider = {
@@ -44,6 +45,9 @@ export const UrlProvider = {
     },
     getPaymentUrl(){
         return BASE_URL + PAYMENT;
+    },
+    getDeveloperDashboardUrl(){
+        return BASE_URL + DEVDASHBOARD;
     }
 
 }

@@ -9,6 +9,7 @@ ReactDOM.render(
   <ErrorBoundary>
     <App />
   </ErrorBoundary>
+
   ,
   document.getElementById('root')
 );
