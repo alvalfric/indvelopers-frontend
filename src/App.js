@@ -36,6 +36,7 @@ import TermsAndConditionsComponent from './Components/TermsAndConditionsComponen
 import PrivacyPolicyComponent from './Components/PrivacyPolicyComponent';
 import DeveloperDashboardComponent from './Components/Dashboard/DeveloperDashboardComponent';
 import FollowListComponent from './Components/Users/FollowListComponent';
+import FollowedGamesComponent from './Components/Games/FollowedGamesComponent';
 
 
 
@@ -82,6 +83,7 @@ function App() {
              <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
              <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
              <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
+             <Route path="/followedGames" component={FollowedGamesComponent}></Route>
           </Switch>
           </div>
         </div>

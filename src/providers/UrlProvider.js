@@ -10,6 +10,7 @@ const SUBSCRIPTION = "/subscription"
 const CLOUD = "/file"
 const PAYMENT = "/payments"
 const DEVDASHBOARD="/developerDashboard"
+const FOLLOWEDGAMES = "/findGamesByFollowedDeveloper"
 const CATEGORY="/categories"
 
 
@@ -49,6 +50,9 @@ export const UrlProvider = {
     },
     getDeveloperDashboardUrl(){
         return BASE_URL + DEVDASHBOARD;
+    },
+    getFollowedGames(){
+        return BASE_URL + GAMES + FOLLOWEDGAMES;
     },
     getCategoriesUrl(){
         return BASE_URL + CATEGORY;

@@ -25,6 +25,7 @@ class ListMyGamesComponent extends Component {
     }
 
     componentDidMount() {
+
         GameService.findAllMyCreatedGames().then((res) => {
             this.setState({myCreatedGames:res.data});
             
