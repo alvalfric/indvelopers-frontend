@@ -92,6 +92,10 @@ export const GameService = {
     async getNewGames() {
         return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
             .catch(error => { return error.response.status })
+    },
+    async findGamesWithDiscount(){
+        return axios.get(UrlProvider.getGameUrl()+"/findAllWithDiscount").then(res=>res.data)
+        .catch(error=>{return error.response.status})
     }
 
 }
