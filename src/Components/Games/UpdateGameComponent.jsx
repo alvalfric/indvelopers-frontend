@@ -5,9 +5,11 @@ import OwnedGameService from '../../Services/OwnedGameService';
 import ListReviewComponent from '../Reviews/ListReviewComponent';
 import { ReviewService } from '../../Services/ReviewService';
 import { CloudService } from '../../Services/CloudService';
+import { CategoryService } from '../../Services/CategoryService';
 import saveAs from 'jszip';
-import { UrlProvider } from '../../providers/UrlProvider';
 import {DeveloperService} from '../../Services/DeveloperService';
+import PegiAssignation from './PegiAssignation';
+import Select from "react-select";
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -24,6 +26,9 @@ class UpdateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
+            pegi:"",
+            pegiError:"",
+            categorias:[],
             idCloud: "",
             isNotMalware: false,
             creator: "",
@@ -31,8 +36,16 @@ class UpdateGameComponent extends Component {
             base64TextString: "",
             isBought: false,
             isAdmin: false,
-            isFollowed:false
+            isFollowed:false,
+            selectedOption:null,
+            allCategories:""
         }
+
+        this.categories = [];
+        this.beforeCategories = [];
+        this.reformatedCategories = [];
+        this.readOnlyCategories = "";
+
         this.downloadGame = this.downloadGame.bind(this);
         this.buyGame = this.buyGame.bind(this);
         this.updateGame = this.updateGame.bind(this);
@@ -41,6 +54,8 @@ class UpdateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changePegiHandler = this.changePegiHandler.bind(this);
+        this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
@@ -56,6 +71,7 @@ class UpdateGameComponent extends Component {
                 description: game.description,
                 requirements: game.requirements,
                 price: game.price + "",
+                pegi: game.pegi,
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
@@ -83,8 +99,23 @@ class UpdateGameComponent extends Component {
                 }
                 
             }
+            //categorias actuales del juego formateadas para el dropdown
+            game.categorias.map(category =>{
+                let categoria2 = {
+                    value: category.title, label: category.title, id:category.id
+                };
+                console.log(category)
+                this.beforeCategories.push(categoria2);
+                //Esto es para la vista de NO creador
+                if(this.readOnlyCategories === ""){
+                    this.readOnlyCategories = category.title
+                }else{
+                    this.readOnlyCategories = this.readOnlyCategories +", " + category.title
+                }
+            })
+            this.setState({ selectedOption : this.beforeCategories })
+            console.log(this.state.selectedOption)
             
-
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
@@ -96,6 +127,15 @@ class UpdateGameComponent extends Component {
                 }
             })
         })
+        //Trae todas las categorias y las formatea para dropdown
+        CategoryService.findAll().then(data => {
+            data.map(category =>{
+                let categoria = {
+                    value: category.title, label: category.title, id: category.id
+                };
+                this.categories.push(categoria)
+            })
+        });      
     
     }
     follow=(username,e)=>{
@@ -157,11 +197,15 @@ class UpdateGameComponent extends Component {
             this.state.price = 0.0;
         }
         const isValid = this.validate();
-        let game = {
-            title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-            , idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
-        };
         if (isValid) {
+            this.state.selectedOption.map(category=>{
+                let reformatedCategory = {id: category.id, title: category.label}
+                this.reformatedCategories.push(reformatedCategory);
+            })
+            let game = {
+                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
+                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+            };
             GameService.updateGame(game, this.state.id).then(data => {
                 if (typeof data == "string") {
                     this.props.history.push('/games');
@@ -186,6 +230,7 @@ class UpdateGameComponent extends Component {
         let descriptionError = "";
         let requirementsError = "";
         let priceError = "";
+        let pegiError = "";
 
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
@@ -205,12 +250,18 @@ class UpdateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+        if (this.state.pegi === '') {
+            pegiError = "The game needs a pegi number!"
+        } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
+            pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
         this.setState({ priceError });
-        if (titleError || descriptionError || requirementsError || priceError) {
+        this.setState({ pegiError });
+        if (titleError || descriptionError || requirementsError || priceError || pegiError) {
             return false;
         } else {
             return true;
@@ -232,6 +283,17 @@ class UpdateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+
+    changePegiHandler = (event) => {
+        this.setState({ pegi: event.target.value })
+    }
+
+    changeCategoriesHandler = selectedOption => {
+        this.setState({selectedOption})
+        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+
+    }
+
     changeConfirmHandler = (event) => {
         this.setState({ isNotMalware: event.target.checked })
     }
@@ -407,6 +469,53 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                        </div>
+                        <div className="form-group">
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                                <React.Fragment>
+                                    <label>Categories</label>
+                                    <Select
+                                        isMulti
+                                        options={this.categories}
+                                        value={this.state.selectedOption}
+                                        onChange={this.changeCategoriesHandler}
+                                        className="basic-multi-select"
+                                        closeMenuOnSelect={false}
+                                    />
+                                </React.Fragment>
+                            ) :
+                                <React.Fragment>
+                                    <div>
+                                        <br />
+                                        <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Categories: {this.readOnlyCategories}</h5>
+                                            </header>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            }
+                        </div>
+                        <div className="form-group">
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                                <React.Fragment>
+                                    <label>Pegi</label>
+                                    <input placeholder="Pegi" name="pegi" className="form-control" type="number" 
+                                        value={this.state.pegi} onChange={this.changePegiHandler}></input>
+                                </React.Fragment>
+                            ) :
+                                <React.Fragment>
+                                    <div>
+                                        <br />
+                                            <header className="w3-container ">
+                                                <img />
+                                                <PegiAssignation pegi = {this.state.pegi}/>
+                                            </header>
+                                    </div>
+                                </React.Fragment>
+                            }
+                            {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
                         {this.state.isAdmin ? (
                             <div class="custom-control custom-checkbox">
