@@ -19,6 +19,12 @@ class FollowedGamesComponent extends Component {
 			this.setState({followedGames:res.data})
 		})
 	}
+
+	getGame(id){
+		GameService.getGameById(id).then(res => {
+			this.props.history.push(`/game-View/${id}`);
+		})
+	}
 	
 	render(){
 		return(
@@ -38,6 +44,8 @@ class FollowedGamesComponent extends Component {
                   					<div className="w3-container p-3">
                     					<p class="card-text">
 											Price: {item.price}€
+
+											<button onClick={() => this.getGame(item.id)} className="ModifyButton float-right">Details</button>
 										</p>
                   					</div>
                			 		</div>
