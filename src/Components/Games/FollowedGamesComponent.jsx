@@ -9,48 +9,14 @@ class FollowedGamesComponent extends Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			followedGames:[],
-			rawGames:[],
-			offset:[],
-			perPage:10,
-			pageCount:0,
-			currentPage:0
+			followedGames:[],		
 		}
-		this.handlePageClick = this.handlePageClick.bind(this);
-		this.componentDidMount = this.componentDidMount.bind(this);
+	
 	}
 	
-	handlePageClick = (e) => {
-		const selectedPage = e.selected;
-		const offset = selectedPage * this.state.perPage;
-
-		this.setState({
-			currentPage: selectedPage,
-			offset: offset
-		}, () =>{
-			this.loadMoreData()
-		})
-	}
-
-	loadMoreData(){
-		const data = this.state.rawGames;
-
-		const slice = data.slice(this.state.offset, this.state.offset + this.state.perPage)
-		this.setState({
-			pageCount: Math.ceil(data.length/this.state.perPage),
-			followedGames: slice
-		})
-	}
-
 	componentDidMount(){
-		GameService.getFollowedGames().then(data =>{
-			var slice = data.slice(this.state.offset, this.state.offset+this.state.perPage)
-			
-			this.setState({
-				followedGames: slice,
-				pageCount: Math.ceil(data.length/this.state.perPage),
-				rawGames: data
-			})
+		GameService.findGamesByDeveloperFollowed().then((res)=>{
+			this.setState({followedGames:res.data})
 		})
 	}
 	
@@ -79,17 +45,6 @@ class FollowedGamesComponent extends Component {
             			</div>
 					)}
 				</div>
-				<ReactPaginate previousLabel={"prev"}
-         			nextLabel={"next"}
-         	 		breakLabel={"..."}
-            		breakClassName={"break-me"}
-          			pageCount={this.state.pageCount}
-         		 	marginPagesDisplayed={2}
-          			pageRangeDisplayed={5}
-          			onPageChange={this.handlePageClick}
-          			containerClassName={"pagination"}
-          			subContainerClassName={"pages pagination"}
-          			activeClassName={"active"} />
 
 			</div>
 		);
