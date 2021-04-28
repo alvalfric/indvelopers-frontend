@@ -36,7 +36,7 @@ class DeveloperDashboardComponent extends Component {
                 reviewsMean:res.reviewsMean,
                 series:[res.gamesVerified,
                     res.gamesNotVerified],
-                options:{labels:['my games verified', 'my games not verified']}
+                options:{labels:['my games verified', 'my games not verified'], subtitle:{style:{fontSize:'25'}},theme:{mode:'dark'}}
             })
             
         })

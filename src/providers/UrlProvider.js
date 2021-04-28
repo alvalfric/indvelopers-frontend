@@ -11,6 +11,7 @@ const CLOUD = "/file"
 const PAYMENT = "/payments"
 const DEVDASHBOARD="/developerDashboard"
 const FOLLOWEDGAMES = "/findGamesByFollowedDeveloper"
+const CATEGORY="/categories"
 
 
 export const UrlProvider = {
@@ -52,6 +53,9 @@ export const UrlProvider = {
     },
     getFollowedGames(){
         return BASE_URL + GAMES + FOLLOWEDGAMES;
+    },
+    getCategoriesUrl(){
+        return BASE_URL + CATEGORY;
     }
 
 }

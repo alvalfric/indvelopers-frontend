@@ -4,6 +4,8 @@ import { GameService } from '../../Services/GameService';
 import {SubscriptionService} from '../../Services/SubscriptionService';
 import saveAs from 'jszip';
 import {CloudService} from '../../Services/CloudService';
+import Select from "react-select";
+import { CategoryService } from '../../Services/CategoryService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -18,19 +20,29 @@ class CreateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
+            pegi:"",
+            pegiError:"",
+            categorias:[],
             imagen: "",
             imagenError:"",
             base64TextString: "",
             submitError: "",
             isPremium:false,
             idCloud:"",
-            idCloudError:""
+            idCloudError:"",
+            selectedOption:null
         }
+
+        this.categories = [];
+        this.reformatedCategories = [];
+
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changePegiHandler = this.changePegiHandler.bind(this);
+        this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeGameHandler=this.changeGameHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
@@ -38,11 +50,23 @@ class CreateGameComponent extends Component {
         })
     }
 
+    componentDidMount(){
+        CategoryService.findAll().then(data => {
+            data.map(category =>{
+                let categoria = {
+                    value: category.title, label: category.title, id: category.id
+                };
+                this.categories.push(categoria)
+            })
+        });      
+    }
+
     validate = () => {
         let titleError = "";
         let descriptionError = "";
         let requirementsError = "";
         let priceError="";
+        let pegiError="";
         let imagenError="";
         let idCloudError="";
 
@@ -70,13 +94,20 @@ class CreateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+        if (this.state.pegi === '') {
+            pegiError = "The game needs a pegi number!"
+        } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
+            pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
+
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
         this.setState({ priceError });
         this.setState({imagenError});
         this.setState({idCloudError});
-        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError) {
+        this.setState({ pegiError });
+        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError) {
             return false;
         } else {
             return true;
@@ -98,6 +129,11 @@ class CreateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+
+    changePegiHandler = (event) => {
+        this.setState({ pegi: event.target.value })
+    }
+
     changeGameHandler=(event) =>{
         event.preventDefault()
         const zip = require('jszip')();
@@ -121,6 +157,13 @@ class CreateGameComponent extends Component {
         }
         this.setState({ imagen: event.target.value });
     }
+
+    changeCategoriesHandler = selectedOption => {
+        this.setState({selectedOption})
+        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+
+    }
+
     _handleReaderLoaded = (readerEvt) => {
         let binaryString = readerEvt.target.result
         this.setState({
@@ -133,11 +176,16 @@ class CreateGameComponent extends Component {
         if (this.state.isPremium !== true) {
             this.state.price = 0.0;
         }
+
         const isValid = this.validate();
         if (isValid) {
+            this.state.selectedOption.map(category=>{
+                let reformatedCategory = {id: category.id, title: category.label}
+                this.reformatedCategories.push(reformatedCategory);
+            })
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
+                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
+                ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             GameService.addGame(game).then(data => {
                 if (typeof data == "string") {
@@ -205,6 +253,21 @@ class CreateGameComponent extends Component {
                             <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                        </div >
+                            <label>Categories</label>
+                            <Select
+                                isMulti
+                                options={this.categories}
+                                value={this.state.selectedOption}
+                                onChange={this.changeCategoriesHandler}
+                                className="basic-multi-select"
+                                closeMenuOnSelect={false}
+                            />
+                        <div className="form-group">
+                            <label>Pegi</label>
+                            <input placeholder="Pegi" name="pegi" className="form-control" type="number"
+                                value={this.state.pegi} onChange={this.changePegiHandler}></input>
+                            {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
                         <div className="form-group">
                         {this.state.base64TextString !== "" ?
