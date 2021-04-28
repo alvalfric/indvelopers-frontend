@@ -9,6 +9,8 @@ class GamesComponent extends Component {
     super(props)
 
     this.state = {
+      res: '',
+      price: '',
       games: [],
       rawGames: [],
       offset: 0,
@@ -101,6 +103,53 @@ class GamesComponent extends Component {
     }
   }
 
+  searchChangeHandler = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    });
+  }
+
+  getGameTitleCategorie() {
+    if(this.state.res.length === 0) {
+      GameService.findVerified().then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})});
+    } else {
+      GameService.getGameByTitleOrCategorie(this.state.res).then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})})
+    }
+  }
+
+  searchChangePriceHandler = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    });
+  }
+
+  getGamePrice() {
+    if(this.state.price.length === 0) {
+      GameService.findVerified().then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})});
+    } else {
+      GameService.getGameByPrice(this.state.price).then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})})
+    }
+  }
+
+  titleCategorieCancelSearchHandler = () => {
+    GameService.findVerified().then((data) => {
+      var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+      this.setState({games: slice, res: ''})});
+  }
+
+  priceCancelSearchHandler = () => {
+    GameService.findVerified().then((data) => {
+      var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+      this.setState({games: slice, price: ''})});
+  }
 
   render() {
     return (
@@ -120,6 +169,20 @@ class GamesComponent extends Component {
             : null
           }
         </div>
+        <br />
+        <div style={{float: 'right'}}>
+          <input className="searchForm" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitleCategorie()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.titleCategorieCancelSearchHandler}>Cancel</button>
+        </div>
+        <br />
+        <br />
+        <div style={{float: 'right'}}>
+          <input className="searchForm" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} type="number"/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGamePrice()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.priceCancelSearchHandler}>Cancel</button>
+        </div>
+        <br />
         <br />
         <div>
           {this.state.games.map((item) =>

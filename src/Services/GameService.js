@@ -92,6 +92,30 @@ export const GameService = {
     async getNewGames() {
         return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
             .catch(error => { return error.response.status })
+    },
+
+    async getGameByTitleOrCategorie(res) {
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerifiedOrCategorie/' + res, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data)
+                .catch(error => { return error.response.status })
+        })
+    },
+
+    async getGameByPrice(price) {
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getGameUrl() + '/findByPrice/' + price, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data)
+                .catch(error => { return error.response.status })
+        })
     }
 
 }
