@@ -4,7 +4,7 @@ import { UrlProvider } from '../providers/UrlProvider';
 
 export const CloudService={
 
-    async uploadFile(zipGame){
+    async uploadFile(zipGame,onUploadProgress){
         let formData=new FormData()
         formData.append('file',zipGame)
         return AuthService.getToken().then((token)=>{
@@ -14,7 +14,8 @@ export const CloudService={
                     'Accept': '*/*',
                     "Content-type": "multipart/form-data"
                 },
-                data:formData
+                data:formData,
+                onUploadProgress
             }).then(res=>res.data).catch(error=>{return error})
         })
     },

@@ -6,6 +6,7 @@ import saveAs from 'jszip';
 import {CloudService} from '../../Services/CloudService';
 import Select from "react-select";
 import { CategoryService } from '../../Services/CategoryService';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -30,7 +31,8 @@ class CreateGameComponent extends Component {
             isPremium:false,
             idCloud:"",
             idCloudError:"",
-            selectedOption:null
+            selectedOption:null,
+            progress:0
         }
 
         this.categories = [];
@@ -140,7 +142,9 @@ class CreateGameComponent extends Component {
         let file=event.target.files[0];
         zip.file(file.name,file);
         zip.generateAsync({type:"blob"}).then(content=>{
-            CloudService.uploadFile(content).then(res=>{
+            CloudService.uploadFile(content,(e)=>{
+                this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+            }).then(res=>{
                 this.setState({idCloud:res})
             })
         })
@@ -289,6 +293,10 @@ class CreateGameComponent extends Component {
                         <div className="form-group">
                         <label>Game(.zip format):</label>
                         <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
+                        {this.state.progress!=0?(
+                            <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`}/></p>
+                        ):null}
+                        
                         {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
 
                         </div>
