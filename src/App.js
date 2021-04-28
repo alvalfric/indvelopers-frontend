@@ -83,7 +83,7 @@ function App() {
              <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
              <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
              <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
-             <Route path="/followed-games" component={FollowedGamesComponent}></Route>
+             <Route path="/followedGames" component={FollowedGamesComponent}></Route>
           </Switch>
           </div>
         </div>

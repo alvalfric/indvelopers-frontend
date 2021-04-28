@@ -8,7 +8,7 @@ class FollowedGamesComponent extends Component {
 	
 	constructor(props){
 		super(props)
-		this.state={
+		this.state = {
 			followedGames:[],
 			rawGames:[],
 			offset:[],
@@ -17,6 +17,7 @@ class FollowedGamesComponent extends Component {
 			currentPage:0
 		}
 		this.handlePageClick = this.handlePageClick.bind(this);
+		this.componentDidMount = this.componentDidMount.bind(this);
 	}
 	
 	handlePageClick = (e) => {
@@ -42,8 +43,7 @@ class FollowedGamesComponent extends Component {
 	}
 
 	componentDidMount(){
-		GameService.getFollowedGames().then(res =>{
-			var data = res.data;
+		GameService.getFollowedGames().then(data =>{
 			var slice = data.slice(this.state.offset, this.state.offset+this.state.perPage)
 			
 			this.setState({
@@ -62,9 +62,21 @@ class FollowedGamesComponent extends Component {
 				<h1> Following Games</h1>
 				<div>
 					{this.state.followedGames.map((item)=>
-						
-						<h4>{item.title}</h4>
-					
+						<div className="pb-4">
+              				<div className="w3-card-4">
+                				<div className="w3-container">
+                  					<div className="container">
+                    					<img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} width="400" height="300" />
+                    					<h4>{item.title}</h4>
+                  					</div>
+                  					<div className="w3-container p-3">
+                    					<p class="card-text">
+											Price: {item.price}€
+										</p>
+                  					</div>
+               			 		</div>
+              				</div>
+            			</div>
 					)}
 				</div>
 				<ReactPaginate previousLabel={"prev"}

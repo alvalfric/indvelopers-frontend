@@ -95,9 +95,9 @@ export const GameService = {
     },
 
     async getFollowedGames(){
-        return AuthService.getToken().then(token => {
-            return axios.get(UrlProvider.getFollowedGames + '/gamesByDeveloperFollowed',{
-                headers:{
+        return AuthService.getToken().then(token =>{
+            return axios.get(UrlProvider.getFollowedGames() + "/gamesByDevelopersFollowed",{
+                headers: {
                     'Authorization': 'Bearer' + token,
                     'Accept': '*/*'
                 }

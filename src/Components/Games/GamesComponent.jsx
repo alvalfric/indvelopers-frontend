@@ -82,7 +82,7 @@ class GamesComponent extends Component {
 
   MyFollowedGames(){
     if(AuthService.isAuthenticated()){
-      this.props.history.push('followed-games')
+      this.props.history.push('followedGames')
     }else{
       this.props.history.push('login')
     }
