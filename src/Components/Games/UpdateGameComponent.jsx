@@ -10,6 +10,7 @@ import saveAs from 'jszip';
 import {DeveloperService} from '../../Services/DeveloperService';
 import PegiAssignation from './PegiAssignation';
 import Select from "react-select";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -38,7 +39,8 @@ class UpdateGameComponent extends Component {
             isAdmin: false,
             isFollowed:false,
             selectedOption:null,
-            allCategories:""
+            allCategories:"",
+            progress:0
         }
 
         this.categories = [];
@@ -175,7 +177,9 @@ class UpdateGameComponent extends Component {
             let file = e.target.files[0];
             zip.file(file.name, file);
             zip.generateAsync({ type: "blob" }).then(content => {
-                CloudService.uploadFile(content).then(res => {
+                CloudService.uploadFile(content,(e)=>{
+                    this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+                }).then(res => {
                     this.setState({ idCloud: res })
                     console.log("NUEVA IDCLOUD===>" + JSON.stringify(this.state.idCloud))
                 })
@@ -361,6 +365,9 @@ class UpdateGameComponent extends Component {
                                     <br />
                                     <label>Game:</label>
                                     <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
+                                    {this.state.progress!=0?(
+                                   <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`}/></p>
+                                  ):null}
 
                                 </React.Fragment>
                             ) :
