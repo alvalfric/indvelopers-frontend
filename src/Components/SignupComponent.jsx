@@ -191,8 +191,8 @@ class SignupComponent extends Component {
                 </div>
 
                 <div className="form-group">
-                    <label>Technologies</label>
-                    <input type="text" className="form-control" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                    <label>Technologies (you use to develop your games)</label>
+                    <input type="text" className="form-control" placeholder="Technologies like Unity, Wave engine, etc" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
                     {this.state.technologiesError ? (<div className="ValidatorMessage">
                         {this.state.technologiesError}
                     </div>) : null}
