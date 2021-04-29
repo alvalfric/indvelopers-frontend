@@ -6,7 +6,7 @@ class EditUserDetailsComponent extends Component {
 
     constructor(props) {
         super(props)
-
+        
         this.state = {
             id: this.props.history.location.state.profile.id,
             username: this.props.history.location.state.profile.username,
@@ -38,9 +38,8 @@ class EditUserDetailsComponent extends Component {
         };
         console.log('profile => ' + JSON.stringify(profile));
         if (isValid) {
-            DeveloperService.updateProfile(this.state.id, profile).then(res => {
-                AuthService.loadUserData();
-                this.props.history.push('/');
+            DeveloperService.updateProfile(this.state.id, profile).then(() => {
+                AuthService.loadUserData().then(()=>{this.props.history.push('/me');})
             })
         }
     }

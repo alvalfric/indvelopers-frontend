@@ -7,7 +7,7 @@ class UserDetailsComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.profile = AuthService.getUserData()
+        this.profile = AuthService.getUserData();
         this.state = {
             isPremium: false,
             endSubs: "",
