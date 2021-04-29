@@ -25,6 +25,7 @@ class GamesComponent extends Component {
     this.MyFollowedGames = this.MyFollowedGames.bind(this);
     this.ListGamesToRevise = this.ListGamesToRevise.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.showOffers=this.showOffers.bind(this);
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -80,6 +81,9 @@ class GamesComponent extends Component {
     } else {
       this.props.history.push('/login')
     }
+  }
+  showOffers(){
+    this.props.history.push('/offers')
   }
 
   MyFollowedGames(){
@@ -169,6 +173,7 @@ class GamesComponent extends Component {
           <button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button>
           <button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}> My created games</button>
           <button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed games</button>
+          <button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}> Offers</button>
           {AuthService.isAuthenticated() ?
             AuthService.getUserData().roles.includes("ADMIN") ?
               <React.Fragment>

@@ -40,7 +40,9 @@ class UpdateGameComponent extends Component {
             isFollowed:false,
             selectedOption:null,
             allCategories:"",
-            progress:0
+            progress:0,
+            discount:0.0,
+            discountError:""
         }
 
         this.categories = [];
@@ -61,6 +63,7 @@ class UpdateGameComponent extends Component {
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
+        this.changeDiscountHandler=this.changeDiscountHandler.bind(this);
         this.follow=this.follow.bind(this);
         this.unFollow=this.unFollow.bind(this);
     }
@@ -77,7 +80,8 @@ class UpdateGameComponent extends Component {
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
-                base64TextString: game.imagen
+                base64TextString: game.imagen,
+                discount:game.discount
             });
             if (AuthService.isAuthenticated()) {
                 OwnedGameService.CheckGameOwned(this.state.id).then((res) => {
@@ -169,6 +173,7 @@ class UpdateGameComponent extends Component {
             this.props.history.push('/games');
         })
     }
+    
     changeGameHandler = (e) => {
         e.preventDefault()
         CloudService.deleteFile(this.state.idCloud).then(res => {
@@ -208,7 +213,7 @@ class UpdateGameComponent extends Component {
             })
             let game = {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
-                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString,discount:this.state.discount
             };
             GameService.updateGame(game, this.state.id).then(data => {
                 if (typeof data == "string") {
@@ -235,6 +240,7 @@ class UpdateGameComponent extends Component {
         let requirementsError = "";
         let priceError = "";
         let pegiError = "";
+        let discountError="";
 
         if (this.state.title.length === 0) {
             titleError = "The game needs a title";
@@ -254,10 +260,16 @@ class UpdateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+
         if (this.state.pegi === '') {
             pegiError = "The game needs a pegi number!"
         } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
             pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
+        if(this.state.discount<0.){
+            discountError="Discount cannot be negative"
+        }else if(this.state.discount>1.){
+            discountError="Discount cannot be greater than 1"
         }
 
         this.setState({ titleError });
@@ -265,7 +277,10 @@ class UpdateGameComponent extends Component {
         this.setState({ requirementsError });
         this.setState({ priceError });
         this.setState({ pegiError });
-        if (titleError || descriptionError || requirementsError || priceError || pegiError) {
+        this.setState({discountError});
+
+        if (titleError || descriptionError || requirementsError || priceError || discountError || pegiError) {
+
             return false;
         } else {
             return true;
@@ -300,6 +315,9 @@ class UpdateGameComponent extends Component {
 
     changeConfirmHandler = (event) => {
         this.setState({ isNotMalware: event.target.checked })
+    }
+    changeDiscountHandler=(e)=>{
+        this.setState({discount:e.target.value})
     }
 
     changeImagenHandler = (event) => {
@@ -408,27 +426,32 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
-                        <div>
-                            <br/>
-                            <div className="w3-card-2" >
-                                            <header className="w3-container ">
+                        <div className="w3-card-4">
+                        
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username']!=this.state.creator.username && !this.state.isFollowed) ?(
+                            <React.Fragment>
+                                <header className="w3-container ">
                                                 <img />
                                                 <h5>Creator</h5>
                                             </header>
-                                            <div className="w3-container">
-                                                <p>{this.state.creator.username}</p>
-                                                {(this.state.isFollowed)? 
-                                                <React.Fragment>
-                                                    <p>You are following this creator. You can unfollow the creator</p>
-                                                    <button className="DeleteButton" onClick={(e)=>this.unFollow(this.state.creator.username,e)}>Unfollow</button>
-                                                </React.Fragment>
-                                                :(AuthService.isAuthenticated() && AuthService.getUserData['username']!=this.state.creator.username)?
-                                                <React.Fragment>
-                                                    <button className="AceptButton" onClick={(e)=>this.follow(this.state.creator.username,e)}>Follow this user</button>
-                                                </React.Fragment>
-                                                :null}
+                                            <div className="w3-container ">
+                                            <p>{this.state.creator.username}</p>
                                             </div>
-                                        </div>
+                                            <button className="AceptButton" onClick={(e)=>this.follow(this.state.creator.username,e)}>Follow this user</button>
+                            </React.Fragment>
+                        ):(AuthService.isAuthenticated() && AuthService.getUserData()['username']!=this.state.creator.username && this.state.isFollowed)?(
+                            <React.Fragment>
+                                <header className="w3-container ">
+                                                <img />
+                                                <h5>Creator</h5>
+                                            </header>
+                                            <div className="w3-container ">
+                                            <p>{this.state.creator.username}</p>
+                                            </div>
+                                <p>You are following this creator. You can unfollow the creator</p>
+                                <button className="DeleteButton" onClick={(e)=>this.unFollow(this.state.creator.username,e)}>Unfollow</button>
+                            </React.Fragment>
+                        ):null}
                         </div>
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
@@ -456,14 +479,28 @@ class UpdateGameComponent extends Component {
                             {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? 
+                            (
                                 <React.Fragment>
                                     <label>Price</label>
                                     <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                         value={this.state.price} onChange={this.changePriceHandler}></input>
                                 </React.Fragment>
-                            ) :
+                            ): this.state.discount!=0.?(
                                 <React.Fragment>
+                                    <div>
+                                        <br />
+                                        <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Price: <strike>{this.state.price}</strike>€</h5>
+                                                <h4>       {(this.state.price-this.state.price*this.state.discount).toFixed(2)}€</h4>
+                                            </header>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                             ):
+                             <React.Fragment>
                                     <div>
                                         <br />
                                         <div className="w3-card-2" >
@@ -473,8 +510,7 @@ class UpdateGameComponent extends Component {
                                             </header>
                                         </div>
                                     </div>
-                                </React.Fragment>
-                            }
+                            </React.Fragment>}
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
                         <div className="form-group">
@@ -524,6 +560,28 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
+                
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username']===this.state.creator.username)?
+                        <React.Fragment>
+                            <label>Discount</label>
+                            <input placeholder="Discount" name="Discount" className="form-control" type="number" min="0" step="0.1"
+                                        value={this.state.discount} onChange={this.changeDiscountHandler}></input>
+                        </React.Fragment>
+                    :this.state.discount!=0.?(
+                        <React.Fragment>
+                            <div>
+
+                                        <br />
+                                        <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Discount: {this.state.discount*100}%</h5>
+                                            </header>
+                                        </div>
+                                    </div>
+                        </React.Fragment>
+                           ):null}
+                           {this.state.discountError ? (<div className="ValidatorMessage">{this.state.discountError}</div>) : null}
                         {this.state.isAdmin ? (
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware} />

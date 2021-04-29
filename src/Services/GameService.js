@@ -104,7 +104,6 @@ export const GameService = {
         return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
             .catch(error => { return error.response.status })
     },
-
     async getGameByTitleOrCategorie(res) {
         return AuthService.getToken().then(token => {
             return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerifiedOrCategorie/' + res, {
@@ -127,6 +126,10 @@ export const GameService = {
             }).then(res => res.data)
                 .catch(error => { return error.response.status })
         })
+    },
+    async findGamesWithDiscount(){
+        return axios.get(UrlProvider.getGameUrl()+"/findAllWithDiscount").then(res=>res.data)
+        .catch(error=>{return error.response.status})
     }
 
 }
