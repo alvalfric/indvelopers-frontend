@@ -183,10 +183,12 @@ class UpdateGameComponent extends Component {
             zip.file(file.name, file);
             zip.generateAsync({ type: "blob" }).then(content => {
                 CloudService.uploadFile(content,(e)=>{
+                    
                     this.setState({progress: Math.round((100 * e.loaded) / e.total)})
                 }).then(res => {
                     this.setState({ idCloud: res })
-                    console.log("NUEVA IDCLOUD===>" + JSON.stringify(this.state.idCloud))
+                    window.alert("Your game has been uploaded successfully")
+                    //console.log("NUEVA IDCLOUD===>" + JSON.stringify(this.state.idCloud))
                 })
             })
         })

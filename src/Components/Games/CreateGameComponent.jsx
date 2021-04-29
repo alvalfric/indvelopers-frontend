@@ -146,6 +146,7 @@ class CreateGameComponent extends Component {
                 this.setState({progress: Math.round((100 * e.loaded) / e.total)})
             }).then(res=>{
                 this.setState({idCloud:res})
+                window.alert("Your game has been uploaded successfully")
             })
         })
         
