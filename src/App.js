@@ -38,6 +38,7 @@ import DeveloperDashboardComponent from './Components/Dashboard/DeveloperDashboa
 import FollowListComponent from './Components/Users/FollowListComponent';
 import FollowedGamesComponent from './Components/Games/FollowedGamesComponent';
 import OfferGamesComponent from './Components/Games/OfferGamesComponent';
+import AdminDashboardComponent from './Components/Dashboard/AdminDashboardComponent';
 
 
 
@@ -86,6 +87,7 @@ function App() {
              <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
              <Route path="/followedGames" component={FollowedGamesComponent}></Route>
              <Route path="/offers" component={OfferGamesComponent}></Route>
+             <Route path="/admin-dashboard" component={AdminDashboardComponent}></Route>
           </Switch>
           </div>
         </div>

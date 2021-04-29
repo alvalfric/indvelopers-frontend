@@ -21,6 +21,7 @@ class UserDetailsComponent extends Component {
         this.showFollowers = this.showFollowers.bind(this);
         this.showFollowing = this.showFollowing.bind(this);
         this.goToDashboard=this.goToDashboard.bind(this);
+        this.goToAdminDashboard=this.goToAdminDashboard.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
@@ -54,6 +55,10 @@ class UserDetailsComponent extends Component {
     }
     goToDashboard(){
         this.props.history.push("/developer-dashboard")
+    }
+
+    goToAdminDashboard(){
+        this.props.history.push("/admin-dashboard")
     }
 
     showFollowers() {
@@ -115,7 +120,13 @@ class UserDetailsComponent extends Component {
                     </div>
                     <button className="Button" onClick={this.modifyUserDetails} style={{ marginRight: "10px" }}>Edit</button>
                     <button className="Button" onClick={this.buySuscription}>Buy subscription</button>
-                    <button className="Button" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</button> 
+                    {AuthService.isAuthenticated() ?
+                        AuthService.getUserData().roles.includes("ADMIN") ?
+                            <button className="AdminButton" onClick={this.goToAdminDashboard} style={{marginLeft:"10px"}}>Admin Dashboard</button>
+                            :
+                            <button className="Button" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</button>
+                        : null
+                    }
                 </div>
             
             </React.Fragment>
