@@ -95,8 +95,6 @@ class EditReviewComponent extends Component {
 					game: game,
 					developer: AuthService.getUserData()
 				}
-				console.log('Game => ' + JSON.stringify(game))
-				console.log('Review => ' + JSON.stringify(review));
 				ReviewService.editReview(this.state.gameId, review).then(res=>{
 					this.props.history.push('/game-View/' + this.state.gameId);
 				})

@@ -110,7 +110,6 @@ class UpdateGameComponent extends Component {
                 let categoria2 = {
                     value: category.title, label: category.title, id:category.id
                 };
-                console.log(category)
                 this.beforeCategories.push(categoria2);
                 //Esto es para la vista de NO creador
                 if(this.readOnlyCategories === ""){
@@ -120,12 +119,10 @@ class UpdateGameComponent extends Component {
                 }
             })
             this.setState({ selectedOption : this.beforeCategories })
-            console.log(this.state.selectedOption)
             
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
-                console.log(review)
                 if (AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) {
                     this.setState({
                         createReviewCheck: true
@@ -177,7 +174,6 @@ class UpdateGameComponent extends Component {
     changeGameHandler = (e) => {
         e.preventDefault()
         CloudService.deleteFile(this.state.idCloud).then(res => {
-            console.log("ANTERIOR IDCLOUD===>" + JSON.stringify(this.state.idCloud))
             const zip = require('jszip')();
             let file = e.target.files[0];
             zip.file(file.name, file);
@@ -188,7 +184,6 @@ class UpdateGameComponent extends Component {
                 }).then(res => {
                     this.setState({ idCloud: res })
                     window.alert("Your game has been uploaded successfully")
-                    //console.log("NUEVA IDCLOUD===>" + JSON.stringify(this.state.idCloud))
                 })
             })
         })
@@ -311,7 +306,7 @@ class UpdateGameComponent extends Component {
 
     changeCategoriesHandler = selectedOption => {
         this.setState({selectedOption})
-        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+        this.setState({categorias : selectedOption.map(item =>item.value)});
 
     }
 
@@ -323,7 +318,6 @@ class UpdateGameComponent extends Component {
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if (file) {
             const reader = new FileReader();

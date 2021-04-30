@@ -36,7 +36,6 @@ class EditUserDetailsComponent extends Component {
             id: this.state.id, username: this.state.username, email: this.state.email, gameList: this.gameList,
             userImage: this.state.base64TextString, userRole: this.state.userRole, description: this.state.description, technologies: this.state.technologies, isPremium: this.state.isPremium
         };
-        console.log('profile => ' + JSON.stringify(profile));
         if (isValid) {
             DeveloperService.updateProfile(this.state.id, profile).then(() => {
                 AuthService.loadUserData().then(()=>{this.props.history.push('/me');})
@@ -87,7 +86,6 @@ class EditUserDetailsComponent extends Component {
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if (file) {
             const reader = new FileReader();

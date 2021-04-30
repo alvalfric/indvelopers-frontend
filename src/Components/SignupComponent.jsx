@@ -149,7 +149,6 @@ class SignupComponent extends Component {
                 technologies: this.state.technologies,
                 dateOfBirth: this.state.dateOfBirth
             }
-            console.log(userForm.dateOfBirth)
             DeveloperService.signup(userForm).then(data => {
                 if (typeof data == "object") {
                     this.props.history.push('/login')

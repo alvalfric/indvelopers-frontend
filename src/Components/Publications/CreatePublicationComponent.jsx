@@ -47,7 +47,6 @@ class CreatePublicationComponent extends Component {
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if(file) {
             const reader = new FileReader();
@@ -71,7 +70,6 @@ class CreatePublicationComponent extends Component {
                 username: AuthService.getUserData()['username'], userPicture: null,
                 text: this.state.text, imagen: this.state.base64TextString, developer: null
             }
-            console.log('Publication=>' + JSON.stringify(publication));
             PublicationService.AddPublication(publication).then(res => {
                 this.props.history.push('/publication-List');
             })

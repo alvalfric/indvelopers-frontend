@@ -153,7 +153,6 @@ class CreateGameComponent extends Component {
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if(file) {
             const reader = new FileReader();
@@ -165,7 +164,7 @@ class CreateGameComponent extends Component {
 
     changeCategoriesHandler = selectedOption => {
         this.setState({selectedOption})
-        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+        this.setState({categorias : selectedOption.map(item =>item.value)});
 
     }
 

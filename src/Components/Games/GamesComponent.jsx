@@ -98,7 +98,6 @@ class GamesComponent extends Component {
     GameService.getGameById(id).then(res => {
       this.props.history.push(`/game-View/${id}`);
     })
-    console.log('game => ' + JSON.stringify(id))
   }
 
   ListGamesToRevise() {

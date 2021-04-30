@@ -27,14 +27,12 @@ class OwnedGameComponent extends Component {
     componentDidMount(){
         OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
             this.setState({isBought:res.data})
-        console.log("isBought=>"+ JSON.stringify(this.state.isBought))
         })
         if(this.state.isBought){
             this.props.history.push(`/game-View/${this.state.id}`);
         }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
-            console.log("PRECIO====>"+JSON.stringify(this.state.game.price))
         })
     }
     }
