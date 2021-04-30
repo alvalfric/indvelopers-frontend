@@ -11,6 +11,7 @@ import {DeveloperService} from '../../Services/DeveloperService';
 import PegiAssignation from './PegiAssignation';
 import Select from "react-select";
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import { SpamService } from '../../Services/SpamService';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -42,7 +43,8 @@ class UpdateGameComponent extends Component {
             allCategories:"",
             progress:0,
             discount:0.0,
-            discountError:""
+            discountError:"",
+            spamError:""
         }
 
         this.categories = [];
@@ -215,17 +217,23 @@ class UpdateGameComponent extends Component {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
                 categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString,discount:this.state.discount
             };
-            GameService.updateGame(game, this.state.id).then(data => {
-                if (typeof data == "string") {
-                    this.props.history.push('/games');
-                } else {
-                    GameService.findAll().then(data => {
-                        data.forEach(g => {
-                            if (g.title === this.state.title) {
-                                this.setState({ titleError: "A game with that title is already created!" });
-                            }
-                        });
+            SpamService.checkGame(game).then((data)=>{
+                if(data === false){
+                    GameService.updateGame(game, this.state.id).then(data => {
+                        if (typeof data == "string") {
+                            this.props.history.push('/games');
+                        } else {
+                            GameService.findAll().then(data => {
+                                data.forEach(g => {
+                                    if (g.title === this.state.title) {
+                                        this.setState({ titleError: "A game with that title is already created!" });
+                                    }
+                                });
+                            })
+                        }
                     })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
             })
         }
@@ -621,6 +629,7 @@ class UpdateGameComponent extends Component {
                                 <button className="DeleteButton" onClick={() => this.buyGame(this.props.match.params.id)}>Buy</button>
                                 : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Back</button>
+                        {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                     </form>
                 </div>
             </div>

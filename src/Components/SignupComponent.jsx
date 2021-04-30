@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
+import { SpamService } from '../Services/SpamService';
 
 class SignupComponent extends Component {
 
@@ -25,6 +26,7 @@ class SignupComponent extends Component {
             acceptedPolicy: false,
             acceptedError: "",
             submitError: "",
+            spamError:""
         }
         this.saveDeveloper = this.saveDeveloper.bind(this);
         this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
@@ -82,8 +84,9 @@ class SignupComponent extends Component {
         if (this.state.dateOfBirth.length === 0) {
             dateOfBirthError = "Birth date cannot be empty";
         }
-        if (this.state.password.length < 8) {
-            passwordError = "Password must have at least 8 characters";
+        var passwordPattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+        if (!passwordPattern.test(this.state.password)) {
+            passwordError = "Password must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.";
         }
         if (this.state.password.length === 0) {
             passwordError = "Password cannot be empty";
@@ -150,14 +153,19 @@ class SignupComponent extends Component {
                 dateOfBirth: this.state.dateOfBirth
             }
             console.log(userForm.dateOfBirth)
-            DeveloperService.signup(userForm).then(data => {
-                if (typeof data == "object") {
-                    this.props.history.push('/login')
-                } else {
-                    this.setState({ submitError: "Username or email already in use" });
+            SpamService.checkDeveloper(userForm).then((data)=>{
+                if(data === false){
+                    DeveloperService.signup(userForm).then(data => {
+                        if (typeof data == "object") {
+                            this.props.history.push('/login')
+                        } else {
+                            this.setState({ submitError: "Username or email already in use" });
+                        }
+                    });
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
-            }
-            );
+            })
         }
     }
 
@@ -237,6 +245,7 @@ class SignupComponent extends Component {
                 <p className="already-registered text-right">
                     Already registered <a href="/login">log in?</a>
                 </p>
+                {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
             </form>
         );
     }
