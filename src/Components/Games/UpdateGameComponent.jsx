@@ -181,8 +181,12 @@ class UpdateGameComponent extends Component {
                 CloudService.uploadFile(content,(e)=>{
                     
                     this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+                    if(this.state.progress==100){
+                        this.setState({progress:75})
+                    }
                 }).then(res => {
                     this.setState({ idCloud: res })
+                    this.setState({progress:100})
                     window.alert("Your game has been uploaded successfully")
                 })
             })
