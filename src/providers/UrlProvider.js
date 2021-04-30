@@ -12,6 +12,7 @@ const PAYMENT = "/payments"
 const DEVDASHBOARD="/developerDashboard"
 const FOLLOWEDGAMES = "/findGamesByFollowedDeveloper"
 const CATEGORY="/categories"
+const SPAM="/spam"
 
 
 export const UrlProvider = {
@@ -56,6 +57,9 @@ export const UrlProvider = {
     },
     getCategoriesUrl(){
         return BASE_URL + CATEGORY;
+    },
+    getSpamUrl(){
+        return BASE_URL + SPAM;
     }
 
 }

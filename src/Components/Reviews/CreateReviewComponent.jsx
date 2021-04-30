@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import { ReviewService } from '../../Services/ReviewService';
 import { AuthService } from '../../Services/AuthService';
+import { SpamService } from '../../Services/SpamService';
 
 
 class CreateReviewComponent extends Component {
@@ -15,6 +16,7 @@ class CreateReviewComponent extends Component {
 			score: "",
 			username: null,
 			game: null,
+			spamError:""
 		}
 		this.saveReview = this.saveReview.bind(this);
 		this.changeScoreHandler = this.changeScoreHandler.bind(this);
@@ -93,8 +95,14 @@ class CreateReviewComponent extends Component {
 				}
 				console.log('Game => ' + JSON.stringify(game))
 				console.log('Review => ' + JSON.stringify(review));
-				ReviewService.addReview(this.state.gameId, review).then(res=>{
-					this.props.history.push('/game-View/' + this.state.gameId);
+				SpamService.checkReview(review).then((data)=>{
+					if(data === false){
+						ReviewService.addReview(this.state.gameId, review).then(res=>{
+							this.props.history.push('/game-View/' + this.state.gameId);
+						})
+					}else{
+						this.setState({spamError:"This form contains spam words! 😠"})
+					}
 				})
 			})
         }
@@ -126,6 +134,7 @@ class CreateReviewComponent extends Component {
 					</div>
 					<button className="AceptButton" onClick={this.saveReview}>Crear Review</button>
 					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
+					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
 				</form>
 
 			</div>

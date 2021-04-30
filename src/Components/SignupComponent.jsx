@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
+import { SpamService } from '../Services/SpamService';
 
 class SignupComponent extends Component {
 
@@ -25,6 +26,7 @@ class SignupComponent extends Component {
             acceptedPolicy: false,
             acceptedError: "",
             submitError: "",
+            spamError:""
         }
         this.saveDeveloper = this.saveDeveloper.bind(this);
         this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
@@ -150,14 +152,19 @@ class SignupComponent extends Component {
                 dateOfBirth: this.state.dateOfBirth
             }
             console.log(userForm.dateOfBirth)
-            DeveloperService.signup(userForm).then(data => {
-                if (typeof data == "object") {
-                    this.props.history.push('/login')
-                } else {
-                    this.setState({ submitError: "Username or email already in use" });
+            SpamService.checkDeveloper(userForm).then((data)=>{
+                if(data === false){
+                    DeveloperService.signup(userForm).then(data => {
+                        if (typeof data == "object") {
+                            this.props.history.push('/login')
+                        } else {
+                            this.setState({ submitError: "Username or email already in use" });
+                        }
+                    });
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
-            }
-            );
+            })
         }
     }
 
@@ -237,6 +244,7 @@ class SignupComponent extends Component {
                 <p className="already-registered text-right">
                     Already registered <a href="/login">log in?</a>
                 </p>
+                {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
             </form>
         );
     }
