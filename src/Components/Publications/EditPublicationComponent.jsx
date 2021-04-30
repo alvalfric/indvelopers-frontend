@@ -9,7 +9,7 @@ class EditPublicationComponent extends Component{
 		super(props)
 
 		 this.state = {
-            id: "",
+            id: this.props.match.params.id,
             username: "",
             imagen: "",
             base64TextString: "",
@@ -22,18 +22,31 @@ class EditPublicationComponent extends Component{
         this.changeTextHandler = this.changeTextHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
 
-	}
+    }
+    
+     validate = () => {
+        let textError = "";
+
+        if (this.state.text.length === 0) {
+            textError = "You must type something to publish!"
+        }
+
+        this.setState({ textError });
+        if (textError) {
+            return false;
+        } else {
+            return true;
+        }
+
+    }
 
     componentDidMount(){
         PublicationService.GetPublicationById(this.state.id).then(data => {
-            data.forEach(publication =>{
-                if(AuthService.getUserData()['username'] !== publication.developer.username){
-                    this.props.history.push('/publication-List')
-                }
-                this.setState({
-                    text: publication.text,
-                })
+            this.setState({
+                text: data.text,
+                image: data.base64TextString
             })
+            
         })
     }
 
@@ -60,20 +73,26 @@ class EditPublicationComponent extends Component{
                 text: this.state.text, imagen: this.state.base64TextString, developer: null
             }
             console.log('Publication=>' + JSON.stringify(publication));
-            PublicationService.AddPublication(publication).then(res => {
+            PublicationService.EditPublication(this.state.id).then(res => {
                 this.props.history.push('/publication-List');
             })
         }
+    }
+
+    cancel(){
+        this.props.history.push('publication-List');
     }
 
 	render(){
 		return(
 			<div>
 				<br/>
+                <br/>
+                 <h2 className="text-center">Edit your publication</h2>
                  <form>
                     <div className="form-group">
                         <label>Description</label>
-                        <textarea placeholder="Descripción" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
+                        <textarea placeholder="Description" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
                         {this.state.textError ? (<div className="ValidatorMessage">
                             {this.state.textError}
                         </div>) : null}
@@ -97,6 +116,7 @@ class EditPublicationComponent extends Component{
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
                     <button className="AceptButton" onClick={this.savePublication}>Edit publication</button>
+                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
                 </form>
 			</div>
 		);

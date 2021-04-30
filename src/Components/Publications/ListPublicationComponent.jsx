@@ -65,12 +65,16 @@ class ListPublicationComponent extends Component {
   }
 
   editPublication(id){
-    this.props.history.push(`/publication-edit/${id}`)
+    PublicationService.GetPublicationById(id).then(res =>{
+      this.props.history.push(`/publication-edit/${id}`)
+    })
+    console.log('publicacion => ' + JSON.stringify(id))
   }
 
   deletePublication(id){
-    //PublicationService.DeletePublication(id);
-    this.props.history.push('/login')
+    PublicationService.DeletePublication(id).then(res => {
+      this.props.history.push('/publication-List')
+    })
   }
 
 
@@ -101,7 +105,7 @@ class ListPublicationComponent extends Component {
                 </div>
                 <div>
                 {AuthService.isAuthenticated() ?
-                    AuthService.getUserData()['username'] == publication.developer.username ?
+                    AuthService.getUserData()['username'] === publication.developer.username ?
                     <React.Fragment> 
                       <button className="Button" style={{float:"right"}} onClick={() => this.editPublication(publication.id)}>Edit Publication</button>
                       <button className="Button" style={{float:"right"}} onClick={() => this.deletePublication(publication.id)}>Delete Publication</button>
