@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import { AuthService } from '../../Services/AuthService';
 import {PublicationService} from '../../Services/PublicationService';
+import { AuthService } from '../../Services/AuthService';
 
 
+class EditPublicationComponent extends Component{
 
-class CreatePublicationComponent extends Component {
+	constructor(props){
+		super(props)
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
+		 this.state = {
+            id: "",
             username: "",
             imagen: "",
             base64TextString: "",
@@ -18,52 +18,40 @@ class CreatePublicationComponent extends Component {
             userPicture: null
 
         }
-
         this.savePublication = this.savePublication.bind(this);
-        this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeTextHandler = this.changeTextHandler.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
+
+	}
+
+    componentDidMount(){
+        PublicationService.GetPublicationById(this.state.id).then(data => {
+            data.forEach(publication =>{
+                if(AuthService.getUserData()['username'] !== publication.developer.username){
+                    this.props.history.push('/publication-List')
+                }
+                this.setState({
+                    text: publication.text,
+                })
+            })
+        })
     }
-    validate = () => {
-        let textError = "";
 
-        if (this.state.text.length === 0) {
-            textError = "You must type something to publish!"
-        }
-
-        this.setState({ textError });
-        if (textError) {
-            return false;
-        } else {
-            return true;
-        }
-
-    }
-
-    cancel() {
-        this.props.history.push('/publication-List');
-    }
     changeTextHandler = (event) => {
-        this.setState({ text: event.target.value });
+        this.setState({text: event.target.value})
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
-        if(file) {
+        if(file){
             const reader = new FileReader();
             reader.onload = this._handleReaderLoaded.bind(this)
             reader.readAsBinaryString(file)
         }
         this.setState({ imagen: event.target.value });
     }
-    _handleReaderLoaded = (readerEvt) => {
-        let binaryString = readerEvt.target.result
-        this.setState({
-            base64TextString: btoa(binaryString)
-        })
-    }
 
-    savePublication = (e) => {
+	savePublication = (e) => {
         e.preventDefault();
         const isValid = this.validate();
         if (isValid) {
@@ -75,16 +63,14 @@ class CreatePublicationComponent extends Component {
             PublicationService.AddPublication(publication).then(res => {
                 this.props.history.push('/publication-List');
             })
-            //Change it when connect to the back end
         }
     }
 
-    render() {
-        return (
-            <div>
-                <br></br>
-                <br></br>
-                <form>
+	render(){
+		return(
+			<div>
+				<br/>
+                 <form>
                     <div className="form-group">
                         <label>Description</label>
                         <textarea placeholder="Descripción" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
@@ -110,12 +96,12 @@ class CreatePublicationComponent extends Component {
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
-                    <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
-                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                    <button className="AceptButton" onClick={this.savePublication}>Edit publication</button>
                 </form>
-            </div>
-        );
-    }
+			</div>
+		);
+	}
+
 }
 
-export default CreatePublicationComponent;
+export default EditPublicationComponent;
