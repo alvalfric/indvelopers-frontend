@@ -100,6 +100,9 @@ class LoginComponent extends Component {
                 <p className="not-registered-yet text-right">
                     Not registered yet? <a href="/sign-up">sign up!</a>
                 </p>
+                <p className="already-registered text-right">
+                    Lost password? <a href="/recoverPassword">Recover your password</a>
+                </p>
             </form>
         );
     }

@@ -47,6 +47,17 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
+    },
+    
+    async getByEmail(email) {
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getDeveloperUrl(), email, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data)
+        })
     }, 
 
     async updateProfile(profileId, profiledto) {

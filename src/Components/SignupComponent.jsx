@@ -237,6 +237,9 @@ class SignupComponent extends Component {
                 <p className="already-registered text-right">
                     Already registered <a href="/login">log in?</a>
                 </p>
+                <p className="already-registered text-right">
+                    Lost password? <a href="/recoverPassword">Recover your password</a>
+                </p>
             </form>
         );
     }
