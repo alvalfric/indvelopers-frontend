@@ -26,7 +26,7 @@ class CreatePublicationComponent extends Component {
     validate = () => {
         let textError = "";
 
-        if (this.state.text.length === 0) {
+        if (this.state.text.trim().length === 0) {
             textError = "You must type something to publish!"
         }
 
@@ -68,7 +68,7 @@ class CreatePublicationComponent extends Component {
         if (isValid) {
             let publication = {
                 username: AuthService.getUserData()['username'], userPicture: null,
-                text: this.state.text, imagen: this.state.base64TextString, developer: null
+                text: this.state.text.trim(), imagen: this.state.base64TextString, developer: null
             }
             PublicationService.AddPublication(publication).then(res => {
                 this.props.history.push('/publication-List');

@@ -213,7 +213,7 @@ class UpdateGameComponent extends Component {
                 this.reformatedCategories.push(reformatedCategory);
             })
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
+                title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi, 
                 categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString,discount:this.state.discount
             };
             GameService.updateGame(game, this.state.id).then(data => {
@@ -243,13 +243,13 @@ class UpdateGameComponent extends Component {
         let pegiError = "";
         let discountError="";
 
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "The game needs a description"
         }
-        if (this.state.requirements.length === 0) {
+        if (this.state.requirements.trim().length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
         if (AuthService.getUserData()['isPremium'] === true) {

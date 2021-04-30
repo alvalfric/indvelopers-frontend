@@ -35,7 +35,7 @@ class CreateReviewComponent extends Component {
 		let textError = "";
 		let scoreError = "";
 
-		if (this.state.text.length === 0) {
+		if (this.state.text.trim().length === 0) {
 			textError = "Cannot be empty";
 		}
 		if (this.state.score.length === 0) {
@@ -85,7 +85,7 @@ class CreateReviewComponent extends Component {
 					creator: game.creator
 				});
 				let review={
-					text: this.state.text,
+					text: this.state.text.trim(),
 					score: this.state.score,
 					edited: false,
 					game: game,

@@ -29,7 +29,7 @@ class EditReviewComponent extends Component {
                 }
                 this.setState({
                     text: review.text,
-                    score: review.score
+                    score: review.score + ""
                 })
             })
         })
@@ -39,7 +39,7 @@ class EditReviewComponent extends Component {
 		let textError = "";
 		let scoreError = "";
 
-		if (this.state.text.length === 0) {
+		if (this.state.text.trim().length === 0) {
 			textError = "Cannot be empty";
 		}
 		if (this.state.score.length === 0) {
@@ -89,7 +89,7 @@ class EditReviewComponent extends Component {
 					creator: game.creator
 				});
 				let review={
-					text: this.state.text,
+					text: this.state.text.trim(),
 					score: this.state.score,
                     edited: true,
 					game: game,
