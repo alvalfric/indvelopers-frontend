@@ -82,8 +82,9 @@ class SignupComponent extends Component {
         if (this.state.dateOfBirth.length === 0) {
             dateOfBirthError = "Birth date cannot be empty";
         }
-        if (this.state.password.length < 8) {
-            passwordError = "Password must have at least 8 characters";
+        var passwordPattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+        if (!passwordPattern.test(this.state.password)) {
+            passwordError = "Password must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.";
         }
         if (this.state.password.length === 0) {
             passwordError = "Password cannot be empty";
