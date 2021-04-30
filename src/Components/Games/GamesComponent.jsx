@@ -209,8 +209,18 @@ class GamesComponent extends Component {
                   </div>
                   <div className="w3-container p-3">
                     <p class="card-text">
-
-                      Price: {item.price}€
+                      {item.discount!=0.?(
+                        <React.Fragment>
+                          Price:<strike> {item.price}</strike>€ ({item.discount*100} %)
+                          <br/>
+                          {(item.price-item.price*item.discount).toFixed(2)}€
+                        </React.Fragment>
+                      ):
+                      <React.Fragment>
+                        Price: {item.price}€
+                      </React.Fragment>
+                    }
+                      
 
                       <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
                     </p>
