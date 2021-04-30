@@ -7,6 +7,7 @@ import {CloudService} from '../../Services/CloudService';
 import Select from "react-select";
 import { CategoryService } from '../../Services/CategoryService';
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import { SpamService } from '../../Services/SpamService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -32,7 +33,8 @@ class CreateGameComponent extends Component {
             idCloud:"",
             idCloudError:"",
             selectedOption:null,
-            progress:0
+            progress:0,
+            spamError: ""
         }
 
         this.categories = [];
@@ -191,25 +193,31 @@ class CreateGameComponent extends Component {
                 title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
                 ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
-            GameService.addGame(game).then(data => {
-                if (typeof data == "string") {
-                    this.props.history.push('/games')
-                } else {
-                    var i = 0;
-                    GameService.findAll().then(data => {
-                        data.forEach(g => {
-                            if (g.title === this.state.title) {
-                                this.setState({ titleError: "A game with that title is already created!" });
-                            }
-                            if (AuthService.getUserData()['username'] === g.creator.username) {
-                                i++;
-                                if (!(i < 5)) {
-                                    this.setState({ submitError: "You have to be a premium user in order to upload more games!" });
+            SpamService.checkGame(game).then((data)=>{
+                if(data === false){
+                GameService.addGame(game).then(data => {
+                    if (typeof data == "string") {
+                        this.props.history.push('/games')
+                    } else {
+                        var i = 0;
+                        GameService.findAll().then(data => {
+                            data.forEach(g => {
+                                if (g.title === this.state.title) {
+                                    this.setState({ titleError: "A game with that title is already created!" });
                                 }
-                            }
+                                if (AuthService.getUserData()['username'] === g.creator.username) {
+                                    i++;
+                                    if (!(i < 5)) {
+                                        this.setState({ submitError: "You have to be a premium user in order to upload more games!" });
+                                    }
+                                }
 
-                        });
-                    })
+                            });
+                        })
+                    }
+                })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
             })
         }
@@ -305,6 +313,7 @@ class CreateGameComponent extends Component {
                             {this.state.submitError}
                         </div>) : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
                         <p className="text-danger">* you won't see your game published until admins check it</p>
                     </form>
                 </div>

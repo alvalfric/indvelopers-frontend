@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import PublicationService from '../../Services/PublicationService';
+import { SpamService } from '../../Services/SpamService';
 
 
 
@@ -15,7 +16,8 @@ class CreatePublicationComponent extends Component {
             base64TextString: "",
             text: "",
             textError: "",
-            userPicture: null
+            userPicture: null,
+            spamError:""
 
         }
 
@@ -72,8 +74,14 @@ class CreatePublicationComponent extends Component {
                 text: this.state.text, imagen: this.state.base64TextString, developer: null
             }
             console.log('Publication=>' + JSON.stringify(publication));
-            PublicationService.AddPublication(publication).then(res => {
-                this.props.history.push('/publication-List');
+            SpamService.checkPublication(publication).then((data)=>{
+                if(data === false){
+                    PublicationService.AddPublication(publication).then(res => {
+                        this.props.history.push('/publication-List');
+                    })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
+                }
             })
             //Change it when connect to the back end
         }
@@ -112,6 +120,7 @@ class CreatePublicationComponent extends Component {
                     </div>
                     <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
                     <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                    {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                 </form>
             </div>
         );

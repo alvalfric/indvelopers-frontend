@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { DeveloperService } from '../../Services/DeveloperService';
+import { SpamService } from '../../Services/SpamService';
 
 class EditUserDetailsComponent extends Component {
 
@@ -20,7 +21,8 @@ class EditUserDetailsComponent extends Component {
             userRole: this.props.history.location.state.profile.technologies,
             imagen: "",
             base64TextString: this.props.history.location.state.profile.userImage,
-            isPremium: this.props.history.location.state.profile.isPremium
+            isPremium: this.props.history.location.state.profile.isPremium,
+            spamError:""
         }
         this.updateProfile = this.updateProfile.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
@@ -38,9 +40,15 @@ class EditUserDetailsComponent extends Component {
         };
         console.log('profile => ' + JSON.stringify(profile));
         if (isValid) {
-            DeveloperService.updateProfile(this.state.id, profile).then(res => {
-                AuthService.loadUserData();
-                this.props.history.push('/');
+            SpamService.checkDeveloperDto(profile).then((data)=>{
+                if(data === false){
+                    DeveloperService.updateProfile(this.state.id, profile).then(res => {
+                        AuthService.loadUserData();
+                        this.props.history.push('/');
+                    })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
+                }
             })
         }
     }
@@ -222,6 +230,7 @@ class EditUserDetailsComponent extends Component {
                             </React.Fragment>
                         ) : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
                     </form>
                 </div>
             </div>
