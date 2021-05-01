@@ -68,6 +68,12 @@ class EditPublicationComponent extends Component{
         }
         this.setState({ imagen: event.target.value });
     }
+    _handleReaderLoaded = (readerEvt) => {
+        let binaryString = readerEvt.target.result
+        this.setState({
+            base64TextString: btoa(binaryString)
+        })
+    }
 
 	savePublication = (e) => {
         e.preventDefault();
@@ -84,7 +90,7 @@ class EditPublicationComponent extends Component{
             }
             console.log("Publicacion editada => " + JSON.stringify(publication))
 
-            PublicationService.EditPublication(this.state.id, publication).then(res => {
+            PublicationService.updatePublication(this.state.id, publication).then(res => {
                 this.props.history.push('/publication-List')
             })        
     }}

@@ -21,31 +21,32 @@ export const PublicationService = {
         //return axios.post(UrlProvider.getPublicationUrl()+"/add",publication)
     },
 
-    async GetPublicationById(id){
-        return axios.get(UrlProvider.getPublicationUrl() + "/findById/" + id)
-        .then(res =>res.data).catch(error => {return error.response.status})
+    async deletePublication(publicationId) {
+        return AuthService.getToken().then(token => {
+            return axios.delete(UrlProvider.getPublicationUrl().concat(`/delete/${publicationId}`), {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res => res.data)
+        })
     },
 
-    async EditPublication(id, publication){
+    async updatePublication(id, publication) {
         return AuthService.getToken().then(token => {
             return axios.put(UrlProvider.getPublicationUrl() + "/edit/" + id, publication, {
                 headers: {
-                    'Authorization': 'Bearer' + token,
+                    'Authorization': 'Bearer ' + token,
                     'Accept': '*/*'
                 }
-            }).then(res => res.data).catch(error => {return error})
-        })
-
+            }).then(res => res.data)
+                .catch(error => { return error })
+        });
     },
 
-    async DeletePublication(id){
-        return AuthService.getToken().then(token => {
-            return axios.delete(UrlProvider.getPublicationUrl() + "/delete/" + id, {
-                headers:{
-                    'Authorization': 'Bearer' + token,
-                    'Accept': '*/*'
-                }
-            }).then(res => res.data).catch(error => {return error.response.status})
-        })
+    async GetPublicationById(id){
+        return axios.get(UrlProvider.getPublicationUrl() + "/findById/" + id)
+        .then(res =>res.data).catch(error => {return error.response.status})
     }
+
 }

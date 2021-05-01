@@ -72,8 +72,8 @@ class ListPublicationComponent extends Component {
   }
 
   deletePublication(id){
-    PublicationService.DeletePublication(id).then(res => {
-      this.props.history.push('/publication-List')
+    PublicationService.deletePublication(id).then(res => {
+      window.location.reload()
     })
   }
 
