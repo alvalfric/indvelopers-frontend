@@ -75,7 +75,11 @@ class LoginComponent extends Component {
     render() {
         return (
             <form>
-                <h3>Log in</h3>
+                <br />
+                <br />
+                <br />
+                <h2>Log in</h2>
+                <br />
 
                 <div className="form-group">
                     <label>Username</label>
@@ -99,6 +103,9 @@ class LoginComponent extends Component {
                 </div>) : null}
                 <p className="not-registered-yet text-right">
                     Not registered yet? <a href="/sign-up">sign up!</a>
+                </p>
+                <p className="already-registered text-right">
+                    Lost password? <a href="/recoverPassword">Recover your password</a>
                 </p>
             </form>
         );

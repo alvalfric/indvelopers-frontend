@@ -21,8 +21,6 @@ class UserDetailsForAdminComponent extends Component {
         SubscriptionService.getSubscription(this.profile.id).then((res)=>{
             this.setState({endSubs:res.endDate})
         })
-        console.log("isPREMIUM==>"+JSON.stringify(this.state.isPremium))
-        console.log("DATE==>"+JSON.stringify(this.state.endSubs))
     }
 
     modifyUserDetails() {

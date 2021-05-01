@@ -7,7 +7,7 @@ class UserDetailsComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.profile = AuthService.getUserData()
+        this.profile = AuthService.getUserData();
         this.state = {
             isPremium: false,
             endSubs: "",
@@ -28,8 +28,6 @@ class UserDetailsComponent extends Component {
         SubscriptionService.getSubscription(this.profile.id).then((res) => {
             this.setState({ endSubs: res.endDate })
         })
-        console.log("isPREMIUM==>" + JSON.stringify(this.state.isPremium))
-        console.log("DATE==>" + JSON.stringify(this.state.endSubs))
     }
 
     componentDidMount() {
@@ -82,7 +80,7 @@ class UserDetailsComponent extends Component {
                     <h3 style={{ paddingLeft: '1%' }}> {this.profile.username} </h3>
                     <div className='row'>
                         <div className='col'>
-                            <img src={"data:image/png;base64," + this.profile.userImage} class="rounded float-start" alt="ProfileImage" style={{ maxWidth: '300px', maxHeight: '400px' }} />
+                            <img src={"data:image/png;base64," + this.profile.userImage} class="rounded float-start" alt="ProfileImage" style={{ maxWidth: '300px', maxHeight: '400px', marginBottom: '20px' }} />
                             {this.state.isPremium ? (
                                 <React.Fragment>
                                     <p style={{ marginTop: "5%", fontSize: "large", color: "#75010f" }}>⭐ You are premium! ⭐</p>

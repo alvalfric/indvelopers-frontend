@@ -74,13 +74,13 @@ class CreateGameComponent extends Component {
         let imagenError="";
         let idCloudError="";
 
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "The game needs a description"
         }
-        if (this.state.requirements.length === 0) {
+        if (this.state.requirements.trim().length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
         if(this.state.idCloud.length===0){
@@ -146,15 +146,19 @@ class CreateGameComponent extends Component {
         zip.generateAsync({type:"blob"}).then(content=>{
             CloudService.uploadFile(content,(e)=>{
                 this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+                if(this.state.progress==100){
+                    this.setState({progress:75})
+                }
             }).then(res=>{
                 this.setState({idCloud:res})
+                this.setState({progress:100})
+                window.alert("Your game has been uploaded successfully")
             })
         })
         
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if(file) {
             const reader = new FileReader();
@@ -166,7 +170,7 @@ class CreateGameComponent extends Component {
 
     changeCategoriesHandler = selectedOption => {
         this.setState({selectedOption})
-        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+        this.setState({categorias : selectedOption.map(item =>item.value)});
 
     }
 
@@ -190,7 +194,7 @@ class CreateGameComponent extends Component {
                 this.reformatedCategories.push(reformatedCategory);
             })
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
+                title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi
                 ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
             SpamService.checkGame(game).then((data)=>{

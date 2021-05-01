@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import UserLogo from '../../assets/userExample.png';
-import PublicationService from '../../Services/PublicationService';
+import {PublicationService} from '../../Services/PublicationService';
 import ReactPaginate from 'react-paginate';
 import { AuthService } from '../../Services/AuthService';
+
 class ListPublicationComponent extends Component {
 
   constructor(props) {
@@ -13,11 +14,13 @@ class ListPublicationComponent extends Component {
       rawPublications: [],
       offset: 0,
       perPage: 5,
-      pageCount: 0,
+      pageCount: 0, 
       currentPage: 0
     }
     this.handlePageClick = this.handlePageClick.bind(this);
     this.createPublication = this.createPublication.bind(this);
+    this.editPublication = this.editPublication.bind(this);
+    this.deletePublication = this.deletePublication.bind(this);
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -61,6 +64,20 @@ class ListPublicationComponent extends Component {
 
   }
 
+  editPublication(id){
+    PublicationService.GetPublicationById(id).then(res =>{
+      this.props.history.push(`/publication-edit/${id}`)
+    })
+    console.log('publicacion => ' + JSON.stringify(id))
+  }
+
+  deletePublication(id){
+    PublicationService.deletePublication(id).then(res => {
+      window.location.reload()
+    })
+  }
+
+
   render() {
 
     return (
@@ -76,6 +93,7 @@ class ListPublicationComponent extends Component {
         {this.state.publications.map(
           publication =>
             <div>
+             
               <br />
               <div className="w3-card-4" >
                 <header className="w3-container ">
@@ -85,6 +103,17 @@ class ListPublicationComponent extends Component {
                 </header>
                 <div className="w3-container">
                   <p>{publication.text}</p>
+                </div>
+                <div>
+                {AuthService.isAuthenticated() ?
+                    AuthService.getUserData()['username'] === publication.developer.username ?
+                    <React.Fragment> 
+                      <button className="Button" style={{float:"right"}} onClick={() => this.editPublication(publication.id)}>Edit Publication</button>
+                      <button className="Button" style={{float:"right"}} onClick={() => this.deletePublication(publication.id)}>Delete Publication</button>
+                    </React.Fragment>
+                    :null
+                  :null
+                }
                 </div>
                 {publication.imagen !== "" ?
                   <React.Fragment>
