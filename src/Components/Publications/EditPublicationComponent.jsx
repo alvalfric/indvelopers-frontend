@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
+import {PublicationService} from '../../Services/PublicationService';
 import { AuthService } from '../../Services/AuthService';
-import { PublicationService } from '../../Services/PublicationService';
-import { SpamService } from '../../Services/SpamService';
 
 
+class EditPublicationComponent extends Component{
 
-class CreatePublicationComponent extends Component {
+	constructor(props){
+		super(props)
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
+		 this.state = {
+            id: this.props.match.params.id,
             username: "",
+            text: "",
             imagen: "",
             base64TextString: "",
-            text: "",
             textError: "",
             userPicture: null,
-            spamError:""
+            developer:null
 
         }
-
         this.savePublication = this.savePublication.bind(this);
-        this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeTextHandler = this.changeTextHandler.bind(this);
+        this.changeImagenHandler = this.changeImagenHandler.bind(this);
+
     }
-    validate = () => {
+    
+     validate = () => {
         let textError = "";
 
-        if (this.state.text.trim().length === 0) {
+        if (this.state.text.length === 0) {
             textError = "You must type something to publish!"
         }
 
@@ -41,16 +41,27 @@ class CreatePublicationComponent extends Component {
 
     }
 
-    cancel() {
-        this.props.history.push('/publication-List');
+    componentDidMount(){
+        PublicationService.GetPublicationById(this.state.id).then(data => {
+            this.setState({
+                username:data.username,
+                text: data.text,
+                imagen: data.base64TextString,
+                userPicture:data.userPicture,
+                developer:data.developer,
+
+            })
+            console.log('Publication => ' + this.props.match.params.id)
+        })
     }
+
     changeTextHandler = (event) => {
-        this.setState({ text: event.target.value });
+        this.setState({text: event.target.value})
     }
 
     changeImagenHandler = (event) => {
         let file = event.target.files[0]
-        if(file) {
+        if(file){
             const reader = new FileReader();
             reader.onload = this._handleReaderLoaded.bind(this)
             reader.readAsBinaryString(file)
@@ -64,37 +75,40 @@ class CreatePublicationComponent extends Component {
         })
     }
 
-    savePublication = (e) => {
+	savePublication = (e) => {
         e.preventDefault();
         const isValid = this.validate();
         if (isValid) {
+     
             let publication = {
-                username: AuthService.getUserData()['username'], userPicture: null,
-                text: this.state.text.trim(), imagen: this.state.base64TextString, developer: null
+                id:this.state.id,
+                username: AuthService.getUserData()['username'],
+                userPicture:this.state.userPicture,
+                text: this.state.text,
+                imagen: this.state.base64TextString,
+                developer: this.state.developer
             }
-            console.log('Publication=>' + JSON.stringify(publication));
-            SpamService.checkPublication(publication).then((data)=>{
-                if(data === false){
-                    PublicationService.AddPublication(publication).then(res => {
-                        this.props.history.push('/publication-List');
-                    })
-                }else{
-                    this.setState({spamError:"This form contains spam words! 😠"})
-                }
-            })
-            //Change it when connect to the back end
-        }
+            console.log("Publicacion editada => " + JSON.stringify(publication))
+
+            PublicationService.updatePublication(this.state.id, publication).then(res => {
+                this.props.history.push('/publication-List')
+            })        
+    }}
+
+    cancel(){
+        this.props.history.push('/publication-List');
     }
 
-    render() {
-        return (
-            <div>
-                <br></br>
-                <br></br>
-                <form>
+	render(){
+		return(
+			<div>
+				<br/>
+                <br/>
+                 <h2 className="text-center">Edit your publication</h2>
+                 <form>
                     <div className="form-group">
                         <label>Description</label>
-                        <textarea placeholder="Descripción" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
+                        <textarea placeholder="Description" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
                         {this.state.textError ? (<div className="ValidatorMessage">
                             {this.state.textError}
                         </div>) : null}
@@ -117,13 +131,13 @@ class CreatePublicationComponent extends Component {
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
-                    <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
-                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
-                    {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
+                    <button className="AceptButton" onClick={this.savePublication}>Edit publication</button>
+                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{marginLeft:"10px"}}>Cancel</button>
                 </form>
-            </div>
-        );
-    }
+			</div>
+		);
+	}
+
 }
 
-export default CreatePublicationComponent;
+export default EditPublicationComponent;

@@ -37,6 +37,7 @@ import PrivacyPolicyComponent from './Components/PrivacyPolicyComponent';
 import DeveloperDashboardComponent from './Components/Dashboard/DeveloperDashboardComponent';
 import FollowListComponent from './Components/Users/FollowListComponent';
 import FollowedGamesComponent from './Components/Games/FollowedGamesComponent';
+import EditPublicationComponent from './Components/Publications/EditPublicationComponent';
 import OfferGamesComponent from './Components/Games/OfferGamesComponent';
 import AdminDashboardComponent from './Components/Dashboard/AdminDashboardComponent';
 import RecoverPasswordComponent from './Components/LostPassword/RecoverPasswordComponent';
@@ -87,11 +88,13 @@ function App() {
              <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
              <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
              <Route path="/followedGames" component={FollowedGamesComponent}></Route>
+             <Route path="/publication-edit/:id" component={EditPublicationComponent}></Route>
              <Route path="/offers" component={OfferGamesComponent}></Route>
              <Route path="/admin-dashboard" component={AdminDashboardComponent}></Route>
              <Route path="/recoverPassword" component={RecoverPasswordComponent}></Route>
              <Route path="/restorePassword/:id" component={RestorePasswordComponent}></Route>
           </Switch>
+          </div>
           </div>
           <FooterComponent />
         </body>
