@@ -47,57 +47,57 @@ import RestorePasswordComponent from './Components/LostPassword/RestorePasswordC
 function App() {
   return (
     <React.Fragment>
-    <Router>
-      <HeaderComponent/>
-      <body>
-        <div className="App-header">
-          <div className="Back" >
-            <br/>
-          <Switch>
-             <Route path="/prueba" exact component={PruebaComponent}></Route>
-             <Route path="/sign-up" exact component={SignupComponent}></Route>
-             <Route path="/login" exact component={LoginComponent}></Route>
-             <Route path="/games" exact component={GamesComponent}></Route>
-             <Route path="/panic" component={PanicComponent}></Route>
-             <Route path="/publication-List" component={ListPublicationComponent}></Route>
-             <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
-             <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
-             <Route path="/game-Create" component={CreateGameComponent}></Route>
-             <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
-             <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
-             <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
-             <Route path="/my-games" component={ListMyGamesComponent}></Route>
-             <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
-             <Route path="/me" component={UserDetailsComponent}></Route>
-             <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
-             <Route path="/faq" component={FAQComponent}></Route>
-             <Route path="/about-us" component={AboutUsComponent}></Route>
-             <Route path="/admin/edit/:id" component={UserDetailsForAdminComponent}></Route>
-             <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
-             <Route path="/listUsers" component={ListUsersComponent}></Route>
-             <Route path="/success" component={SuccessPaymentComponent}></Route>
-             <Route path="/subscriptionSuccess" component={SuccessSubscriptionPaymentComponent}></Route>
-             <Route path="/wait" component={waitingPaymentComponent}></Route>
-             <Route path="/cancel" component={CancelPaymentComponent}></Route>
-             <Route path="/novedades" component={NovedadesComponent}></Route>
-             <Route path="/followersList" component={FollowListComponent}></Route>
-             <Route path="/" exact component={GamesComponent}></Route>
-             <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
-             <Route path="/editReview/:id" component={EditReviewComponent}></Route>
-             <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
-             <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
-             <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
-             <Route path="/followedGames" component={FollowedGamesComponent}></Route>
-             <Route path="/publication-edit/:id" component={EditPublicationComponent}></Route>
-             <Route path="/offers" component={OfferGamesComponent}></Route>
-             <Route path="/admin-dashboard" component={AdminDashboardComponent}></Route>
-             <Route path="/recoverPassword" component={RecoverPasswordComponent}></Route>
-             <Route path="/restorePassword/:id" component={RestorePasswordComponent}></Route>
-          </Switch>
+      <Router>
+        <HeaderComponent />
+        <body>
+          <div className="App-header">
+            <div className="Back" >
+              <br />
+              <Switch>
+                <Route path="/prueba" exact component={PruebaComponent}></Route>
+                <Route path="/sign-up" exact component={SignupComponent}></Route>
+                <Route path="/login" exact component={LoginComponent}></Route>
+                <Route path="/games" exact component={GamesComponent}></Route>
+                <Route path="/panic" component={PanicComponent}></Route>
+                <Route path="/publication-List" component={ListPublicationComponent}></Route>
+                <Route path="/publication-Create" component={CreatePublicationComponent}></Route>
+                <Route path="/game-View/:id" component={UpdateGameComponent}></Route>
+                <Route path="/game-Create" component={CreateGameComponent}></Route>
+                <Route path="/purchase-game/:id" component={OwnedGameComponent}></Route>
+                <Route path="/purchased-games" component={ListOwnedGamesComponent}></Route>
+                <Route path="/purchased-game/:id" component={ShowOwnedGameComponent}></Route>
+                <Route path="/my-games" component={ListMyGamesComponent}></Route>
+                <Route path="/createReview/:id" component={CreateReviewComponent}></Route>
+                <Route path="/me" component={UserDetailsComponent}></Route>
+                <Route path="/developers/edit/:id" component={EditUserDetailsComponent}></Route>
+                <Route path="/faq" component={FAQComponent}></Route>
+                <Route path="/about-us" component={AboutUsComponent}></Route>
+                <Route path="/admin/edit/:id" component={UserDetailsForAdminComponent}></Route>
+                <Route path="/buySubscription" component={BuySubscriptionComponent}></Route>
+                <Route path="/listUsers" component={ListUsersComponent}></Route>
+                <Route path="/success" component={SuccessPaymentComponent}></Route>
+                <Route path="/subscriptionSuccess" component={SuccessSubscriptionPaymentComponent}></Route>
+                <Route path="/wait" component={waitingPaymentComponent}></Route>
+                <Route path="/cancel" component={CancelPaymentComponent}></Route>
+                <Route path="/novedades" component={NovedadesComponent}></Route>
+                <Route path="/followersList" component={FollowListComponent}></Route>
+                <Route path="/" exact component={GamesComponent}></Route>
+                <Route path="/successLogin" component={SuccessfulLoginComponent}></Route>
+                <Route path="/editReview/:id" component={EditReviewComponent}></Route>
+                <Route path="/termsAndConditions" component={TermsAndConditionsComponent}></Route>
+                <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
+                <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
+                <Route path="/followedGames" component={FollowedGamesComponent}></Route>
+                <Route path="/publication-edit/:id" component={EditPublicationComponent}></Route>
+                <Route path="/offers" component={OfferGamesComponent}></Route>
+                <Route path="/admin-dashboard" component={AdminDashboardComponent}></Route>
+                <Route path="/recoverPassword" component={RecoverPasswordComponent}></Route>
+                <Route path="/restorePassword/:id" component={RestorePasswordComponent}></Route>
+              </Switch>
+            </div>
           </div>
-          </div>
-          <FooterComponent />
         </body>
+        <FooterComponent />
       </Router>
     </React.Fragment>
   );
