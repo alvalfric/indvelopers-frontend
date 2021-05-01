@@ -55,7 +55,7 @@ class SignupComponent extends Component {
         let confirmPasswordError = "";
         let acceptedError = "";
 
-        if (this.state.username.length === 0) {
+        if (this.state.username.trim().length === 0) {
             usernameError = "Username cannot be empty";
         }
         var emailPattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -65,10 +65,10 @@ class SignupComponent extends Component {
         if (this.state.email.length === 0) {
             emailError = "Email cannot be empty";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "Description cannot be empty";
         }
-        if (this.state.technologies.length === 0) {
+        if (this.state.technologies.trim().length === 0) {
             technologiesError = "Technologies cannot be empty";
         }
         if (new Date().getFullYear() - this.state.dateOfBirth.split('-')[0] < 13) {
@@ -145,11 +145,11 @@ class SignupComponent extends Component {
         const isValid = this.validate();
         if (isValid) {
             let userForm = {
-                username: this.state.username,
+                username: this.state.username.trim(),
                 password: this.state.password,
                 email: this.state.email,
-                description: this.state.description,
-                technologies: this.state.technologies,
+                description: this.state.description.trim(),
+                technologies: this.state.technologies.trim(),
                 dateOfBirth: this.state.dateOfBirth
             }
             console.log(userForm.dateOfBirth)
@@ -199,8 +199,8 @@ class SignupComponent extends Component {
                 </div>
 
                 <div className="form-group">
-                    <label>Technologies</label>
-                    <input type="text" className="form-control" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                    <label>Technologies (you use to develop your games)</label>
+                    <input type="text" className="form-control" placeholder="Technologies like Unity, Wave engine, etc" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
                     {this.state.technologiesError ? (<div className="ValidatorMessage">
                         {this.state.technologiesError}
                     </div>) : null}

@@ -7,7 +7,7 @@ class UserDetailsComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.profile = AuthService.getUserData()
+        this.profile = AuthService.getUserData();
         this.state = {
             isPremium: false,
             endSubs: "",
@@ -28,8 +28,6 @@ class UserDetailsComponent extends Component {
         SubscriptionService.getSubscription(this.profile.id).then((res) => {
             this.setState({ endSubs: res.endDate })
         })
-        console.log("isPREMIUM==>" + JSON.stringify(this.state.isPremium))
-        console.log("DATE==>" + JSON.stringify(this.state.endSubs))
     }
 
     componentDidMount() {

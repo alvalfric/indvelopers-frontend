@@ -18,7 +18,6 @@ class ListMyGamesComponent extends Component {
             GameService.getGameById(id).then(res => {
                 this.props.history.push(`/game-View/${id}`);
             })
-            console.log('game => ' + JSON.stringify(id))
         } else {
             this.props.history.push('/login')
         }
@@ -30,7 +29,6 @@ class ListMyGamesComponent extends Component {
             this.setState({myCreatedGames:res.data});
             
             let myg = {myCreatedGames: this.state.myCreatedGames};
-            console.log('Myg => ' + JSON.stringify(myg))
         })
     }
 

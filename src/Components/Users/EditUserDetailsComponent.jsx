@@ -7,7 +7,7 @@ class EditUserDetailsComponent extends Component {
 
     constructor(props) {
         super(props)
-
+        
         this.state = {
             id: this.props.history.location.state.profile.id,
             username: this.props.history.location.state.profile.username,
@@ -35,10 +35,9 @@ class EditUserDetailsComponent extends Component {
         e.preventDefault();
         const isValid = this.validate();
         let profile = {
-            id: this.state.id, username: this.state.username, email: this.state.email, gameList: this.gameList,
-            userImage: this.state.base64TextString, userRole: this.state.userRole, description: this.state.description, technologies: this.state.technologies, isPremium: this.state.isPremium
+            id: this.state.id, username: this.state.username.trim(), email: this.state.email, gameList: this.gameList,
+            userImage: this.state.base64TextString, userRole: this.state.userRole, description: this.state.description.trim(), technologies: this.state.technologies.trim(), isPremium: this.state.isPremium
         };
-        console.log('profile => ' + JSON.stringify(profile));
         if (isValid) {
             SpamService.checkDeveloperDto(profile).then((data)=>{
                 if(data === false){
@@ -58,7 +57,7 @@ class EditUserDetailsComponent extends Component {
         let emailError = "";
         let technologiesError = "";
 
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "Profile needs a description.";
         }
         if (this.state.email.length === 0) {
@@ -68,7 +67,7 @@ class EditUserDetailsComponent extends Component {
         if (!pattern.test(this.state.email)) {
             emailError = "Please enter valid email address.";
         }
-        if (this.state.technologies.length === 0) {
+        if (this.state.technologies.trim().length === 0) {
             technologiesError = "Profile needs technologies."
         }
 
@@ -96,7 +95,6 @@ class EditUserDetailsComponent extends Component {
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if (file) {
             const reader = new FileReader();
@@ -132,7 +130,7 @@ class EditUserDetailsComponent extends Component {
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
                                     <label>Description</label>
-                                    <input placeholder={this.props.history.location.state.profile.description} name="description" className="form-control"
+                                    <input placeholder="Description" name="description" className="form-control"
                                         value={this.state.description} onChange={this.changeDescriptionHandler}></input>
                                 </React.Fragment>
                             ) :
