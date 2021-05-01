@@ -37,10 +37,8 @@
     "fsevents": "2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --passWithNoTests",
-    "eject": "react-scripts eject"
+    "start": "node src",
+    "heroku-postbuild": "npm install --only=dev && npm install && npm run build"
   },
   "eslintConfig": {
     "extends": [
