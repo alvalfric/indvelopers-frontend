@@ -1,5 +1,4 @@
 {
-  "homepage": "https://alvalfric.github.io",
   "name": "indvelopers",
   "version": "0.3.0",
   "private": true,
@@ -15,7 +14,6 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "chokidar": "^2.1.8",
-    "gh-pages": "^3.1.0",
     "js-file-download": "^0.4.12",
     "jszip": "^3.6.0",
     "paypal-checkout": "^4.0.328",
@@ -43,8 +41,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b feature-issue#179 -d build"
+    "heroku-postbuild": "curl -sf https://gobinaries.com/tj/node-prune | PREFIX=. sh&&./node-prune"
   },
   "eslintConfig": {
     "extends": [
