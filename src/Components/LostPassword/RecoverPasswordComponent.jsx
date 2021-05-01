@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { AuthService } from "../Services/AuthService";
-import { DeveloperService } from '../Services/DeveloperService';
+import { AuthService } from '../../Services/AuthService';
+import { DeveloperService } from '../../Services/DeveloperService';
+import emailjs from 'emailjs-com';
+
+var serviceID = "service_x4mybgl"
 
 class RecoverPasswordComponent extends Component {
 
@@ -19,7 +22,7 @@ class RecoverPasswordComponent extends Component {
         if (AuthService.isAuthenticated()) {
             this.props.history.push('/')
         }
-	}
+    }
 
     validate = () => {
         let emailError = "";
@@ -43,18 +46,55 @@ class RecoverPasswordComponent extends Component {
     changeEmailHandler = (event) => {
         this.setState({ email: event.target.value });
     }
-    updateDeveloper = (event) => {
+    changePasswordHandler = (event) => {
+        this.setState({ password: event.target.value });
+    }
+    changeConfirmPasswordHandler = (event) => {
+        this.setState({ confirmPassword: event.target.value });
+    }
+    recoverPasswordByEmail = (event) => {
         event.preventDefault();
         const isValid = this.validate();
+        const templateId = 'template_rf431cp';
         if (isValid) {
-            
+            DeveloperService.recoverPasswordByEmail(this.state.email).then(data => {
+                if (typeof data == "object") {
+                    this.sendFeedback(templateId, {
+                        email: this.state.email,
+                        to_name: data.username,
+                        passwordReset: "localhost:3000/restorePassword/" + data.id
+                    })
+                } else {
+                    this.setState({ submitError: "That email is not registered!" });
+                }
+            }
+            )
         }
     }
 
-    render() {
+    sendFeedback = (templateId, variables) => {
+        emailjs.send(
+            serviceID, templateId,
+            variables
+        ).then(res => {
+            // Email successfully sent alert
+            alert('Email Successfully Sent')
+        })
+            // Email Failed to send Error alert
+            .catch(err => {
+                alert('Email Failed to Send')
+                console.error('Email Error:', err)
+            })
+    }
+
+    recoverPasswordForm() {
         return (
             <form>
-                <h3>Register</h3>
+                <br />
+                <br />
+                <br />
+                <h2>Recover your password!</h2>
+                <br />
 
                 <div className="form-group">
                     <label>Email</label>
@@ -64,12 +104,20 @@ class RecoverPasswordComponent extends Component {
                     </div>) : null}
                 </div>
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.updateDeveloper}>Register</button>
+                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.recoverPasswordByEmail}>Recover my password!</button>
                 {this.state.submitError ? (<div className="ValidatorMessage">
                     {this.state.submitError}
                 </div>) : null}
 
             </form>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {this.recoverPasswordForm()}
+            </div>
         );
     }
 }

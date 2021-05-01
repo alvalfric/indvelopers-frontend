@@ -75,7 +75,11 @@ class LoginComponent extends Component {
     render() {
         return (
             <form>
-                <h3>Log in</h3>
+                <br />
+                <br />
+                <br />
+                <h2>Log in</h2>
+                <br />
 
                 <div className="form-group">
                     <label>Username</label>
