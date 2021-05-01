@@ -11,11 +11,12 @@ class EditPublicationComponent extends Component{
 		 this.state = {
             id: this.props.match.params.id,
             username: "",
+            text: "",
             imagen: "",
             base64TextString: "",
-            text: "",
             textError: "",
-            userPicture: null
+            userPicture: null,
+            developer:null
 
         }
         this.savePublication = this.savePublication.bind(this);
@@ -43,8 +44,12 @@ class EditPublicationComponent extends Component{
     componentDidMount(){
         PublicationService.GetPublicationById(this.state.id).then(data => {
             this.setState({
+                username:data.username,
                 text: data.text,
-                image: data.base64TextString
+                imagen: data.base64TextString,
+                userPicture:data.userPicture,
+                developer:data.developer,
+
             })
             console.log('Publication => ' + this.props.match.params.id)
         })
@@ -70,8 +75,12 @@ class EditPublicationComponent extends Component{
         if (isValid) {
      
             let publication = {
-                username: AuthService.getUserData()['username'], userPicture: null,
-                text: this.state.text, imagen: this.state.base64TextString, developer: null
+                id:this.state.id,
+                username: AuthService.getUserData()['username'],
+                userPicture:this.state.userPicture,
+                text: this.state.text,
+                imagen: this.state.base64TextString,
+                developer: this.state.developer
             }
             console.log("Publicacion editada => " + JSON.stringify(publication))
 
