@@ -37,7 +37,7 @@
     "fsevents": "2.1.2"
   },
   "scripts": {
-    "start": "node src",
+    "start": "node src/index.js",
     "heroku-postbuild": "npm install --only=dev && npm install && npm run build"
   },
   "eslintConfig": {
