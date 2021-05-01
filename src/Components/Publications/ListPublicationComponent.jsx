@@ -93,6 +93,7 @@ class ListPublicationComponent extends Component {
         {this.state.publications.map(
           publication =>
             <div>
+             
               <br />
               <div className="w3-card-4" >
                 <header className="w3-container ">

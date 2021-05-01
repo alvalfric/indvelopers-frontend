@@ -26,9 +26,9 @@ export const PublicationService = {
         .then(res =>res.data).catch(error => {return error.response.status})
     },
 
-    async EditPublication(id){
+    async EditPublication(id, publication){
         return AuthService.getToken().then(token => {
-            return axios.put(UrlProvider.getPublicationUrl() + "/edit/" + id, {
+            return axios.put(UrlProvider.getPublicationUrl() + "/edit/" + id, publication, {
                 headers: {
                     'Authorization': 'Bearer' + token,
                     'Accept': '*/*'

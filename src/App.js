@@ -85,7 +85,7 @@ function App() {
              <Route path="/privacyPolicy" component={PrivacyPolicyComponent}></Route>
              <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
              <Route path="/followedGames" component={FollowedGamesComponent}></Route>
-             <Route path="/publication-edit" component={EditPublicationComponent}></Route>
+             <Route path="/publication-edit/:id" component={EditPublicationComponent}></Route>
           </Switch>
           </div>
         </div>

@@ -46,7 +46,7 @@ class EditPublicationComponent extends Component{
                 text: data.text,
                 image: data.base64TextString
             })
-            
+            console.log('Publication => ' + this.props.match.params.id)
         })
     }
 
@@ -68,19 +68,20 @@ class EditPublicationComponent extends Component{
         e.preventDefault();
         const isValid = this.validate();
         if (isValid) {
+     
             let publication = {
                 username: AuthService.getUserData()['username'], userPicture: null,
                 text: this.state.text, imagen: this.state.base64TextString, developer: null
             }
-            console.log('Publication=>' + JSON.stringify(publication));
-            PublicationService.EditPublication(this.state.id).then(res => {
-                this.props.history.push('/publication-List');
-            })
-        }
-    }
+            console.log("Publicacion editada => " + JSON.stringify(publication))
+
+            PublicationService.EditPublication(this.state.id, publication).then(res => {
+                this.props.history.push('/publication-List')
+            })        
+    }}
 
     cancel(){
-        this.props.history.push('publication-List');
+        this.props.history.push('/publication-List');
     }
 
 	render(){
