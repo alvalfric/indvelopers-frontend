@@ -27,14 +27,12 @@ class OwnedGameComponent extends Component {
     componentDidMount(){
         OwnedGameService.CheckGameOwned(this.state.id).then((res)=>{
             this.setState({isBought:res.data})
-        console.log("isBought=>"+ JSON.stringify(this.state.isBought))
         })
         if(this.state.isBought){
             this.props.history.push(`/game-View/${this.state.id}`);
         }else{
         GameService.getGameById(this.state.id).then((res)=>{
             this.setState({game:res.data});
-            console.log("PRECIO====>"+JSON.stringify(this.state.game.price))
         })
     }
     }
@@ -102,9 +100,9 @@ class OwnedGameComponent extends Component {
                 <h3>Game title</h3>
                 <h3>{this.state.game.title}</h3>
                 <h4 style={{color:"#838383"}}>Price:{this.state.game.price} €</h4>
-                <h4 style={{color:"#838383"}}>Discount:0€</h4>
+                <h4 style={{color:"#838383"}}>Discount: {this.state.game.discount*100}%</h4>
                 <h4 style={{color:"#838383"}}>______________________________________________</h4>
-                <h4 style={{color:"#838383"}}>total:{this.state.game.price} €</h4>
+                <h4 style={{color:"#838383"}}>total:{(this.state.game.price-this.state.game.discount*this.state.game.price).toFixed(2)} €</h4>
                 <h3>Purchase method</h3>
                 <h4>Paypal</h4>
                 <div class="custom-control custom-checkbox">

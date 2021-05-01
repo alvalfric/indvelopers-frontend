@@ -7,7 +7,7 @@ class UserDetailsComponent extends Component {
 
     constructor(props) {
         super(props)
-        this.profile = AuthService.getUserData()
+        this.profile = AuthService.getUserData();
         this.state = {
             isPremium: false,
             endSubs: "",
@@ -21,14 +21,13 @@ class UserDetailsComponent extends Component {
         this.showFollowers = this.showFollowers.bind(this);
         this.showFollowing = this.showFollowing.bind(this);
         this.goToDashboard=this.goToDashboard.bind(this);
+        this.goToAdminDashboard=this.goToAdminDashboard.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
         SubscriptionService.getSubscription(this.profile.id).then((res) => {
             this.setState({ endSubs: res.endDate })
         })
-        console.log("isPREMIUM==>" + JSON.stringify(this.state.isPremium))
-        console.log("DATE==>" + JSON.stringify(this.state.endSubs))
     }
 
     componentDidMount() {
@@ -56,6 +55,10 @@ class UserDetailsComponent extends Component {
         this.props.history.push("/developer-dashboard")
     }
 
+    goToAdminDashboard(){
+        this.props.history.push("/admin-dashboard")
+    }
+
     showFollowers() {
         this.props.history.push({
             pathname: `/followersList`,
@@ -77,7 +80,7 @@ class UserDetailsComponent extends Component {
                     <h3 style={{ paddingLeft: '1%' }}> {this.profile.username} </h3>
                     <div className='row'>
                         <div className='col'>
-                            <img src={"data:image/png;base64," + this.profile.userImage} class="rounded float-start" alt="ProfileImage" style={{ maxWidth: '300px', maxHeight: '400px' }} />
+                            <img src={"data:image/png;base64," + this.profile.userImage} class="rounded float-start" alt="ProfileImage" style={{ maxWidth: '300px', maxHeight: '400px', marginBottom: '20px' }} />
                             {this.state.isPremium ? (
                                 <React.Fragment>
                                     <p style={{ marginTop: "5%", fontSize: "large", color: "#75010f" }}>⭐ You are premium! ⭐</p>
@@ -115,7 +118,13 @@ class UserDetailsComponent extends Component {
                     </div>
                     <button className="Button" onClick={this.modifyUserDetails} style={{ marginRight: "10px" }}>Edit</button>
                     <button className="Button" onClick={this.buySuscription}>Buy subscription</button>
-                    <button className="Button" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</button> 
+                    {AuthService.isAuthenticated() ?
+                        AuthService.getUserData().roles.includes("ADMIN") ?
+                            <button className="AdminButton" onClick={this.goToAdminDashboard} style={{marginLeft:"10px"}}>Admin Dashboard</button>
+                            :
+                            <button className="Button" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</button>
+                        : null
+                    }
                 </div>
             
             </React.Fragment>

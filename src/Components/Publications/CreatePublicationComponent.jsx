@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
-import {PublicationService} from '../../Services/PublicationService';
+import { PublicationService } from '../../Services/PublicationService';
+import { SpamService } from '../../Services/SpamService';
 
 
 
@@ -15,7 +16,8 @@ class CreatePublicationComponent extends Component {
             base64TextString: "",
             text: "",
             textError: "",
-            userPicture: null
+            userPicture: null,
+            spamError:""
 
         }
 
@@ -26,7 +28,7 @@ class CreatePublicationComponent extends Component {
     validate = () => {
         let textError = "";
 
-        if (this.state.text.length === 0) {
+        if (this.state.text.trim().length === 0) {
             textError = "You must type something to publish!"
         }
 
@@ -47,7 +49,6 @@ class CreatePublicationComponent extends Component {
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if(file) {
             const reader = new FileReader();
@@ -69,11 +70,17 @@ class CreatePublicationComponent extends Component {
         if (isValid) {
             let publication = {
                 username: AuthService.getUserData()['username'], userPicture: null,
-                text: this.state.text, imagen: this.state.base64TextString, developer: null
+                text: this.state.text.trim(), imagen: this.state.base64TextString, developer: null
             }
             console.log('Publication=>' + JSON.stringify(publication));
-            PublicationService.AddPublication(publication).then(res => {
-                this.props.history.push('/publication-List');
+            SpamService.checkPublication(publication).then((data)=>{
+                if(data === false){
+                    PublicationService.AddPublication(publication).then(res => {
+                        this.props.history.push('/publication-List');
+                    })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
+                }
             })
             //Change it when connect to the back end
         }
@@ -112,6 +119,7 @@ class CreatePublicationComponent extends Component {
                     </div>
                     <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
                     <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                    {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                 </form>
             </div>
         );

@@ -47,7 +47,7 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
-    }, 
+    },
 
     async updateProfile(profileId, profiledto) {
         return AuthService.getToken().then(token => {
@@ -69,7 +69,7 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
-    }, 
+    },
 
     async changeToAdmin(userId) {
         return AuthService.getToken().then(token => {
@@ -120,5 +120,15 @@ export const DeveloperService = {
                 }
             }).then(res=> res.data).catch(error=>{return error.response.status})
         })
-    }
+    },
+
+    async recoverPasswordByEmail(email) {
+        return axios.get(UrlProvider.getDeveloperUrl() + '/recoverPasswordByEmail?email=' + email, {})
+        .then(res => res.data).catch(error => {return error.response.status})
+    },
+
+    async restorePassword(id, password) {
+        return axios.put(UrlProvider.getDeveloperUrl() + '/restorePassword/' + id + '?password=' + password, {})
+        .then(res => res.data).catch(error => {return error.response.status})
+    },
 }

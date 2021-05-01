@@ -1,7 +1,7 @@
 //import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import PruebaComponent from './Components/PruebaComponent';
 import HeaderComponent from './Components/HeaderComponent';
 import FooterComponent from './Components/FooterComponent';
@@ -38,7 +38,10 @@ import DeveloperDashboardComponent from './Components/Dashboard/DeveloperDashboa
 import FollowListComponent from './Components/Users/FollowListComponent';
 import FollowedGamesComponent from './Components/Games/FollowedGamesComponent';
 import EditPublicationComponent from './Components/Publications/EditPublicationComponent';
-
+import OfferGamesComponent from './Components/Games/OfferGamesComponent';
+import AdminDashboardComponent from './Components/Dashboard/AdminDashboardComponent';
+import RecoverPasswordComponent from './Components/LostPassword/RecoverPasswordComponent';
+import RestorePasswordComponent from './Components/LostPassword/RestorePasswordComponent';
 
 
 function App() {
@@ -86,13 +89,17 @@ function App() {
              <Route path="/developer-dashboard" component={DeveloperDashboardComponent}></Route>
              <Route path="/followedGames" component={FollowedGamesComponent}></Route>
              <Route path="/publication-edit/:id" component={EditPublicationComponent}></Route>
+             <Route path="/offers" component={OfferGamesComponent}></Route>
+             <Route path="/admin-dashboard" component={AdminDashboardComponent}></Route>
+             <Route path="/recoverPassword" component={RecoverPasswordComponent}></Route>
+             <Route path="/restorePassword/:id" component={RestorePasswordComponent}></Route>
           </Switch>
           </div>
-        </div>
-      <FooterComponent/>
-      </body>
-    </Router>
-   </React.Fragment>
+          </div>
+          <FooterComponent />
+        </body>
+      </Router>
+    </React.Fragment>
   );
 }
 

@@ -25,6 +25,7 @@ class GamesComponent extends Component {
     this.MyFollowedGames = this.MyFollowedGames.bind(this);
     this.ListGamesToRevise = this.ListGamesToRevise.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.showOffers=this.showOffers.bind(this);
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -81,6 +82,9 @@ class GamesComponent extends Component {
       this.props.history.push('/login')
     }
   }
+  showOffers(){
+    this.props.history.push('/offers')
+  }
 
   MyFollowedGames(){
     if(AuthService.isAuthenticated()){
@@ -94,7 +98,6 @@ class GamesComponent extends Component {
     GameService.getGameById(id).then(res => {
       this.props.history.push(`/game-View/${id}`);
     })
-    console.log('game => ' + JSON.stringify(id))
   }
 
   ListGamesToRevise() {
@@ -169,6 +172,7 @@ class GamesComponent extends Component {
           <button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button>
           <button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}> My created games</button>
           <button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed games</button>
+          <button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}> Offers</button>
           {AuthService.isAuthenticated() ?
             AuthService.getUserData().roles.includes("ADMIN") ?
               <React.Fragment>
@@ -205,8 +209,18 @@ class GamesComponent extends Component {
                   </div>
                   <div className="w3-container p-3">
                     <p class="card-text">
-
-                      Price: {item.price}€
+                      {item.discount!=0.?(
+                        <React.Fragment>
+                          Price:<strike> {item.price}</strike>€ ({item.discount*100} %)
+                          <br/>
+                          {(item.price-item.price*item.discount).toFixed(2)}€
+                        </React.Fragment>
+                      ):
+                      <React.Fragment>
+                        Price: {item.price}€
+                      </React.Fragment>
+                    }
+                      
 
                       <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
                     </p>

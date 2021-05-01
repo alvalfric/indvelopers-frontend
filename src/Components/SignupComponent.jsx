@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
+import { SpamService } from '../Services/SpamService';
 
 class SignupComponent extends Component {
 
@@ -25,6 +26,7 @@ class SignupComponent extends Component {
             acceptedPolicy: false,
             acceptedError: "",
             submitError: "",
+            spamError:""
         }
         this.saveDeveloper = this.saveDeveloper.bind(this);
         this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
@@ -41,7 +43,7 @@ class SignupComponent extends Component {
         if (AuthService.isAuthenticated()) {
             this.props.history.push('/')
         }
-	}
+    }
 
     validate = () => {
         let usernameError = "";
@@ -53,7 +55,7 @@ class SignupComponent extends Component {
         let confirmPasswordError = "";
         let acceptedError = "";
 
-        if (this.state.username.length === 0) {
+        if (this.state.username.trim().length === 0) {
             usernameError = "Username cannot be empty";
         }
         var emailPattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
@@ -63,18 +65,18 @@ class SignupComponent extends Component {
         if (this.state.email.length === 0) {
             emailError = "Email cannot be empty";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "Description cannot be empty";
         }
-        if (this.state.technologies.length === 0) {
+        if (this.state.technologies.trim().length === 0) {
             technologiesError = "Technologies cannot be empty";
         }
         if (new Date().getFullYear() - this.state.dateOfBirth.split('-')[0] < 13) {
             dateOfBirthError = "You must be 13 years old or older to use this website!";
         }
         if (this.state.dateOfBirth.split('-')[0] >= new Date().getFullYear()) {
-            if(this.state.dateOfBirth.split('-')[1] >= new Date().getMonth()) {
-                if(this.state.dateOfBirth.split('-')[2] >= new Date().getDate()) {
+            if (this.state.dateOfBirth.split('-')[1] >= new Date().getMonth()) {
+                if (this.state.dateOfBirth.split('-')[2] >= new Date().getDate()) {
                     dateOfBirthError = "Birth date must be in the past!";
                 }
             }
@@ -82,8 +84,9 @@ class SignupComponent extends Component {
         if (this.state.dateOfBirth.length === 0) {
             dateOfBirthError = "Birth date cannot be empty";
         }
-        if (this.state.password.length < 8) {
-            passwordError = "Password must have at least 8 characters";
+        var passwordPattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+        if (!passwordPattern.test(this.state.password)) {
+            passwordError = "Password must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.";
         }
         if (this.state.password.length === 0) {
             passwordError = "Password cannot be empty";
@@ -134,37 +137,46 @@ class SignupComponent extends Component {
     changeConfirmPasswordHandler = (event) => {
         this.setState({ confirmPassword: event.target.value });
     }
-    changeAcceptHandler = (event)=>{
-        this.setState({acceptedPolicy: !this.state.acceptedPolicy})
+    changeAcceptHandler = (event) => {
+        this.setState({ acceptedPolicy: !this.state.acceptedPolicy })
     }
     saveDeveloper = (event) => {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
             let userForm = {
-                username: this.state.username,
+                username: this.state.username.trim(),
                 password: this.state.password,
                 email: this.state.email,
-                description: this.state.description,
-                technologies: this.state.technologies,
+                description: this.state.description.trim(),
+                technologies: this.state.technologies.trim(),
                 dateOfBirth: this.state.dateOfBirth
             }
             console.log(userForm.dateOfBirth)
-            DeveloperService.signup(userForm).then(data => {
-                if (typeof data == "object") {
-                    this.props.history.push('/login')
-                } else {
-                    this.setState({ submitError: "Username or email already in use" });
+            SpamService.checkDeveloper(userForm).then((data)=>{
+                if(data === false){
+                    DeveloperService.signup(userForm).then(data => {
+                        if (typeof data == "object") {
+                            this.props.history.push('/login')
+                        } else {
+                            this.setState({ submitError: "Username or email already in use" });
+                        }
+                    });
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
-            }
-            );
+            })
         }
     }
 
     render() {
         return (
             <form>
-                <h3>Register</h3>
+                <br />
+                <br />
+                <br />
+                <h2>Register</h2>
+                <br />
 
                 <div className="form-group">
                     <label>Username</label>
@@ -191,8 +203,8 @@ class SignupComponent extends Component {
                 </div>
 
                 <div className="form-group">
-                    <label>Technologies</label>
-                    <input type="text" className="form-control" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                    <label>Technologies (you use to develop your games)</label>
+                    <input type="text" className="form-control" placeholder="Technologies like Unity, Wave engine, etc" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
                     {this.state.technologiesError ? (<div className="ValidatorMessage">
                         {this.state.technologiesError}
                     </div>) : null}
@@ -237,6 +249,10 @@ class SignupComponent extends Component {
                 <p className="already-registered text-right">
                     Already registered <a href="/login">log in?</a>
                 </p>
+                <p className="already-registered text-right">
+                    Lost password? <a href="/recoverPassword">Recover your password</a>
+                </p>
+                {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
             </form>
         );
     }

@@ -16,6 +16,7 @@ class FollowedGamesComponent extends Component {
 	
 	componentDidMount(){
 		GameService.findGamesByDeveloperFollowed().then((res)=>{
+			console.log(res)
 			this.setState({followedGames:res.data})
 		})
 	}

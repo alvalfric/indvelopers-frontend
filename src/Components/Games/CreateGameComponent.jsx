@@ -6,6 +6,8 @@ import saveAs from 'jszip';
 import {CloudService} from '../../Services/CloudService';
 import Select from "react-select";
 import { CategoryService } from '../../Services/CategoryService';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import { SpamService } from '../../Services/SpamService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -30,7 +32,9 @@ class CreateGameComponent extends Component {
             isPremium:false,
             idCloud:"",
             idCloudError:"",
-            selectedOption:null
+            selectedOption:null,
+            progress:0,
+            spamError: ""
         }
 
         this.categories = [];
@@ -70,13 +74,13 @@ class CreateGameComponent extends Component {
         let imagenError="";
         let idCloudError="";
 
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "The game needs a description"
         }
-        if (this.state.requirements.length === 0) {
+        if (this.state.requirements.trim().length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
         if(this.state.idCloud.length===0){
@@ -140,15 +144,21 @@ class CreateGameComponent extends Component {
         let file=event.target.files[0];
         zip.file(file.name,file);
         zip.generateAsync({type:"blob"}).then(content=>{
-            CloudService.uploadFile(content).then(res=>{
+            CloudService.uploadFile(content,(e)=>{
+                this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+                if(this.state.progress==100){
+                    this.setState({progress:75})
+                }
+            }).then(res=>{
                 this.setState({idCloud:res})
+                this.setState({progress:100})
+                window.alert("Your game has been uploaded successfully")
             })
         })
         
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if(file) {
             const reader = new FileReader();
@@ -160,7 +170,7 @@ class CreateGameComponent extends Component {
 
     changeCategoriesHandler = selectedOption => {
         this.setState({selectedOption})
-        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+        this.setState({categorias : selectedOption.map(item =>item.value)});
 
     }
 
@@ -184,28 +194,34 @@ class CreateGameComponent extends Component {
                 this.reformatedCategories.push(reformatedCategory);
             })
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi
+                title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi
                 ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
-            GameService.addGame(game).then(data => {
-                if (typeof data == "string") {
-                    this.props.history.push('/games')
-                } else {
-                    var i = 0;
-                    GameService.findAll().then(data => {
-                        data.forEach(g => {
-                            if (g.title === this.state.title) {
-                                this.setState({ titleError: "A game with that title is already created!" });
-                            }
-                            if (AuthService.getUserData()['username'] === g.creator.username) {
-                                i++;
-                                if (!(i < 5)) {
-                                    this.setState({ submitError: "You have to be a premium user in order to upload more games!" });
+            SpamService.checkGame(game).then((data)=>{
+                if(data === false){
+                GameService.addGame(game).then(data => {
+                    if (typeof data == "string") {
+                        this.props.history.push('/games')
+                    } else {
+                        var i = 0;
+                        GameService.findAll().then(data => {
+                            data.forEach(g => {
+                                if (g.title === this.state.title) {
+                                    this.setState({ titleError: "A game with that title is already created!" });
                                 }
-                            }
+                                if (AuthService.getUserData()['username'] === g.creator.username) {
+                                    i++;
+                                    if (!(i < 5)) {
+                                        this.setState({ submitError: "You have to be a premium user in order to upload more games!" });
+                                    }
+                                }
 
-                        });
-                    })
+                            });
+                        })
+                    }
+                })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
             })
         }
@@ -289,6 +305,10 @@ class CreateGameComponent extends Component {
                         <div className="form-group">
                         <label>Game(.zip format):</label>
                         <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
+                        {this.state.progress!=0?(
+                            <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`}/></p>
+                        ):null}
+                        
                         {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
 
                         </div>
@@ -297,6 +317,7 @@ class CreateGameComponent extends Component {
                             {this.state.submitError}
                         </div>) : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
                         <p className="text-danger">* you won't see your game published until admins check it</p>
                     </form>
                 </div>

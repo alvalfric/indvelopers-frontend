@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { GameService } from '../../Services/GameService';
 import { ReviewService } from '../../Services/ReviewService';
 import { AuthService } from '../../Services/AuthService';
+import { SpamService } from '../../Services/SpamService';
 
 
 class EditReviewComponent extends Component {
@@ -15,6 +16,7 @@ class EditReviewComponent extends Component {
 			score: "",
 			username: null,
 			game: null,
+			spamError:""
 		}
 		this.saveReview = this.saveReview.bind(this);
 		this.changeScoreHandler = this.changeScoreHandler.bind(this);
@@ -29,7 +31,7 @@ class EditReviewComponent extends Component {
                 }
                 this.setState({
                     text: review.text,
-                    score: review.score
+                    score: review.score + ""
                 })
             })
         })
@@ -39,7 +41,7 @@ class EditReviewComponent extends Component {
 		let textError = "";
 		let scoreError = "";
 
-		if (this.state.text.length === 0) {
+		if (this.state.text.trim().length === 0) {
 			textError = "Cannot be empty";
 		}
 		if (this.state.score.length === 0) {
@@ -48,6 +50,7 @@ class EditReviewComponent extends Component {
 		if (this.state.score < 0 || this.state.score > 5) {
 			scoreError = "Score must be a number between 0 and 5";
 		}
+		console.log(this.state.score)
 		if (this.state.score.split('.').length == 2 && this.state.score.split('.')[1].length > 1) {
 			scoreError = "Score must not have more than 1 decimal!"
 		}
@@ -89,7 +92,7 @@ class EditReviewComponent extends Component {
 					creator: game.creator
 				});
 				let review={
-					text: this.state.text,
+					text: this.state.text.trim(),
 					score: this.state.score,
                     edited: true,
 					game: game,
@@ -97,8 +100,14 @@ class EditReviewComponent extends Component {
 				}
 				console.log('Game => ' + JSON.stringify(game))
 				console.log('Review => ' + JSON.stringify(review));
-				ReviewService.editReview(this.state.gameId, review).then(res=>{
-					this.props.history.push('/game-View/' + this.state.gameId);
+				SpamService.checkReview(review).then((data)=>{
+					if(data === false){
+						ReviewService.editReview(this.state.gameId, review).then(res=>{
+							this.props.history.push('/game-View/' + this.state.gameId);
+						})
+					}else{
+						this.setState({spamError:"This form contains spam words! 😠"})
+					}
 				})
 			})
         }
@@ -130,6 +139,7 @@ class EditReviewComponent extends Component {
 					</div>
 					<button className="AceptButton" onClick={this.saveReview}>Editar Review</button>
 					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
+					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
 				</form>
 
 			</div>

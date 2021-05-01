@@ -10,6 +10,8 @@ import saveAs from 'jszip';
 import {DeveloperService} from '../../Services/DeveloperService';
 import PegiAssignation from './PegiAssignation';
 import Select from "react-select";
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import { SpamService } from '../../Services/SpamService';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -38,7 +40,11 @@ class UpdateGameComponent extends Component {
             isAdmin: false,
             isFollowed:false,
             selectedOption:null,
-            allCategories:""
+            allCategories:"",
+            progress:0,
+            discount:0.0,
+            discountError:"",
+            spamError:""
         }
 
         this.categories = [];
@@ -59,6 +65,7 @@ class UpdateGameComponent extends Component {
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
+        this.changeDiscountHandler=this.changeDiscountHandler.bind(this);
         this.follow=this.follow.bind(this);
         this.unFollow=this.unFollow.bind(this);
     }
@@ -75,7 +82,8 @@ class UpdateGameComponent extends Component {
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
-                base64TextString: game.imagen
+                base64TextString: game.imagen,
+                discount:game.discount
             });
             if (AuthService.isAuthenticated()) {
                 OwnedGameService.CheckGameOwned(this.state.id).then((res) => {
@@ -104,7 +112,6 @@ class UpdateGameComponent extends Component {
                 let categoria2 = {
                     value: category.title, label: category.title, id:category.id
                 };
-                console.log(category)
                 this.beforeCategories.push(categoria2);
                 //Esto es para la vista de NO creador
                 if(this.readOnlyCategories === ""){
@@ -114,12 +121,10 @@ class UpdateGameComponent extends Component {
                 }
             })
             this.setState({ selectedOption : this.beforeCategories })
-            console.log(this.state.selectedOption)
             
         });
         ReviewService.getbyGame(this.state.id).then(data => {
             data.forEach(review => {
-                console.log(review)
                 if (AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) {
                     this.setState({
                         createReviewCheck: true
@@ -167,17 +172,24 @@ class UpdateGameComponent extends Component {
             this.props.history.push('/games');
         })
     }
+    
     changeGameHandler = (e) => {
         e.preventDefault()
         CloudService.deleteFile(this.state.idCloud).then(res => {
-            console.log("ANTERIOR IDCLOUD===>" + JSON.stringify(this.state.idCloud))
             const zip = require('jszip')();
             let file = e.target.files[0];
             zip.file(file.name, file);
             zip.generateAsync({ type: "blob" }).then(content => {
-                CloudService.uploadFile(content).then(res => {
+                CloudService.uploadFile(content,(e)=>{
+                    
+                    this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+                    if(this.state.progress==100){
+                        this.setState({progress:75})
+                    }
+                }).then(res => {
                     this.setState({ idCloud: res })
-                    console.log("NUEVA IDCLOUD===>" + JSON.stringify(this.state.idCloud))
+                    this.setState({progress:100})
+                    window.alert("Your game has been uploaded successfully")
                 })
             })
         })
@@ -203,20 +215,26 @@ class UpdateGameComponent extends Component {
                 this.reformatedCategories.push(reformatedCategory);
             })
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price, pegi: this.state.pegi, 
-                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString
+                title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi, 
+                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString,discount:this.state.discount
             };
-            GameService.updateGame(game, this.state.id).then(data => {
-                if (typeof data == "string") {
-                    this.props.history.push('/games');
-                } else {
-                    GameService.findAll().then(data => {
-                        data.forEach(g => {
-                            if (g.title === this.state.title) {
-                                this.setState({ titleError: "A game with that title is already created!" });
-                            }
-                        });
+            SpamService.checkGame(game).then((data)=>{
+                if(data === false){
+                    GameService.updateGame(game, this.state.id).then(data => {
+                        if (typeof data == "string") {
+                            this.props.history.push('/games');
+                        } else {
+                            GameService.findAll().then(data => {
+                                data.forEach(g => {
+                                    if (g.title === this.state.title) {
+                                        this.setState({ titleError: "A game with that title is already created!" });
+                                    }
+                                });
+                            })
+                        }
                     })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
             })
         }
@@ -231,14 +249,15 @@ class UpdateGameComponent extends Component {
         let requirementsError = "";
         let priceError = "";
         let pegiError = "";
+        let discountError="";
 
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "The game needs a description"
         }
-        if (this.state.requirements.length === 0) {
+        if (this.state.requirements.trim().length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
         if (AuthService.getUserData()['isPremium'] === true) {
@@ -250,10 +269,16 @@ class UpdateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+
         if (this.state.pegi === '') {
             pegiError = "The game needs a pegi number!"
         } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
             pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
+        if(this.state.discount<0.){
+            discountError="Discount cannot be negative"
+        }else if(this.state.discount>1.){
+            discountError="Discount cannot be greater than 1"
         }
 
         this.setState({ titleError });
@@ -261,7 +286,10 @@ class UpdateGameComponent extends Component {
         this.setState({ requirementsError });
         this.setState({ priceError });
         this.setState({ pegiError });
-        if (titleError || descriptionError || requirementsError || priceError || pegiError) {
+        this.setState({discountError});
+
+        if (titleError || descriptionError || requirementsError || priceError || discountError || pegiError) {
+
             return false;
         } else {
             return true;
@@ -290,16 +318,18 @@ class UpdateGameComponent extends Component {
 
     changeCategoriesHandler = selectedOption => {
         this.setState({selectedOption})
-        this.setState({categorias : selectedOption.map(item =>item.value)},()=>{console.log(this.state.categorias)});
+        this.setState({categorias : selectedOption.map(item =>item.value)});
 
     }
 
     changeConfirmHandler = (event) => {
         this.setState({ isNotMalware: event.target.checked })
     }
+    changeDiscountHandler=(e)=>{
+        this.setState({discount:e.target.value})
+    }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if (file) {
             const reader = new FileReader();
@@ -361,13 +391,16 @@ class UpdateGameComponent extends Component {
                                     <br />
                                     <label>Game:</label>
                                     <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
+                                    {this.state.progress!=0?(
+                                   <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`}/></p>
+                                  ):null}
 
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
                                     
                                     <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
+                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block", maxWidth: '800px', maxHeight: '400px', }} />
                                         <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.title}</div>
                                     </div>
                                 </React.Fragment>
@@ -401,27 +434,32 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
-                        <div>
-                            <br/>
-                            <div className="w3-card-2" >
-                                            <header className="w3-container ">
+                        <div className="w3-card-4">
+                        
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username']!=this.state.creator.username && !this.state.isFollowed) ?(
+                            <React.Fragment>
+                                <header className="w3-container ">
                                                 <img />
                                                 <h5>Creator</h5>
                                             </header>
-                                            <div className="w3-container">
-                                                <p>{this.state.creator.username}</p>
-                                                {(this.state.isFollowed)? 
-                                                <React.Fragment>
-                                                    <p>You are following this creator. You can unfollow the creator</p>
-                                                    <button className="DeleteButton" onClick={(e)=>this.unFollow(this.state.creator.username,e)}>Unfollow</button>
-                                                </React.Fragment>
-                                                :(AuthService.isAuthenticated() && AuthService.getUserData['username']!=this.state.creator.username)?
-                                                <React.Fragment>
-                                                    <button className="AceptButton" onClick={(e)=>this.follow(this.state.creator.username,e)}>Follow this user</button>
-                                                </React.Fragment>
-                                                :null}
+                                            <div className="w3-container ">
+                                            <p>{this.state.creator.username}</p>
                                             </div>
-                                        </div>
+                                            <button className="AceptButton" onClick={(e)=>this.follow(this.state.creator.username,e)}>Follow this user</button>
+                            </React.Fragment>
+                        ):(AuthService.isAuthenticated() && AuthService.getUserData()['username']!=this.state.creator.username && this.state.isFollowed)?(
+                            <React.Fragment>
+                                <header className="w3-container ">
+                                                <img />
+                                                <h5>Creator</h5>
+                                            </header>
+                                            <div className="w3-container ">
+                                            <p>{this.state.creator.username}</p>
+                                            </div>
+                                <p>You are following this creator. You can unfollow the creator</p>
+                                <button className="DeleteButton" onClick={(e)=>this.unFollow(this.state.creator.username,e)}>Unfollow</button>
+                            </React.Fragment>
+                        ):null}
                         </div>
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
@@ -449,14 +487,28 @@ class UpdateGameComponent extends Component {
                             {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? 
+                            (
                                 <React.Fragment>
                                     <label>Price</label>
                                     <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                         value={this.state.price} onChange={this.changePriceHandler}></input>
                                 </React.Fragment>
-                            ) :
+                            ): this.state.discount!=0.?(
                                 <React.Fragment>
+                                    <div>
+                                        <br />
+                                        <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Price: <strike>{this.state.price}</strike>€</h5>
+                                                <h4>       {(this.state.price-this.state.price*this.state.discount).toFixed(2)}€</h4>
+                                            </header>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                             ):
+                             <React.Fragment>
                                     <div>
                                         <br />
                                         <div className="w3-card-2" >
@@ -466,8 +518,7 @@ class UpdateGameComponent extends Component {
                                             </header>
                                         </div>
                                     </div>
-                                </React.Fragment>
-                            }
+                            </React.Fragment>}
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
                         </div>
                         <div className="form-group">
@@ -517,6 +568,28 @@ class UpdateGameComponent extends Component {
                             }
                             {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
+                
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username']===this.state.creator.username)?
+                        <React.Fragment>
+                            <label>Discount</label>
+                            <input placeholder="Discount" name="Discount" className="form-control" type="number" min="0" step="0.1"
+                                        value={this.state.discount} onChange={this.changeDiscountHandler}></input>
+                        </React.Fragment>
+                    :this.state.discount!=0.?(
+                        <React.Fragment>
+                            <div>
+
+                                        <br />
+                                        <div className="w3-card-2" >
+                                            <header className="w3-container ">
+                                                <img />
+                                                <h5>Discount: {this.state.discount*100}%</h5>
+                                            </header>
+                                        </div>
+                                    </div>
+                        </React.Fragment>
+                           ):null}
+                           {this.state.discountError ? (<div className="ValidatorMessage">{this.state.discountError}</div>) : null}
                         {this.state.isAdmin ? (
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" onClick={this.changeConfirmHandler} checked={this.state.isNotMalware} value={this.state.isNotMalware} />
@@ -556,6 +629,7 @@ class UpdateGameComponent extends Component {
                                 <button className="DeleteButton" onClick={() => this.buyGame(this.props.match.params.id)}>Buy</button>
                                 : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Back</button>
+                        {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                     </form>
                 </div>
             </div>
