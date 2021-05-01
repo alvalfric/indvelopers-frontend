@@ -43,7 +43,7 @@ class SignupComponent extends Component {
         if (AuthService.isAuthenticated()) {
             this.props.history.push('/')
         }
-	}
+    }
 
     validate = () => {
         let usernameError = "";
@@ -75,8 +75,8 @@ class SignupComponent extends Component {
             dateOfBirthError = "You must be 13 years old or older to use this website!";
         }
         if (this.state.dateOfBirth.split('-')[0] >= new Date().getFullYear()) {
-            if(this.state.dateOfBirth.split('-')[1] >= new Date().getMonth()) {
-                if(this.state.dateOfBirth.split('-')[2] >= new Date().getDate()) {
+            if (this.state.dateOfBirth.split('-')[1] >= new Date().getMonth()) {
+                if (this.state.dateOfBirth.split('-')[2] >= new Date().getDate()) {
                     dateOfBirthError = "Birth date must be in the past!";
                 }
             }
@@ -137,8 +137,8 @@ class SignupComponent extends Component {
     changeConfirmPasswordHandler = (event) => {
         this.setState({ confirmPassword: event.target.value });
     }
-    changeAcceptHandler = (event)=>{
-        this.setState({acceptedPolicy: !this.state.acceptedPolicy})
+    changeAcceptHandler = (event) => {
+        this.setState({ acceptedPolicy: !this.state.acceptedPolicy })
     }
     saveDeveloper = (event) => {
         event.preventDefault();
@@ -172,7 +172,11 @@ class SignupComponent extends Component {
     render() {
         return (
             <form>
-                <h3>Register</h3>
+                <br />
+                <br />
+                <br />
+                <h2>Register</h2>
+                <br />
 
                 <div className="form-group">
                     <label>Username</label>
@@ -244,6 +248,9 @@ class SignupComponent extends Component {
                 </div>) : null}
                 <p className="already-registered text-right">
                     Already registered <a href="/login">log in?</a>
+                </p>
+                <p className="already-registered text-right">
+                    Lost password? <a href="/recoverPassword">Recover your password</a>
                 </p>
                 {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
             </form>
