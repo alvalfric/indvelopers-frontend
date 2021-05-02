@@ -118,7 +118,7 @@ class ListPublicationComponent extends Component {
                 {publication.imagen !== "" ?
                   <React.Fragment>
                     <div className="w3-container">
-                      <img src={"data:image/png;base64," + publication.imagen} width="400" height="300" />
+                      <img src={"data:image/png;base64," + publication.imagen} style={{ maxWidth: '500px', maxHeight: '500px' }} />
                     </div>
                   </React.Fragment>
                   :
