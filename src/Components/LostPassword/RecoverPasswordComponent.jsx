@@ -62,7 +62,7 @@ class RecoverPasswordComponent extends Component {
                     this.sendFeedback(templateId, {
                         email: this.state.email,
                         to_name: data.username,
-                        passwordReset: "localhost:3000/restorePassword/" + data.id
+                        passwordReset: "https://level3-indvelopers-backend.herokuapp.com/restorePassword/" + data.id
                     })
                 } else {
                     this.setState({ submitError: "That email is not registered!" });
