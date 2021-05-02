@@ -100,7 +100,6 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={marta} alt="Marta" width={80}/>
 								<h3> Marta Diaz</h3>
-								<p>Data Protection Officer</p>
 								<p>Developer</p>
 							</div>
 						
@@ -110,6 +109,7 @@ class AboutUsComponent extends Component{
 							<div class="container">
 								<img src={francisco} alt="Francisco Javier" width={60}/>
 								<h3> Francisco Javier García</h3>
+								<p>Data Protection Officer</p>
 								<p>Developer</p>
 							</div>
 
