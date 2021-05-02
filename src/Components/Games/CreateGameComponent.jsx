@@ -142,6 +142,7 @@ class CreateGameComponent extends Component {
         event.preventDefault()
         const zip = require('jszip')();
         let file=event.target.files[0];
+        if(file){
         zip.file(file.name,file);
         zip.generateAsync({type:"blob"}).then(content=>{
             CloudService.uploadFile(content,(e)=>{
@@ -155,7 +156,7 @@ class CreateGameComponent extends Component {
                 window.alert("Your game has been uploaded successfully")
             })
         })
-        
+    }
     }
 
     changeImagenHandler = (event) => {

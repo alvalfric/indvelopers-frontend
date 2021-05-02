@@ -175,9 +175,10 @@ class UpdateGameComponent extends Component {
     
     changeGameHandler = (e) => {
         e.preventDefault()
+        let file = e.target.files[0];
+        if(file){
         CloudService.deleteFile(this.state.idCloud).then(res => {
             const zip = require('jszip')();
-            let file = e.target.files[0];
             zip.file(file.name, file);
             zip.generateAsync({ type: "blob" }).then(content => {
                 CloudService.uploadFile(content,(e)=>{
@@ -193,6 +194,7 @@ class UpdateGameComponent extends Component {
                 })
             })
         })
+    }
 
     }
     downloadGame = (e) => {
