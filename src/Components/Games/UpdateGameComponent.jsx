@@ -12,6 +12,7 @@ import PegiAssignation from './PegiAssignation';
 import Select from "react-select";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { SpamService } from '../../Services/SpamService';
+import { SubscriptionService } from '../../Services/SubscriptionService';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -44,7 +45,8 @@ class UpdateGameComponent extends Component {
             progress:0,
             discount:0.0,
             discountError:"",
-            spamError:""
+            spamError:"",
+            isPremium: false
         }
 
         this.categories = [];
@@ -68,6 +70,9 @@ class UpdateGameComponent extends Component {
         this.changeDiscountHandler=this.changeDiscountHandler.bind(this);
         this.follow=this.follow.bind(this);
         this.unFollow=this.unFollow.bind(this);
+        SubscriptionService.checkHasSubscription().then((res)=>{
+            this.setState({isPremium:res})
+        })
     }
 
     componentDidMount() {
@@ -207,7 +212,7 @@ class UpdateGameComponent extends Component {
 
     updateGame = (e) => {
         e.preventDefault();
-        if (AuthService.getUserData()['isPremium'] !== true) {
+        if (this.state.isPremium !== true) {
             this.state.price = 0.0;
         }
         const isValid = this.validate();
@@ -262,7 +267,7 @@ class UpdateGameComponent extends Component {
         if (this.state.requirements.trim().length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
-        if (AuthService.getUserData()['isPremium'] === true) {
+        if (this.state.isPremium === true) {
             if (this.state.price.length === 0) {
                 priceError = "The game needs a price!"
             } else if (this.state.price < 0) {
