@@ -610,7 +610,7 @@ class UpdateGameComponent extends Component {
                                 (this.state.createReviewCheck ?
                                     <h5>You've already reviewed this game</h5>
                                     :
-                                    <button className="Button" onClick={() => this.createReview(this.state.id)}>Crear review</button>)
+                                    <button className="Button" onClick={() => this.createReview(this.state.id)}>Create review</button>)
                                 :
                                 null}
                             <br />
