@@ -81,7 +81,7 @@ class OwnedGameComponent extends Component {
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
                 <div className="gridContainer">
                 <div className="sidenav">
-                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} width="400" height="300" />
+                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} style={{ maxWidth: '500px', maxHeight: '250px' }} />
                 <div style={{marginRight:"30%"}}>
                  <br/>
                    <div className="w3-card-4" >
