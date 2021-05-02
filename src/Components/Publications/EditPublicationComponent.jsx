@@ -121,7 +121,7 @@ class EditPublicationComponent extends Component{
                             <React.Fragment>
                                 <label>Actual image: </label>
                                 < br />
-                                <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
+                                <img src={"data:image/png;base64,"+this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '150px' }}/>
                             </React.Fragment>
                         :
                             <React.Fragment>

@@ -49,7 +49,7 @@ class ListMyGamesComponent extends Component {
                         </div>
                         <div className="w3-container p-3"> 
                             <p class="card-text">
-                                <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} width="400" height="300" />
+                                <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} style={{ maxWidth: '500px', maxHeight: '250px' }} />
                                 Description: { game.description }
                                 <button onClick={() => this.editGame(game.id)} className="ModifyButton float-right mt-2">Details</button>
                             </p>

@@ -66,7 +66,7 @@ class OfferGamesComponent extends Component {
               <div className="w3-card-4">
                 <div className="w3-container">
                   <div className="container">
-                    <img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} width="400" height="300" />
+                    <img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} style={{ maxWidth: '500px', maxHeight: '250px' }} />
                     <h4>{item.title}</h4>
                   </div>
                   <div className="w3-container p-3">
