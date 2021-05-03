@@ -38,10 +38,10 @@ class EditReviewComponent extends Component {
 					})
                 }
             })
+			if(!this.state.hasReview){
+				this.props.history.push('/game-View/'+this.state.gameId);
+			}
         })
-		if(!this.state.hasReview){
-			this.props.history.push('/game-View/'+this.state.gameId);
-		}
 	}
 
 	validate = () => {
