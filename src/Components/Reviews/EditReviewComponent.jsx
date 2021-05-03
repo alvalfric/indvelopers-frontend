@@ -27,7 +27,7 @@ class EditReviewComponent extends Component {
 		let hasReview=false;
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
-                if (AuthService.getUserData()['username'] === review.developer.username) {
+                if (AuthService.getUserData()['username'] == review.developer.username) {
 					hasReview=true;
                     this.setState({
 						text: review.text,
