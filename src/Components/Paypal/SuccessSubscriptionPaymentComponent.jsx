@@ -30,10 +30,10 @@ class SuccessSubscriptionPaymentComponent extends Component {
             <br/>
             <div>
                 
-                <h1 style={{textAlign:"center"}}>El pago se ha realizado con éxito</h1>
-                <h2 style={{textAlign:"center"}}>Pulsa en el botón para finalizar el trámite</h2>
+                <h1 style={{textAlign:"center"}}>Payment was successful</h1>
+                <h2 style={{textAlign:"center"}}>Click on the button to finish the process</h2>
                 <br/>
-                <p style={{textAlign:"center"}}><button className="AceptButton"   onClick={(e)=>this.endPurchase(e)}>Finalizar compra</button></p>
+                <p style={{textAlign:"center"}}><button className="AceptButton"   onClick={(e)=>this.endPurchase(e)}>Finalize purchase</button></p>
             </div>
             </React.Fragment>
         );

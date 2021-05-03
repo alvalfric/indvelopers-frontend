@@ -17,8 +17,8 @@ class CancelPaymentComponent extends Component {
             <br/>
             <div>
                 
-                <h1 style={{textAlign:"center"}}>El pago se ha cancelado</h1>
-                <h2 style={{textAlign:"center"}}>Puedes irte de aquí</h2>
+                <h1 style={{textAlign:"center"}}>The payment has been canceled</h1>
+                <h2 style={{textAlign:"center"}}>You may close this window</h2>
                 
                 <br/>
             </div>
