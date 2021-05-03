@@ -13,10 +13,14 @@ class EditReviewComponent extends Component {
 		this.state = {
 			gameId: this.props.match.params.id,
 			text: "",
+			textError:"",
 			score: "",
+			scoreError:"",
 			username: null,
 			game: null,
-			spamError:""
+			spamError:"",
+			hasReview:false
+			
 		}
 		this.saveReview = this.saveReview.bind(this);
 		this.changeScoreHandler = this.changeScoreHandler.bind(this);
@@ -26,14 +30,17 @@ class EditReviewComponent extends Component {
 	componentDidMount() {
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
-                if (AuthService.getUserData()['username'] !== review.developer.username) {
-                    this.props.history.push('/game-View/' + this.state.gameId)
+                if (AuthService.getUserData()['username'] == review.developer.username) {
+                    this.setState({
+						text: review.text,
+						score: review.score + "",
+						hasReview:true
+					})
                 }
-                this.setState({
-                    text: review.text,
-                    score: review.score + ""
-                })
             })
+			if(!this.state.hasReview){
+				this.props.history.push('/game-View/'+this.state.gameId);
+			}
         })
 	}
 
@@ -137,7 +144,7 @@ class EditReviewComponent extends Component {
 							{this.state.scoreError}
 						</div>) : null}
 					</div>
-					<button className="AceptButton" onClick={this.saveReview}>Editar Review</button>
+					<button className="AceptButton" onClick={(e)=>this.saveReview(e)}>Editar Review</button>
 					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
 					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
 				</form>
