@@ -65,8 +65,7 @@ class EditReviewComponent extends Component {
 
 	}
 
-	cancel=(e)=> {
-		e.preventDefault()
+	cancel() {
 		this.props.history.push('/game-View/' + this.state.gameId);
 	}
 
@@ -139,7 +138,7 @@ class EditReviewComponent extends Component {
 						</div>) : null}
 					</div>
 					<button className="AceptButton" onClick={(e)=>this.saveReview(e)}>Editar Review</button>
-					<button className="CancelButton" onClick={(e)=>this.cancel(e).bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
+					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
 					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
 				</form>
 
