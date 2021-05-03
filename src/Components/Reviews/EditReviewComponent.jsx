@@ -36,6 +36,7 @@ class EditReviewComponent extends Component {
                 }
             })
         })
+		this.setState({hasReview})
 		if(!hasReview){
 			this.props.history.push('/game-View/'+this.state.gameId);
 		}
