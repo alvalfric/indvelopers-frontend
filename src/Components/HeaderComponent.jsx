@@ -3,6 +3,10 @@ import logo from '../assets/InDvelopersLogo.png'
 import '../App.css';
 import { Link, NavLink } from 'react-router-dom';
 import { AuthService } from '../Services/AuthService';
+import emailjs from 'emailjs-com';
+
+
+var userID = "user_cjoUNnSdhjrPLOuDAUP2z"
 
 class HeaderComponent extends Component {
   constructor(props) {
@@ -23,9 +27,9 @@ class HeaderComponent extends Component {
   }
 
   logout() {
-    AuthService.logout().then(()=>{
-    alert("You have logged out successfully!");
-    window.location.reload();
+    AuthService.logout().then(() => {
+      alert("You have logged out successfully!");
+      window.location.reload();
     })
   }
 
@@ -60,6 +64,12 @@ class HeaderComponent extends Component {
             <a href="/login" style={{ float: "right", backgroundColor: "#2f47b4" }}>Login</a>
           </React.Fragment>
         }
+
+        <script type="text/javascript"
+          src="https://cdn.jsdelivr.net/npm/emailjs-com@2.3.2/dist/email.min.js"></script>
+        <script type="text/javascript">
+          (function(){emailjs.init(userID)})();
+              </script>
         <a href="#!" className="icon" onClick={this.showElements}>&#9776;</a>
       </div>
     );

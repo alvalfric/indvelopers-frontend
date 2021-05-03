@@ -16,7 +16,7 @@ class PanicComponent extends Component {
                 <h1 className="PanicTitle">Ups!</h1>
                 <p className="PanicLogo"><img src={logo}/></p>
                 <h5 className="PanicText">Something wrong happened</h5>
-                <p className="PanicText"> Wait a couple of minutes a try again</p>
+                <p className="PanicText"> Wait a couple of minutes and try again</p>
             </div>
         );
     }

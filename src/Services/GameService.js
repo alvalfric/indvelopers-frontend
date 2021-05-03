@@ -83,6 +83,17 @@ export const GameService = {
             }).catch(error => { return error })
         })
     },
+    
+    async findGamesByDeveloperFollowed() {
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getFollowedGames(), {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).catch(error => { return error })
+        })
+    },
 
     async getTopGames() {
         return axios.get(UrlProvider.getGameUrl() + '/findByTopSellers').then(res => res.data)
@@ -92,6 +103,21 @@ export const GameService = {
     async getNewGames() {
         return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
             .catch(error => { return error.response.status })
+    },
+    async getGameByTitleOrCategorie(res) {
+            return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerifiedOrCategorie/' + res).then(res => res.data)
+                .catch(error => { return error.response.status })
+    
+    },
+
+    async getGameByPrice(price) {
+            return axios.get(UrlProvider.getGameUrl() + '/findByPrice/' + price).then(res => res.data)
+                .catch(error => { return error.response.status })
+        
+    },
+    async findGamesWithDiscount(){
+        return axios.get(UrlProvider.getGameUrl()+"/findAllWithDiscount").then(res=>res.data)
+        .catch(error=>{return error.response.status})
     }
 
 }

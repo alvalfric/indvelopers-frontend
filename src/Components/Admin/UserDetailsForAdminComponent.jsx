@@ -21,8 +21,6 @@ class UserDetailsForAdminComponent extends Component {
         SubscriptionService.getSubscription(this.profile.id).then((res)=>{
             this.setState({endSubs:res.endDate})
         })
-        console.log("isPREMIUM==>"+JSON.stringify(this.state.isPremium))
-        console.log("DATE==>"+JSON.stringify(this.state.endSubs))
     }
 
     modifyUserDetails() {
@@ -48,7 +46,7 @@ class UserDetailsForAdminComponent extends Component {
                 <h3 style={{paddingLeft: '1%'}}> { this.profile.username } </h3>
             <div className='row'>
                 <div className='col'>
-                    <img src={"data:image/png;base64,"+ this.profile.userImage } className="rounded float-start" alt="ProfileImage" width="400" height="300" /> 
+                    <img src={"data:image/png;base64,"+ this.profile.userImage } className="rounded float-start" alt="ProfileImage" style={{ maxWidth: '400px', maxHeight: '400px', marginBottom: '20px' }} /> 
                     {this.state.isPremium?(
                     <React.Fragment>
                     <p style={{marginTop:"5%", fontSize: "large", color:"#75010f"}}>⭐ {this.profile.username} is premium! ⭐</p>

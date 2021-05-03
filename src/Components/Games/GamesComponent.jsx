@@ -9,6 +9,8 @@ class GamesComponent extends Component {
     super(props)
 
     this.state = {
+      res: '',
+      price: '',
       games: [],
       rawGames: [],
       offset: 0,
@@ -20,8 +22,10 @@ class GamesComponent extends Component {
     this.createGame = this.createGame.bind(this);
     this.MyOwnedGames = this.MyOwnedGames.bind(this);
     this.MyCreatedGames = this.MyCreatedGames.bind(this);
+    this.MyFollowedGames = this.MyFollowedGames.bind(this);
     this.ListGamesToRevise = this.ListGamesToRevise.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
+    this.showOffers=this.showOffers.bind(this);
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -78,12 +82,22 @@ class GamesComponent extends Component {
       this.props.history.push('/login')
     }
   }
+  showOffers(){
+    this.props.history.push('/offers')
+  }
+
+  MyFollowedGames(){
+    if(AuthService.isAuthenticated()){
+      this.props.history.push('/followedGames')
+    }else{
+      this.props.history.push('/login')
+    }
+  }
 
   editGame(id) {
     GameService.getGameById(id).then(res => {
       this.props.history.push(`/game-View/${id}`);
     })
-    console.log('game => ' + JSON.stringify(id))
   }
 
   ListGamesToRevise() {
@@ -101,6 +115,53 @@ class GamesComponent extends Component {
     }
   }
 
+  searchChangeHandler = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    });
+  }
+
+  getGameTitleCategorie() {
+    if(this.state.res.length === 0) {
+      GameService.findVerified().then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})});
+    } else {
+      GameService.getGameByTitleOrCategorie(this.state.res).then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})})
+    }
+  }
+
+  searchChangePriceHandler = event => {
+    this.setState({
+      [event.target.name] : event.target.value
+    });
+  }
+
+  getGamePrice() {
+    if(this.state.price.length === 0) {
+      GameService.findVerified().then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})});
+    } else {
+      GameService.getGameByPrice(this.state.price).then((data) => {
+        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+        this.setState({games: slice})})
+    }
+  }
+
+  titleCategorieCancelSearchHandler = () => {
+    GameService.findVerified().then((data) => {
+      var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+      this.setState({games: slice, res: ''})});
+  }
+
+  priceCancelSearchHandler = () => {
+    GameService.findVerified().then((data) => {
+      var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+      this.setState({games: slice, price: ''})});
+  }
 
   render() {
     return (
@@ -110,6 +171,8 @@ class GamesComponent extends Component {
           <button className="Button" onClick={this.createGame}>Create game</button>
           <button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button>
           <button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}> My created games</button>
+          <button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed games</button>
+          <button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}> Offers</button>
           {AuthService.isAuthenticated() ?
             AuthService.getUserData().roles.includes("ADMIN") ?
               <React.Fragment>
@@ -121,19 +184,43 @@ class GamesComponent extends Component {
           }
         </div>
         <br />
+        <div style={{float: 'right'}}>
+          <input className="searchForm" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGameTitleCategorie()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.titleCategorieCancelSearchHandler}>Cancel</button>
+        </div>
+        <br />
+        <br />
+        <div style={{float: 'right'}}>
+          <input className="searchForm" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} type="number"/>
+          <button className="searchButton" style={{ marginLeft: "10px" }} onClick={() => this.getGamePrice()}>Search</button>
+          <button className="cancelSearchButton" onClick={this.priceCancelSearchHandler}>Cancel</button>
+        </div>
+        <br />
+        <br />
         <div>
           {this.state.games.map((item) =>
             <div className="pb-4">
               <div className="w3-card-4">
                 <div className="w3-container">
                   <div className="container">
-                    <img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} width="400" height="300" />
+                    <img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} style={{ maxWidth: '500px', maxHeight: '250px' }} />
                     <h4>{item.title}</h4>
                   </div>
                   <div className="w3-container p-3">
                     <p class="card-text">
-
-                      Price: {item.price}€
+                      {item.discount!=0.?(
+                        <React.Fragment>
+                          Price:<strike> {item.price}</strike>€ ({item.discount*100} %)
+                          <br/>
+                          {(item.price-item.price*item.discount).toFixed(2)}€
+                        </React.Fragment>
+                      ):
+                      <React.Fragment>
+                        Price: {item.price}€
+                      </React.Fragment>
+                    }
+                      
 
                       <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
                     </p>

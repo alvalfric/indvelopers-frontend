@@ -18,18 +18,17 @@ class ListMyGamesComponent extends Component {
             GameService.getGameById(id).then(res => {
                 this.props.history.push(`/game-View/${id}`);
             })
-            console.log('game => ' + JSON.stringify(id))
         } else {
             this.props.history.push('/login')
         }
     }
 
     componentDidMount() {
+
         GameService.findAllMyCreatedGames().then((res) => {
             this.setState({myCreatedGames:res.data});
             
             let myg = {myCreatedGames: this.state.myCreatedGames};
-            console.log('Myg => ' + JSON.stringify(myg))
         })
     }
 
@@ -50,7 +49,7 @@ class ListMyGamesComponent extends Component {
                         </div>
                         <div className="w3-container p-3"> 
                             <p class="card-text">
-                                <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} width="400" height="300" />
+                                <img src={"data:image/png;base64,"+game.imagen} style={{ marginRight: "50px"}} style={{ maxWidth: '500px', maxHeight: '250px' }} />
                                 Description: { game.description }
                                 <button onClick={() => this.editGame(game.id)} className="ModifyButton float-right mt-2">Details</button>
                             </p>

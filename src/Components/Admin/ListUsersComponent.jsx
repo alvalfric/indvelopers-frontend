@@ -57,7 +57,8 @@ class ListUsersComponent extends Component {
     }
 
     changeToAdmin(id) {
-        DeveloperService.changeToAdmin(id).then(() => this.props.history.push('/'))
+        DeveloperService.changeToAdmin(id).then(() => 
+        AuthService.loadUserData().then(()=>{window.location.reload()}))
     }
 
     getUserDetails(user) {

@@ -8,8 +8,8 @@ class waitingPaymentComponent extends Component {
                 <br/>
                 <br/>
                 <br/>
-                <h1>Tu compra se realizará en la ventana emergente de paypal</h1>
-                <h3>Una vez que se haya terminado el pago y todo, podrás cambiar de vista</h3>
+                <h1>Your purchase will be made in the paypal pop-up window</h1>
+                <h3>Once the payment is done, you can change this window</h3>
             </div>
         );
     }

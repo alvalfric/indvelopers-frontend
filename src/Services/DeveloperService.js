@@ -47,7 +47,7 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
-    }, 
+    },
 
     async updateProfile(profileId, profiledto) {
         return AuthService.getToken().then(token => {
@@ -69,7 +69,7 @@ export const DeveloperService = {
                 }
             }).then(res => res.data)
         })
-    }, 
+    },
 
     async changeToAdmin(userId) {
         return AuthService.getToken().then(token => {
@@ -80,6 +80,55 @@ export const DeveloperService = {
                 }
             }).then(res => res.data).catch(error => {return error.response.status})
         })
-    }
+    },
+    async followDeveloper(username){
+        return AuthService.getToken().then(token=>{
+            return axios.put(UrlProvider.getDeveloperUrl()+"/follow/"+username,[],{
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res=> res.data).catch(error=>{return error.response.status})
+        })
+    },
+    async unfollowDeveloper(username){
+        return AuthService.getToken().then(token=>{
+            return axios.put(UrlProvider.getDeveloperUrl()+"/unfollow/"+username,[],{
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res=> res.data).catch(error=>{return error.response.status})
+        })
+    },
+    async getMyFollowers(){
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getDeveloperUrl()+"/me/myFollowers",{
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res=> res.data).catch(error=>{return error.response.status})
+        })
+    },
+    async getMyFollowed(){
+        return AuthService.getToken().then(token=>{
+            return axios.get(UrlProvider.getDeveloperUrl()+"/me/myFollowed",{
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).then(res=> res.data).catch(error=>{return error.response.status})
+        })
+    },
 
+    async recoverPasswordByEmail(email) {
+        return axios.get(UrlProvider.getDeveloperUrl() + '/recoverPasswordByEmail?email=' + email, {})
+        .then(res => res.data).catch(error => {return error.response.status})
+    },
+
+    async restorePassword(id, password) {
+        return axios.put(UrlProvider.getDeveloperUrl() + '/restorePassword/' + id + '?password=' + password, {})
+        .then(res => res.data).catch(error => {return error.response.status})
+    },
 }

@@ -4,6 +4,10 @@ import { GameService } from '../../Services/GameService';
 import {SubscriptionService} from '../../Services/SubscriptionService';
 import saveAs from 'jszip';
 import {CloudService} from '../../Services/CloudService';
+import Select from "react-select";
+import { CategoryService } from '../../Services/CategoryService';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import { SpamService } from '../../Services/SpamService';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -18,19 +22,31 @@ class CreateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
+            pegi:"",
+            pegiError:"",
+            categorias:[],
             imagen: "",
             imagenError:"",
             base64TextString: "",
             submitError: "",
             isPremium:false,
             idCloud:"",
-            idCloudError:""
+            idCloudError:"",
+            selectedOption:null,
+            progress:0,
+            spamError: ""
         }
+
+        this.categories = [];
+        this.reformatedCategories = [];
+
         this.saveGame = this.saveGame.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
+        this.changePegiHandler = this.changePegiHandler.bind(this);
+        this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeGameHandler=this.changeGameHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
@@ -38,21 +54,33 @@ class CreateGameComponent extends Component {
         })
     }
 
+    componentDidMount(){
+        CategoryService.findAll().then(data => {
+            data.map(category =>{
+                let categoria = {
+                    value: category.title, label: category.title, id: category.id
+                };
+                this.categories.push(categoria)
+            })
+        });      
+    }
+
     validate = () => {
         let titleError = "";
         let descriptionError = "";
         let requirementsError = "";
         let priceError="";
+        let pegiError="";
         let imagenError="";
         let idCloudError="";
 
-        if (this.state.title.length === 0) {
+        if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
         }
-        if (this.state.description.length === 0) {
+        if (this.state.description.trim().length === 0) {
             descriptionError = "The game needs a description"
         }
-        if (this.state.requirements.length === 0) {
+        if (this.state.requirements.trim().length === 0) {
             requirementsError = "The game needs a specification of the minimum requirements"
         }
         if(this.state.idCloud.length===0){
@@ -70,13 +98,20 @@ class CreateGameComponent extends Component {
                 priceError = "Price must not have more than 2 decimals!"
             }
         }
+        if (this.state.pegi === '') {
+            pegiError = "The game needs a pegi number!"
+        } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
+            pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
+        }
+
         this.setState({ titleError });
         this.setState({ descriptionError });
         this.setState({ requirementsError });
         this.setState({ priceError });
         this.setState({imagenError});
         this.setState({idCloudError});
-        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError) {
+        this.setState({ pegiError });
+        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError) {
             return false;
         } else {
             return true;
@@ -98,21 +133,33 @@ class CreateGameComponent extends Component {
     changePriceHandler = (event) => {
         this.setState({ price: event.target.value })
     }
+
+    changePegiHandler = (event) => {
+        this.setState({ pegi: event.target.value })
+    }
+
     changeGameHandler=(event) =>{
         event.preventDefault()
         const zip = require('jszip')();
         let file=event.target.files[0];
+        if(file){
         zip.file(file.name,file);
         zip.generateAsync({type:"blob"}).then(content=>{
-            CloudService.uploadFile(content).then(res=>{
+            CloudService.uploadFile(content,(e)=>{
+                this.setState({progress: Math.round((100 * e.loaded) / e.total)})
+                if(this.state.progress==100){
+                    this.setState({progress:75})
+                }
+            }).then(res=>{
                 this.setState({idCloud:res})
+                this.setState({progress:100})
+                window.alert("Your game has been uploaded successfully")
             })
         })
-        
+    }
     }
 
     changeImagenHandler = (event) => {
-        console.log("File to upload: ", event.target.files[0])
         let file = event.target.files[0]
         if(file) {
             const reader = new FileReader();
@@ -121,6 +168,13 @@ class CreateGameComponent extends Component {
         }
         this.setState({ imagen: event.target.value });
     }
+
+    changeCategoriesHandler = selectedOption => {
+        this.setState({selectedOption})
+        this.setState({categorias : selectedOption.map(item =>item.value)});
+
+    }
+
     _handleReaderLoaded = (readerEvt) => {
         let binaryString = readerEvt.target.result
         this.setState({
@@ -133,31 +187,42 @@ class CreateGameComponent extends Component {
         if (this.state.isPremium !== true) {
             this.state.price = 0.0;
         }
+
         const isValid = this.validate();
         if (isValid) {
+            this.state.selectedOption.map(category=>{
+                let reformatedCategory = {id: category.id, title: category.label}
+                this.reformatedCategories.push(reformatedCategory);
+            })
             let game = {
-                title: this.state.title, description: this.state.description, requirements: this.state.requirements, price: this.state.price
-                , idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
+                title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi
+                ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
             };
-            GameService.addGame(game).then(data => {
-                if (typeof data == "string") {
-                    this.props.history.push('/games')
-                } else {
-                    var i = 0;
-                    GameService.findAll().then(data => {
-                        data.forEach(g => {
-                            if (g.title === this.state.title) {
-                                this.setState({ titleError: "A game with that title is already created!" });
-                            }
-                            if (AuthService.getUserData()['username'] === g.creator.username) {
-                                i++;
-                                if (!(i < 5)) {
-                                    this.setState({ submitError: "You have to be a premium user in order to upload more games!" });
+            SpamService.checkGame(game).then((data)=>{
+                if(data === false){
+                GameService.addGame(game).then(data => {
+                    if (typeof data == "string") {
+                        this.props.history.push('/games')
+                    } else {
+                        var i = 0;
+                        GameService.findAll().then(data => {
+                            data.forEach(g => {
+                                if (g.title === this.state.title) {
+                                    this.setState({ titleError: "A game with that title is already created!" });
                                 }
-                            }
+                                if (AuthService.getUserData()['username'] === g.creator.username) {
+                                    i++;
+                                    if (!(i < 5)) {
+                                        this.setState({ submitError: "You have to be a premium user in order to upload more games!" });
+                                    }
+                                }
 
-                        });
-                    })
+                            });
+                        })
+                    }
+                })
+                }else{
+                    this.setState({spamError:"This form contains spam words! 😠"})
                 }
             })
         }
@@ -205,13 +270,28 @@ class CreateGameComponent extends Component {
                             <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                        </div >
+                            <label>Categories</label>
+                            <Select
+                                isMulti
+                                options={this.categories}
+                                value={this.state.selectedOption}
+                                onChange={this.changeCategoriesHandler}
+                                className="basic-multi-select"
+                                closeMenuOnSelect={false}
+                            />
+                        <div className="form-group">
+                            <label>Pegi</label>
+                            <input placeholder="Pegi" name="pegi" className="form-control" type="number"
+                                value={this.state.pegi} onChange={this.changePegiHandler}></input>
+                            {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                         </div>
                         <div className="form-group">
                         {this.state.base64TextString !== "" ?
                             <React.Fragment>
                                 <label>Actual image: </label>
                                 < br />
-                                <img src={"data:image/png;base64,"+this.state.base64TextString} width="120" height="80"/>
+                                <img src={"data:image/png;base64,"+this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '150px' }}/>
                             </React.Fragment>
                         :
                             <React.Fragment>
@@ -226,6 +306,10 @@ class CreateGameComponent extends Component {
                         <div className="form-group">
                         <label>Game(.zip format):</label>
                         <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>
+                        {this.state.progress!=0?(
+                            <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`}/></p>
+                        ):null}
+                        
                         {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
 
                         </div>
@@ -234,6 +318,7 @@ class CreateGameComponent extends Component {
                             {this.state.submitError}
                         </div>) : null}
                         <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
                         <p className="text-danger">* you won't see your game published until admins check it</p>
                     </form>
                 </div>
