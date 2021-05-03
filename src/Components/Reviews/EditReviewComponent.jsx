@@ -24,17 +24,21 @@ class EditReviewComponent extends Component {
 	}
   
 	componentDidMount() {
+		let hasReview=false;
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
-                if (AuthService.getUserData()['username'] !== review.developer.username) {
-                    this.props.history.push('/game-View/' + this.state.gameId)
+                if (AuthService.getUserData()['username'] === review.developer.username) {
+					hasReview=true;
+                    this.setState({
+						text: review.text,
+						score: review.score + ""
+					})
                 }
-                this.setState({
-                    text: review.text,
-                    score: review.score + ""
-                })
             })
         })
+		if(!hasReview){
+			this.props.history.push('/game-View/'+this.state.gameId);
+		}
 	}
 
 	validate = () => {
