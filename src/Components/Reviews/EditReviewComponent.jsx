@@ -13,10 +13,14 @@ class EditReviewComponent extends Component {
 		this.state = {
 			gameId: this.props.match.params.id,
 			text: "",
+			textError:"",
 			score: "",
+			scoreError:"",
 			username: null,
 			game: null,
-			spamError:""
+			spamError:"",
+			hasReview:false
+			
 		}
 		this.saveReview = this.saveReview.bind(this);
 		this.changeScoreHandler = this.changeScoreHandler.bind(this);
@@ -24,20 +28,18 @@ class EditReviewComponent extends Component {
 	}
   
 	componentDidMount() {
-		let hasReview=false;
 		ReviewService.getbyGame(this.state.gameId).then(data => {
             data.forEach(review => {
                 if (AuthService.getUserData()['username'] == review.developer.username) {
-					hasReview=true;
                     this.setState({
 						text: review.text,
-						score: review.score + ""
+						score: review.score + "",
+						hasReview:true
 					})
                 }
             })
         })
-		this.setState({hasReview})
-		if(!hasReview){
+		if(!this.state.hasReview){
 			this.props.history.push('/game-View/'+this.state.gameId);
 		}
 	}
