@@ -53,7 +53,8 @@ class ListReviewComponent extends Component {
     })
   }
 
-  editReview(gameId) {
+  editReview=(gameId,e)=> {
+    e.preventDefault()
     this.props.history.push(`/editReview/${gameId}`)
   }
   deleteReview = (reviewId, e) => {
@@ -83,7 +84,7 @@ class ListReviewComponent extends Component {
                         <button className="DeleteButton" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</button>
                           : null}
                         {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                          <button className="Button" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</button>
+                          <button className="Button" style={{ float: "right" }} onClick={(e) => this.editReview(this.props.gameId,e)}>Edit review</button>
                           : null}
                       </h5>
                     </header>
