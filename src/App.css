@@ -193,8 +193,7 @@
 }
 .ButtonFileLoad{
 
-  background-color: #4ea7c2fd;
-  border: none;
+  border:#1d2d50;
   color: white;
   padding: 10px 15px;
   text-align: center;
@@ -321,6 +320,15 @@ Video de youtube #9AD263
 .Nav-item:hover{
   width: 100%;
   background: blue;
+}
+
+
+.FormStyle {
+  border-radius: 8px;
+  border-color: #2c90b1;
+  border: 3px solid rgb(93, 92, 102);
+  background-color: #222933;
+  padding: 40px;
 }
 
 /*W3Schools==================================================================================00*/
