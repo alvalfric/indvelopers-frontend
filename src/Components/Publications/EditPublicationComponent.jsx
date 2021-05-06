@@ -130,7 +130,7 @@ class EditPublicationComponent extends Component{
                         <Form.Group as={Row}>
                         <Form.Label column sm="1" >Description:</Form.Label>
                         <Col sm="10">
-                        <Form.Control placeholder="Descripción" name="text" as="textarea" className="form-control" value={this.state.text} onChange={this.changeTextHandler}/>
+                        <Form.Control placeholder="Descripción" name="text" as="textarea" className="FormInput" value={this.state.text} onChange={this.changeTextHandler}/>
                         {this.state.textError ? (<div className="ValidatorMessage">
                             {this.state.textError}
                         </div>) : null}
