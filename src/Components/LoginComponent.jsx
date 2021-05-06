@@ -72,7 +72,7 @@ class LoginComponent extends Component {
         }
     }
 
-    render() {
+    loginForm() {
         return (
             <form>
                 <br />
@@ -108,6 +108,14 @@ class LoginComponent extends Component {
                     Lost password? <a href="/recoverPassword">Recover your password</a>
                 </p>
             </form>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {this.loginForm()}
+            </div>
         );
     }
 }
