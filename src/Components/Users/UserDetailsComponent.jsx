@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { SubscriptionService } from '../../Services/SubscriptionService';
 import { DeveloperService } from '../../Services/DeveloperService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 class UserDetailsComponent extends Component {
 

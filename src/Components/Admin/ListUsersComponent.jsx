@@ -135,6 +135,7 @@ class ListUsersComponent extends Component {
                 < br />
                 {this.showList()}
                 < br />
+                <div style={{justifyContent:"center",display:"flex"}}>
                 <ReactPaginate previousLabel={"prev"}
                     nextLabel={"next"}
                     breakLabel={"..."}
@@ -146,6 +147,7 @@ class ListUsersComponent extends Component {
                     containerClassName={"pagination"}
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"} />
+                    </div>
             </div >
         );
     }
