@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {AuthService} from '../../Services/AuthService';
 import {DashBoardService} from '../../Services/DashboardService';
 import Chart from "react-apexcharts";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import { Col, FormText, Row,ListGroup } from 'react-bootstrap';
 
 class DeveloperDashboardComponent extends Component {
     constructor(props){
@@ -50,55 +53,83 @@ class DeveloperDashboardComponent extends Component {
                 <br/>
                 <br/>
                 <br/>
+                <Form className="FormStyle">
                 <h1>My dashboard</h1>
                 <br/>
-                
-                <div className="w3-card-4" >
+                <div >
                 <div className="w3-container">
-                <div className="sidenav">
+                <div >
                 <br/>
+                <Form.Group as={Col} md="4">
                 <header className="w3-container " >
                   <h5>General data</h5>
                 </header>
+                
                 <br/>
-                <div className="w3-container">
+                {/* <div className="w3-container">
                   <p>Games created: {this.state.numGamesCreated}</p>
-                </div>
-                <div className="w3-container">
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Games created: {this.state.numGamesCreated}</Form.Label>
+                </Row>
+                {/* <div className="w3-container">
                   <p>Reviews created: {this.state.numReviewsCreated}</p>
-                </div>
-                <div className="w3-container">
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Reviews created: {this.state.numReviewsCreated}</Form.Label>
+                </Row>
+                {/* <div className="w3-container">
                   <p>Publications posted: {this.state.numPublicationsCreated}</p>
-                </div>
-                <div className="w3-container">
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Publications posted: {this.state.numPublicationsCreated}</Form.Label>
+                </Row>
+                {/* <div className="w3-container">
                   <p>Games owned: {this.state.numGamesOwned}</p>
-                </div>
-                <div className="w3-container">
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Games owned: {this.state.numGamesOwned}</Form.Label>
+                </Row>
+                {/* <div className="w3-container">
                   <p>Money earned: {this.state.moneyEarned}</p>
-                </div>
-                <div className="w3-container">
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Money earned: {this.state.moneyEarned}</Form.Label>
+                </Row>
+                {/* <div className="w3-container">
                   <p>Followers: {this.state.totalFollowers}</p>
-                </div>
-                <div className="w3-container">
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Followers: {this.state.totalFollowers}</Form.Label>
+                </Row>
+                {/* <div className="w3-container">
                   <p>Average of review's score: {this.state.reviewsMean}</p>
-                </div>
+                </div> */}
+                <Row md="5">
+                <Form.Label row>Average of review's score: {this.state.reviewsMean}</Form.Label>
+                </Row>
+                </Form.Group>
               </div>
+              <Form.Group as={Col}  md="5">
               
-              <div className="sidenav2">
-                  <br/>
+                  
+                  <Row md="5">
               <header >
                   <h5>Chart data about games</h5>
                 </header> 
-                <div>
+                
                   <Chart options={this.state.options} series={this.state.series} labels={this.state.labels} type="pie" width="480" />
-                 </div>
-              </div>
+                  </Row>
+                 
+              
+              </Form.Group>
               </div>
               </div>
                 <br/>
                 <div className="w3-container">
-                <button className="CancelButton" onClick={this.goBack} >Go back</button> 
+                <Button variant="outline-danger" onClick={this.goBack} >Go back</Button> 
                 </div>
+                </Form>
             </React.Fragment>
         )
     }

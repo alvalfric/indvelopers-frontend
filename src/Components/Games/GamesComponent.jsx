@@ -260,10 +260,10 @@ class GamesComponent extends Component {
               <br/>
             <Card className="bg-dark text-white" style={{maxWidth:'600px', maxHeight: '500px',justifyContent:"center",display:"flex"}} >
         {item.imagen ?
-          <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '500px'}}/>
+          <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '400px'}}/>
          
      :
-     <Card.Img src={altLogo} style={{ maxHeight: '500px'}}/>
+     <Card.Img src={altLogo} style={{ maxHeight: '400px'}}/>
      }
   <Card.ImgOverlay>
     <Card.Title>{item.title}</Card.Title>
