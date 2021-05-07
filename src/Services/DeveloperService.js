@@ -8,9 +8,9 @@ export const DeveloperService = {
         return axios.post(UrlProvider.getDeveloperUrl() + '/sign-up', user).then(res => res.data)
         .catch(error => {return error.response.status})
     },
-
-    async login(username, password) {
-        return axios.post(UrlProvider.getDeveloperUrl() + '/login?username='+ username +'&password=' + password)
+    
+    async login(loginData) {
+        return axios.post(UrlProvider.getDeveloperUrl() + '/login', loginData)
         .then(res => res.data)
         .catch(error => { return error.response.status })
     },

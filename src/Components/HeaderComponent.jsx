@@ -40,6 +40,7 @@ class HeaderComponent extends Component {
         <a href="/publication-List" >Publications</a>
         <a href="/novedades">News</a>
         <a href="/games">Games</a>
+        <a href="/forums">Forums</a>
         <a href="/faq">FAQ</a>
         <a href="/about-us">About us</a>
         {AuthService.isAuthenticated() ?
