@@ -8,7 +8,7 @@ class SuccessfulLoginComponent extends Component {
                 <br />
                 <br />
                 <h1>¡You've logged in successfully!</h1>
-                <h2>Click <a href="/">HERE</a> to go to the main screen</h2>
+                <h2>Click <a href="/">here</a> to go to the main screen</h2>
             </React.Fragment>
         );
     }
