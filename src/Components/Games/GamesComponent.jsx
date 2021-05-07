@@ -174,21 +174,19 @@ class GamesComponent extends Component {
         <h1 style={{ paddingTop: '5%' }}>Games of our indie developers</h1>
         <br />
         <div className="FormStyle">
-          
-        <Col sm="6" style={{float:"left"}}>
-          <input className="searchForm" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
-          <button className="searchButton" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGameTitleCategorie()}>Search</button>
-          <button className="cancelSearchButton" onClick={this.titleCategorieCancelSearchHandler}>Cancel</button>
+          <Row>
+        <Col sm="6" >
+          <input className="FormInput" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
+          <Button variant="outline-success" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGameTitleCategorie()}>Search</Button>
+          <Button variant="outline-danger" onClick={this.titleCategorieCancelSearchHandler}>Cancel</Button>
         </Col>
         
-        <br />
-        <br />
-        <Col sm="6" style={{float:"left"}}>
-          <input className="searchForm" type="number" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} type="number"/>
-          <button className="searchButton" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGamePrice()}>Search</button>
-          <button className="cancelSearchButton" onClick={this.priceCancelSearchHandler}>Cancel</button>
+        <Col sm="6" >
+          <input className="FormInput" type="number" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} type="number"/>
+          <Button variant="outline-success" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGamePrice()}>Search</Button>
+          <Button variant="outline-danger" onClick={this.priceCancelSearchHandler}>Cancel</Button>
         </Col>
-        
+        </Row>
         </div>
         {/* <br/>
         <div className="row">

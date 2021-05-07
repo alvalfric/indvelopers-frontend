@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { AuthService } from "../../Services/AuthService";
 import { DeveloperService } from '../../Services/DeveloperService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 var serviceID = "service_x4mybgl"
 
@@ -85,30 +89,51 @@ class RecoverPasswordComponent extends Component {
                 <br />
                 <br />
                 <br />
-                <h2>Restore your password!</h2>
+                <Form className="FormStyle">
+                <h2 style={{textAlign:"center"}}>Restore your password!</h2>
                 <br />
 
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label>Password</label>
                     <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.changePasswordHandler} />
                     {this.state.passwordError ? (<div className="ValidatorMessage">
                         {this.state.passwordError}
                     </div>) : null}
-                </div>
+                </div> */}
+                <Form.Group as={Row}>
+                    <Form.Label column sm="1">Password</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="password" className="FormInput" placeholder="Enter password" value={this.state.password} onChange={this.changePasswordHandler} />
+                        {this.state.passwordError ? (<div className="ValidatorMessage">
+                        {this.state.passwordError}
+                    </div>) : null}
+                    </Col>
+                </Form.Group>
 
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label>Confirm password</label>
                     <input type="password" className="form-control" placeholder="Confirm password" value={this.state.confirmPassword} onChange={this.changeConfirmPasswordHandler} />
                     {this.state.confirmPasswordError ? (<div className="ValidatorMessage">
                         {this.state.confirmPasswordError}
                     </div>) : null}
-                </div>
+                </div> */}
+                <Form.Group as={Row}>
+                    <Form.Label column sm="1">Confirm pass</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="password" className="FormInput" placeholder="Confirm password" value={this.state.confirmPassword} onChange={this.changeConfirmPasswordHandler}/>
+                        {this.state.confirmPasswordError ? (<div className="ValidatorMessage">
+                        {this.state.confirmPasswordError}
+                    </div>) : null}
+                    </Col>
 
-                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.restorePassword}>Restore my password!</button>
+                </Form.Group>
+                <div style={{justifyContent:"center",display:"flex"}}>
+                <Button type="submit" variant="outline-primary" onClick={this.restorePassword}>Restore my password!</Button>
+                </div>
                 {this.state.submitError ? (<div className="ValidatorMessage">
                     {this.state.submitError}
                 </div>) : null}
-
+                </Form>
             </form>
         )
     }
