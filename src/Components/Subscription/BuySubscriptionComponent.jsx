@@ -3,6 +3,9 @@ import {SubscriptionService} from '../../Services/SubscriptionService';
 import portada from '../../assets/InDvelopersLogo.png';
 import {AuthService} from '../../Services/AuthService';
 import {PaypalService} from '../../Services/PaypalService';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Col, Form, FormText, Row,Image } from 'react-bootstrap';
 
 class BuySubscriptionComponent extends Component {
 
@@ -47,7 +50,7 @@ class BuySubscriptionComponent extends Component {
     getDetails=()=>{
         return(
             <React.Fragment>
-                <br/>
+                {/* <br/>
                 <br/>
                 
                 <h2>Finalize purchase</h2>
@@ -83,7 +86,58 @@ class BuySubscriptionComponent extends Component {
               
                 <button className="AceptButton"  onClick={this.buySubscription}>Finalize purchase</button>
                 </div>
-                </div>
+                </div> */}
+                {/* <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
+                    <Card.Header><h2>Finalize purchase</h2></Card.Header>
+                    <Card.Body>
+                        <Col>
+                        
+                        </Col>
+                    </Card.Body>
+                </Card> */}
+                <Form>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <Col>
+                <Row><h2>Finalize purchase</h2>
+                <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
+                </Row>
+                <br/>
+                <Row>
+                    <Col>
+                    <Image width="100%" height="35%" src={portada}  alt="inDvelopersLogo" style={{ maxWidth: '800px', maxHeight: '800px', marginBottom: '20px' }}/>
+                    <br/>
+                    <div className="w3-card-4" >
+                  <header className="w3-container ">
+                  <img/>
+                  <h5>Description</h5>
+                  </header>
+
+                  <div className="w3-container">
+                  <p>Subscription to inDvelopers</p>
+                  </div>
+                  </div>
+                    </Col>
+                    <Col>
+                    
+                <Row><h4 style={{color:"#838383"}}>Price:7.99 €</h4></Row>
+                <Row><h4 style={{color:"#838383"}}>______________________________________________</h4></Row>
+                <Row><h4 style={{color:"#838383"}}>total:7.99 €</h4></Row>
+                <Row><h3>Purchase method</h3></Row>
+                <Row><h4>Paypal</h4></Row>
+                
+                <Row> <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
+                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label></Row>
+                {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
+              
+              
+                <Button variant="outline-success"  onClick={this.buySubscription}>Finalize purchase</Button>
+                
+                    </Col>
+                </Row>
+                </Col>
+                </Form>
             </React.Fragment>
         );
     }

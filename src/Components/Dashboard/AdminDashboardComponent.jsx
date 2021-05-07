@@ -77,7 +77,7 @@ class AdminDashboardComponent extends Component {
                 <div >
                 
                     <div >
-                    <Form.Group as={Col} md="4">
+                    <Row>
                         <div >
                             <br/>
                             <header  >
@@ -87,6 +87,8 @@ class AdminDashboardComponent extends Component {
                             {/* <div className="w3-container">
                                 <p>Games created: {this.state.totalGamesCreated}</p>
                             </div> */}
+                          
+                            <Col xs="7">
                             <Row md="5">
                                <Form.Label row>Games created: {this.state.totalGamesCreated}</Form.Label>
                             </Row>
@@ -126,10 +128,10 @@ class AdminDashboardComponent extends Component {
                             <Row md="5">
                                <Form.Label row>Incidents: {this.state.totalIncident}</Form.Label>
                             </Row>
-                            
+                            </Col>
                         </div>
-                        </Form.Group>
-                        <Form.Group as={Col} md="4">
+                        
+                        <Col >
                         <div >
                             <br/>
                             
@@ -158,7 +160,8 @@ class AdminDashboardComponent extends Component {
                             
                             </Row>
                         </div>
-                        </Form.Group>
+                        </Col>
+                        </Row>
                     </div>
                 </div>
                 

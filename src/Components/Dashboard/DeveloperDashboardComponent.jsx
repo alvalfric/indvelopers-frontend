@@ -58,9 +58,10 @@ class DeveloperDashboardComponent extends Component {
                 <br/>
                 <div >
                 <div className="w3-container">
-                <div >
+                
                 <br/>
-                <Form.Group as={Col} md="4">
+                <Row>
+                <Col xs="6">
                 <header className="w3-container " >
                   <h5>General data</h5>
                 </header>
@@ -108,9 +109,9 @@ class DeveloperDashboardComponent extends Component {
                 <Row md="5">
                 <Form.Label row>Average of review's score: {this.state.reviewsMean}</Form.Label>
                 </Row>
-                </Form.Group>
-              </div>
-              <Form.Group as={Col}  md="5">
+                </Col>
+            
+              <Col xs="6">
               
                   
                   <Row md="5">
@@ -122,7 +123,8 @@ class DeveloperDashboardComponent extends Component {
                   </Row>
                  
               
-              </Form.Group>
+              </Col>
+              </Row>
               </div>
               </div>
                 <br/>
