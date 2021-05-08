@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
 import { SpamService } from '../Services/SpamService';
+import emailjs from 'emailjs-com';
+
+var serviceID = "service_x4mybgl"
 
 class SignupComponent extends Component {
 
@@ -26,7 +29,7 @@ class SignupComponent extends Component {
             acceptedPolicy: false,
             acceptedError: "",
             submitError: "",
-            spamError:""
+            spamError: ""
         }
         this.saveDeveloper = this.saveDeveloper.bind(this);
         this.changeUsernameHandler = this.changeUsernameHandler.bind(this);
@@ -84,9 +87,9 @@ class SignupComponent extends Component {
         if (this.state.dateOfBirth.length === 0) {
             dateOfBirthError = "Birth date cannot be empty";
         }
-        var passwordPattern = new RegExp(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/)
+        var passwordPattern = new RegExp(/(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])[a-zA-Z0-9!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~]{8,}/)
         if (!passwordPattern.test(this.state.password)) {
-            passwordError = "Password must contain 8 or more characters that are of at least one number, and one uppercase and lowercase letter.";
+            passwordError = "Password must contain 8 or more characters that are of at least one number, one uppercase and lowercase letter and a special character.";
         }
         if (this.state.password.length === 0) {
             passwordError = "Password cannot be empty";
@@ -143,6 +146,7 @@ class SignupComponent extends Component {
     saveDeveloper = (event) => {
         event.preventDefault();
         const isValid = this.validate();
+        const templateId = 'template_7t39cwp';
         if (isValid) {
             let userForm = {
                 username: this.state.username.trim(),
@@ -152,24 +156,42 @@ class SignupComponent extends Component {
                 technologies: this.state.technologies.trim(),
                 dateOfBirth: this.state.dateOfBirth
             }
-            console.log(userForm.dateOfBirth)
-            SpamService.checkDeveloper(userForm).then((data)=>{
-                if(data === false){
+            SpamService.checkDeveloper(userForm).then((data) => {
+                if (data === false) {
                     DeveloperService.signup(userForm).then(data => {
                         if (typeof data == "object") {
+                            this.sendFeedback(templateId, {
+                                to_name: this.state.username,
+                                email: this.state.email
+                            })
                             this.props.history.push('/login')
                         } else {
                             this.setState({ submitError: "Username or email already in use" });
                         }
                     });
-                }else{
-                    this.setState({spamError:"This form contains spam words! 😠"})
+                } else {
+                    this.setState({ spamError: "This form contains spam words! 😠" })
                 }
             })
         }
     }
 
-    render() {
+    sendFeedback = (templateId, variables) => {
+        emailjs.send(
+            serviceID, templateId,
+            variables
+        ).then(res => {
+            // Email successfully sent alert
+            alert('Email Confirmation Successfully Sent')
+        })
+            // Email Failed to send Error alert
+            .catch(err => {
+                alert('Email Failed to Send')
+                console.error('Email Confirmation Error:', err)
+            })
+    }
+
+    signupForm() {
         return (
             <form>
                 <br />
@@ -252,8 +274,16 @@ class SignupComponent extends Component {
                 <p className="already-registered text-right">
                     Lost password? <a href="/recoverPassword">Recover your password</a>
                 </p>
-                {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
+                {this.state.spamError ? (<p className="text-danger">{this.state.spamError}</p>) : null}
             </form>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {this.signupForm()}
+            </div>
         );
     }
 }
