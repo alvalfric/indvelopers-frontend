@@ -59,7 +59,11 @@ class LoginComponent extends Component {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
-            DeveloperService.login(this.state.username, this.state.password).then(data => {
+            let loginData = {
+                username: this.state.username,
+                password: this.state.password
+            }
+            DeveloperService.login(loginData).then(data => {
                 if (typeof data == "string") {
                     AuthService.authenticate(this.state.username, this.state.password, data).then((res) => {
                         this.props.history.push('/successLogin');
@@ -72,7 +76,7 @@ class LoginComponent extends Component {
         }
     }
 
-    render() {
+    loginForm() {
         return (
             <form>
                 <br />
@@ -108,6 +112,14 @@ class LoginComponent extends Component {
                     Lost password? <a href="/recoverPassword">Recover your password</a>
                 </p>
             </form>
+        )
+    }
+
+    render() {
+        return (
+            <div>
+                {this.loginForm()}
+            </div>
         );
     }
 }
