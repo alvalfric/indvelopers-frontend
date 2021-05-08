@@ -101,7 +101,8 @@ class PostComponent extends Component {
                   <img />
                   <img style={{marginTop:"1rem"}} src={UserLogo} className="inDvelopers-logo" width="6%" height="6%" />
                   <h6 style={{float:"right",marginTop:"1rem"}}>{post.developerCreatorUsername}</h6>
-                  <h5 style={{ marginTop:"2rem"}}>{post.description} {post.edited?"(edited)":null}</h5>
+                  {post.edited?<h5 class="text-muted">(edited)</h5>:null}
+                  <h5 style={{ marginTop:"2rem"}}>{post.description} </h5>
                   <h6 style={{float:"right"}}>{post.creationDate.slice(0,10)}</h6>
                 </header>
                 {AuthService.isAuthenticated() ?
