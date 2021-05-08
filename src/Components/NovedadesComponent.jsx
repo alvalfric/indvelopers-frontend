@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { GameService } from '../Services/GameService';
-import Carousel from 'react-bootstrap/Carousel'
+import Carousel from 'react-bootstrap/Carousel';
 import Card from 'react-bootstrap/Card';
 import altLogo from '../assets/Game-Controller-Logo-Design.jpg';
 import Button from 'react-bootstrap/Button';
@@ -95,7 +95,6 @@ class NovedadesComponent extends Component {
                         Price: {item.price}€
                       </React.Fragment>
                     }
-                     <Button onClick={() => this.editGame(item.id)} style={{justifyContent:"right" ,textAlign:"center",display:"flex", position:"bottom"}} variant="outline-primary">Details</Button>
   </Card.ImgOverlay>
 </Card>
 						</Carousel.Item>

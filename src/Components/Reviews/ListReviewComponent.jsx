@@ -4,6 +4,8 @@ import { ReviewService } from '../../Services/ReviewService';
 import ReactPaginate from 'react-paginate';
 import StarRatings from 'react-star-ratings';
 import { AuthService } from '../../Services/AuthService';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 class ListReviewComponent extends Component {
 
@@ -73,7 +75,7 @@ class ListReviewComponent extends Component {
               return (
                 <div>
                   <br />
-                  <div className="w3-card-4" >
+                  {/* <div className="w3-card-4" >
                     <br />
                     <header className="w3-container ">
                       <h5>
@@ -92,7 +94,23 @@ class ListReviewComponent extends Component {
 
                       <p></p>
                     </div>
-                  </div>
+                  </div> */}
+                  <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
+                    <Card.Header>
+                    {review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
+                        {review.edited ? <h9> (Edited review)</h9> : null}
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
+                        <Button variant="outline-danger" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</Button>
+                          : null}
+                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
+                          <Button variant="outline-info" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</Button>
+                          : null}
+                    </Card.Header>
+                    <Card.Body>
+                    <p>{review.text}</p>
+                    </Card.Body>
+                  </Card>
+
                 </div>
               )
             }
@@ -108,6 +126,7 @@ class ListReviewComponent extends Component {
       <div>
         {this.showList()}
         < br />
+        <div style={{justifyContent:"center",display:"flex"}}>
         <ReactPaginate previousLabel={"prev"}
           nextLabel={"next"}
           breakLabel={"..."}
@@ -119,6 +138,7 @@ class ListReviewComponent extends Component {
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
           activeClassName={"active"} />
+          </div>
 
       </div >
     );
