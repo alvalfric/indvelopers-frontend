@@ -8,6 +8,7 @@ import Select from "react-select";
 import { CategoryService } from '../../Services/CategoryService';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { SpamService } from '../../Services/SpamService';
+import validator from 'validator'
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -34,7 +35,9 @@ class CreateGameComponent extends Component {
             idCloudError:"",
             selectedOption:null,
             progress:0,
-            spamError: ""
+            spamError: "",
+            urlVideo:"",
+            urlVideoError:""
         }
 
         this.categories = [];
@@ -49,6 +52,7 @@ class CreateGameComponent extends Component {
         this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeGameHandler=this.changeGameHandler.bind(this);
+        this.urlChangeHandler = this.urlChangeHandler.bind(this);
         SubscriptionService.checkHasSubscription().then((res)=>{
             this.setState({isPremium:res})
         })
@@ -73,6 +77,7 @@ class CreateGameComponent extends Component {
         let pegiError="";
         let imagenError="";
         let idCloudError="";
+        let urlVideoError="";
 
         if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
@@ -103,6 +108,11 @@ class CreateGameComponent extends Component {
         } else if (this.state.pegi != 3 & this.state.pegi !=7 & this.state.pegi !=12 & this.state.pegi !=16 & this.state.pegi !=18 ) {
             pegiError = "Pegi valid number are 3, 7, 12, 16 and 18"
         }
+        if(this.state.urlVideo.length === 0) {
+            urlVideoError = ""
+        } else if(!validator.isURL(this.state.urlVideo)) {
+            urlVideoError = "Must enter a valid URL"
+        }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
@@ -111,7 +121,8 @@ class CreateGameComponent extends Component {
         this.setState({imagenError});
         this.setState({idCloudError});
         this.setState({ pegiError });
-        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError) {
+        this.setState({urlVideoError});
+        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError || urlVideoError) {
             return false;
         } else {
             return true;
@@ -136,6 +147,10 @@ class CreateGameComponent extends Component {
 
     changePegiHandler = (event) => {
         this.setState({ pegi: event.target.value })
+    }
+
+    urlChangeHandler = (event) => {
+        this.setState({ urlVideo: event.target.value })
     }
 
     changeGameHandler=(event) =>{
@@ -196,7 +211,7 @@ class CreateGameComponent extends Component {
             })
             let game = {
                 title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi
-                ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString
+                ,categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString, urlVideo: this.state.urlVideo
             };
             SpamService.checkGame(game).then((data)=>{
                 if(data === false){
@@ -258,7 +273,7 @@ class CreateGameComponent extends Component {
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                         </div>
                         <div className="form-group">
-                            <label>Minimun requirements</label>
+                            <label>Minimum requirements</label>
                             <input placeholder="Requirements" name="requirements" className="form-control"
                                 value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
 
@@ -301,8 +316,14 @@ class CreateGameComponent extends Component {
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                         {this.state.imagenError ? (<div className="ValidatorMessage">{this.state.imagenError}</div>) : null}
-
                         </div>
+
+                        <div className="form-group">
+                            <label>Optional Video (YouTube URL):</label>
+                            <input placeholder="YouTube URL" type="url" name="videoURL" className="form-control" value={this.state.urlVideo} onChange={this.urlChangeHandler}></input>
+                            {this.state.urlVideoError ? (<div className="ValidatorMessage">{this.state.urlVideoError}</div>) : null}
+                        </div>
+
                         <div className="form-group">
                         <label>Game(.zip format):</label>
                         <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e)=>this.changeGameHandler(e)}/>

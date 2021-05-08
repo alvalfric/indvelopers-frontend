@@ -13,6 +13,8 @@ import Select from "react-select";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { SpamService } from '../../Services/SpamService';
 import { SubscriptionService } from '../../Services/SubscriptionService';
+import validator from 'validator';
+import { YoutubePlayer } from 'reactjs-media';
 
 class UpdateGameComponent extends Component {
     constructor(props) {
@@ -46,7 +48,9 @@ class UpdateGameComponent extends Component {
             discount:0.0,
             discountError:"",
             spamError:"",
-            isPremium: false
+            isPremium: false,
+            urlVideo:"",
+            urlVideoError:""
         }
 
         this.categories = [];
@@ -67,6 +71,7 @@ class UpdateGameComponent extends Component {
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
         this.changeGameHandler = this.changeGameHandler.bind(this);
+        this.urlChangeHandler = this.urlChangeHandler.bind(this);
         this.changeDiscountHandler=this.changeDiscountHandler.bind(this);
         this.follow=this.follow.bind(this);
         this.unFollow=this.unFollow.bind(this);
@@ -88,7 +93,8 @@ class UpdateGameComponent extends Component {
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
                 base64TextString: game.imagen,
-                discount:game.discount
+                discount:game.discount,
+                urlVideo: game.urlVideo
             });
             if (AuthService.isAuthenticated()) {
                 OwnedGameService.CheckGameOwned(this.state.id).then((res) => {
@@ -223,7 +229,8 @@ class UpdateGameComponent extends Component {
             })
             let game = {
                 title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi, 
-                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString,discount:this.state.discount
+                categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: this.state.isNotMalware, creator: this.state.creator, imagen: this.state.base64TextString,discount:this.state.discount,
+                urlVideo: this.state.urlVideo
             };
             SpamService.checkGame(game).then((data)=>{
                 if(data === false){
@@ -257,6 +264,7 @@ class UpdateGameComponent extends Component {
         let priceError = "";
         let pegiError = "";
         let discountError="";
+        let urlVideoError="";
 
         if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
@@ -287,6 +295,11 @@ class UpdateGameComponent extends Component {
         }else if(this.state.discount>1.){
             discountError="Discount cannot be greater than 1"
         }
+        if(this.state.urlVideo.length === 0) {
+            urlVideoError = null
+        } else if(!validator.isURL(this.state.urlVideo)) {
+            urlVideoError = "Must enter a valid URL"
+        }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
@@ -294,8 +307,9 @@ class UpdateGameComponent extends Component {
         this.setState({ priceError });
         this.setState({ pegiError });
         this.setState({discountError});
+        this.setState({urlVideoError});
 
-        if (titleError || descriptionError || requirementsError || priceError || discountError || pegiError) {
+        if (titleError || descriptionError || requirementsError || priceError || discountError || pegiError || urlVideoError) {
 
             return false;
         } else {
@@ -334,6 +348,10 @@ class UpdateGameComponent extends Component {
     }
     changeDiscountHandler=(e)=>{
         this.setState({discount:e.target.value})
+    }
+
+    urlChangeHandler = (event) => {
+        this.setState({ urlVideo: event.target.value })
     }
 
     changeImagenHandler = (event) => {
@@ -574,6 +592,36 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
+                        </div>
+
+                        <div className="form-group">
+                            {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
+                                <React.Fragment>
+                                    <label>Optional Video (YouTube URL):</label>
+                                    <input placeholder="YouTube URL" type="url" name="urlVideo" className="form-control"
+                                        value={this.state.urlVideo} onChange={this.urlChangeHandler}></input>
+                                </React.Fragment>
+                            ) : this.state.urlVideo.length===0 ?
+                                (<React.Fragment>
+                                    <div>
+                                    </div>
+                                </React.Fragment>)
+                                :
+                                (<React.Fragment>
+                                    <div>
+                                        <br />
+                                            <header className="w3-container ">
+                                                <YoutubePlayer 
+                                                    src={this.state.urlVideo}
+                                                    width={450}
+                                                    height={400}
+                                                    allowFullScreen="True"
+                                                />
+                                            </header>
+                                    </div>
+                                </React.Fragment>)
+                            }
+                            {this.state.urlVideoError ? (<div className="ValidatorMessage">{this.state.urlVideoError}</div>) : null}
                         </div>
                 
                         {(AuthService.isAuthenticated() && AuthService.getUserData()['username']===this.state.creator.username)?
