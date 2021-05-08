@@ -42,6 +42,10 @@ import OfferGamesComponent from './Components/Games/OfferGamesComponent';
 import AdminDashboardComponent from './Components/Dashboard/AdminDashboardComponent';
 import RecoverPasswordComponent from './Components/LostPassword/RecoverPasswordComponent';
 import RestorePasswordComponent from './Components/LostPassword/RestorePasswordComponent';
+import ForumComponent from './Components/Forums/ForumComponent';
+import PostComponent from './Components/Forums/PostComponent';
+import CreateForumComponent from './Components/Forums/CreateForumComponent';
+import PostCreateUpdateComponent from './Components/Forums/PostCreateUpdateComponent';
 
 
 function App() {
@@ -93,6 +97,11 @@ function App() {
                 <Route path="/admin-dashboard" component={AdminDashboardComponent}></Route>
                 <Route path="/recoverPassword" component={RecoverPasswordComponent}></Route>
                 <Route path="/restorePassword/:id" component={RestorePasswordComponent}></Route>
+                <Route path="/forums" component={ForumComponent}></Route>
+                <Route path="/create-forum" component={CreateForumComponent}></Route>
+                <Route path="/posts/:id" component={PostComponent}></Route>
+                <Route path="/:id/post-create-edit" component={PostCreateUpdateComponent}></Route>
+                
               </Switch>
             </div>
           </div>

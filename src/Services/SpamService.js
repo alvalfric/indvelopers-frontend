@@ -28,4 +28,14 @@ export const SpamService = {
             .then(res => res.data).catch(error => { return error })
     },
 
+    async checkForum(forumDTO) {
+        return axios.post(UrlProvider.getSpamUrl() + "/forum", forumDTO)
+            .then(res => res.data).catch(error => { return error })
+    },
+
+    async checkPost(postDTO) {
+        return axios.post(UrlProvider.getSpamUrl() + "/post", postDTO)
+            .then(res => res.data).catch(error => { return error })
+    },
+
 }
