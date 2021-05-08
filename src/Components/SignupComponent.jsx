@@ -197,7 +197,7 @@ class SignupComponent extends Component {
                 <br />
                 <br />
                 <br />
-                <h2>Register</h2>
+                <h2>Sign-up</h2>
                 <br />
 
                 <div className="form-group">
