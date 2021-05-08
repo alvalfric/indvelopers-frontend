@@ -47,6 +47,17 @@ export const PublicationService = {
     async GetPublicationById(id){
         return axios.get(UrlProvider.getPublicationUrl() + "/findById/" + id)
         .then(res =>res.data).catch(error => {return error.response.status})
+    },
+
+    async findPublicationsByDevelopersFollowed(){
+        return AuthService.getToken().then(token => {
+            return axios.get(UrlProvider.getFollowedPublications(),{
+                headers:{
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': '*/*'
+                }
+            }).catch(error => {return error})
+        })
     }
 
 }

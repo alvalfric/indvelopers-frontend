@@ -46,6 +46,7 @@ import ForumComponent from './Components/Forums/ForumComponent';
 import PostComponent from './Components/Forums/PostComponent';
 import CreateForumComponent from './Components/Forums/CreateForumComponent';
 import PostCreateUpdateComponent from './Components/Forums/PostCreateUpdateComponent';
+import FollowedPublicationsComponent from './Components/Publications/FollowedPublicationsComponent';
 
 
 function App() {
@@ -101,6 +102,7 @@ function App() {
                 <Route path="/create-forum" component={CreateForumComponent}></Route>
                 <Route path="/posts/:id" component={PostComponent}></Route>
                 <Route path="/:id/post-create-edit" component={PostCreateUpdateComponent}></Route>
+                <Route path="/followedPublications" component={FollowedPublicationsComponent}></Route>
                 
               </Switch>
             </div>

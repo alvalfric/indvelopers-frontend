@@ -16,6 +16,7 @@ const CATEGORY="/categories"
 const SPAM="/spam"
 const FORUM="/forums"
 const POST="/comments"
+const FOLLOWEDPUBLICATIONS = "/findPublicationsByFollowedDeveloper"
 
 
 export const UrlProvider = {
@@ -72,6 +73,9 @@ export const UrlProvider = {
     },
     getPostUrl(){
         return BASE_URL + POST;
-    }
+    },
 
+    getFollowedPublications(){
+        return BASE_URL + PUBLICATIONS + FOLLOWEDPUBLICATIONS;
+    }
 }

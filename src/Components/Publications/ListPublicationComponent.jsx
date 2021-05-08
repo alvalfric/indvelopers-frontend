@@ -21,6 +21,7 @@ class ListPublicationComponent extends Component {
     this.createPublication = this.createPublication.bind(this);
     this.editPublication = this.editPublication.bind(this);
     this.deletePublication = this.deletePublication.bind(this);
+    this.myFollowedPublications = this.myFollowedPublications.bind(this);
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -77,6 +78,21 @@ class ListPublicationComponent extends Component {
     })
   }
 
+  myFollowedPublications(){
+    if(AuthService.isAuthenticated()){
+      this.props.history.push('/followedPublications')
+    }else{
+      this.props.history.push('/login')
+    }
+  }
+  /*MyFollowedPublications(){
+    if(AuthService.isAuthenticated()){
+      this.props.history.push('/followedPublications')
+    }else{
+      this.props.history.push('/login')
+    }
+  }*/
+
 
   render() {
 
@@ -87,6 +103,7 @@ class ListPublicationComponent extends Component {
         <h2 className="text-center">Publications of the community</h2>
         <div className="row">
           <button className="Button" onClick={this.createPublication}>Publish</button>
+          <button className="Button" onClick={this.myFollowedPublications} style={{marginLeft:"10px"}}>Followed Publications</button>
         </div>
         <br />
         {/* Generate diferent for each publication */}
