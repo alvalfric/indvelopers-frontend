@@ -72,7 +72,6 @@ class PostComponent extends Component {
         state: { postId: id}
       })
     })
-    console.log('publicacion => ' + JSON.stringify(id))
   }
 
   deletePost(id){

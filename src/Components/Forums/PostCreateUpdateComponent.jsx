@@ -27,12 +27,13 @@ class PostCreateUpdateComponent extends Component {
 	componentDidMount() {
 		if(this.state.amIUpdating){
             PostService.getPostById(this.props.location.state.postId).then((post)=>{
+				console.log(post)
                 this.setState({
-                    description: post.description,
-                    creationDate : post.creationDate,
-                    foroId : post.foroId,
-                    developerCreatorId: post.developerCreatorId,
-                    developerCreatorUsername: post.developerCreatorUsername
+                    description: post.data.description,
+                    creationDate : post.data.creationDate,
+                    foroId : post.data.foroId,
+                    developerCreatorId: post.data.developerCreatorId,
+                    developerCreatorUsername: post.data.developerCreatorUsername
                 })
             })
         }
