@@ -108,7 +108,7 @@ class PostComponent extends Component {
                     AuthService.getUserData()['username'] === post.developerCreatorUsername ?
                     <React.Fragment> 
                       <button className="Button" style={{float:"right"}} onClick={() => this.editPost(post.id)}>Edit Post</button>
-                      <button className="Button" style={{float:"right"}} onClick={() => this.deletePost(post.id)}>Delete Post</button>
+                      <button className="CancelButton" style={{float:"right"}} onClick={() => this.deletePost(post.id)}>Delete Post</button>
                     </React.Fragment>
                     :null
                   :null
