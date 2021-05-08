@@ -3,6 +3,10 @@ import ForumLogo from '../../assets/comment-discussion-512.png';
 import {ForumService} from '../../Services/ForumService';
 import ReactPaginate from 'react-paginate';
 import { AuthService } from '../../Services/AuthService';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 
 class ForumComponent extends Component {
 
@@ -78,14 +82,14 @@ class ForumComponent extends Component {
         <br></br>
         <h2 className="text-center">Forums</h2>
         <div className="row">
-          <button className="Button" onClick={this.createForum}>New Forum</button>
+          <Button variant="outline-primary" onClick={this.createForum}>New Forum</Button>
         </div>
         <br />
         {this.state.forums.map(
           forum =>
             <div>
               <br />
-              <a href={"/posts/"+forum.id}>
+              {/* <a href={"/posts/"+forum.id}>
               <div className="w3-card-4" >
                 <header className="w3-container ">
                   <img />
@@ -105,13 +109,35 @@ class ForumComponent extends Component {
                     :null
                   :null
                 }
-                </div>
-              <br />
-              <br />
+                </div> */}
+                
+                <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
+                <a href={"/posts/"+forum.id} style={{textDecoration:"none",color:"white"}}>
+                  <Card.Header>
+                    <Image src={ForumLogo} className="inDvelopers-logo" width="3%" height="3%"  />
+                    <h6 style={{float:"right",marginTop:"1rem"}}>{forum.developerCreatorUsername}</h6>
+                  <h5 style={{marginLeft:"2rem", marginTop:"2rem"}}>{forum.title}</h5>
+                  <h6 style={{float:"right"}}>{forum.creationDate.slice(0,10)}</h6>
+                  </Card.Header>
+                  </a>
+                  {AuthService.isAuthenticated() ?
+                    AuthService.getUserData()['username'] === forum.developerCreatorUsername ?
+                    <Card.Body> 
+                      <Button variant="outline-danger" style={{float:"right"}} onClick={() => this.deleteForum(forum.id)}>Delete Forum</Button>
+                    </Card.Body>
+                    :null
+                  :null
+                }
+                </Card>
+
+                
+
+              
             </div>
         )
         }
         <br />
+        <div style={{justifyContent:"center",display:"flex"}}>
         <ReactPaginate previousLabel={"prev"}
           nextLabel={"next"}
           breakLabel={"..."}
@@ -123,7 +149,7 @@ class ForumComponent extends Component {
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
           activeClassName={"active"} />
-
+          </div>
       </div>
     );
   }

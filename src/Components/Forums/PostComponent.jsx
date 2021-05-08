@@ -4,6 +4,10 @@ import {PostService} from '../../Services/PostService';
 import ReactPaginate from 'react-paginate';
 import { AuthService } from '../../Services/AuthService';
 import { ForumService } from '../../Services/ForumService';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image'
 
 class PostComponent extends Component {
 
@@ -89,14 +93,14 @@ class PostComponent extends Component {
         <br></br>
         <h2 className="text-center">Posts</h2>
         <div className="row">
-          <button className="Button" onClick={this.createPost}>New Post</button>
+          <Button variant="outline-primary" onClick={this.createPost}>New Post</Button>
         </div>
         <br />
         {/* Generate diferent for each publication */}
         {this.state.posts.map(
           post =>
             <div>
-                <div className="w3-card-4" >
+                {/* <div className="w3-card-4" >
                 <header className="w3-container ">
                   <img />
                   <img style={{marginTop:"1rem"}} src={UserLogo} className="inDvelopers-logo" width="6%" height="6%" />
@@ -114,11 +118,33 @@ class PostComponent extends Component {
                     :null
                   :null
                 }
-                </div>
+                </div> */}
+                <br/>
+                 <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
+                   <Card.Header>
+                   <Image style={{marginTop:"1rem"}} src={UserLogo} className="inDvelopers-logo" width="6%" height="6%"/>
+                   <h6 style={{float:"right",marginTop:"1rem"}}>{post.developerCreatorUsername}</h6>
+                  <h5 style={{ marginTop:"2rem"}}>{post.description} </h5>
+                  {post.edited?<h5 class="text-muted">(edited)</h5>:null}
+                  <h6 style={{float:"right"}}>{post.creationDate.slice(0,10)}</h6>
+                   </Card.Header>
+                   <Card.Body>
+                   {AuthService.isAuthenticated() ?
+                    AuthService.getUserData()['username'] === post.developerCreatorUsername ?
+                    <React.Fragment> 
+                      <Button variant="outline-primary" style={{float:"right"}} onClick={() => this.editPost(post.id)}>Edit Post</Button>
+                      <Button  variant="outline-danger" style={{float:"right"}} onClick={() => this.deletePost(post.id)}>Delete Post</Button>
+                    </React.Fragment>
+                    :null
+                  :null
+                }
+                   </Card.Body>
+                 </Card>
               </div>
         )
         }
         <br />
+        <div style={{justifyContent:"center",display:"flex"}}>
         <ReactPaginate previousLabel={"prev"}
           nextLabel={"next"}
           breakLabel={"..."}
@@ -130,7 +156,7 @@ class PostComponent extends Component {
           containerClassName={"pagination"}
           subContainerClassName={"pages pagination"}
           activeClassName={"active"} />
-
+          </div>
       </div>
     );
   }

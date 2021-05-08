@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { ForumService } from '../../Services/ForumService';
 import { SpamService } from '../../Services/SpamService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 class CreateForumComponent extends Component {
 
@@ -61,10 +65,11 @@ class CreateForumComponent extends Component {
     render() {
         return (
             <div>
+{/*                 
                 <br></br>
                 <br></br>
                 <h2>Create Forum</h2>
-                <form>
+                 <form>
                     <div className="form-group">
                         <label>Title</label>
                         <textarea placeholder="Title" name="title" type="text-box" className="form-control" value={this.state.title} onChange={this.changeTitleHandler} />
@@ -74,7 +79,25 @@ class CreateForumComponent extends Component {
                     </div>
                     <button className="AceptButton" onClick={this.saveForum}>Create Forum</button>
                     {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
-                </form>
+                </form> */}
+                <br></br>
+                <br></br>
+                <Form className="FormStyle">
+                <h2 className="text-center">Create Forum</h2>
+                <Form.Group as={Row}>
+                    <Form.Label column sm="1">Title</Form.Label>
+                    <Col sm="10">
+                        <Form.Control as="textarea" placeholder="Title" name="title" type="text-box" className="FormInput" value={this.state.title} onChange={this.changeTitleHandler} />
+                        {this.state.titleError ? (<div className="ValidatorMessage">
+                            {this.state.titleError}
+                        </div>) : null}
+                    </Col>
+                </Form.Group>
+                <div style={{justifyContent:"center",display:"flex"}}>
+                <Button variant="outline-success" onClick={this.saveForum}>Create forum</Button>
+                </div>
+                {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
+                </Form>
             </div>
         );
     }
