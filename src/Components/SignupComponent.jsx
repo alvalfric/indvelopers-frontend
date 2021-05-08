@@ -3,7 +3,7 @@ import { AuthService } from "../Services/AuthService";
 import { DeveloperService } from '../Services/DeveloperService';
 import { SpamService } from '../Services/SpamService';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import { Col, FormText, Row } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image'
 import emailjs from 'emailjs-com';

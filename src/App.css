@@ -480,5 +480,10 @@ padding-right:80px;
   }
 }
   .basic-multi-select{
-    color: #000000;
+    border-radius: 20px;
+    border-color: #2c90b1;
+    border: 3px solid rgb(93, 92, 102);
+    background-color: #222933;
+    padding: 10px;
+    color: black;
   }

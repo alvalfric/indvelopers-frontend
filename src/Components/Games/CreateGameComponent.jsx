@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import {  Component } from 'react';
+import React from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { GameService } from '../../Services/GameService';
 import { SubscriptionService } from '../../Services/SubscriptionService';
@@ -8,7 +9,11 @@ import Select from "react-select";
 import { CategoryService } from '../../Services/CategoryService';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import { SpamService } from '../../Services/SpamService';
-import validator from 'validator'
+import validator from 'validator';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 
 class CreateGameComponent extends Component {
     constructor(props) {
@@ -287,38 +292,73 @@ class CreateGameComponent extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
-                    <h2>Create a game</h2>
+                    <Form className="FormStyle">
+                    <h2 style={{textAlign:"center"}}>Create a game</h2>
                     <br></br>
                     <form>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>Title</label>
                             <input placeholder="Title" name="title" className="form-control"
                                 value={this.state.title} onChange={this.changeTitleHandler}></input>
 
                             {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
-                        </div>
-                        <div className="form-group">
+                        </div> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Title</Form.Label>
+                            <Col sm="10">
+                                <Form.Control placeholder="Title" name="title" className="FormInput"
+                                value={this.state.title} onChange={this.changeTitleHandler} />
+                                {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
+                            </Col>
+                        </Form.Group>
+                        {/* <div className="form-group">
                             <label>Description</label>
                             <input placeholder="Description" name="description" className="form-control"
                                 value={this.state.description} onChange={this.changeDescriptionHandler}></input>
 
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
-                        </div>
-                        <div className="form-group">
+                        </div> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Description</Form.Label>
+                            <Col sm="10">
+                                <Form.Control as="textarea" placeholder="Description" name="description" className="FormInput"
+                                value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                                {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
+                            </Col>
+                        </Form.Group>
+                        {/* <div className="form-group">
                             <label>Minimum requirements</label>
                             <input placeholder="Requirements" name="requirements" className="form-control"
                                 value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
 
                             {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
-                        </div>
-                        <div className="form-group">
+                        </div> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Minimun requirements</Form.Label>
+                            <Col sm="10">
+                                <Form.Control placeholder="Requirements" name="requirements" className="FormInput"
+                                value={this.state.requirements} onChange={this.changeRequirementsHandler} />
+                                {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
+                            </Col>
+                        </Form.Group>
+                        {/* <div className="form-group">
                             <label>Price</label>
                             <p>Note: If you're a NON PREMIUM user, price will be 0€</p>
                             <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
                                 value={this.state.price} onChange={this.changePriceHandler}></input>
                             {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
-                        </div >
-                        <label>Categories</label>
+                        </div > */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Price</Form.Label>
+                            <Col sm="10">
+                                <p>Note: If you're a NON PREMIUM user, price will be 0€</p>
+                                <Form.Control placeholder="Price" name="price" className="FormInput" type="number" min="0" step="0.01"
+                                value={this.state.price} onChange={this.changePriceHandler} />
+                                {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
+                            </Col>
+                        </Form.Group>
+
+                        {/* <label>Categories</label>
                         <Select
                             isMulti
                             options={this.categories}
@@ -326,14 +366,35 @@ class CreateGameComponent extends Component {
                             onChange={this.changeCategoriesHandler}
                             className="basic-multi-select"
                             closeMenuOnSelect={false}
+                        /> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Categories</Form.Label>
+                            <Col sm="10">
+                            <Select
+                            isMulti
+                            options={this.categories}
+                            value={this.state.selectedOption}
+                            onChange={this.changeCategoriesHandler}
+                            className="basic-multi-select"
+                            closeMenuOnSelect={false}
                         />
-                        <div className="form-group">
+                            </Col>
+                        </Form.Group>
+                        {/* <div className="form-group">
                             <label>Pegi</label>
                             <input placeholder="Pegi" name="pegi" className="form-control" type="number"
                                 value={this.state.pegi} onChange={this.changePegiHandler}></input>
                             {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
-                        </div>
-                        <div className="form-group">
+                        </div> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="1">Pegi</Form.Label>
+                            <Col sm="10">
+                                <Form.Control placeholder="Pegi" name="pegi" className="FormInput" type="number"
+                                value={this.state.pegi} onChange={this.changePegiHandler}/>
+                                {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
+                            </Col>
+                        </Form.Group>
+                        {/* <div className="form-group">
                         {this.state.base64TextString !== "" ?
                             <React.Fragment>
                                 <label>Actual image: </label>
@@ -348,13 +409,37 @@ class CreateGameComponent extends Component {
                         < br />
                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                         {this.state.imagenError ? (<div className="ValidatorMessage">{this.state.imagenError}</div>) : null}
-                        </div>
+                        </div> */}
+                        <Form.Group as={Row}>
+                        {this.state.base64TextString !== "" ?
+                            <React.Fragment>
+                                <Form.Label column sm="1">Actual image: </Form.Label>
+                                < br />
+                                <Image src={"data:image/png;base64,"+this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '150px' }}/>
+                            </React.Fragment>
+                        :
+                            <React.Fragment>
+                                <Form.Label column sm="1">Image: </Form.Label>
+                            </React.Fragment>
+                        }
+                        <Col sm="10">
+                            <Form.File placeholder="Image" type="file" name="image" className="FormInput" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler}  />
+                            {this.state.imagenError ? (<div className="ValidatorMessage">{this.state.imagenError}</div>) : null}
+                        </Col>
+                        </Form.Group>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>Optional Video (YouTube URL):</label>
                             <input placeholder="YouTube URL" type="url" name="videoURL" className="form-control" value={this.state.urlVideo} onChange={this.urlChangeHandler}></input>
                             {this.state.urlVideoError ? (<div className="ValidatorMessage">{this.state.urlVideoError}</div>) : null}
-                         </div>
+                        </div> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="2"> Optional Video (YouTube URL):</Form.Label>
+                            <Col sm="9">
+                                <Form.Control placeholder="YouTube URL" type="url" name="videoURL" className="FormInput" value={this.state.urlVideo} onChange={this.urlChangeHandler}/>
+                                {this.state.urlVideoError ? (<div className="ValidatorMessage">{this.state.urlVideoError}</div>) : null}
+                            </Col>
+                        </Form.Group>
                          <div className="form-group">
                             {this.state.galleryImageIndex !== "" ?
                                 <React.Fragment>
@@ -386,28 +471,41 @@ class CreateGameComponent extends Component {
                                 <p>You cannot upload more than 2 images on the gallery!</p>
                             }
                             {this.state.galleryError ? (<div className="ValidatorMessage">{this.state.galleryError}</div>) : null}
-                            <button className="Button" onClick={(e) => this.eraseGallery(e)} style={{ marginLeft: "10px" }}>Erase gallery</button>
+                            <Button variant="outline-primary" onClick={(e) => this.eraseGallery(e)} style={{ marginLeft: "10px" }}>Erase gallery</Button>
                         </div>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label>Game(.zip format):</label>
-                            <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
+                            <input name="GameFile" type="file" className="FormInput" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
                             {this.state.progress != 0 ? (
                                 <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`} /></p>
                             ) : null}
 
                             {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
 
-                        </div>
-                        <button className="AceptButton" onClick={this.saveGame}>Add game</button>
+                        </div> */}
+                        <Form.Group as={Row}>
+                            <Form.Label column sm="2">Game(.zip format):</Form.Label>
+                            <Col sm="9">
+                            <Form.File name="GameFile" type="file" className="FormInput" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
+                            {this.state.progress != 0 ? (
+                                <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`} /></p>
+                            ) : null}
+
+                            {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
+                            </Col>
+                        </Form.Group>
+                        <div style={{justifyContent:"center",display:"flex"}}>
+                        <Button variant="outline-success" onClick={this.saveGame}>Add game</Button>
                         {this.state.submitError ? (<div className="ValidatorMessage">
                             {this.state.submitError}
                         </div>) : null}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        <Button variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
                         {this.state.spamError ? (<p className="text-danger">{this.state.spamError}</p>) : null}
+                        </div>
                         <p className="text-danger">* you won't see your game published until admins check it</p>
                     </form>
-                
+                    </Form>
                 </div>
              </div>
             

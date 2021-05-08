@@ -3,9 +3,9 @@ import { AuthService } from '../../Services/AuthService';
 import { PublicationService } from '../../Services/PublicationService';
 import { SpamService } from '../../Services/SpamService';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
+import Form from 'react-bootstrap/Form';
 import { Col, FormText, Row } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 
 
 class CreatePublicationComponent extends Component {
