@@ -14,6 +14,8 @@ const ADMDASHBOARD="/adminDashboard"
 const FOLLOWEDGAMES = "/findGamesByFollowedDeveloper"
 const CATEGORY="/categories"
 const SPAM="/spam"
+const FORUM="/forums"
+const POST="/comments"
 
 
 export const UrlProvider = {
@@ -64,6 +66,12 @@ export const UrlProvider = {
     },
     getSpamUrl(){
         return BASE_URL + SPAM;
+    },
+    getForumUrl(){
+        return BASE_URL + FORUM;
+    },
+    getPostUrl(){
+        return BASE_URL + POST;
     }
 
 }
