@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { PublicationService } from '../../Services/PublicationService';
 import { SpamService } from '../../Services/SpamService';
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 
 class CreatePublicationComponent extends Component {
@@ -88,11 +91,15 @@ class CreatePublicationComponent extends Component {
 
     render() {
         return (
+            <React.Fragment>
+            <br/>
+            <br/>
+            <br/>
+            <Form className="FormStyle">
+            <h2 className="text-center">Create your publication</h2>
             <div>
-                <br></br>
-                <br></br>
                 <form>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>Description</label>
                         <textarea placeholder="Descripción" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
                         {this.state.textError ? (<div className="ValidatorMessage">
@@ -101,7 +108,18 @@ class CreatePublicationComponent extends Component {
                     </div>
                     <div className="form-group">
                         <input name="userPicture" type="hidden" className="form-control" value={this.state.userPicture} />
-                    </div>
+                    </div> */}
+                    <br/>
+                    <Form.Group as={Row}>
+                        <Form.Label column sm="1" >Description:</Form.Label>
+                        <Col sm="10">
+                        <Form.Control placeholder="Descripción" name="text" as="textarea" className="FormInput" value={this.state.text} onChange={this.changeTextHandler}/>
+                        {this.state.textError ? (<div className="ValidatorMessage">
+                            {this.state.textError}
+                        </div>) : null}
+                        </Col>
+                    </Form.Group>
+{/*                     
                     <div className="form-group">
                         {this.state.base64TextString !== "" ?
                             <React.Fragment>
@@ -115,13 +133,33 @@ class CreatePublicationComponent extends Component {
                             </React.Fragment>
                         }
                         < br />
-                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                        <Form.File placeholder="Image" type="file" name="image" className="ButtonFileLoad"  accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                     </div>
-                    <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
-                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                     */}
+                    <Form.Group >
+                        {this.state.base64TextString !== "" ?
+                        <React.Fragment>
+                            <Form.Label column s> Actual Image </Form.Label>
+                            <Image src={"data:image/png;base64,"+this.state.base64TextString} style={{float:"left", maxWidth: '200px', maxHeight: '200px' }} />
+                        </React.Fragment> :
+                        <React.Fragment>
+                            <Form.Label column sm="2">
+                            Image:
+                            </Form.Label>
+                        </React.Fragment>}
+                        <Col sm="10">
+                        <Form.File placeholder="Image" type="file" name="image" className="ButtonFileLoad"  accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
+                        </Col>
+                    </Form.Group>
+                    <Button variant="outline-success" size="lg" onClick={this.savePublication}> Create publication</Button>
+                    <Button variant="outline-danger" size="lg" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}> Cancel</Button>
+                    {/* <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
+                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button> */}
                     {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                 </form>
             </div>
+            </Form>
+            </React.Fragment>
         );
     }
 }

@@ -3,6 +3,10 @@ import { GameService } from '../../Services/GameService';
 import { PostService } from '../../Services/PostService';
 import { AuthService } from '../../Services/AuthService';
 import { SpamService } from '../../Services/SpamService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 class PostCreateUpdateComponent extends Component {
 
@@ -103,7 +107,7 @@ class PostCreateUpdateComponent extends Component {
 			<div>
 				<br></br>
 				<br></br>
-				<form>
+				{/* <form>
                     {this.state.amIUpdating?
                     <h2>Update Post</h2>
                     :<h2>Add Post</h2>}
@@ -122,7 +126,32 @@ class PostCreateUpdateComponent extends Component {
                     }
 					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
 					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
-				</form>
+				</form> */}
+				<Form className="FormStyle">
+				{this.state.amIUpdating?
+                    <h2 className="text-center">Update Post</h2>
+                    :<h2 className="text-center">Add Post</h2>}
+				<Form.Group as={Row}>
+					<Form.Label column sm="1">Description</Form.Label>
+					<Col sm="10">
+					<Form.Control as="textarea" placeholder="description" name="description" type="text-box" className="FormInput" value={this.state.description}
+							onChange={this.changeDescriptionHandler} />
+							{this.state.descriptionError ? (<div className="ValidatorMessage">
+							{this.state.descriptionError}
+						</div>) : null}
+					</Col>
+				</Form.Group>
+				<br/>
+					<div style={{justifyContent:"center",display:"flex"}}>
+					{this.state.amIUpdating?
+					<Button variant="outline-success" onClick={(e)=>this.savePost(e)}>Edit Post</Button>
+                    :
+                    <Button variant="outline-success" onClick={(e)=>this.savePost(e)}>New Post</Button>
+                    }
+					<Button variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
+					</div>
+					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
+				</Form>
 
 			</div>
 		);

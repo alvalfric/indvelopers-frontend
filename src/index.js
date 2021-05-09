@@ -6,7 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import ErrorBoundary from './Framework/ErrorBoundary';
 
 ReactDOM.render(
+  //<ErrorBoundary>
     <App />
+  //</ErrorBoundary>
 
   ,
   document.getElementById('root')

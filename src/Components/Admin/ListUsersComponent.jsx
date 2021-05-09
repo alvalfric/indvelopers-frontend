@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { DeveloperService } from '../../Services/DeveloperService';
 import ReactPaginate from 'react-paginate';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Col, FormText, Row } from 'react-bootstrap';
 
 class ListUsersComponent extends Component {
 
@@ -80,24 +83,43 @@ class ListUsersComponent extends Component {
                         user => {
                             this.usuario = user
                             return (
-                                <div>
-                                    <br />
-                                    <div className="w3-card-4" >
-                                        <header className="w3-container">
-                                            <h5>{user.username}</h5>
-                                        </header>
-                                        <div className="w3-container">
-                                            <p>Roles: {user.roles.join(', ')} {user.roles.indexOf('ADMIN') == -1 ?
-                                                <button className="AdminButton" style={{ float: "right" }} onClick={() => this.changeToAdmin(user.id)}>Change user to admin</button>
+                                // <div>
+                                //     <br />
+                                //     <div className="w3-card-4" >
+                                //         <header className="w3-container">
+                                //             <h5>{user.username}</h5>
+                                //         </header>
+                                //         <div className="w3-container">
+                                //             <p>Roles: {user.roles.join(', ')} {user.roles.indexOf('ADMIN') == -1 ?
+                                //                 <button className="AdminButton" style={{ float: "right" }} onClick={() => this.changeToAdmin(user.id)}>Change user to admin</button>
+                                //                 :
+                                //                 null
+                                //             }</p>
+                                //         </div>
+                                //         <div>
+                                //         <button className="AdminButton" onClick={() => this.getUserDetails(user)}>User Details</button>
+                                //         </div>    
+                                //     </div>
+                                // </div>
+                                <React.Fragment>
+                                    <br/>
+                                <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
+                                <Card.Header style={{backgroundColor:"#222933"}}>{user.username}</Card.Header>
+                                <Card.Body style={{backgroundColor:"#222933"}}>
+                                  <Card.Text>
+                                  <p>Roles: {user.roles.join(', ')} {user.roles.indexOf('ADMIN') == -1 ?
+                                                <Button variant="outline-warning" style={{ float: "right" }} onClick={() => this.changeToAdmin(user.id)}>Change user to admin</Button>
                                                 :
                                                 null
                                             }</p>
-                                        </div>
-                                        <div>
-                                        <button className="AdminButton" onClick={() => this.getUserDetails(user)}>User Details</button>
-                                        </div>    
-                                    </div>
+                                  </Card.Text>
+
+                                </Card.Body>
+                                <div>
+                                <Button variant="outline-warning" onClick={() => this.getUserDetails(user)}>User Details</Button>
                                 </div>
+                              </Card>
+                              </React.Fragment>
                             )
                         }
                     )
@@ -113,6 +135,7 @@ class ListUsersComponent extends Component {
                 < br />
                 {this.showList()}
                 < br />
+                <div style={{justifyContent:"center",display:"flex"}}>
                 <ReactPaginate previousLabel={"prev"}
                     nextLabel={"next"}
                     breakLabel={"..."}
@@ -124,6 +147,7 @@ class ListUsersComponent extends Component {
                     containerClassName={"pagination"}
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"} />
+                    </div>
             </div >
         );
     }

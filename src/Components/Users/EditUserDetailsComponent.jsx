@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { DeveloperService } from '../../Services/DeveloperService';
 import { SpamService } from '../../Services/SpamService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 class EditUserDetailsComponent extends Component {
 
@@ -122,11 +126,13 @@ class EditUserDetailsComponent extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
+                    <Form className="FormStyle">
                     {AuthService.getUserData()['username'] === this.state.username ? (<h2>Edit User Details</h2>) : null}
 
                     <br></br>
-                    <form>
-                        <div className="form-group">
+                    
+                    
+                        {/* <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
                                     <label>Description</label>
@@ -141,9 +147,29 @@ class EditUserDetailsComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
-                        </div>
+                        </div> */}
+                        <Form.Group as={Row}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                            <React.Fragment>
+                            <Form.Label column sm="1">Description</Form.Label>
+                            <Col sm="10">
+                                <Form.Control placeholder="Description" name="description" className="FormInput"
+                                        value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                            </Col>
+                            </React.Fragment>
+                        ):
+                        <React.Fragment>
+                            <Form.Label column sm="1">Description</Form.Label>
+                            <Col sm="10">
+                                <Form.Control disabled placeholder="Description" name="description" className="FormInput"
+                                        value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                            </Col>
+                        </React.Fragment>
+                        }
+                        {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
+                        </Form.Group>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
                                     {this.state.base64TextString == null ?
@@ -167,9 +193,34 @@ class EditUserDetailsComponent extends Component {
                                     </div>
                                 </React.Fragment>
                             }
-                        </div>
+                        </div> */}
+                        <Form.Group as={Row}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                           <React.Fragment>
+                               {this.state.base64TextString==null?
+                               <React.Fragment>
+                                   <Form.Label column sm="1">Image</Form.Label>
+                               </React.Fragment>
+                            :
+                            <React.Fragment>
+                                   <Form.Label column sm="1">Current image</Form.Label>
+                                   <Col sm="10">
+                                   <Image src={"data:image/png;base64," + this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '200px' }}/>
+                                   </Col>
+                               </React.Fragment>
+                            }
+                            <Form.File placeholder="Image" type="file" name="image" className="FormInput" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler}/>
+                           </React.Fragment> 
+                        ):
+                        <React.Fragment>
+                               <div className="w3-display-container w3-text-white">
+                                        <Image src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
+                                    </div>
+                           </React.Fragment> 
+                        }
+                        </Form.Group>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
                                     <label>Email</label>
@@ -192,9 +243,28 @@ class EditUserDetailsComponent extends Component {
                                 </React.Fragment>
                             }
                             {this.state.emailError ? (<div className="ValidatorMessage">{this.state.emailError}</div>) : null}
-                        </div>
-
-                        <div className="form-group">
+                        </div> */}
+                        <Form.Group as={Row}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                            <React.Fragment>
+                                <Form.Label column sm="1">Email</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control type="email" placeholder={this.state.email} name="email" className="FormInput"
+                                        value={this.state.email} onChange={this.changeEmailHandler}/>
+                                </Col>
+                            </React.Fragment>
+                        ):
+                        <React.Fragment>
+                            <Form.Label column sm="1">Email</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control disabled type="email" placeholder={this.state.email} name="email" className="FormInput"
+                                        value={this.state.email} onChange={this.changeEmailHandler}/>
+                                </Col>
+                        </React.Fragment>
+                        }
+                        {this.state.emailError ? (<div className="ValidatorMessage">{this.state.emailError}</div>) : null}
+                        </Form.Group>
+                        {/* <div className="form-group">
                             {AuthService.getUserData()['username'] === this.state.username ? (
                                 <React.Fragment>
 
@@ -217,19 +287,40 @@ class EditUserDetailsComponent extends Component {
                                     </div>
                                 </div>}
                             {this.state.technologiesError ? (<div className="ValidatorMessage">{this.state.technologiesError}</div>) : null}
-                        </div>
-
+                        </div> */}
+                        <Form.Group as={Row}>
                         {AuthService.getUserData()['username'] === this.state.username ? (
                             <React.Fragment>
-                                <button className="AceptButton" onClick={this.updateProfile}>Update profile</button>
+                                <Form.Label column sm="1">Technologies</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control type="text" className="FormInput" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                                </Col>
+                            </React.Fragment>
+                        ) :
+                        <React.Fragment>
+                            <Form.Label column sm="1">Technologies</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control disabled type="text" className="FormInput" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                                </Col>
+                        </React.Fragment>
+                        }
+                         {this.state.technologiesError ? (<div className="ValidatorMessage">{this.state.technologiesError}</div>) : null}
+                        </Form.Group>
+
+                        <div style={{justifyContent:"center",display:"flex"}}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                            <React.Fragment>
+                                <Button variant="outline-success" onClick={this.updateProfile}>Update profile</Button>
                                 {this.state.submitError ? (<div className="ValidatorMessage">
                                     {this.state.submitError}
                                 </div>) : null}
                             </React.Fragment>
                         ) : null}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        <Button variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
+                        
+                        </div>
                         {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
-                    </form>
+                    </Form>
                 </div>
             </div>
         );
