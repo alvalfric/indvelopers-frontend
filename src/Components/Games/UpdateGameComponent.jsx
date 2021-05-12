@@ -314,7 +314,7 @@ class UpdateGameComponent extends Component {
         } else if (this.state.discount > 1.) {
             discountError = "Discount cannot be greater than 1"
         }
-        if(this.state.urlVideo.length === 0) {
+        if(this.state.urlVideo === null || this.state.urlVideo.length === 0) {
             urlVideoError = null
         } else if(!validator.isURL(this.state.urlVideo)) {
             urlVideoError = "Must enter a valid URL"
@@ -476,7 +476,7 @@ class UpdateGameComponent extends Component {
                                 </Form.Group>
 
                                 <Form.Group as={Row}>
-                                {this.state.base64TextString !== "" ?
+                                {this.state.base64TextString !== null && this.state.base64TextString !== "" ?
                                         <React.Fragment>
                                             <Form.Label column sm="3">Actual image: </Form.Label>
                                             < br />
@@ -545,7 +545,7 @@ class UpdateGameComponent extends Component {
                                         </React.Fragment>
                                     }
                                     < br />
-                                    {this.state.gallery.length != 2 ?
+                                    {this.state.gallery == null || this.state.gallery.length != 2 ?
                                         <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.galleryImage} onChange={this.changeGalleryHandler} />
                                         :
                                         <p>You cannot upload more than 2 images on the gallery!</p>
@@ -814,7 +814,7 @@ class UpdateGameComponent extends Component {
                                             </Col>
                                         </Form.Group>
                                 </React.Fragment>
-                            ) : this.state.urlVideo.length===0 ?
+                            ) : this.state.urlVideo == null ?
                                 (<React.Fragment>
                                     <div>
                                     </div>
