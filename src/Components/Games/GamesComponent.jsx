@@ -209,10 +209,10 @@ class GamesComponent extends Component {
         <Card   style={{ width: '18rem' ,float:"right",backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
   <ListGroup className="bg-dark text-white">
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.createGame}>Create game</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}> My created games</button></ListGroup.Item>
+    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}>My created games</button></ListGroup.Item>
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed games</button></ListGroup.Item>
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}> Offers</button></ListGroup.Item>
+    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}>Offers</button></ListGroup.Item>
     {AuthService.isAuthenticated() ?
     AuthService.getUserData().roles.includes("ADMIN") ?
     <React.Fragment>
@@ -260,7 +260,7 @@ class GamesComponent extends Component {
               <br/>
             <Card className="bg-dark text-white" style={{maxWidth:'600px', maxHeight: '500px',justifyContent:"center",display:"flex"}} >
         {item.imagen ?
-          <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '400px'}}/>
+          <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '400px' }}/>
          
      :
      <Card.Img src={altLogo} style={{ maxHeight: '400px'}}/>

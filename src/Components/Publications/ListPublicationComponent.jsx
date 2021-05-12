@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserLogo from '../../assets/userExample.png';
-import {PublicationService} from '../../Services/PublicationService';
+import { PublicationService } from '../../Services/PublicationService';
 import ReactPaginate from 'react-paginate';
 import { AuthService } from '../../Services/AuthService';
 import Card from 'react-bootstrap/Card';
@@ -17,7 +17,7 @@ class ListPublicationComponent extends Component {
       rawPublications: [],
       offset: 0,
       perPage: 5,
-      pageCount: 0, 
+      pageCount: 0,
       currentPage: 0
     }
     this.handlePageClick = this.handlePageClick.bind(this);
@@ -67,14 +67,14 @@ class ListPublicationComponent extends Component {
 
   }
 
-  editPublication(id){
-    PublicationService.GetPublicationById(id).then(res =>{
+  editPublication(id) {
+    PublicationService.GetPublicationById(id).then(res => {
       this.props.history.push(`/publication-edit/${id}`)
     })
     console.log('publicacion => ' + JSON.stringify(id))
   }
 
-  deletePublication(id){
+  deletePublication(id) {
     PublicationService.deletePublication(id).then(res => {
       window.location.reload()
     })
@@ -97,7 +97,7 @@ class ListPublicationComponent extends Component {
         {this.state.publications.map(
           publication =>
             // <div>
-             
+
             //   <br />
             //   <div className="w3-card-4" >
             //     <header className="w3-container ">
@@ -130,53 +130,57 @@ class ListPublicationComponent extends Component {
             //     }
             //   </div>
             // </div>
-               <React.Fragment>
-              <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
-                <Card.Header style={{backgroundColor:"#222933"}}>
-                <Card.Img width="3%" height="3%" variant="left" src={UserLogo} />
+            <React.Fragment>
+              <Card style={{ backgroundColor: "#222933", border: "3px solid rgb(93, 92, 102)" }} >
+                <Card.Header style={{ backgroundColor: "#222933" }}>
+                  <Card.Img width="3%" height="3%" variant="left" src={UserLogo} />
                   {publication.username}</Card.Header>
-                <Card.Body style={{backgroundColor:"#222933"}}>
+                <Card.Body style={{ backgroundColor: "#222933" }}>
                   <Card.Text>
                     {publication.text}
                   </Card.Text>
                   <Col>
                   </Col>
-                  <Col sm={5} md={4} style={{justifyContent:"center",display:"flex"}}>
-                  <Card.Img src={"data:image/png;base64," + publication.imagen}  style={{flexDirection:"column", maxWidth: '500px', maxHeight: '500px' }}/>
+                  <Col sm={5} md={4} style={{ justifyContent: "center", display: "flex" }}>
+                    {publication.imagen !== "" ?
+                      <Card.Img src={"data:image/png;base64," + publication.imagen} style={{ flexDirection: "column", maxWidth: '500px', maxHeight: '500px' }} />
+                      :
+                      null
+                    }
                   </Col>
                 </Card.Body>
                 {AuthService.isAuthenticated() ?
-                    AuthService.getUserData()['username'] === publication.developer.username ?
-                    <div> 
-                      <Button variant="danger"  style={{float:"left",marginLeft:"5px"}} onClick={() => this.deletePublication(publication.id)}> Delete publication</Button>
-                      <Button variant="info"  style={{float:"left"}} onClick={() => this.editPublication(publication.id)}> Edit publication</Button>
+                  AuthService.getUserData()['username'] === publication.developer.username ?
+                    <div>
+                      <Button variant="danger" style={{ float: "left", marginLeft: "5px" }} onClick={() => this.deletePublication(publication.id)}> Delete publication</Button>
+                      <Button variant="info" style={{ float: "left" }} onClick={() => this.editPublication(publication.id)}> Edit publication</Button>
                       {/* <button className="Button" style={{float:"right"}} onClick={() => this.editPublication(publication.id)}>Edit Publication</button>
                       <button className="Button" style={{float:"right"}} onClick={() => this.deletePublication(publication.id)}>Delete Publication</button> */}
                     </div>
-                    :null
-                  :null
+                    : null
+                  : null
                 }
               </Card>
-              <br/>
-              </React.Fragment>
-            
+              <br />
+            </React.Fragment>
+
 
         )
         }
         <br />
-        <div style={{justifyContent:"center",display:"flex"}}>
-        <ReactPaginate previousLabel={"prev"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"} />
-          </div>
+        <div style={{ justifyContent: "center", display: "flex" }}>
+          <ReactPaginate previousLabel={"prev"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"} />
+        </div>
       </div>
     );
   }
