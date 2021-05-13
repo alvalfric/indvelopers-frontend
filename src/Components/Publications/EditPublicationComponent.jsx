@@ -48,15 +48,16 @@ class EditPublicationComponent extends Component{
 
     componentDidMount(){
         PublicationService.GetPublicationById(this.state.id).then(data => {
+
             this.setState({
                 username:data.username,
                 text: data.text,
                 imagen: data.base64TextString,
+                base64TextString:data.imagen,
                 userPicture:data.userPicture,
                 developer:data.developer,
 
             })
-            console.log('Publication => ' + this.props.match.params.id)
         })
     }
 
