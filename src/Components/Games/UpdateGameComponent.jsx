@@ -580,27 +580,28 @@ class UpdateGameComponent extends Component {
                                             }
                                         </div>
                                     </div> */}
-                                    <Carousel >
-                                    {this.state.gallery == null ?
+                                    {this.state.gallery == null || this.state.gallery.length==0 ?
                                                 null :
-                                                this.state.gallery[0] != null ?
+                                    <Carousel >
+                                    
+                                                {this.state.gallery[0] != null ?
                                                     <Carousel.Item>
                                                         <div style={{justifyContent:"center",display:"flex"}}>
                                                         <Image height="50%" width="50%" style={{justifyContent:"center",display:"flex"}} src={"data:image/png;base64," + this.state.gallery[0]} style={{ maxWidth: '500px', maxHeight: '450px' }} />
                                                         </div>
                                                         </Carousel.Item>
                                                     : null}
-                                            {this.state.gallery == null ?
-                                                null :
-                                                this.state.gallery[1] != null ?
+                                            
+                                                {this.state.gallery[1] != null ?
                                                 <Carousel.Item> 
                                                     <div style={{justifyContent:"center",display:"flex"}}>
                                                     <Image height="50%" width="50%" style={{justifyContent:"center",display:"flex"}} src={"data:image/png;base64," + this.state.gallery[1]} style={{ maxWidth: '500px', maxHeight: '450px' }} />
                                                     </div>
                                                     </Carousel.Item>
-                                                    : null
-                                            }
+                                                    : null}
+                                            
                                     </Carousel>
+                                      }
                                 </React.Fragment>
                             )}
                         </div>
