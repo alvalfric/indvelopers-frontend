@@ -39,6 +39,7 @@ class CreateGameComponent extends Component {
             idCloud:"",
             idCloudError:"",
             selectedOption:null,
+            selectedOptionError:"",
             progress:0,
             spamError: "",
             urlVideo:"",
@@ -90,6 +91,8 @@ class CreateGameComponent extends Component {
         let imagenError="";
         let idCloudError="";
         let urlVideoError="";
+        let selectedOptionError="";
+        
 
         if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
@@ -125,6 +128,9 @@ class CreateGameComponent extends Component {
         } else if(!validator.isURL(this.state.urlVideo)) {
             urlVideoError = "Must enter a valid URL"
         }
+        if(this.state.selectedOption==null || this.state.selectedOption.length==0){
+            selectedOptionError="You must select at least one category"
+        }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
@@ -134,7 +140,8 @@ class CreateGameComponent extends Component {
         this.setState({ idCloudError });
         this.setState({ pegiError });
         this.setState({urlVideoError});
-        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError || urlVideoError) {
+        this.setState({selectedOptionError});
+        if (titleError || descriptionError || requirementsError || priceError || imagenError || idCloudError || pegiError || urlVideoError || selectedOptionError) {
             return false;
         } else {
             return true;
@@ -378,6 +385,8 @@ class CreateGameComponent extends Component {
                             className="basic-multi-select"
                             closeMenuOnSelect={false}
                         />
+                          {this.state.selectedOptionError ? (<div className="ValidatorMessage">{this.state.selectedOptionError}</div>) : null}
+
                             </Col>
                         </Form.Group>
                         {/* <div className="form-group">

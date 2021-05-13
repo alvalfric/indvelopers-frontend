@@ -49,6 +49,7 @@ class UpdateGameComponent extends Component {
             isAdmin: false,
             isFollowed:false,
             selectedOption:null,
+            selectedOptionError:"",
             allCategories:"",
             progress:0,
             discount:0.0,
@@ -284,6 +285,7 @@ class UpdateGameComponent extends Component {
         let pegiError = "";
         let discountError="";
         let urlVideoError="";
+        let selectedOptionError="";
 
         if (this.state.title.trim().length === 0) {
             titleError = "The game needs a title";
@@ -319,6 +321,9 @@ class UpdateGameComponent extends Component {
         } else if(!validator.isURL(this.state.urlVideo)) {
             urlVideoError = "Must enter a valid URL"
         }
+        if(this.state.selectedOption==null || this.state.selectedOption.length==0){
+            selectedOptionError="You must select at least one category"
+        }
 
         this.setState({ titleError });
         this.setState({ descriptionError });
@@ -327,8 +332,9 @@ class UpdateGameComponent extends Component {
         this.setState({ pegiError });
         this.setState({discountError});
         this.setState({urlVideoError});
+        this.setState({selectedOptionError});
 
-        if (titleError || descriptionError || requirementsError || priceError || discountError || pegiError || urlVideoError) {
+        if (titleError || descriptionError || requirementsError || priceError || discountError || pegiError || urlVideoError ||selectedOptionError) {
 
             return false;
         } else {
@@ -755,6 +761,8 @@ class UpdateGameComponent extends Component {
                                         className="basic-multi-select"
                                         closeMenuOnSelect={false}
                                     />
+                                 {this.state.selectedOptionError ? (<div className="ValidatorMessage">{this.state.selectedOptionError}</div>) : null}
+
                                         </Col>
                                     </Form.Group>
                                 </React.Fragment>
