@@ -58,6 +58,9 @@ class EditPublicationComponent extends Component{
                 developer:data.developer,
 
             })
+            if(AuthService.getUserData()['username']!== data.username){
+                this.props.history.push("/publication-List")
+            }
         })
     }
 
