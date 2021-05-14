@@ -261,7 +261,7 @@ class CreateGameComponent extends Component {
                 if (data === false) {
                     GameService.addGame(game).then(data => {
                         if (typeof data == "string") {
-                            this.props.history.push('/games')
+                            this.props.history.push('/my-games')
                         } else {
                             var i = 0;
                             GameService.findAll().then(data => {
