@@ -147,7 +147,7 @@ class UserDetailsComponent extends Component {
                     <Row>
                     <Col xs="6">
                     <Card.Title><h2>{this.profile.username} </h2> </Card.Title>
-                    <Card.Img width="40%" height="40%" src={"data:image/png;base64," + this.profile.userImage}  alt="ProfileImage" style={{ maxWidth: '400px', maxHeight: '1000px', marginBottom: '20px' }} />
+                    <Card.Img class="responsive" src={"data:image/png;base64," + this.profile.userImage}  alt="ProfileImage" style={{ height:"auto", maxHeight:"20rem", maxWidth:"100%" }} />
                     {this.state.isPremium ? (
                                 <React.Fragment>
                                     <p style={{  fontSize: "large", color: "#75510f" }}>⭐ You are premium! ⭐</p>
