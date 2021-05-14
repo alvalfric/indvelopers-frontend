@@ -15,6 +15,7 @@ class GamesComponent extends Component {
 
     this.state = {
       res: '',
+      resError: '',
       price: '',
       games: [],
       rawGames: [],
@@ -124,17 +125,26 @@ class GamesComponent extends Component {
     this.setState({
       [event.target.name] : event.target.value
     });
+    var pattern = new RegExp(/(?=.*?[¡¿!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])/)
+    if (pattern.test(event.target.value)) {
+      this.state.resError = "Avoid putting special characters on the search bar!";
+    } else {
+      this.state.resError = "";
+    }
   }
 
   getGameTitleCategorie() {
-    if(this.state.res.length === 0) {
-      GameService.findVerified().then((data) => {
-        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-        this.setState({games: slice})});
-    } else {
-      GameService.getGameByTitleOrCategorie(this.state.res).then((data) => {
-        var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-        this.setState({games: slice})})
+    var pattern = new RegExp(/(?=.*?[¡¿!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])/)
+    if (!pattern.test(this.state.res)) {
+      if(this.state.res.length === 0) {
+        GameService.findVerified().then((data) => {
+          var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+          this.setState({games: slice})});
+      } else {
+        GameService.getGameByTitleOrCategorie(this.state.res).then((data) => {
+          var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
+          this.setState({games: slice})})
+      }
     }
   }
 
@@ -159,7 +169,7 @@ class GamesComponent extends Component {
   titleCategorieCancelSearchHandler = () => {
     GameService.findVerified().then((data) => {
       var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-      this.setState({games: slice, res: ''})});
+      this.setState({games: slice, res: '', resError: ''})});
   }
 
   priceCancelSearchHandler = () => {
@@ -177,6 +187,7 @@ class GamesComponent extends Component {
           <Row>
         <Col sm="6" >
           <input className="FormInput" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
+          {this.state.resError ? (<div className="ValidatorMessage">{this.state.resError}</div>) : null}
           <Button variant="outline-success" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGameTitleCategorie()}>Search</Button>
           <Button variant="outline-danger" onClick={this.titleCategorieCancelSearchHandler}>Cancel</Button>
         </Col>
