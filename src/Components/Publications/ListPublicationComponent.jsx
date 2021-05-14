@@ -133,7 +133,11 @@ class ListPublicationComponent extends Component {
             <React.Fragment>
               <Card style={{ backgroundColor: "#222933", border: "3px solid rgb(93, 92, 102)" }} >
                 <Card.Header style={{ backgroundColor: "#222933" }}>
-                  <Card.Img width="3%" height="3%" variant="left" src={UserLogo} />
+                  {publication.developer.userImage != null ?
+                    <Card.Img variant="left" src={"data:image/png;base64," + publication.developer.userImage} style={{ maxWidth: "50px", maxHeight: "50px" }} />
+                    :
+                    <Card.Img variant="left" src={UserLogo} style={{ maxWidth: "50px", maxHeight: "50px" }} />
+                  }
                   {publication.username}</Card.Header>
                 <Card.Body style={{ backgroundColor: "#222933" }}>
                   <Card.Text>

@@ -97,6 +97,11 @@ class ListReviewComponent extends Component {
                   </div> */}
                   <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
                     <Card.Header>
+                      {review.developer.userImage != null ? 
+                        <Card.Img variant="left" src={"data:image/png;base64," + review.developer.userImage} style={{maxWidth: "50px", maxHeight: "50px"}} />
+                      :
+                      <Card.Img variant="left" src={UserLogo} style={{maxWidth: "50px", maxHeight: "50px"}} />
+                      }
                     {review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
                         {review.edited ? <h9> (Edited review)</h9> : null}
                         {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
