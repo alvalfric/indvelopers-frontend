@@ -182,7 +182,7 @@ class GamesComponent extends Component {
         </Col>
         
         <Col sm="6" >
-          <input className="FormInput" type="number" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} type="number"/>
+          <input className="FormInput" type="number" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler}/>
           <Button variant="outline-success" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGamePrice()}>Search</Button>
           <Button variant="outline-danger" onClick={this.priceCancelSearchHandler}>Cancel</Button>
         </Col>
