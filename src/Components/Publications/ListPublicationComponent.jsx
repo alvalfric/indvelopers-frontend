@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import { AuthService } from '../../Services/AuthService';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image'
 import { Col, FormText, Row } from 'react-bootstrap';
 
 class ListPublicationComponent extends Component {
@@ -98,9 +99,9 @@ class ListPublicationComponent extends Component {
               <Card style={{ backgroundColor: "#222933", border: "3px solid rgb(93, 92, 102)" }} >
                 <Card.Header style={{ backgroundColor: "#222933" }}>
                   {publication.developer.userImage != null ?
-                    <Card.Img variant="left" src={"data:image/png;base64," + publication.developer.userImage} style={{ maxWidth: "50px", maxHeight: "50px" }} />
+                    <Image variant="left" src={"data:image/png;base64," + publication.developer.userImage} style={{ maxWidth: "50px", maxHeight: "50px" }} roundedCircle />
                     :
-                    <Card.Img variant="left" src={UserLogo} style={{ maxWidth: "50px", maxHeight: "50px" }} />
+                    <Image variant="left" src={UserLogo} style={{ maxWidth: "50px", maxHeight: "50px" }} roundedCircle />
                   }
                   {publication.username}</Card.Header>
                 <Card.Body style={{ backgroundColor: "#222933" }}>

@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import altLogo from '../../assets/Game-Controller-Logo-Design.jpg';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form'
-import { Col, FormText, Row,ListGroup } from 'react-bootstrap';
+import { Col, FormText, Row, ListGroup } from 'react-bootstrap';
 
 class GamesComponent extends Component {
 
@@ -31,7 +31,7 @@ class GamesComponent extends Component {
     this.MyFollowedGames = this.MyFollowedGames.bind(this);
     this.ListGamesToRevise = this.ListGamesToRevise.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
-    this.showOffers=this.showOffers.bind(this);
+    this.showOffers = this.showOffers.bind(this);
   }
   handlePageClick = (e) => {
     const selectedPage = e.selected;
@@ -88,14 +88,14 @@ class GamesComponent extends Component {
       this.props.history.push('/login')
     }
   }
-  showOffers(){
+  showOffers() {
     this.props.history.push('/offers')
   }
 
-  MyFollowedGames(){
-    if(AuthService.isAuthenticated()){
+  MyFollowedGames() {
+    if (AuthService.isAuthenticated()) {
       this.props.history.push('/followedGames')
-    }else{
+    } else {
       this.props.history.push('/login')
     }
   }
@@ -123,7 +123,7 @@ class GamesComponent extends Component {
 
   searchChangeHandler = event => {
     this.setState({
-      [event.target.name] : event.target.value
+      [event.target.name]: event.target.value
     });
     var pattern = new RegExp(/(?=.*?[¡¿!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])/)
     if (pattern.test(event.target.value)) {
@@ -136,46 +136,52 @@ class GamesComponent extends Component {
   getGameTitleCategorie() {
     var pattern = new RegExp(/(?=.*?[¡¿!"#\$%&'\(\)\*\+,-\.\/:;<=>\?@[\]\^_`\{\|}~])/)
     if (!pattern.test(this.state.res)) {
-      if(this.state.res.length === 0) {
+      if (this.state.res.length === 0) {
         GameService.findVerified().then((data) => {
           var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-          this.setState({games: slice})});
+          this.setState({ games: slice })
+        });
       } else {
         GameService.getGameByTitleOrCategorie(this.state.res).then((data) => {
           var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-          this.setState({games: slice})})
+          this.setState({ games: slice })
+        })
       }
     }
   }
 
   searchChangePriceHandler = event => {
     this.setState({
-      [event.target.name] : event.target.value
+      [event.target.name]: event.target.value
     });
   }
 
   getGamePrice() {
-    if(this.state.price.length === 0) {
+    if (this.state.price.length === 0) {
       GameService.findVerified().then((data) => {
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-        this.setState({games: slice})});
+        this.setState({ games: slice })
+      });
     } else {
       GameService.getGameByPrice(this.state.price).then((data) => {
         var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-        this.setState({games: slice})})
+        this.setState({ games: slice })
+      })
     }
   }
 
   titleCategorieCancelSearchHandler = () => {
     GameService.findVerified().then((data) => {
       var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-      this.setState({games: slice, res: '', resError: ''})});
+      this.setState({ games: slice, res: '', resError: '' })
+    });
   }
 
   priceCancelSearchHandler = () => {
     GameService.findVerified().then((data) => {
       var slice = data.slice(this.state.offset, this.state.offset + this.state.perPage);
-      this.setState({games: slice, price: ''})});
+      this.setState({ games: slice, price: '' })
+    });
   }
 
   render() {
@@ -185,42 +191,41 @@ class GamesComponent extends Component {
         <br />
         <div className="FormStyle">
           <Row>
-        <Col sm="6" >
-          <input className="FormInput" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler}/>
-          {this.state.resError ? (<div className="ValidatorMessage">{this.state.resError}</div>) : null}
-          <Button variant="outline-success" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGameTitleCategorie()}>Search</Button>
-          <Button variant="outline-danger" onClick={this.titleCategorieCancelSearchHandler}>Cancel</Button>
-        </Col>
-        
-        <Col sm="6" >
-          <input className="FormInput" type="number" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler}/>
-          <Button variant="outline-success" style={{ marginLeft: "10px",marginRight:"10px" }} onClick={() => this.getGamePrice()}>Search</Button>
-          <Button variant="outline-danger" onClick={this.priceCancelSearchHandler}>Cancel</Button>
-        </Col>
-        </Row>
+            <Col sm="6" >
+              <input className="FormInput" placeholder="Search by title..." name="res" value={this.state.res} onChange={this.searchChangeHandler} />
+              {this.state.resError ? (<div className="ValidatorMessage">{this.state.resError}</div>) : null}
+              <Button variant="outline-success" style={{ marginLeft: "10px", marginRight: "10px" }} onClick={() => this.getGameTitleCategorie()}>Search</Button>
+              <Button variant="outline-danger" onClick={this.titleCategorieCancelSearchHandler}>Cancel</Button>
+            </Col>
+            <Col sm="6" >
+              <input className="FormInput" type="number" placeholder="Price less than..." name="price" value={this.state.price} onChange={this.searchChangePriceHandler} />
+              <Button variant="outline-success" style={{ marginLeft: "10px", marginRight: "10px" }} onClick={() => this.getGamePrice()}>Search</Button>
+              <Button variant="outline-danger" onClick={this.priceCancelSearchHandler}>Cancel</Button>
+            </Col>
+          </Row>
         </div>
-        <br/>
-        <Card   style={{ width: '18rem' ,float:"right",backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
-  <ListGroup className="bg-dark text-white">
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.createGame}>Create game</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}>My created games</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed developer's games</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}>Offers</button></ListGroup.Item>
-    {AuthService.isAuthenticated() ?
-    AuthService.getUserData().roles.includes("ADMIN") ?
-    <React.Fragment>
-    <ListGroup.Item style={{backgroundColor:"#d8bc1dfd"}}><button onClick={this.componentDidMount} className="AdminButton" style={{ marginLeft: "10px" }}>Checked games</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#d8bc1dfd"}}><button onClick={this.ListGamesToRevise} className="AdminButton" style={{ marginLeft: "10px" }}>Games to check</button></ListGroup.Item>
-    </React.Fragment>
-    :null
-    :null
-  }
-  </ListGroup>
-</Card>
+        <br />
+        <Card style={{ width: '18rem', float: "right", backgroundColor: "#222933", border: "3px solid rgb(93, 92, 102)" }}>
+          <ListGroup className="bg-dark text-white">
+            <ListGroup.Item style={{ backgroundColor: "#1e5f74" }}><button className="Button" onClick={this.createGame}>Create game</button></ListGroup.Item>
+            <ListGroup.Item style={{ backgroundColor: "#1e5f74" }}><button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}>My created games</button></ListGroup.Item>
+            <ListGroup.Item style={{ backgroundColor: "#1e5f74" }}><button className="Button" onClick={this.MyFollowedGames} style={{ marginLeft: "10px" }}>Followed developer's games</button></ListGroup.Item>
+            <ListGroup.Item style={{ backgroundColor: "#1e5f74" }}><button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button></ListGroup.Item>
+            <ListGroup.Item style={{ backgroundColor: "#1e5f74" }}><button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}>Offers</button></ListGroup.Item>
+            {AuthService.isAuthenticated() ?
+              AuthService.getUserData().roles.includes("ADMIN") ?
+                <React.Fragment>
+                  <ListGroup.Item style={{ backgroundColor: "#d8bc1dfd" }}><button onClick={this.componentDidMount} className="AdminButton" style={{ marginLeft: "10px" }}>Checked games</button></ListGroup.Item>
+                  <ListGroup.Item style={{ backgroundColor: "#d8bc1dfd" }}><button onClick={this.ListGamesToRevise} className="AdminButton" style={{ marginLeft: "10px" }}>Games to check</button></ListGroup.Item>
+                </React.Fragment>
+                : null
+              : null
+            }
+          </ListGroup>
+        </Card>
         <br />
         <br />
-        <div className="FormStyle" style={{float:"left"}}>
+        <div className="FormStyle" style={{ float: "left" }}>
           {this.state.games.map((item) =>
             // <div className="pb-4">
             //   <div className="w3-card-4">
@@ -242,7 +247,7 @@ class GamesComponent extends Component {
             //             Price: {item.price}€
             //           </React.Fragment>
             //         }
-                      
+
 
             //           <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
             //         </p>
@@ -251,47 +256,47 @@ class GamesComponent extends Component {
             //   </div>
             // </div>
             <div className="pb-4">
-              <br/>
-            <Card className="bg-dark text-white" style={{maxWidth:'600px', maxHeight: '500px',justifyContent:"center",display:"flex"}} >
-        {item.imagen ?
-          <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '400px' }}/>
-         
-     :
-     <Card.Img src={altLogo} style={{ maxHeight: '400px'}}/>
-     }
-  <Card.ImgOverlay>
-    <Card.Title>{item.title}</Card.Title>
-              {item.discount!=0.?(
-                        <React.Fragment>
-                          Price:<strike> {item.price}</strike>€ ({item.discount*100} %)
-                          <br/>
-                          {(item.price-item.price*item.discount).toFixed(2)}€
-                        </React.Fragment>
-                      ):
-                      <React.Fragment>
-                        Price: {item.price}€
+              <br />
+              <Card className="bg-dark text-white" style={{ maxWidth: '600px', maxHeight: '500px', justifyContent: "center", display: "flex" }} >
+                {item.imagen ?
+                  <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '400px' }} />
+
+                  :
+                  <Card.Img src={altLogo} style={{ maxHeight: '400px' }} />
+                }
+                <Card.ImgOverlay>
+                  <Card.Title>{item.title}</Card.Title>
+                  {item.discount != 0. ? (
+                    <React.Fragment>
+                      Price:<strike> {item.price}</strike>€ ({item.discount * 100} %)
+                      <br />
+                      {(item.price - item.price * item.discount).toFixed(2)}€
+                    </React.Fragment>
+                  ) :
+                    <React.Fragment>
+                      Price: {item.price}€
                       </React.Fragment>
-                    }
-                     <Button onClick={() => this.editGame(item.id)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="outline-primary">Details</Button>
-  </Card.ImgOverlay>
-</Card>
-          </div>
+                  }
+                  <Button onClick={() => this.editGame(item.id)} style={{ justifyContent: "right", textAlign: "right", display: "flex", position: "bottom" }} variant="outline-primary">Details</Button>
+                </Card.ImgOverlay>
+              </Card>
+            </div>
           )}
-          <div style={{justifyContent:"center",display:"flex"}}>
-        <ReactPaginate previousLabel={"prev"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"} />
+          <div style={{ justifyContent: "center", display: "flex" }}>
+            <ReactPaginate previousLabel={"prev"}
+              nextLabel={"next"}
+              breakLabel={"..."}
+              breakClassName={"break-me"}
+              pageCount={this.state.pageCount}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={5}
+              onPageChange={this.handlePageClick}
+              containerClassName={"pagination"}
+              subContainerClassName={"pages pagination"}
+              activeClassName={"active"} />
           </div>
         </div >
-        
+
       </div>
     );
   }
