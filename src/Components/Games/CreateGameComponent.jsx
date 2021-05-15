@@ -29,6 +29,7 @@ class CreateGameComponent extends Component {
             price: "",
             priceError: "",
             pegi: null,
+            pegiSelected: null,
             pegiOptions:[{label:"3",value:3},{label:"7",value:7},{label:"12",value:12},{label:"16",value:16},{label:"18",value:18}],
             pegiError: "",
             categorias: [],
@@ -60,7 +61,7 @@ class CreateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
-        this.changePegiHandler = this.changePegiHandler.bind(this);
+        // this.changePegiHandler = this.changePegiHandler.bind(this);
         this.changePegiHandler2 = this.changePegiHandler2.bind(this);
         this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
@@ -166,9 +167,9 @@ class CreateGameComponent extends Component {
         this.setState({ price: event.target.value })
     }
 
-    changePegiHandler = (event) => {
-        this.setState({ pegi: event.target.value })
-    }
+    // changePegiHandler = (event) => {
+    //     this.setState({ pegi: event.target.value })
+    // }
 
 
     urlChangeHandler = (event) => {
@@ -242,10 +243,9 @@ class CreateGameComponent extends Component {
         this.setState({ selectedOption })
         this.setState({ categorias: selectedOption.map(item => item.value) });
     }
-    changePegiHandler2 = option=>{
-        console.log("PEGI OPTION===>"+JSON.stringify(option.value))
-        this.setState({pegi})
-        this.setState({pegi:option.value})
+    changePegiHandler2 = pegiSelected => {
+        this.setState({pegiSelected})
+        this.setState({pegi:pegiSelected.value})
     }
 
     saveGame = (e) => {
@@ -364,7 +364,7 @@ class CreateGameComponent extends Component {
                             <Col sm="10">
                                 {/* <Form.Control placeholder="Pegi" name="pegi" className="FormInput" type="number"
                                 value={this.state.pegi} onChange={this.changePegiHandler}/> */}
-                                <Select  options={this.state.pegiOptions} value={this.state.pegi} onChange={this.changePegiHandler2} className="basic-multi-select" closeMenuOnSelect={true} />
+                                <Select  options={this.state.pegiOptions} value={this.state.pegiSelected} onChange={this.changePegiHandler2} className="basic-multi-select" closeMenuOnSelect={true} />
                                 {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                             </Col>
                         </Form.Group>

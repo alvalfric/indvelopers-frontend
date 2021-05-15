@@ -37,7 +37,9 @@ class UpdateGameComponent extends Component {
             requirementsError: "",
             price: "",
             priceError: "",
-            pegi: "",
+            pegi: null,
+            pegiSelected: null,
+            pegiOptions:[{label:"3",value:3},{label:"7",value:7},{label:"12",value:12},{label:"16",value:16},{label:"18",value:18}],
             pegiError: "",
             categorias: [],
             idCloud: "",
@@ -77,7 +79,8 @@ class UpdateGameComponent extends Component {
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeRequirementsHandler = this.changeRequirementsHandler.bind(this);
         this.changePriceHandler = this.changePriceHandler.bind(this);
-        this.changePegiHandler = this.changePegiHandler.bind(this);
+        // this.changePegiHandler = this.changePegiHandler.bind(this);
+        this.changePegiHandler2 = this.changePegiHandler2.bind(this);
         this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
         this.changeImagenHandler = this.changeImagenHandler.bind(this);
         this.changeConfirmHandler = this.changeConfirmHandler.bind(this);
@@ -104,6 +107,7 @@ class UpdateGameComponent extends Component {
                 requirements: game.requirements,
                 price: game.price + "",
                 pegi: game.pegi,
+                pegiSelected: {label: String(game.pegi), value: game.pegi},
                 idCloud: game.idCloud,
                 isNotMalware: game.isNotMalware,
                 creator: game.creator,
@@ -364,8 +368,13 @@ class UpdateGameComponent extends Component {
         this.setState({ price: event.target.value })
     }
 
-    changePegiHandler = (event) => {
-        this.setState({ pegi: event.target.value })
+    // changePegiHandler = (event) => {
+    //     this.setState({ pegi: event.target.value })
+    // }
+
+    changePegiHandler2 = pegiSelected => {
+        this.setState({pegiSelected})
+        this.setState({pegi:pegiSelected.value})
     }
 
     changeCategoriesHandler = selectedOption => {
@@ -728,8 +737,9 @@ class UpdateGameComponent extends Component {
                                     <Form.Group as={Row}>
                                         <Form.Label column sm="1">Pegi</Form.Label>
                                     <Col sm="10">
-                                        <Form.Control placeholder="Pegi" name="pegi" className="FormInput" type="number"
-                                        value={this.state.pegi} onChange={this.changePegiHandler}/>
+                                        {/* <Form.Control placeholder="Pegi" name="pegi" className="FormInput" type="number"
+                                        value={this.state.pegi} onChange={this.changePegiHandler}/> */}
+                                        <Select  options={this.state.pegiOptions} value={this.state.pegiSelected} onChange={this.changePegiHandler2} className="basic-multi-select" closeMenuOnSelect={true} />
                                     </Col>
                                     </Form.Group>
                                 </React.Fragment>
