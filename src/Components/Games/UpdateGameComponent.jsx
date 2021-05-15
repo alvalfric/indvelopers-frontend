@@ -324,6 +324,8 @@ class UpdateGameComponent extends Component {
             urlVideoError = null
         } else if(!validator.isURL(this.state.urlVideo)) {
             urlVideoError = "Must enter a valid URL"
+        } else if(this.state.urlVideo.includes('&')) {
+            this.state.urlVideo = this.state.urlVideo.substring(0, this.state.urlVideo.search('&'))
         }
         if(this.state.selectedOption==null || this.state.selectedOption.length==0){
             selectedOptionError="You must select at least one category"
