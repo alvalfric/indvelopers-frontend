@@ -89,29 +89,7 @@ class FollowListComponent extends Component {
                         user => {
                             this.usuario = user
                             return (
-                                // <div>
-                                //     <br />
-                                //     <div className="p-4 w3-card-4" >
-                                //         <header className="w3-container">
-                                //             <h5 >{user.username}</h5>
-                                //         </header>
-                                //         <div className="w3-container">
-                                //             {this.props.location.state.following?
-                                //             this.props.location.state.following.includes(user)?
-                                //             <button className="Button" style={{ float: "right" }} 
-                                //             onMouseEnter={() => this.setState({mouseover : false })}
-                                //             onMouseLeave={() => this.setState({mouseover : true })}
-                                //             onClick={() => this.unfollow(user.username)}>{this.state.mouseover?
-                                //             "❤"
-                                //             :
-                                //             "Unfollow"
-                                //             }
-                                //             </button>  
-                                //             :null:null
-                                //             }     
-                                //         </div>   
-                                //     </div>
-                                // </div>
+
                                 <React.Fragment>
                                     <br/>
                                     <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
@@ -169,7 +147,6 @@ class FollowListComponent extends Component {
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"} />
                 
-                {/* <a href="/me" className="CancelButton" >Back</a> */}
                 <div style={{float:"left"}}>
                 <Button variant="outline-danger" onClick={()=>this.props.history.push("/me")}>Back</Button>
                 </div>

@@ -32,20 +32,24 @@ class EditReviewComponent extends Component {
 	}
   
 	componentDidMount() {
-		ReviewService.getbyGame(this.state.gameId).then(data => {
-            data.forEach(review => {
-                if (AuthService.getUserData()['username'] == review.developer.username) {
-                    this.setState({
-						text: review.text,
-						score: review.score + "",
-						hasReview:true
-					})
-                }
-            })
-			if(!this.state.hasReview){
-				this.props.history.push('/game-View/'+this.state.gameId);
-			}
-        })
+		if(AuthService.isAuthenticated()){
+			ReviewService.getbyGame(this.state.gameId).then(data => {
+				data.forEach(review => {
+					if (AuthService.getUserData()['username'] == review.developer.username) {
+						this.setState({
+							text: review.text,
+							score: review.score + "",
+							hasReview:true
+						})
+					}
+				})
+				if(!this.state.hasReview){
+					this.props.history.push('/game-View/'+this.state.gameId);
+				}
+			})
+		}else{
+			this.props.history.push("/login")
+		}
 	}
 
 	validate = () => {
@@ -134,14 +138,6 @@ class EditReviewComponent extends Component {
 				<Form className="FormStyle">
 					<h2 style={{textAlign:"center"}}>Add review</h2>
 					<br/>
-					{/* <div className="form-group">
-						<label>Text</label>
-						<textarea placeholder="Text" name="text" type="text-box" className="form-control" value={this.state.text}
-							onChange={this.changeTextHandler} />
-						{this.state.textError ? (<div className="ValidatorMessage">
-							{this.state.textError}
-						</div>) : null}
-					</div> */}
 					<Form.Group as={Row}>
 						<Form.Label column sm="1">Text</Form.Label>
 						<Col sm="10">
@@ -152,14 +148,6 @@ class EditReviewComponent extends Component {
 						</div>) : null}
 						</Col>
 					</Form.Group>
-					{/* <div className="form-group">
-						<label> Score </label>
-						<input placeholder="Score" name="score" className="form-control" type="number" min="0" max="5" step="0.1" value={this.state.score}
-							onChange={this.changeScoreHandler}></input>
-						{this.state.scoreError ? (<div className="ValidatorMessage">
-							{this.state.scoreError}
-						</div>) : null}
-					</div> */}
 					<Form.Group as={Row}>
 						<Form.Label column sm="1">Score</Form.Label>
 						<Col sm="10">

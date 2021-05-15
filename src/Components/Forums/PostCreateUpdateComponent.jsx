@@ -107,26 +107,6 @@ class PostCreateUpdateComponent extends Component {
 			<div>
 				<br></br>
 				<br></br>
-				{/* <form>
-                    {this.state.amIUpdating?
-                    <h2>Update Post</h2>
-                    :<h2>Add Post</h2>}
-					<div className="form-group">
-						<label>Description</label>
-						<textarea placeholder="description" name="description" type="text-box" className="form-control" value={this.state.description}
-							onChange={this.changeDescriptionHandler} />
-						{this.state.descriptionError ? (<div className="ValidatorMessage">
-							{this.state.descriptionError}
-						</div>) : null}
-					</div>
-                    {this.state.amIUpdating?
-					<button className="AceptButton" onClick={(e)=>this.savePost(e)}>Editar Post</button>
-                    :
-                    <button className="AceptButton" onClick={(e)=>this.savePost(e)}>New Post</button>
-                    }
-					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
-					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
-				</form> */}
 				<Form className="FormStyle">
 				{this.state.amIUpdating?
                     <h2 className="text-center">Update Post</h2>

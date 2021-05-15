@@ -93,13 +93,6 @@ class RecoverPasswordComponent extends Component {
                 <h2 style={{textAlign:"center"}}>Restore your password!</h2>
                 <br />
 
-                {/* <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.changePasswordHandler} />
-                    {this.state.passwordError ? (<div className="ValidatorMessage">
-                        {this.state.passwordError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Password</Form.Label>
                     <Col sm="10">
@@ -110,13 +103,7 @@ class RecoverPasswordComponent extends Component {
                     </Col>
                 </Form.Group>
 
-                {/* <div className="form-group">
-                    <label>Confirm password</label>
-                    <input type="password" className="form-control" placeholder="Confirm password" value={this.state.confirmPassword} onChange={this.changeConfirmPasswordHandler} />
-                    {this.state.confirmPasswordError ? (<div className="ValidatorMessage">
-                        {this.state.confirmPasswordError}
-                    </div>) : null}
-                </div> */}
+
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Confirm pass</Form.Label>
                     <Col sm="10">

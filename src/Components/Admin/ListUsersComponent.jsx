@@ -83,24 +83,6 @@ class ListUsersComponent extends Component {
                         user => {
                             this.usuario = user
                             return (
-                                // <div>
-                                //     <br />
-                                //     <div className="w3-card-4" >
-                                //         <header className="w3-container">
-                                //             <h5>{user.username}</h5>
-                                //         </header>
-                                //         <div className="w3-container">
-                                //             <p>Roles: {user.roles.join(', ')} {user.roles.indexOf('ADMIN') == -1 ?
-                                //                 <button className="AdminButton" style={{ float: "right" }} onClick={() => this.changeToAdmin(user.id)}>Change user to admin</button>
-                                //                 :
-                                //                 null
-                                //             }</p>
-                                //         </div>
-                                //         <div>
-                                //         <button className="AdminButton" onClick={() => this.getUserDetails(user)}>User Details</button>
-                                //         </div>    
-                                //     </div>
-                                // </div>
                                 <React.Fragment>
                                     <br/>
                                 <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >

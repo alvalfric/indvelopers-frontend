@@ -50,51 +50,7 @@ class BuySubscriptionComponent extends Component {
     getDetails=()=>{
         return(
             <React.Fragment>
-                {/* <br/>
-                <br/>
-                
-                <h2>Finalize purchase</h2>
-                <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
-                <div className="gridContainer">
-                <div className="sidenav">
-                <img src={portada}  style={{display:"block"}}/>
-                <div style={{marginRight:"30%"}}>
-                 <br/>
-                   <div className="w3-card-4" >
-                  <header className="w3-container ">
-                  <img/>
-                  <h5>Description</h5>
-                  </header>
 
-                  <div className="w3-container">
-                  <p>Subscription to inDvelopers</p>
-                  </div>
-                  </div>
-                 </div>
-                </div >
-                <div className="sidenav2">
-                <h4 style={{color:"#838383"}}>Price:7.99 €</h4>
-                <h4 style={{color:"#838383"}}>______________________________________________</h4>
-                <h4 style={{color:"#838383"}}>total:7.99 €</h4>
-                <h3>Purchase method</h3>
-                <h4>Paypal</h4>
-                <div class="custom-control custom-checkbox">
-                 <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
-                {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
-              </div>
-              
-                <button className="AceptButton"  onClick={this.buySubscription}>Finalize purchase</button>
-                </div>
-                </div> */}
-                {/* <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
-                    <Card.Header><h2>Finalize purchase</h2></Card.Header>
-                    <Card.Body>
-                        <Col>
-                        
-                        </Col>
-                    </Card.Body>
-                </Card> */}
                 <Form>
                     <br/>
                     <br/>
