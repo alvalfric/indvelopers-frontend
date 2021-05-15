@@ -256,7 +256,11 @@ class UpdateGameComponent extends Component {
                 if (data === false) {
                     GameService.updateGame(game, this.state.id).then(data => {
                         if (typeof data == "string") {
-                            this.props.history.push('/games');
+                            if(this.state.isAdmin){
+                                this.props.history.push('/games');
+                            }else{
+                                this.props.history.push('/my-games');
+                            }
                         } else {
                             GameService.findAll().then(data => {
                                 data.forEach(g => {
