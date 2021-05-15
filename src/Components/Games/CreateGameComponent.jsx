@@ -303,13 +303,6 @@ class CreateGameComponent extends Component {
                     <h2 style={{textAlign:"center"}}>Create a game</h2>
                     <br></br>
                     <form>
-                        {/* <div className="form-group">
-                            <label>Title</label>
-                            <input placeholder="Title" name="title" className="form-control"
-                                value={this.state.title} onChange={this.changeTitleHandler}></input>
-
-                            {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
-                        </div> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="1">Title</Form.Label>
                             <Col sm="10">
@@ -318,13 +311,6 @@ class CreateGameComponent extends Component {
                                 {this.state.titleError ? (<div className="ValidatorMessage">{this.state.titleError}</div>) : null}
                             </Col>
                         </Form.Group>
-                        {/* <div className="form-group">
-                            <label>Description</label>
-                            <input placeholder="Description" name="description" className="form-control"
-                                value={this.state.description} onChange={this.changeDescriptionHandler}></input>
-
-                            {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
-                        </div> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="1">Description</Form.Label>
                             <Col sm="10">
@@ -333,13 +319,6 @@ class CreateGameComponent extends Component {
                                 {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
                             </Col>
                         </Form.Group>
-                        {/* <div className="form-group">
-                            <label>Minimum requirements</label>
-                            <input placeholder="Requirements" name="requirements" className="form-control"
-                                value={this.state.requirements} onChange={this.changeRequirementsHandler}></input>
-
-                            {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
-                        </div> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="1">Minimun requirements</Form.Label>
                             <Col sm="10">
@@ -348,13 +327,6 @@ class CreateGameComponent extends Component {
                                 {this.state.requirementsError ? (<div className="ValidatorMessage">{this.state.requirementsError}</div>) : null}
                             </Col>
                         </Form.Group>
-                        {/* <div className="form-group">
-                            <label>Price</label>
-                            <p>Note: If you're a NON PREMIUM user, price will be 0€</p>
-                            <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
-                                value={this.state.price} onChange={this.changePriceHandler}></input>
-                            {this.state.priceError ? (<div className="ValidatorMessage">{this.state.priceError}</div>) : null}
-                        </div > */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="1">Price</Form.Label>
                             <Col sm="10">
@@ -365,15 +337,6 @@ class CreateGameComponent extends Component {
                             </Col>
                         </Form.Group>
 
-                        {/* <label>Categories</label>
-                        <Select
-                            isMulti
-                            options={this.categories}
-                            value={this.state.selectedOption}
-                            onChange={this.changeCategoriesHandler}
-                            className="basic-multi-select"
-                            closeMenuOnSelect={false}
-                        /> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="1">Categories</Form.Label>
                             <Col sm="10">
@@ -389,12 +352,6 @@ class CreateGameComponent extends Component {
 
                             </Col>
                         </Form.Group>
-                        {/* <div className="form-group">
-                            <label>Pegi</label>
-                            <input placeholder="Pegi" name="pegi" className="form-control" type="number"
-                                value={this.state.pegi} onChange={this.changePegiHandler}></input>
-                            {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
-                        </div> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="1">Pegi</Form.Label>
                             <Col sm="10">
@@ -403,22 +360,6 @@ class CreateGameComponent extends Component {
                                 {this.state.pegiError ? (<div className="ValidatorMessage">{this.state.pegiError}</div>) : null}
                             </Col>
                         </Form.Group>
-                        {/* <div className="form-group">
-                        {this.state.base64TextString !== "" ?
-                            <React.Fragment>
-                                <label>Actual image: </label>
-                                < br />
-                                <img src={"data:image/png;base64,"+this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '150px' }}/>
-                            </React.Fragment>
-                        :
-                            <React.Fragment>
-                                <label>Image: </label>
-                            </React.Fragment>
-                        }
-                        < br />
-                        <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
-                        {this.state.imagenError ? (<div className="ValidatorMessage">{this.state.imagenError}</div>) : null}
-                        </div> */}
                         <Form.Group as={Row}>
                         {this.state.base64TextString !== "" ?
                             <React.Fragment>
@@ -437,11 +378,6 @@ class CreateGameComponent extends Component {
                         </Col>
                         </Form.Group>
 
-                        {/* <div className="form-group">
-                            <label>Optional Video (YouTube URL):</label>
-                            <input placeholder="YouTube URL" type="url" name="videoURL" className="form-control" value={this.state.urlVideo} onChange={this.urlChangeHandler}></input>
-                            {this.state.urlVideoError ? (<div className="ValidatorMessage">{this.state.urlVideoError}</div>) : null}
-                        </div> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="2"> Optional Video (YouTube URL):</Form.Label>
                             <Col sm="9">
@@ -483,16 +419,6 @@ class CreateGameComponent extends Component {
                             <Button variant="outline-primary" onClick={(e) => this.eraseGallery(e)} style={{ marginLeft: "10px" }}>Erase gallery</Button>
                         </div>
 
-                        {/* <div className="form-group">
-                            <label>Game(.zip format):</label>
-                            <input name="GameFile" type="file" className="FormInput" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
-                            {this.state.progress != 0 ? (
-                                <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`} /></p>
-                            ) : null}
-
-                            {this.state.idCloudError ? (<div className="ValidatorMessage">{this.state.idCloudError}</div>) : null}
-
-                        </div> */}
                         <Form.Group as={Row}>
                             <Form.Label column sm="2">Game(.zip format):</Form.Label>
                             <Col sm="9">

@@ -451,30 +451,6 @@ class UpdateGameComponent extends Component {
                     {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (<h2 className="text-center">Edit Game</h2>) : null}
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
-                                // <React.Fragment>
-                                //     <label>Title</label>
-                                //     <input placeholder="Title" name="title" className="form-control"
-                                //         value={this.state.title} onChange={this.changeTitleHandler}></input>
-                                //     {this.state.base64TextString !== "" ?
-                                //         <React.Fragment>
-                                //             <label>Imágen actual: </label>
-                                //             < br />
-                                //             <img src={"data:image/png;base64," + this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '150px' }} />
-                                //         </React.Fragment>
-                                //         :
-                                //         <React.Fragment>
-                                //             <label>Imágen: </label>
-                                //         </React.Fragment>
-                                //     }
-                                //     < br />
-                                //     <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
-                                //     <br />
-                                //     <br />
-                                //     <label>Game:</label>
-                                //     <input name="GameFile" type="file" className="ButtonFileLoad" multiple accept=".zip, .rar, .7z" onChange={(e) => this.changeGameHandler(e)} />
-                                //     {this.state.progress != 0 ? (
-                                //         <p><ProgressBar striped animated variant="success" now={this.state.progress} label={`${this.state.progress}%`} /></p>
-                                //     ) : null}
 
                                  <React.Fragment>
                                 <Form.Group as={Row}>
@@ -513,10 +489,6 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             ) :
                                 <React.Fragment>
-                                    {/* <div className="w3-display-container w3-text-white">
-                                        <Image height="70%" width="70%" src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block", maxWidth: '800px', maxHeight: '400px', }} />
-                                        <div className="text-center" ><h1>{this.state.title}</h1></div>
-                                    </div> */}
                                     <Card >
                                         <Card.Img height="70%" width="70%" src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block", maxWidth: '1000px', maxHeight: '500px', }}/>
                                         <Card.ImgOverlay>
@@ -565,25 +537,6 @@ class UpdateGameComponent extends Component {
                                 </React.Fragment>
                             ) : (
                                 <React.Fragment>
-                                    {/* <div className="w3-card-2" >
-                                        <header className="w3-container ">
-                                            <img />
-                                            <h5>Gallery</h5>
-                                        </header>
-                                        <div className="w3-container">
-                                            {this.state.gallery == null ?
-                                                null :
-                                                this.state.gallery[0] != null ?
-                                                    <img src={"data:image/png;base64," + this.state.gallery[0]} style={{ maxWidth: '200px', maxHeight: '150px' }} />
-                                                    : null}
-                                            {this.state.gallery == null ?
-                                                null :
-                                                this.state.gallery[1] != null ?
-                                                    <img src={"data:image/png;base64," + this.state.gallery[1]} style={{ maxWidth: '200px', maxHeight: '150px' }} />
-                                                    : null
-                                            }
-                                        </div>
-                                    </div> */}
                                     {this.state.gallery == null || this.state.gallery.length==0 ?
                                                 null :
                                     <Carousel >
@@ -613,9 +566,6 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    {/* <label>Description</label>
-                                    <input placeholder="Description" name="description" className="form-control"
-                                        value={this.state.description} onChange={this.changeDescriptionHandler}></input> */}
                                     <Form.Group as={Row}>
                                         <Form.Label column sm="1">Description</Form.Label>
                                         <Col sm="10">
@@ -672,9 +622,6 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    {/* <label>System requirements</label>
-                                    <input placeholder="Requirements" name="requirements" className="form-control"
-                                        value={this.state.requirements} onChange={this.changeRequirementsHandler}></input> */}
                                         <Form.Group as={Row}>
                                             <Form.Label column sm="1">System requirements</Form.Label>
                                             <Col sm="10">
@@ -705,9 +652,6 @@ class UpdateGameComponent extends Component {
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ?
                                 (
                                     <React.Fragment>
-                                        {/* <label>Price</label>
-                                        <input placeholder="Price" name="price" className="form-control" type="number" min="0" step="0.01"
-                                            value={this.state.price} onChange={this.changePriceHandler}></input> */}
                                             <Form.Group as={Row}>
                                                 <Form.Label column sm="1">Price</Form.Label>
                                                 <Col sm="10">
@@ -746,15 +690,6 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    {/* <label>Categories</label>
-                                    <Select
-                                        isMulti
-                                        options={this.categories}
-                                        value={this.state.selectedOption}
-                                        onChange={this.changeCategoriesHandler}
-                                        className="basic-multi-select"
-                                        closeMenuOnSelect={false}
-                                    /> */}
                                     <Form.Group as={Row}>
                                         <Form.Label column sm="1">Categories</Form.Label>
                                         <Col sm="10">
@@ -788,9 +723,6 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    {/* <label>Pegi</label>
-                                    <input placeholder="Pegi" name="pegi" className="form-control" type="number"
-                                        value={this.state.pegi} onChange={this.changePegiHandler}></input> */}
                                     <Form.Group as={Row}>
                                         <Form.Label column sm="1">Pegi</Form.Label>
                                     <Col sm="10">
@@ -816,9 +748,6 @@ class UpdateGameComponent extends Component {
                         <div className="form-group">
                             {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === this.state.creator.username) ? (
                                 <React.Fragment>
-                                    {/* <label>Optional Video (YouTube URL):</label>
-                                    <input placeholder="YouTube URL" type="url" name="urlVideo" className="form-control"
-                                        value={this.state.urlVideo} onChange={this.urlChangeHandler}></input> */}
                                         <Form.Group as={Row}>
                                             <Form.Label column sm="2">Optional Video (YouTube URL):</Form.Label>
                                             <Col sm="9">
@@ -855,9 +784,6 @@ class UpdateGameComponent extends Component {
                 
                         {(AuthService.isAuthenticated() && AuthService.getUserData()['username']===this.state.creator.username)?
                         <React.Fragment>
-                            {/* <label>Discount</label>
-                            <input placeholder="Discount" name="Discount" className="form-control" type="number" min="0" step="0.1"
-                                        value={this.state.discount} onChange={this.changeDiscountHandler}></input> */}
                             <Form.Group as={Row}>
                                 <Form.Label column sm="1">Discount</Form.Label>
                                 <Col sm="10">

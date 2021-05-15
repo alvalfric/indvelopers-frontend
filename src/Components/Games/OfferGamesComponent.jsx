@@ -65,24 +65,6 @@ class OfferGamesComponent extends Component {
         <br />
         <div>
           {this.state.followingGames.map((item) =>
-            // <div className="pb-4">
-            //   <div className="w3-card-4">
-            //     <div className="w3-container">
-            //       <div className="container">
-            //         <img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} style={{ maxWidth: '500px', maxHeight: '250px' }} />
-            //         <h4>{item.title}</h4>
-            //       </div>
-            //       <div className="w3-container p-3">
-            //         <p class="card-text">
-
-            //           <strike> {item.price}</strike>€ <p>{(item.price-(item.price*item.discount)).toFixed(2)}€</p>
-            //           <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
-            //         </p>
-            //         <p>Discount: {item.discount*100}%</p>
-            //       </div>
-            //     </div>
-            //   </div>
-            // </div>
             <div className="pb-4">
             <br/>
           <Card className="bg-dark text-white" style={{maxWidth:'600px', maxHeight: '500px',justifyContent:"center",display:"flex"}} >

@@ -75,26 +75,6 @@ class ListReviewComponent extends Component {
               return (
                 <div>
                   <br />
-                  {/* <div className="w3-card-4" >
-                    <br />
-                    <header className="w3-container ">
-                      <h5>
-                        {review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
-                        {review.edited ? <h9> (Edited review)</h9> : null}
-                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                        <button className="DeleteButton" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</button>
-                          : null}
-                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                          <button className="Button" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</button>
-                          : null}
-                      </h5>
-                    </header>
-                    <div className="w3-container">
-                      <p>{review.text}</p>
-
-                      <p></p>
-                    </div>
-                  </div> */}
                   <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
                     <Card.Header>
                       {review.developer.userImage != null ? 

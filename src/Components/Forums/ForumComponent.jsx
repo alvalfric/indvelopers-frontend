@@ -89,27 +89,6 @@ class ForumComponent extends Component {
           forum =>
             <div>
               <br />
-              {/* <a href={"/posts/"+forum.id}>
-              <div className="w3-card-4" >
-                <header className="w3-container ">
-                  <img />
-                  <img src={ForumLogo} className="inDvelopers-logo" width="3%" height="3%" />
-                  <h6 style={{float:"right",marginTop:"1rem"}}>{forum.developerCreatorUsername}</h6>
-                  <h5 style={{marginLeft:"2rem", marginTop:"2rem"}}>{forum.title}</h5>
-                  <h6 style={{float:"right"}}>{forum.creationDate.slice(0,10)}</h6>
-                </header>
-              </div>
-              </a>
-              <div>
-                {AuthService.isAuthenticated() ?
-                    AuthService.getUserData()['username'] === forum.developerCreatorUsername ?
-                    <React.Fragment> 
-                      <button className="Button" style={{float:"right"}} onClick={() => this.deleteForum(forum.id)}>Delete Forum</button>
-                    </React.Fragment>
-                    :null
-                  :null
-                }
-                </div> */}
                 
                 <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
                 <a href={"/posts/"+forum.id} style={{textDecoration:"none",color:"white"}}>

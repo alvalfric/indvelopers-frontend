@@ -84,47 +84,26 @@ class AdminDashboardComponent extends Component {
                                 <h5>General data</h5>
                             </header>
                             <br/>
-                            {/* <div className="w3-container">
-                                <p>Games created: {this.state.totalGamesCreated}</p>
-                            </div> */}
                           
                             <Col xs="7">
                             <Row md="5">
                                <Form.Label row>Games created: {this.state.totalGamesCreated}</Form.Label>
                             </Row>
-                            {/* <div className="w3-container">
-                                <p>Publications posted: {this.state.totalPublicationsCreated}</p>
-                            </div> */}
                             <Row md="5">
                                <Form.Label row>Publications posted: {this.state.totalPublicationsCreated}</Form.Label>
                             </Row>
-                            {/* <div className="w3-container">
-                                <p>Reviews created: {this.state.totalReviewsCreated}</p>
-                            </div> */}
                             <Row md="5">
                                <Form.Label row>Reviews created: {this.state.totalReviewsCreated}</Form.Label>
                             </Row>
-                            {/* <div className="w3-container">
-                                <p>Games purchased: {this.state.totalGamesPurchased}</p>
-                            </div> */}
                             <Row md="5">
                                <Form.Label row>Games purchased: {this.state.totalGamesPurchased}</Form.Label>
                             </Row>
-                            {/* <div className="w3-container">
-                                <p>Money earned by Developers: {this.state.totalMoneyEarnedByDevelopers}</p>
-                            </div> */}
                             <Row md="5">
                                <Form.Label row>Money earned by Developers: {this.state.totalMoneyEarnedByDevelopers}</Form.Label>
                             </Row>
-                            {/* <div className="w3-container">
-                                <p>Developers: {this.state.totalDevelopers}</p>
-                            </div> */}
                             <Row md="5">
                                <Form.Label row>Developers: {this.state.totalDevelopers}</Form.Label>
                             </Row>
-                            {/* <div className="w3-container">
-                                <p>Incidents: {this.state.totalIncident}</p>
-                            </div> */}
                             <Row md="5">
                                <Form.Label row>Incidents: {this.state.totalIncident}</Form.Label>
                             </Row>

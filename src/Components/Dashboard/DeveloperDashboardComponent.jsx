@@ -67,45 +67,24 @@ class DeveloperDashboardComponent extends Component {
                 </header>
                 
                 <br/>
-                {/* <div className="w3-container">
-                  <p>Games created: {this.state.numGamesCreated}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Games created: {this.state.numGamesCreated}</Form.Label>
                 </Row>
-                {/* <div className="w3-container">
-                  <p>Reviews created: {this.state.numReviewsCreated}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Reviews created: {this.state.numReviewsCreated}</Form.Label>
                 </Row>
-                {/* <div className="w3-container">
-                  <p>Publications posted: {this.state.numPublicationsCreated}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Publications posted: {this.state.numPublicationsCreated}</Form.Label>
                 </Row>
-                {/* <div className="w3-container">
-                  <p>Games owned: {this.state.numGamesOwned}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Games owned: {this.state.numGamesOwned}</Form.Label>
                 </Row>
-                {/* <div className="w3-container">
-                  <p>Money earned: {this.state.moneyEarned}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Money earned: {this.state.moneyEarned}</Form.Label>
                 </Row>
-                {/* <div className="w3-container">
-                  <p>Followers: {this.state.totalFollowers}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Followers: {this.state.totalFollowers}</Form.Label>
                 </Row>
-                {/* <div className="w3-container">
-                  <p>Average of review's score: {this.state.reviewsMean}</p>
-                </div> */}
                 <Row md="5">
                 <Form.Label row>Average of review's score: {this.state.reviewsMean}</Form.Label>
                 </Row>

@@ -88,14 +88,6 @@ class LoginComponent extends Component {
                 <Form className="FormStyle">
                 <h2 style={{textAlign:"center"}}>Log in</h2>
                 <br />
-
-                {/* <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" className="form-control" placeholder="Enter username" value={this.state.username} onChange={this.changeUsernameHandler} />
-                    {this.state.usernameError ? (<div className="ValidatorMessage">
-                        {this.state.usernameError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Username </Form.Label>
                     <Col sm="10">
@@ -106,13 +98,6 @@ class LoginComponent extends Component {
                     </Col>
                 </Form.Group>
 
-                {/* <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.changePasswordHandler} />
-                    {this.state.passwordError ? (<div className="ValidatorMessage">
-                        {this.state.passwordError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Password</Form.Label>
                     <Col sm="10">

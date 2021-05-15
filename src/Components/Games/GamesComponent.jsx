@@ -199,23 +199,6 @@ class GamesComponent extends Component {
         </Col>
         </Row>
         </div>
-        {/* <br/>
-        <div className="row">
-          <button className="Button" onClick={this.createGame}>Create game</button>
-          <button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button>
-          <button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}> My created games</button>
-          <button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed games</button>
-          <button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}> Offers</button>
-          {AuthService.isAuthenticated() ?
-            AuthService.getUserData().roles.includes("ADMIN") ?
-              <React.Fragment>
-                <button onClick={this.componentDidMount} className="AdminButton" style={{ marginLeft: "10px" }}>Checked games</button>
-                <button onClick={this.ListGamesToRevise} className="AdminButton" style={{ marginLeft: "10px" }}>Games to check</button>
-              </React.Fragment>
-              : null
-            : null
-          }
-        </div> */}
         <br/>
         <Card   style={{ width: '18rem' ,float:"right",backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
   <ListGroup className="bg-dark text-white">

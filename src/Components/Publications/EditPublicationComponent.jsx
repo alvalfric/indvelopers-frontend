@@ -121,16 +121,6 @@ class EditPublicationComponent extends Component{
                  <h2 className="text-center">Edit your publication</h2>
                  <br/>
                  <form>
-                    {/* <div className="form-group">
-                        <label>Description</label>
-                        <textarea placeholder="Description" name="text" type="text-box" className="form-control" value={this.state.text} onChange={this.changeTextHandler} />
-                        {this.state.textError ? (<div className="ValidatorMessage">
-                            {this.state.textError}
-                        </div>) : null}
-                    </div>
-                    <div className="form-group">
-                        <input name="userPicture" type="hidden" className="form-control" value={this.state.userPicture} />
-                    </div> */}
                         <Form.Group as={Row}>
                         <Form.Label column sm="1" >Description:</Form.Label>
                         <Col sm="10">
@@ -140,23 +130,7 @@ class EditPublicationComponent extends Component{
                         </div>) : null}
                         </Col>
                     </Form.Group>
-{/*                     
-                     <div className="form-group">
-                        {this.state.base64TextString !== "" ?
-                            <React.Fragment>
-                                <label>Actual image: </label>
-                                < br />
-                                <img src={"data:image/png;base64,"+this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '150px' }}/>
-                            </React.Fragment>
-                        :
-                            <React.Fragment>
-                                <label>Image: </label>
-                            </React.Fragment>
-                        }
-                        < br />
-                        <Form.File placeholder="Image" type="file" name="image"  accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler}  />
-                    </div> 
-                     */}
+
                     <Form.Group >
                         {this.state.base64TextString !== "" ?
                         <React.Fragment>
@@ -174,8 +148,6 @@ class EditPublicationComponent extends Component{
                     </Form.Group>
                     <Button variant="outline-success" size="lg" onClick={this.savePublication}> Modify publication</Button>
                     <Button variant="outline-danger" size="lg" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}> Cancel</Button>
-                    {/* <button className="AceptButton" onClick={this.savePublication}>Create publication</button>
-                    <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button> */}
                     {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                 </form>
                 </Form>
