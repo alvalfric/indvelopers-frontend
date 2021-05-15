@@ -34,7 +34,7 @@ class FollowedGamesComponent extends Component {
 			<div>
 				<br/>
 				<br/>
-				<h1> Following Games</h1>
+				<h1> Followed developer's games</h1>
 				<div>
 					{this.state.followedGames.map((item)=>
 						// <div className="pb-4">

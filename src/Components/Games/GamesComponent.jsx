@@ -221,7 +221,7 @@ class GamesComponent extends Component {
   <ListGroup className="bg-dark text-white">
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.createGame}>Create game</button></ListGroup.Item>
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyCreatedGames} style={{ marginLeft: "10px" }}>My created games</button></ListGroup.Item>
-    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed games</button></ListGroup.Item>
+    <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyFollowedGames} style={{marginLeft:"10px"}}>Followed developer's games</button></ListGroup.Item>
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.MyOwnedGames} style={{ marginLeft: "10px" }}>My purchased games</button></ListGroup.Item>
     <ListGroup.Item style={{backgroundColor:"#1e5f74"}}><button className="Button" onClick={this.showOffers} style={{ marginLeft: "10px" }}>Offers</button></ListGroup.Item>
     {AuthService.isAuthenticated() ?
