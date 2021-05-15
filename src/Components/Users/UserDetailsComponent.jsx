@@ -3,11 +3,9 @@ import { AuthService } from '../../Services/AuthService';
 import { SubscriptionService } from '../../Services/SubscriptionService';
 import { DeveloperService } from '../../Services/DeveloperService';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import { Col, FormText, Row } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container'
-import Image from 'react-bootstrap/Image';
+
 
 class UserDetailsComponent extends Component {
 

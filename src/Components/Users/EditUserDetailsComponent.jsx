@@ -45,9 +45,8 @@ class EditUserDetailsComponent extends Component {
         if (isValid) {
             SpamService.checkDeveloperDto(profile).then((data)=>{
                 if(data === false){
-                    DeveloperService.updateProfile(this.state.id, profile).then(res => {
-                        AuthService.loadUserData();
-                        this.props.history.push('/');
+                    DeveloperService.updateProfile(this.state.id, profile).then(() => {
+                        AuthService.loadUserData().then(()=>{this.props.history.push('/me');})
                     })
                 }else{
                     this.setState({spamError:"This form contains spam words! 😠"})
