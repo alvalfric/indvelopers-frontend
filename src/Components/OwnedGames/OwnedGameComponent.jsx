@@ -77,46 +77,7 @@ class OwnedGameComponent extends Component {
     getDetails=()=>{
         return(
         <React.Fragment>
-            {/* <br/>
-                <br/>
-                
-                <h2>Finalize purchase</h2>
-                <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
-                <div className="gridContainer">
-                <div className="sidenav">
-                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} style={{ maxWidth: '500px', maxHeight: '250px' }} />
-                <div style={{marginRight:"30%"}}>
-                 <br/>
-                   <div className="w3-card-4" >
-                  <header className="w3-container ">
-                  <img/>
-                  <h5>Description</h5>
-                  </header>
 
-                  <div className="w3-container">
-                  <p>{this.state.game.description}</p>
-                  </div>
-                  </div>
-                 </div>
-                </div >
-                <div className="sidenav2">
-                <h3>Game title</h3>
-                <h3>{this.state.game.title}</h3>
-                <h4 style={{color:"#838383"}}>Price:{this.state.game.price} €</h4>
-                <h4 style={{color:"#838383"}}>Discount: {this.state.game.discount*100}%</h4>
-                <h4 style={{color:"#838383"}}>______________________________________________</h4>
-                <h4 style={{color:"#838383"}}>total:{(this.state.game.price-this.state.game.discount*this.state.game.price).toFixed(2)} €</h4>
-                <h3>Purchase method</h3>
-                <h4>Paypal</h4>
-                <div class="custom-control custom-checkbox">
-                 <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
-                {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
-              </div>
-              
-                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalize purchase</button>
-                </div>
-                </div> */}
                  <Form>
                     <br/>
                     <br/>

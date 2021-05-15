@@ -102,13 +102,6 @@ class RecoverPasswordComponent extends Component {
                 <h2 style={{textAlign:"center"}}>Recover your password!</h2>
                 <br />
                 
-                {/* <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.changeEmailHandler} />
-                    {this.state.emailError ? (<div className="ValidatorMessage">
-                        {this.state.emailError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Email</Form.Label>
                     <Col sm="10">

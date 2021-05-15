@@ -205,13 +205,6 @@ class SignupComponent extends Component {
                 <h2 style={{textAlign:"center"}}>Sign up</h2>
                 <br />
 
-                {/* <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" className="form-control" placeholder="Username" value={this.state.username} onChange={this.changeUsernameHandler} />
-                    {this.state.usernameError ? (<div className="ValidatorMessage">
-                        {this.state.usernameError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Username:</Form.Label>
                     <Col sm="10">
@@ -222,13 +215,6 @@ class SignupComponent extends Component {
                     </Col>
                 </Form.Group>
                 <br />
-                {/* <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.changeEmailHandler} />
-                    {this.state.emailError ? (<div className="ValidatorMessage">
-                        {this.state.emailError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Email:</Form.Label>
                     <Col sm="10">
@@ -239,13 +225,6 @@ class SignupComponent extends Component {
                     </Col>
                 </Form.Group>
                 <br />
-                {/* <div className="form-group">
-                    <label>Description</label>
-                    <input type="text" className="form-control" placeholder="Description" value={this.state.description} onChange={this.changeDescriptionHandler} />
-                    {this.state.descriptionError ? (<div className="ValidatorMessage">
-                        {this.state.descriptionError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Description:</Form.Label>
                     <Col sm="10">
@@ -256,13 +235,6 @@ class SignupComponent extends Component {
                     </Col>
                 </Form.Group>
                 <br />
-                {/* <div className="form-group">
-                    <label>Technologies (you use to develop your games)</label>
-                    <input type="text" className="form-control" placeholder="Technologies like Unity, Wave engine, etc" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
-                    {this.state.technologiesError ? (<div className="ValidatorMessage">
-                        {this.state.technologiesError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Technologies</Form.Label>
                     <Col sm="10">
@@ -273,13 +245,6 @@ class SignupComponent extends Component {
                     </Col>
                 </Form.Group>
                 <br />
-                {/* <div className="form-group">
-                    <label>Birth date</label>
-                    <input type="date" className="form-control" value={this.state.dateOfBirth} onChange={this.changeDateOfBirthHandler} />
-                    {this.state.dateOfBirthError ? (<div className="ValidatorMessage">
-                        {this.state.dateOfBirthError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Birth Date:</Form.Label>
                     <Col sm="10">
@@ -290,13 +255,6 @@ class SignupComponent extends Component {
                     </Col>
                 </Form.Group>
                 <br />
-                {/* <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" value={this.state.password} onChange={this.changePasswordHandler} />
-                    {this.state.passwordError ? (<div className="ValidatorMessage">
-                        {this.state.passwordError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Password:</Form.Label>
                     <Col sm="10">
@@ -307,13 +265,6 @@ class SignupComponent extends Component {
                     </Col>
                 </Form.Group>
                 <br />
-                {/* <div className="form-group">
-                    <label>Confirm password</label>
-                    <input type="password" className="form-control" placeholder="Confirm password" value={this.state.confirmPassword} onChange={this.changeConfirmPasswordHandler} />
-                    {this.state.confirmPasswordError ? (<div className="ValidatorMessage">
-                        {this.state.confirmPasswordError}
-                    </div>) : null}
-                </div> */}
                 <Form.Group as={Row}>
                     <Form.Label column sm="1">Confirm pass:</Form.Label>
                     <Col sm="10">

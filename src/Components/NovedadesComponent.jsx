@@ -57,24 +57,6 @@ class NovedadesComponent extends Component {
 				<Carousel>
 					{this.state.topGamesAllTime.map((item) =>
 					<Carousel.Item onClick={() => this.editGame(item.id)}>
-						{/* <div className="pb-4">
-							<div className="w3-card-4">
-								<div className="w3-container">
-									<div className="container">
-										<img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} width="400" height="300" />
-										<h4>{item.title}</h4>
-									</div>
-									<div className="w3-container p-3">
-										<p class="card-text">
-
-											Price: {item.price}€
-
-									  <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div> */}
 						 <Card className="bg-dark text-white" style={{maxWidth:'1200px', maxHeight: '500px',justifyContent:"center",display:"flex"}} >
         {item.imagen ?
           <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '500px'}}/>
@@ -105,24 +87,6 @@ class NovedadesComponent extends Component {
 				<Carousel>
 					{this.state.topNewGames.map((item) =>
 					<Carousel.Item onClick={() => this.editGame(item.id)}>
-						{/* <div className="pb-4">
-							<div className="w3-card-4">
-								<div className="w3-container">
-									<div className="container">
-										<img className="p-5" src={"data:image/png;base64," + item.imagen} style={{ display: "block" }} width="400" height="300" />
-										<h4>{item.title}</h4>
-									</div>
-									<div className="w3-container p-3">
-										<p class="card-text">
-
-											Price: {item.price}€
-
-									  <button onClick={() => this.editGame(item.id)} className="ModifyButton float-right">Details</button>
-										</p>
-									</div>
-								</div>
-							</div>
-						</div> */}
 						 <Card className="bg-dark text-white" style={{maxWidth:'1200px', maxHeight: '500px',justifyContent:"center",display:"flex"}} >
         {item.imagen ?
           <Card.Img src={"data:image/png;base64," + item.imagen} alt="Game cover" style={{ maxHeight: '500px'}}/>

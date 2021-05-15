@@ -65,21 +65,7 @@ class CreateForumComponent extends Component {
     render() {
         return (
             <div>
-{/*                 
-                <br></br>
-                <br></br>
-                <h2>Create Forum</h2>
-                 <form>
-                    <div className="form-group">
-                        <label>Title</label>
-                        <textarea placeholder="Title" name="title" type="text-box" className="form-control" value={this.state.title} onChange={this.changeTitleHandler} />
-                        {this.state.titleError ? (<div className="ValidatorMessage">
-                            {this.state.titleError}
-                        </div>) : null}
-                    </div>
-                    <button className="AceptButton" onClick={this.saveForum}>Create Forum</button>
-                    {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
-                </form> */}
+
                 <br></br>
                 <br></br>
                 <Form className="FormStyle">

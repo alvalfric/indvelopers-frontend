@@ -100,25 +100,6 @@ class PostComponent extends Component {
         {this.state.posts.map(
           post =>
             <div>
-                {/* <div className="w3-card-4" >
-                <header className="w3-container ">
-                  <img />
-                  <img style={{marginTop:"1rem"}} src={UserLogo} className="inDvelopers-logo" width="6%" height="6%" />
-                  <h6 style={{float:"right",marginTop:"1rem"}}>{post.developerCreatorUsername}</h6>
-                  <h5 style={{ marginTop:"2rem"}}>{post.description} </h5>
-                  {post.edited?<h5 class="text-muted">(edited)</h5>:null}
-                  <h6 style={{float:"right"}}>{post.creationDate.slice(0,10)}</h6>
-                </header>
-                {AuthService.isAuthenticated() ?
-                    AuthService.getUserData()['username'] === post.developerCreatorUsername ?
-                    <React.Fragment> 
-                      <button className="Button" style={{float:"right"}} onClick={() => this.editPost(post.id)}>Edit Post</button>
-                      <button className="CancelButton" style={{float:"right"}} onClick={() => this.deletePost(post.id)}>Delete Post</button>
-                    </React.Fragment>
-                    :null
-                  :null
-                }
-                </div> */}
                 <br/>
                  <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
                    <Card.Header>
