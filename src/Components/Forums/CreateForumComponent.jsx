@@ -71,7 +71,7 @@ class CreateForumComponent extends Component {
                 <Form className="FormStyle">
                 <h2 className="text-center">Create Forum</h2>
                 <Form.Group as={Row}>
-                    <Form.Label column sm="1">Title</Form.Label>
+                    <Form.Label column sm="1" className="TextRes">Title</Form.Label>
                     <Col sm="10">
                         <Form.Control as="textarea" placeholder="Title" name="title" type="text-box" className="FormInput" value={this.state.title} onChange={this.changeTitleHandler} />
                         {this.state.titleError ? (<div className="ValidatorMessage">
@@ -80,7 +80,7 @@ class CreateForumComponent extends Component {
                     </Col>
                 </Form.Group>
                 <div style={{justifyContent:"center",display:"flex"}}>
-                <Button variant="outline-success" onClick={this.saveForum}>Create forum</Button>
+                <Button className="ButtonRes" variant="outline-success" onClick={this.saveForum}>Create forum</Button>
                 </div>
                 {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                 </Form>

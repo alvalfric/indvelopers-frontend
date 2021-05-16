@@ -83,28 +83,28 @@ class UserDetailsComponent extends Component {
                 <br/>
                 <br/>
                 <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}}>
-                    <Card.Header><h2>User details</h2> </Card.Header>
+                    <Card.Header><h2 className="TitleRes">User details</h2> </Card.Header>
                     
                     <Card.Body style={{backgroundColor:"#222933"}}>
                     <Row>
                     <Col xs="6">
-                    <Card.Title><h2>{this.profile.username} </h2> </Card.Title>
+                    <Card.Title><h2 className="SubTitleRes">{this.profile.username} </h2> </Card.Title>
                     <Card.Img class="responsive" src={"data:image/png;base64," + this.profile.userImage}  alt="ProfileImage" style={{ height:"auto", maxHeight:"20rem", maxWidth:"100%" }} />
                     {this.state.isPremium ? (
                                 <React.Fragment>
-                                    <p style={{  fontSize: "large", color: "#75510f" }}>⭐ You are premium! ⭐</p>
-                                    <p>Your subscription ends in: {this.state.endSubs}</p>
+                                    <p className="TextRes" style={{  fontSize: "large", color: "#75510f" }}>⭐ You are premium! ⭐</p>
+                                    <p className="TextRes">Your subscription ends in: {this.state.endSubs}</p>
                                 </React.Fragment>
                             ) : null
                             }
                     <Row>
-                    <Button variant="outline-primary" onClick={this.modifyUserDetails} style={{ marginRight: "10px" }}>Edit</Button>
-                    <Button variant="outline-primary" onClick={this.buySuscription}>Buy subscription</Button>
+                    <Button className="ButtonRes" variant="outline-primary" onClick={this.modifyUserDetails} style={{ marginRight: "10px" }}>Edit</Button>
+                    <Button className="ButtonRes" variant="outline-primary" onClick={this.buySuscription}>Buy subscription</Button>
                     {AuthService.isAuthenticated() ?
                         AuthService.getUserData().roles.includes("ADMIN") ?
-                            <Button variant="outline-warning" onClick={this.goToAdminDashboard} style={{marginLeft:"10px"}}>Admin Dashboard</Button>
+                            <Button className="ButtonRes" variant="outline-warning" onClick={this.goToAdminDashboard} style={{marginLeft:"10px"}}>Admin Dashboard</Button>
                             :
-                            <Button variant="outline-primary" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</Button>
+                            <Button className="ButtonRes" variant="outline-primary" onClick={this.goToDashboard} style={{marginLeft:"10px"}}>Dashboard</Button>
                         : null
                     }
                     </Row>
@@ -112,22 +112,22 @@ class UserDetailsComponent extends Component {
                     <Col xs="6">
                     <br/>
                                <Row>
-                                    <h5>Followers: </h5> <Button variant="outline-primary" onClick={this.showFollowers}>{this.state.followersNumber}</Button>
-                                    <h5>Following: </h5> <Button variant="outline-primary" onClick={this.showFollowing}>{this.state.followingNumber}</Button>
+                                    <h5 className="TextRes">Followers: </h5> <Button className="ButtonRes" variant="outline-primary" onClick={this.showFollowers}>{this.state.followersNumber}</Button>
+                                    <h5 className="TextRes">Following: </h5> <Button className="ButtonRes" variant="outline-primary" onClick={this.showFollowing}>{this.state.followingNumber}</Button>
                                 </Row>
                                 
-                            <h5>Description: </h5>
-                            <p>{this.profile.description}</p>
-                            <h5>Email: </h5>
-                            <p>{this.profile.email}</p>
-                            <h5>Technologies: </h5>
-                            <p>{this.profile.technologies}</p>
-                            <h5>Game List: </h5>
+                            <h5 className="SubTitleRes">Description: </h5>
+                            <p className="TextRes">{this.profile.description}</p>
+                            <h5 className="SubTitleRes">Email: </h5>
+                            <p className="TextRes">{this.profile.email}</p>
+                            <h5 className="SubTitleRes">Technologies: </h5>
+                            <p className="TextRes">{this.profile.technologies}</p>
+                            <h5 className="SubTitleRes">Game List: </h5>
                             {this.profile.gameList == null ?
-                                <p>You don't have any game on your list</p>
+                                <p className="TextRes">You don't have any game on your list</p>
                                 :
                                 this.profile.gameList.length === 0 ?
-                                    <p>You don't have any game on your list</p>
+                                    <p className="TextRes">You don't have any game on your list</p>
                                     :
                                     this.profile.gameList.map((item) => { return (item + ", ") })
                             }

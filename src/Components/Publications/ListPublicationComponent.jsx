@@ -90,7 +90,7 @@ class ListPublicationComponent extends Component {
         <br></br>
         <h2 className="text-center">Publications of the community</h2>
         <div className="row">
-          <Button variant="outline-info" size="lg" onClick={this.createPublication}> Publish</Button>
+          <Button className="ButtonRes" variant="outline-info" size="lg" onClick={this.createPublication}> Publish</Button>
         </div>
         <br />
         {this.state.publications.map(
@@ -121,8 +121,8 @@ class ListPublicationComponent extends Component {
                 {AuthService.isAuthenticated() ?
                   AuthService.getUserData()['username'] === publication.developer.username ?
                     <div>
-                      <Button variant="danger" style={{ float: "left", marginLeft: "5px" }} onClick={() => this.deletePublication(publication.id)}> Delete publication</Button>
-                      <Button variant="info" style={{ float: "left" }} onClick={() => this.editPublication(publication.id)}> Edit publication</Button>
+                      <Button className="ButtonRes" variant="danger" style={{ float: "left", marginLeft: "5px" }} onClick={() => this.deletePublication(publication.id)}> Delete publication</Button>
+                      <Button className="ButtonRes" variant="info" style={{ float: "left" }} onClick={() => this.editPublication(publication.id)}> Edit publication</Button>
                     </div>
                     : null
                   : null
