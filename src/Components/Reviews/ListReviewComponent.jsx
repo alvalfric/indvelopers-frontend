@@ -87,10 +87,10 @@ class ListReviewComponent extends Component {
                         starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
                       {review.edited ? <h9> (Edited review)</h9> : null}
                       {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                        <Button variant="outline-danger" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</Button>
+                        <Button className="ButtonRes" variant="outline-danger" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</Button>
                         : null}
                       {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                        <Button variant="outline-info" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</Button>
+                        <Button className="ButtonRes" variant="outline-info" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</Button>
                         : null}
                     </Card.Header>
                     <Card.Body>

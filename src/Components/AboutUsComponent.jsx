@@ -25,7 +25,7 @@ class AboutUsComponent extends Component{
 				
 					<h1>inDvelopers</h1>
 					<br></br>
-					<p>
+					<p className="TextRes">
 					"InDvelopers" is a portal dedicated to indie developers.
                     This type of developers are mainly dedicated
                     to the development of video games in an amateur way, without any previous professional training. So
@@ -37,37 +37,37 @@ class AboutUsComponent extends Component{
 				<br></br>
 				<br></br>
 				<div className="text-center">
-					<h1>Our team</h1>
+					<h1 className="SubTitleRes">Our team</h1>
 					<div class="row">
 						<div class="col"> 
 							<br></br>
 							<div class="container">
 								<img src={fernando} alt="Fernando" width={70}/>
-								<h3> Fernando Wals</h3>
-								<p>Project Manager</p>
-								<p>Developer</p>
+								<h3 className="TextRes"> Fernando Wals</h3>
+								<p className="TextRes">Project Manager</p>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<div class="container">
 								<img src={juan} alt="Juan Pablo" width={90}/>
-								<h3> Juan Pablo Portero</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Juan Pablo Portero</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
 							<br></br>
 							<div class="container">
 								<img src={moises} alt="Moises" width={90}/>
-								<h3> Moisés Romero</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Moisés Romero</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
 
 							<div class="container">
 								<img src={david} alt="David" width={80}/>
-								<h3> David Cáceres</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> David Cáceres</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 						
 						 </div>
@@ -75,32 +75,32 @@ class AboutUsComponent extends Component{
 							<br></br>
 							<div class="container">
 								<img src={alvaro} alt="Alvaro" width={60}/>
-								<h3> Álvaro Alferez</h3>
-								<p>Back End manager</p>
-								<p>Developer</p>
+								<h3 className="TextRes"> Álvaro Alferez</h3>
+								<p className="TextRes">Back End manager</p>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
 							<div class="container">
 								<img src={alejandro} alt="Alejandro" width={50}/>
-								<h3> Alejandro González</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Alejandro González</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
 							<br></br>
 							<div class="container">
 								<img src={gonzalo} alt="Gonzalo" width={75}/>
-								<h3> Gonzalo Fernández</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Gonzalo Fernández</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
 
 							<div class="container">
 								<img src={marta} alt="Marta" width={80}/>
-								<h3> Marta Diaz</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Marta Diaz</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 						
 						</div>
@@ -108,9 +108,9 @@ class AboutUsComponent extends Component{
 						
 							<div class="container">
 								<img src={francisco} alt="Francisco Javier" width={60}/>
-								<h3> Francisco Javier García</h3>
-								<p>Data Protection Officer</p>
-								<p>Developer</p>
+								<h3 className="TextRes"> Francisco Javier García</h3>
+								<p className="TextRes">Data Protection Officer</p>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
@@ -119,22 +119,22 @@ class AboutUsComponent extends Component{
 
 							<div class="container">
 								<img src={elena} alt="Elena" width={140}/>
-								<h3> Elena España</h3>
-								<p>Marketing director</p>
-								<p>Developer</p>
+								<h3 className="TextRes"> Elena España</h3>
+								<p className="TextRes">Marketing director</p>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<div class="container">
 								<img src={guillermo} alt="Guillermo" width={90}/>
-								<h3> Guillermo Pavon</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Guillermo Pavon</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 
 							<br></br>
 							<div class="container">
 								<img src={luis} alt="Luis" width={80}/>
-								<h3> Luis Pardo</h3>
-								<p>Developer</p>
+								<h3 className="TextRes"> Luis Pardo</h3>
+								<p className="TextRes">Developer</p>
 							</div>
 						
 						</div>

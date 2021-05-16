@@ -93,7 +93,7 @@ class PostComponent extends Component {
         <br></br>
         <h2 className="text-center">Posts</h2>
         <div className="row">
-          <Button variant="outline-primary" onClick={this.createPost}>New Post</Button>
+          <Button className="ButtonRes" variant="outline-primary" onClick={this.createPost}>New Post</Button>
         </div>
         <br />
         {/* Generate diferent for each publication */}
@@ -104,17 +104,17 @@ class PostComponent extends Component {
                  <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
                    <Card.Header>
                    <Image style={{marginTop:"1rem"}} src={UserLogo} className="inDvelopers-logo" width="6%" height="6%"/>
-                   <h6 style={{float:"right",marginTop:"1rem"}}>{post.developerCreatorUsername}</h6>
-                  <h5 style={{ marginTop:"2rem"}}>{post.description} </h5>
+                   <h6 className="TextRes"  style={{float:"right",marginTop:"1rem"}}>{post.developerCreatorUsername}</h6>
+                  <h5 className="TextRes" style={{ marginTop:"2rem"}}>{post.description} </h5>
                   {post.edited?<h5 class="text-muted">(edited)</h5>:null}
-                  <h6 style={{float:"right"}}>{post.creationDate.slice(0,10)}</h6>
+                  <h6 className="TextRes" style={{float:"right"}}>{post.creationDate.slice(0,10)}</h6>
                    </Card.Header>
                    <Card.Body>
                    {AuthService.isAuthenticated() ?
                     AuthService.getUserData()['username'] === post.developerCreatorUsername ?
                     <React.Fragment> 
-                      <Button variant="outline-primary" style={{float:"right"}} onClick={() => this.editPost(post.id)}>Edit Post</Button>
-                      <Button  variant="outline-danger" style={{float:"right"}} onClick={() => this.deletePost(post.id)}>Delete Post</Button>
+                      <Button className="ButtonRes" variant="outline-primary" style={{float:"right"}} onClick={() => this.editPost(post.id)}>Edit Post</Button>
+                      <Button className="ButtonRes"   variant="outline-danger" style={{float:"right"}} onClick={() => this.deletePost(post.id)}>Delete Post</Button>
                     </React.Fragment>
                     :null
                   :null

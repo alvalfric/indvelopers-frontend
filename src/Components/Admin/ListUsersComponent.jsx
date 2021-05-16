@@ -98,7 +98,7 @@ class ListUsersComponent extends Component {
 
                                 </Card.Body>
                                 <div>
-                                <Button variant="outline-warning" onClick={() => this.getUserDetails(user)}>User Details</Button>
+                                <Button className="ButtonRes" variant="outline-warning" onClick={() => this.getUserDetails(user)}>User Details</Button>
                                 </div>
                               </Card>
                               </React.Fragment>

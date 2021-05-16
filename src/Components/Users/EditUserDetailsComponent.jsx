@@ -218,13 +218,13 @@ class EditUserDetailsComponent extends Component {
                         <div style={{justifyContent:"center",display:"flex"}}>
                         {AuthService.getUserData()['username'] === this.state.username ? (
                             <React.Fragment>
-                                <Button variant="outline-success" onClick={this.updateProfile}>Update profile</Button>
+                                <Button className="ButtonRes" variant="outline-success" onClick={this.updateProfile}>Update profile</Button>
                                 {this.state.submitError ? (<div className="ValidatorMessage">
                                     {this.state.submitError}
                                 </div>) : null}
                             </React.Fragment>
                         ) : null}
-                        <Button variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
+                        <Button className="ButtonRes" variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
                         
                         </div>
                         {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  

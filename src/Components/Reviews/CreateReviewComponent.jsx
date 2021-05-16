@@ -142,8 +142,8 @@ class CreateReviewComponent extends Component {
 						</Col>
 					</Form.Group>
 					<div style={{justifyContent:"center",display:"flex"}}>
-					<Button variant="outline-success" onClick={this.saveReview}>Crear Review</Button>
-					<Button variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</Button>
+					<Button className="ButtonRes" variant="outline-success" onClick={this.saveReview}>Crear Review</Button>
+					<Button className="ButtonRes" variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</Button>
 					</div>
 					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
 					</Form>

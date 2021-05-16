@@ -82,7 +82,7 @@ class ForumComponent extends Component {
         <br></br>
         <h2 className="text-center">Forums</h2>
         <div className="row">
-          <Button variant="outline-primary" onClick={this.createForum}>New Forum</Button>
+          <Button className="ButtonRes" variant="outline-primary" onClick={this.createForum}>New Forum</Button>
         </div>
         <br />
         {this.state.forums.map(
@@ -94,15 +94,15 @@ class ForumComponent extends Component {
                 <a href={"/posts/"+forum.id} style={{textDecoration:"none",color:"white"}}>
                   <Card.Header>
                     <Image src={ForumLogo} className="inDvelopers-logo" width="3%" height="3%"  />
-                    <h6 style={{float:"right",marginTop:"1rem"}}>{forum.developerCreatorUsername}</h6>
-                  <h5 style={{marginLeft:"2rem", marginTop:"2rem"}}>{forum.title}</h5>
-                  <h6 style={{float:"right"}}>{forum.creationDate.slice(0,10)}</h6>
+                    <h6 className="TextRes" style={{float:"right",marginTop:"1rem"}}>{forum.developerCreatorUsername}</h6>
+                  <h5 className="TextRes" style={{marginLeft:"2rem", marginTop:"2rem"}}>{forum.title}</h5>
+                  <h6 className="TextRes" style={{float:"right"}}>{forum.creationDate.slice(0,10)}</h6>
                   </Card.Header>
                   </a>
                   {AuthService.isAuthenticated() ?
                     AuthService.getUserData()['username'] === forum.developerCreatorUsername ?
                     <Card.Body> 
-                      <Button variant="outline-danger" style={{float:"right"}} onClick={() => this.deleteForum(forum.id)}>Delete Forum</Button>
+                      <Button className="ButtonRes" variant="outline-danger" style={{float:"right"}} onClick={() => this.deleteForum(forum.id)}>Delete Forum</Button>
                     </Card.Body>
                     :null
                   :null

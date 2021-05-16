@@ -58,7 +58,7 @@ class OfferGamesComponent extends Component {
         return (
             <React.Fragment>
                 <div className='container'  >
-        <h1 style={{ paddingTop: '5%' }}>Offers</h1>
+        <h1 className="TitleRes" style={{ paddingTop: '5%' }}>Offers</h1>
         <div className="row">
 
         </div>
@@ -75,19 +75,20 @@ class OfferGamesComponent extends Component {
    <Card.Img src={altLogo} style={{ maxHeight: '500px'}}/>
    }
 <Card.ImgOverlay>
-  <Card.Title>{item.title}</Card.Title>
+  <Card.Title className="TextRes">{item.title}</Card.Title>
             {item.discount!=0.?(
                       <React.Fragment>
+                        <p className="TextRes">
                         Price:<strike> {item.price}</strike>€ ({item.discount*100} %)
                         <br/>
-                        {(item.price-item.price*item.discount).toFixed(2)}€
+                        {(item.price-item.price*item.discount).toFixed(2)}€</p>
                       </React.Fragment>
                     ):
                     <React.Fragment>
-                      Price: {item.price}€
+                     <p className="TextRes"> Price: {item.price}€</p>
                     </React.Fragment>
                   }
-                   <Button onClick={() => this.editGame(item.id)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="outline-primary">Details</Button>
+                   <Button className="ButtonRes" onClick={() => this.editGame(item.id)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="outline-primary">Details</Button>
 </Card.ImgOverlay>
 </Card>
         </div>

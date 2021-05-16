@@ -93,7 +93,7 @@ class FollowListComponent extends Component {
                                 <React.Fragment>
                                     <br/>
                                     <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
-                                <Card.Header style={{backgroundColor:"#222933"}}>{user.username}
+                                <Card.Header className="TextRes" style={{backgroundColor:"#222933"}}>{user.username}
                                 
                                   
                                   {this.props.location.state.following?
@@ -148,7 +148,7 @@ class FollowListComponent extends Component {
                     activeClassName={"active"} />
                 
                 <div style={{float:"left"}}>
-                <Button variant="outline-danger" onClick={()=>this.props.history.push("/me")}>Back</Button>
+                <Button className="ButtonRes" variant="outline-danger" onClick={()=>this.props.history.push("/me")}>Back</Button>
                 </div>
                 </div>
             </div >
