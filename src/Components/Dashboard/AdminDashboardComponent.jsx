@@ -71,7 +71,7 @@ class AdminDashboardComponent extends Component {
                 <br/>
                 <br/>
                 <Form className="FormStyle">
-                <h1>My admin dashboard</h1>
+                <h1 className="TitleRes">My admin dashboard</h1>
                 <br/>
                 
                 <div >
@@ -81,36 +81,55 @@ class AdminDashboardComponent extends Component {
                         <div >
                             <br/>
                             <header  >
-                                <h5>General data</h5>
+                                <h5 className="SubTitleRes">General data</h5>
                             </header>
                             <br/>
                           
                             <Col xs="7">
                             <Row md="5">
-                               <Form.Label row>Games created: {this.state.totalGamesCreated}</Form.Label>
+                               <Form.Label className="TextRes" row>Games created: {this.state.totalGamesCreated}</Form.Label>
                             </Row>
                             <Row md="5">
-                               <Form.Label row>Publications posted: {this.state.totalPublicationsCreated}</Form.Label>
+                               <Form.Label className="TextRes" row>Publications posted: {this.state.totalPublicationsCreated}</Form.Label>
                             </Row>
                             <Row md="5">
-                               <Form.Label row>Reviews created: {this.state.totalReviewsCreated}</Form.Label>
+                               <Form.Label className="TextRes" row>Reviews created: {this.state.totalReviewsCreated}</Form.Label>
                             </Row>
                             <Row md="5">
-                               <Form.Label row>Games purchased: {this.state.totalGamesPurchased}</Form.Label>
+                               <Form.Label className="TextRes" row>Games purchased: {this.state.totalGamesPurchased}</Form.Label>
                             </Row>
                             <Row md="5">
-                               <Form.Label row>Money earned by Developers: {this.state.totalMoneyEarnedByDevelopers}</Form.Label>
+                               <Form.Label className="TextRes" row>Money earned by Developers: {this.state.totalMoneyEarnedByDevelopers}</Form.Label>
                             </Row>
                             <Row md="5">
-                               <Form.Label row>Developers: {this.state.totalDevelopers}</Form.Label>
+                               <Form.Label className="TextRes" row>Developers: {this.state.totalDevelopers}</Form.Label>
                             </Row>
                             <Row md="5">
-                               <Form.Label row>Incidents: {this.state.totalIncident}</Form.Label>
+                               <Form.Label className="TextRes" row>Incidents: {this.state.totalIncident}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                            <header >
+                                <h5>Chart data about games</h5>
+                            </header> 
+                            <Chart options={this.state.optionsGame} series={this.state.seriesGame} labels={this.state.labels} colors={this.state.colors} type="pie" width="350" />
+                            </Row>
+                            <Row md="5">
+                            <header >
+                                <h5>Chart data about incidents</h5>
+                            </header> 
+                            <Chart options={this.state.optionsIncidents} series={this.state.seriesIncidents} labels={this.state.labels} type="pie" width="350" />
+                            
+                            </Row>
+                            <Row md="5">
+                            <header >
+                                <h5>Chart data about premium users</h5>
+                            </header> 
+                            <Chart options={this.state.optionsPremium} series={this.state.seriespremium} labels={this.state.labels} type="pie" width="350" />
                             </Row>
                             </Col>
                         </div>
                         
-                        <Col >
+                        {/* <Col >
                         <div >
                             <br/>
                             
@@ -118,7 +137,7 @@ class AdminDashboardComponent extends Component {
                                 <h5>Chart data about games</h5>
                             </header> 
                             <Row md="5">
-                            <Chart options={this.state.optionsGame} series={this.state.seriesGame} labels={this.state.labels} colors={this.state.colors} type="pie" width="480" />
+                            <Chart options={this.state.optionsGame} series={this.state.seriesGame} labels={this.state.labels} colors={this.state.colors} type="pie" width="350" />
                             </Row>
                             <br/>
                             
@@ -126,7 +145,7 @@ class AdminDashboardComponent extends Component {
                                 <h5>Chart data about incidents</h5>
                             </header> 
                             <Row md="5">
-                            <Chart options={this.state.optionsIncidents} series={this.state.seriesIncidents} labels={this.state.labels} type="pie" width="480" />
+                            <Chart options={this.state.optionsIncidents} series={this.state.seriesIncidents} labels={this.state.labels} type="pie" width="350" />
                             
                             </Row>
                             <br/>
@@ -135,11 +154,11 @@ class AdminDashboardComponent extends Component {
                                 <h5>Chart data about premium users</h5>
                             </header> 
                             <Row md="5">
-                            <Chart options={this.state.optionsPremium} series={this.state.seriespremium} labels={this.state.labels} type="pie" width="480" />
+                            <Chart options={this.state.optionsPremium} series={this.state.seriespremium} labels={this.state.labels} type="pie" width="350" />
                             
                             </Row>
                         </div>
-                        </Col>
+                        </Col> */}
                         </Row>
                     </div>
                 </div>

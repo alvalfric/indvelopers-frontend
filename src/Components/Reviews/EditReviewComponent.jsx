@@ -159,8 +159,8 @@ class EditReviewComponent extends Component {
 						</Col>
 					</Form.Group>
 					<div style={{justifyContent:"center",display:"flex"}}>
-					<Button variant="outline-success" onClick={(e)=>this.saveReview(e)}>Edit Review</Button>
-					<Button variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
+					<Button className="ButtonRes" variant="outline-success" onClick={(e)=>this.saveReview(e)}>Edit Review</Button>
+					<Button className="ButtonRes" variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
 					</div>
 					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
 					</Form>

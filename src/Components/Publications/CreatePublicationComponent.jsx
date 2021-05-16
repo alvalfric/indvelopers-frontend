@@ -124,8 +124,8 @@ class CreatePublicationComponent extends Component {
                         <Form.File placeholder="Image" type="file" name="image" className="ButtonFileLoad"  accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
                         </Col>
                     </Form.Group>
-                    <Button variant="outline-success" size="lg" onClick={this.savePublication}> Create publication</Button>
-                    <Button variant="outline-danger" size="lg" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}> Cancel</Button>
+                    <Button className="ButtonRes" variant="outline-success" size="lg" onClick={this.savePublication}> Create publication</Button>
+                    <Button className="ButtonRes" variant="outline-danger" size="lg" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}> Cancel</Button>
 
                     {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
                 </form>

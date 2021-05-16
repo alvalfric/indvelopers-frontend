@@ -67,28 +67,28 @@ class BuySubscriptionComponent extends Component {
                     <div className="w3-card-4" >
                   <header className="w3-container ">
                   <img/>
-                  <h5>Description</h5>
+                  <h5 className="TextRes">Description</h5>
                   </header>
 
                   <div className="w3-container">
-                  <p>Subscription to inDvelopers</p>
+                  <p className="TextRes">Subscription to inDvelopers</p>
                   </div>
                   </div>
                     </Col>
                     <Col>
                     
-                <Row><h4 style={{color:"#838383"}}>Price:7.99 €</h4></Row>
-                <Row><h4 style={{color:"#838383"}}>______________________________________________</h4></Row>
-                <Row><h4 style={{color:"#838383"}}>total:7.99 €</h4></Row>
-                <Row><h3>Purchase method</h3></Row>
-                <Row><h4>Paypal</h4></Row>
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>Price:7.99 €</h4></Row>
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>______________________________________________</h4></Row>
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>total:7.99 €</h4></Row>
+                <Row><h3 className="TextRes">Purchase method</h3></Row>
+                <Row><h4 className="TextRes">Paypal</h4></Row>
                 
-                <Row> <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label></Row>
+                <Row className="TextRes"> <input  type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
+                 <label className="TextRes" style={{color:"#838383"}}>Click here to finalize your purchase</label></Row>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
               
               
-                <Button variant="outline-success"  onClick={this.buySubscription}>Finalize purchase</Button>
+                <Button className="ButtonRes" variant="outline-success"  onClick={this.buySubscription}>Finalize purchase</Button>
                 
                     </Col>
                 </Row>

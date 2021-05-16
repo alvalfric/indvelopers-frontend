@@ -32,7 +32,7 @@ class ListOwnedGamesComponent extends Component {
             <div>
                 <br/>
                 <br/>
-                <h1>My purchased games</h1>
+                <h1 className="TitleRes">My purchased games</h1>
                 <br/>
                 <div>
             {this.state.myGames.map(game=>
@@ -46,19 +46,21 @@ class ListOwnedGamesComponent extends Component {
    <Card.Img src={altLogo} style={{ maxHeight: '500px'}}/>
    }
 <Card.ImgOverlay>
-  <Card.Title>{game.title}</Card.Title>
+  <Card.Title className="TextRes">{game.title}</Card.Title>
             {game.discount!=0.?(
                       <React.Fragment>
+                          <p className="TextRes">
                         Price:<strike> {game.price}</strike>€ ({game.discount*100} %)
                         <br/>
-                        {(game.price-game.price*game.discount).toFixed(2)}€
+                        {(game.price-game.price*game.discount).toFixed(2)}€</p>
                       </React.Fragment>
                     ):
                     <React.Fragment>
-                      Price: {game.price}€
+                        <p className="TextRes">
+                      Price: {game.price}€</p>
                     </React.Fragment>
                   }
-                   <Button onClick={(e)=>this.downloadGame(e,game.idCloud)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="primary">Download</Button>
+                   <Button className="ButtonRes" onClick={(e)=>this.downloadGame(e,game.idCloud)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="primary">Download</Button>
 </Card.ImgOverlay>
 </Card>
             </React.Fragment>

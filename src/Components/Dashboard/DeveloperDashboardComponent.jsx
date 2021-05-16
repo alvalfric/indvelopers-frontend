@@ -54,7 +54,7 @@ class DeveloperDashboardComponent extends Component {
                 <br/>
                 <br/>
                 <Form className="FormStyle">
-                <h1>My dashboard</h1>
+                <h1 className="TitleRes">My dashboard</h1>
                 <br/>
                 <div >
                 <div className="w3-container">
@@ -63,52 +63,47 @@ class DeveloperDashboardComponent extends Component {
                 <Row>
                 <Col xs="6">
                 <header className="w3-container " >
-                  <h5>General data</h5>
+                  <h5 className="SubTitleRes">General data</h5>
                 </header>
                 
                 <br/>
                 <Row md="5">
-                <Form.Label row>Games created: {this.state.numGamesCreated}</Form.Label>
+                <Form.Label className="TextRes" row>Games created: {this.state.numGamesCreated}</Form.Label>
                 </Row>
                 <Row md="5">
-                <Form.Label row>Reviews created: {this.state.numReviewsCreated}</Form.Label>
+                <Form.Label className="TextRes" row>Reviews created: {this.state.numReviewsCreated}</Form.Label>
                 </Row>
                 <Row md="5">
-                <Form.Label row>Publications posted: {this.state.numPublicationsCreated}</Form.Label>
+                <Form.Label className="TextRes" row>Publications posted: {this.state.numPublicationsCreated}</Form.Label>
                 </Row>
                 <Row md="5">
-                <Form.Label row>Games owned: {this.state.numGamesOwned}</Form.Label>
+                <Form.Label className="TextRes" row>Games owned: {this.state.numGamesOwned}</Form.Label>
                 </Row>
                 <Row md="5">
-                <Form.Label row>Money earned: {this.state.moneyEarned}</Form.Label>
+                <Form.Label className="TextRes" row>Money earned: {this.state.moneyEarned}</Form.Label>
                 </Row>
                 <Row md="5">
-                <Form.Label row>Followers: {this.state.totalFollowers}</Form.Label>
+                <Form.Label className="TextRes" row>Followers: {this.state.totalFollowers}</Form.Label>
                 </Row>
                 <Row md="5">
-                <Form.Label row>Average of review's score: {this.state.reviewsMean}</Form.Label>
+                <Form.Label className="TextRes" row>Average of review's score: {this.state.reviewsMean}</Form.Label>
                 </Row>
-                </Col>
-            
-              <Col xs="6">
-              
-                  
-                  <Row md="5">
-              <header >
-                  <h5>Chart data about games</h5>
+                <Row md="">
+                <header  >
+                  <h5 className="SubTitleRes">Chart data about games</h5>
                 </header> 
                 
-                  <Chart options={this.state.options} series={this.state.series} labels={this.state.labels} type="pie" width="480" />
+                  <Chart options={this.state.options} series={this.state.series} labels={this.state.labels} type="pie" width="350"  />
                   </Row>
-                 
+                </Col>
+            
               
-              </Col>
               </Row>
               </div>
               </div>
                 <br/>
                 <div className="w3-container">
-                <Button variant="outline-danger" onClick={this.goBack} >Go back</Button> 
+                <Button className="ButtonRes" variant="outline-danger" onClick={this.goBack} >Go back</Button> 
                 </div>
                 </Form>
             </React.Fragment>

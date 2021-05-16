@@ -40,7 +40,7 @@ class ListMyGamesComponent extends Component {
             <div>
                 <br/>
                 <br/>
-                <h1>My created games</h1>
+                <h1 className="TitleRes">My created games</h1>
                 <br/>
                 <div>
                 {this.state.myCreatedGames.map(game=>
@@ -54,19 +54,22 @@ class ListMyGamesComponent extends Component {
        <Card.Img src={altLogo} style={{ maxHeight: '500px'}}/>
        }
     <Card.ImgOverlay>
-      <Card.Title>{game.title}</Card.Title>
+      <Card.Title className="TextRes">{game.title}</Card.Title>
                 {game.discount!=0.?(
                           <React.Fragment>
+                              <p className="TextRes">
                             Price:<strike> {game.price}</strike>€ ({game.discount*100} %)
                             <br/>
                             {(game.price-game.price*game.discount).toFixed(2)}€
+                            </p>
                           </React.Fragment>
                         ):
                         <React.Fragment>
-                          Price: {game.price}€
+                            <p className="TextRes">
+                          Price: {game.price}€</p>
                         </React.Fragment>
                       }
-                       <Button onClick={() => this.editGame(game.id)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="outline-primary">Details</Button>
+                       <Button className="ButtonRes" onClick={() => this.editGame(game.id)} style={{justifyContent:"right" ,textAlign:"right",display:"flex", position:"bottom"}} variant="outline-primary">Details</Button>
     </Card.ImgOverlay>
   </Card>
             </div>
