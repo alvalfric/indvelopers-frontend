@@ -36,6 +36,7 @@ class CreateGameComponent extends Component {
             imagen: "",
             imagenError: "",
             base64TextString: "",
+            isAdmin: false,
             submitError: "",
             isPremium:false,
             idCloud:"",
@@ -50,7 +51,6 @@ class CreateGameComponent extends Component {
             galleryImageIndex: "",
             galleryError: "",
             gallery: []
-
         }
 
         this.categories = [];
@@ -83,6 +83,15 @@ class CreateGameComponent extends Component {
                 this.categories.push(categoria)
             })
         });
+        if (AuthService.isAuthenticated()) {
+            var roles = AuthService.getUserData()['roles']
+            for (var i = 0; i < roles.length; i++) {
+                if (roles[i] == "ADMIN") {
+                    this.setState({ isAdmin: true })
+                    break;
+                }
+            }
+        }
     }
 
     validate = () => {
@@ -250,10 +259,9 @@ class CreateGameComponent extends Component {
 
     saveGame = (e) => {
         e.preventDefault();
-        if (this.state.isPremium !== true) {
+        if (this.state.isPremium !== true && !this.state.isAdmin) {
             this.state.price = 0.0;
         }
-
         const isValid = this.validate();
         if (isValid) {
             this.state.selectedOption.map(category => {
@@ -262,8 +270,9 @@ class CreateGameComponent extends Component {
             })
             let game = {
                 title: this.state.title.trim(), description: this.state.description.trim(), requirements: this.state.requirements.trim(), price: this.state.price, pegi: this.state.pegi
-                , categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString, gallery: this.state.gallery,urlVideo: this.state.urlVideo
+                , categorias: this.reformatedCategories, idCloud: this.state.idCloud, isNotMalware: false, creator: null, imagen: this.state.base64TextString, gallery: this.state.gallery, urlVideo: this.state.urlVideo
             };
+            console.log(JSON.stringify(game))
             SpamService.checkGame(game).then((data) => {
                 if (data === false) {
                     GameService.addGame(game).then(data => {
