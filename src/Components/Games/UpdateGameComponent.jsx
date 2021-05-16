@@ -242,7 +242,7 @@ class UpdateGameComponent extends Component {
 
     updateGame = (e) => {
         e.preventDefault();
-        if (this.state.isPremium !== true) {
+        if (this.state.isPremium !== true && !this.state.isAdmin) {
             this.state.price = 0.0;
         }
         const isValid = this.validate();
