@@ -465,7 +465,7 @@ class UpdateGameComponent extends Component {
 
                                  <React.Fragment>
                                 <Form.Group as={Row}>
-                                    <Form.Label column sm="1">Title</Form.Label> 
+                                    <Form.Label  column sm="1">Title</Form.Label> 
                                     <Col sm="10">
                                     <Form.Control placeholder="Title" name="title" className="FormInput"
                                          value={this.state.title} onChange={this.changeTitleHandler}/>
@@ -503,7 +503,7 @@ class UpdateGameComponent extends Component {
                                     <Card >
                                         <Card.Img height="70%" width="70%" src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block", maxWidth: '1000px', maxHeight: '500px', }}/>
                                         <Card.ImgOverlay>
-                                            <Card.Title>{this.state.title}</Card.Title>
+                                            <Card.Title className="SubTitleRes">{this.state.title}</Card.Title>
                                         </Card.ImgOverlay>
                                     </Card>
                                 </React.Fragment>
