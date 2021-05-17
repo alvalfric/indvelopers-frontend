@@ -56,7 +56,8 @@ class ListReviewComponent extends Component {
     })
   }
 
-  editReview(gameId) {
+  editReview=(gameId,e)=> {
+    e.preventDefault()
     this.props.history.push(`/editReview/${gameId}`)
   }
   deleteReview = (reviewId, e) => {

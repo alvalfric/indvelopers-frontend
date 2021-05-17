@@ -21,57 +21,57 @@ const POST="/comments"
 export const UrlProvider = {
 
     getDeveloperUrl(){
-        return BASE_URL + DEVELOPERS;
+        return DEPLOYED_URL + DEVELOPERS;
     },
 
     getGameUrl(){
-        return BASE_URL + GAMES;
+        return DEPLOYED_URL + GAMES;
     },
 
     getPublicationUrl(){
-        return BASE_URL + PUBLICATIONS;
+        return DEPLOYED_URL + PUBLICATIONS;
     },
 
     getMeUrl(){
-        return BASE_URL + DEVELOPERS + ME;
+        return DEPLOYED_URL + DEVELOPERS + ME;
     },
     
     getOwnedGamesUrl(){
-        return BASE_URL + OWNEDGAMES;
+        return DEPLOYED_URL + OWNEDGAMES;
     },
 
     getReviewUrl(){
-        return BASE_URL + REVIEWS;
+        return DEPLOYED_URL + REVIEWS;
     },
     getSubscriptionUrl(){
-        return BASE_URL + SUBSCRIPTION;
+        return DEPLOYED_URL + SUBSCRIPTION;
     },
     getCloudUrl(){
-        return BASE_URL + CLOUD
+        return DEPLOYED_URL + CLOUD
     },
     getPaymentUrl(){
-        return BASE_URL + PAYMENT;
+        return DEPLOYED_URL + PAYMENT;
     },
     getDeveloperDashboardUrl(){
-        return BASE_URL + DEVDASHBOARD;
+        return DEPLOYED_URL + DEVDASHBOARD;
     },
     getAdminDashboardUrl(){
-        return BASE_URL + ADMDASHBOARD;
+        return DEPLOYED_URL + ADMDASHBOARD;
     },
     getFollowedGames(){
-        return BASE_URL + GAMES + FOLLOWEDGAMES;
+        return DEPLOYED_URL + GAMES + FOLLOWEDGAMES;
     },
     getCategoriesUrl(){
-        return BASE_URL + CATEGORY;
+        return DEPLOYED_URL + CATEGORY;
     },
     getSpamUrl(){
-        return BASE_URL + SPAM;
+        return DEPLOYED_URL + SPAM;
     },
     getForumUrl(){
-        return BASE_URL + FORUM;
+        return DEPLOYED_URL + FORUM;
     },
     getPostUrl(){
-        return BASE_URL + POST;
+        return DEPLOYED_URL + POST;
     }
 
 }
