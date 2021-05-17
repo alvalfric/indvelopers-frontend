@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { DeveloperService } from '../../Services/DeveloperService';
 import ReactPaginate from 'react-paginate';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
+import Card from 'react-bootstrap/Card';
 
 class FollowListComponent extends Component {
 
@@ -84,14 +89,14 @@ class FollowListComponent extends Component {
                         user => {
                             this.usuario = user
                             return (
-                                <div>
-                                    <br />
-                                    <div className="p-4 w3-card-4" >
-                                        <header className="w3-container">
-                                            <h5 >{user.username}</h5>
-                                        </header>
-                                        <div className="w3-container">
-                                            {this.props.location.state.following?
+
+                                <React.Fragment>
+                                    <br/>
+                                    <Card style={{backgroundColor:"#222933",border: "3px solid rgb(93, 92, 102)"}} >
+                                <Card.Header className="TextRes" style={{backgroundColor:"#222933"}}>{user.username}
+                                
+                                  
+                                  {this.props.location.state.following?
                                             this.props.location.state.following.includes(user)?
                                             <button className="Button" style={{ float: "right" }} 
                                             onMouseEnter={() => this.setState({mouseover : false })}
@@ -103,10 +108,16 @@ class FollowListComponent extends Component {
                                             }
                                             </button>  
                                             :null:null
-                                            }     
-                                        </div>   
-                                    </div>
+                                            }   
+                                 
+                                 </Card.Header>
+                                
+                                <div>
+                                
                                 </div>
+                              </Card>
+                                </React.Fragment>
+
                             )
                         }
                     )
@@ -123,6 +134,7 @@ class FollowListComponent extends Component {
                 < br />
                 {this.showList()}
                 < br />
+                <div style={{justifyContent:"center",display:"flex"}}>
                 <ReactPaginate previousLabel={"prev"}
                     nextLabel={"next"}
                     breakLabel={"..."}
@@ -135,7 +147,10 @@ class FollowListComponent extends Component {
                     subContainerClassName={"pages pagination"}
                     activeClassName={"active"} />
                 
-                <a href="/me" className="CancelButton float-right" >Back</a>
+                <div style={{float:"left"}}>
+                <Button className="ButtonRes" variant="outline-danger" onClick={()=>this.props.history.push("/me")}>Back</Button>
+                </div>
+                </div>
             </div >
         );
     }

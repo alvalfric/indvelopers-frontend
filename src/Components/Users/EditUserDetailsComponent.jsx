@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { DeveloperService } from '../../Services/DeveloperService';
 import { SpamService } from '../../Services/SpamService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 class EditUserDetailsComponent extends Component {
 
@@ -41,9 +45,8 @@ class EditUserDetailsComponent extends Component {
         if (isValid) {
             SpamService.checkDeveloperDto(profile).then((data)=>{
                 if(data === false){
-                    DeveloperService.updateProfile(this.state.id, profile).then(res => {
-                        AuthService.loadUserData();
-                        this.props.history.push('/');
+                    DeveloperService.updateProfile(this.state.id, profile).then(() => {
+                        AuthService.loadUserData().then(()=>{this.props.history.push('/me');})
                     })
                 }else{
                     this.setState({spamError:"This form contains spam words! 😠"})
@@ -122,114 +125,110 @@ class EditUserDetailsComponent extends Component {
                     <br></br>
                     <br></br>
                     <br></br>
+                    <Form className="FormStyle">
                     {AuthService.getUserData()['username'] === this.state.username ? (<h2>Edit User Details</h2>) : null}
 
                     <br></br>
-                    <form>
-                        <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.username ? (
-                                <React.Fragment>
-                                    <label>Description</label>
-                                    <input placeholder="Description" name="description" className="form-control"
-                                        value={this.state.description} onChange={this.changeDescriptionHandler}></input>
-                                </React.Fragment>
-                            ) :
-                                <React.Fragment>
-                                    <div className="w3-display-container w3-text-white">
-                                        <div className="w3-xlarge w3-display-bottomleft w3-padding" >{this.state.description}</div>
-                                    </div>
-                                </React.Fragment>
-                            }
-                            {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
-                        </div>
-
-                        <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.username ? (
-                                <React.Fragment>
-                                    {this.state.base64TextString == null ?
-                                        <React.Fragment>
-                                        <label>Image</label>
-                                        </React.Fragment>
-                                        :
-                                        <React.Fragment>
-                                            <label>Current image</label>
-                                            < br />
-                                            <img src={"data:image/png;base64," + this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '200px' }} />
-                                        </React.Fragment>
-                                    }
-                                    < br />
-                                    <input placeholder="Image" type="file" name="image" className="ButtonFileLoad" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler} />
-                                </React.Fragment>
-                            ) :
-                                <React.Fragment>
-                                    <div className="w3-display-container w3-text-white">
-                                        <img src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
-                                    </div>
-                                </React.Fragment>
-                            }
-                        </div>
-
-                        <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.username ? (
-                                <React.Fragment>
-                                    <label>Email</label>
-                                    <input placeholder={this.state.email} name="email" className="form-control"
-                                        value={this.state.email} onChange={this.changeEmailHandler}></input>
-                                </React.Fragment>
-                            ) :
-                                <React.Fragment>
-                                    <div>
-                                        <br />
-                                        <div className="w3-card-2" >
-                                            <header className="w3-container ">
-                                                <h5>Email</h5>
-                                            </header>
-                                            <div className="w3-container">
-                                                <p>{this.state.email}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </React.Fragment>
-                            }
-                            {this.state.emailError ? (<div className="ValidatorMessage">{this.state.emailError}</div>) : null}
-                        </div>
-
-                        <div className="form-group">
-                            {AuthService.getUserData()['username'] === this.state.username ? (
-                                <React.Fragment>
-
-                                    <div className="form-group">
-                                        <label>Technologies</label>
-                                        <input type="text" className="form-control" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
-                                    </div>
-                                </React.Fragment>
-                            ) :
-
-                                <div>
-                                    <br />
-                                    <div className="w3-card-2" >
-                                        <header className="w3-container ">
-                                            <h5>Tecnologies</h5>
-                                        </header>
-                                        <div className="w3-container">
-                                            <p>{this.state.technologies}</p>
-                                        </div>
-                                    </div>
-                                </div>}
-                            {this.state.technologiesError ? (<div className="ValidatorMessage">{this.state.technologiesError}</div>) : null}
-                        </div>
-
+                    
+                        <Form.Group as={Row}>
                         {AuthService.getUserData()['username'] === this.state.username ? (
                             <React.Fragment>
-                                <button className="AceptButton" onClick={this.updateProfile}>Update profile</button>
+                            <Form.Label column sm="1">Description</Form.Label>
+                            <Col sm="10">
+                                <Form.Control placeholder="Description" name="description" className="FormInput"
+                                        value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                            </Col>
+                            </React.Fragment>
+                        ):
+                        <React.Fragment>
+                            <Form.Label column sm="1">Description</Form.Label>
+                            <Col sm="10">
+                                <Form.Control disabled placeholder="Description" name="description" className="FormInput"
+                                        value={this.state.description} onChange={this.changeDescriptionHandler}/>
+                            </Col>
+                        </React.Fragment>
+                        }
+                        {this.state.descriptionError ? (<div className="ValidatorMessage">{this.state.descriptionError}</div>) : null}
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                           <React.Fragment>
+                               {this.state.base64TextString==null?
+                               <React.Fragment>
+                                   <Form.Label column sm="1">Image</Form.Label>
+                               </React.Fragment>
+                            :
+                            <React.Fragment>
+                                   <Form.Label column sm="1">Current image</Form.Label>
+                                   <Col sm="10">
+                                   <Image src={"data:image/png;base64," + this.state.base64TextString} style={{ maxWidth: '200px', maxHeight: '200px' }}/>
+                                   </Col>
+                               </React.Fragment>
+                            }
+                            <Form.File placeholder="Image" type="file" name="image" className="FormInput" accept=".jpeg, .png, .jpg" value={this.state.imagen} onChange={this.changeImagenHandler}/>
+                           </React.Fragment> 
+                        ):
+                        <React.Fragment>
+                               <div className="w3-display-container w3-text-white">
+                                        <Image src={"data:image/png;base64," + this.state.base64TextString} style={{ marginLeft: "auto", marginRight: "auto", display: "block" }} width="400" height="300" />
+                                    </div>
+                           </React.Fragment> 
+                        }
+                        </Form.Group>
+
+                        <Form.Group as={Row}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                            <React.Fragment>
+                                <Form.Label column sm="1">Email</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control type="email" placeholder={this.state.email} name="email" className="FormInput"
+                                        value={this.state.email} onChange={this.changeEmailHandler}/>
+                                </Col>
+                            </React.Fragment>
+                        ):
+                        <React.Fragment>
+                            <Form.Label column sm="1">Email</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control disabled type="email" placeholder={this.state.email} name="email" className="FormInput"
+                                        value={this.state.email} onChange={this.changeEmailHandler}/>
+                                </Col>
+                        </React.Fragment>
+                        }
+                        {this.state.emailError ? (<div className="ValidatorMessage">{this.state.emailError}</div>) : null}
+                        </Form.Group>
+                        <Form.Group as={Row}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                            <React.Fragment>
+                                <Form.Label column sm="1">Technologies</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control type="text" className="FormInput" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                                </Col>
+                            </React.Fragment>
+                        ) :
+                        <React.Fragment>
+                            <Form.Label column sm="1">Technologies</Form.Label>
+                                <Col sm="10">
+                                    <Form.Control disabled type="text" className="FormInput" placeholder="Technologies" value={this.state.technologies} onChange={this.changeTechnologiesHandler} />
+                                </Col>
+                        </React.Fragment>
+                        }
+                         {this.state.technologiesError ? (<div className="ValidatorMessage">{this.state.technologiesError}</div>) : null}
+                        </Form.Group>
+
+                        <div style={{justifyContent:"center",display:"flex"}}>
+                        {AuthService.getUserData()['username'] === this.state.username ? (
+                            <React.Fragment>
+                                <Button className="ButtonRes" variant="outline-success" onClick={this.updateProfile}>Update profile</Button>
                                 {this.state.submitError ? (<div className="ValidatorMessage">
                                     {this.state.submitError}
                                 </div>) : null}
                             </React.Fragment>
                         ) : null}
-                        <button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+                        <Button className="ButtonRes" variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</Button>
+                        
+                        </div>
                         {this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}  
-                    </form>
+                    </Form>
                 </div>
             </div>
         );

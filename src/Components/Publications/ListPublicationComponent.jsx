@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import UserLogo from '../../assets/userExample.png';
-import {PublicationService} from '../../Services/PublicationService';
+import { PublicationService } from '../../Services/PublicationService';
 import ReactPaginate from 'react-paginate';
 import { AuthService } from '../../Services/AuthService';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image'
+import { Col, FormText, Row } from 'react-bootstrap';
 
 class ListPublicationComponent extends Component {
 
@@ -14,7 +18,7 @@ class ListPublicationComponent extends Component {
       rawPublications: [],
       offset: 0,
       perPage: 5,
-      pageCount: 0, 
+      pageCount: 0,
       currentPage: 0
     }
     this.handlePageClick = this.handlePageClick.bind(this);
@@ -64,14 +68,14 @@ class ListPublicationComponent extends Component {
 
   }
 
-  editPublication(id){
-    PublicationService.GetPublicationById(id).then(res =>{
+  editPublication(id) {
+    PublicationService.GetPublicationById(id).then(res => {
       this.props.history.push(`/publication-edit/${id}`)
     })
     console.log('publicacion => ' + JSON.stringify(id))
   }
 
-  deletePublication(id){
+  deletePublication(id) {
     PublicationService.deletePublication(id).then(res => {
       window.location.reload()
     })
@@ -86,61 +90,64 @@ class ListPublicationComponent extends Component {
         <br></br>
         <h2 className="text-center">Publications of the community</h2>
         <div className="row">
-          <button className="Button" onClick={this.createPublication}>Publish</button>
+          <Button className="ButtonRes" variant="outline-info" size="lg" onClick={this.createPublication}> Publish</Button>
         </div>
         <br />
-        {/* Generate diferent for each publication */}
         {this.state.publications.map(
           publication =>
-            <div>
-             
-              <br />
-              <div className="w3-card-4" >
-                <header className="w3-container ">
-                  <img />
-                  <img src={UserLogo} className="inDvelopers-logo" width="3%" height="3%" />
-                  <h5>{publication.username}</h5>
-                </header>
-                <div className="w3-container">
-                  <p>{publication.text}</p>
-                </div>
-                <div>
+            <React.Fragment>
+              <Card style={{ backgroundColor: "#222933", border: "3px solid rgb(93, 92, 102)" }} >
+                <Card.Header style={{ backgroundColor: "#222933" }}>
+                  {publication.developer.userImage != null ?
+                    <Image variant="left" src={"data:image/png;base64," + publication.developer.userImage} style={{ maxWidth: "50px", maxHeight: "50px" }} roundedCircle />
+                    :
+                    <Image variant="left" src={UserLogo} style={{ maxWidth: "50px", maxHeight: "50px" }} roundedCircle />
+                  }
+                  {publication.username}</Card.Header>
+                <Card.Body style={{ backgroundColor: "#222933" }}>
+                  <Card.Text>
+                    {publication.text}
+                  </Card.Text>
+                  <Col>
+                  </Col>
+                  <Col sm={5} md={4} style={{ justifyContent: "center", display: "flex" }}>
+                    {publication.imagen !== "" ?
+                      <Card.Img src={"data:image/png;base64," + publication.imagen} style={{ flexDirection: "column", maxWidth: '500px', maxHeight: '500px' }} />
+                      :
+                      null
+                    }
+                  </Col>
+                </Card.Body>
                 {AuthService.isAuthenticated() ?
-                    AuthService.getUserData()['username'] === publication.developer.username ?
-                    <React.Fragment> 
-                      <button className="Button" style={{float:"right"}} onClick={() => this.editPublication(publication.id)}>Edit Publication</button>
-                      <button className="Button" style={{float:"right"}} onClick={() => this.deletePublication(publication.id)}>Delete Publication</button>
-                    </React.Fragment>
-                    :null
-                  :null
-                }
-                </div>
-                {publication.imagen !== "" ?
-                  <React.Fragment>
-                    <div className="w3-container">
-                      <img src={"data:image/png;base64," + publication.imagen} style={{ maxWidth: '500px', maxHeight: '500px' }} />
+                  AuthService.getUserData()['username'] === publication.developer.username ?
+                    <div>
+                      <Button className="ButtonRes" variant="danger" style={{ float: "left", marginLeft: "5px" }} onClick={() => this.deletePublication(publication.id)}> Delete publication</Button>
+                      <Button className="ButtonRes" variant="info" style={{ float: "left" }} onClick={() => this.editPublication(publication.id)}> Edit publication</Button>
                     </div>
-                  </React.Fragment>
-                  :
-                  null
+                    : null
+                  : null
                 }
-              </div>
-            </div>
+              </Card>
+              <br />
+            </React.Fragment>
+
+
         )
         }
         <br />
-        <ReactPaginate previousLabel={"prev"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"} />
-
+        <div style={{ justifyContent: "center", display: "flex" }}>
+          <ReactPaginate previousLabel={"prev"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"} />
+        </div>
       </div>
     );
   }

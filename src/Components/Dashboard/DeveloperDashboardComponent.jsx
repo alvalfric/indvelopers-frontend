@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {AuthService} from '../../Services/AuthService';
 import {DashBoardService} from '../../Services/DashboardService';
 import Chart from "react-apexcharts";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import { Col, FormText, Row,ListGroup } from 'react-bootstrap';
 
 class DeveloperDashboardComponent extends Component {
     constructor(props){
@@ -50,55 +53,59 @@ class DeveloperDashboardComponent extends Component {
                 <br/>
                 <br/>
                 <br/>
-                <h1>My dashboard</h1>
+                <Form className="FormStyle">
+                <h1 className="TitleRes">My dashboard</h1>
                 <br/>
+                <div >
+                <div className="w3-container">
                 
-                <div className="w3-card-4" >
-                <div className="w3-container">
-                <div className="sidenav">
                 <br/>
+                <Row>
+                <Col xs="6">
                 <header className="w3-container " >
-                  <h5>General data</h5>
+                  <h5 className="SubTitleRes">General data</h5>
                 </header>
+                
                 <br/>
-                <div className="w3-container">
-                  <p>Games created: {this.state.numGamesCreated}</p>
-                </div>
-                <div className="w3-container">
-                  <p>Reviews created: {this.state.numReviewsCreated}</p>
-                </div>
-                <div className="w3-container">
-                  <p>Publications posted: {this.state.numPublicationsCreated}</p>
-                </div>
-                <div className="w3-container">
-                  <p>Games owned: {this.state.numGamesOwned}</p>
-                </div>
-                <div className="w3-container">
-                  <p>Money earned: {this.state.moneyEarned}</p>
-                </div>
-                <div className="w3-container">
-                  <p>Followers: {this.state.totalFollowers}</p>
-                </div>
-                <div className="w3-container">
-                  <p>Average of review's score: {this.state.reviewsMean}</p>
-                </div>
-              </div>
-              
-              <div className="sidenav2">
-                  <br/>
-              <header >
-                  <h5>Chart data about games</h5>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Games created: {this.state.numGamesCreated}</Form.Label>
+                </Row>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Reviews created: {this.state.numReviewsCreated}</Form.Label>
+                </Row>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Publications posted: {this.state.numPublicationsCreated}</Form.Label>
+                </Row>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Games owned: {this.state.numGamesOwned}</Form.Label>
+                </Row>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Money earned: {this.state.moneyEarned}</Form.Label>
+                </Row>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Followers: {this.state.totalFollowers}</Form.Label>
+                </Row>
+                <Row md="5">
+                <Form.Label className="TextRes" row>Average of review's score: {this.state.reviewsMean}</Form.Label>
+                </Row>
+                <Row md="">
+                <header  >
+                  <h5 className="SubTitleRes">Chart data about games</h5>
                 </header> 
-                <div>
-                  <Chart options={this.state.options} series={this.state.series} labels={this.state.labels} type="pie" width="480" />
-                 </div>
-              </div>
+                
+                  <Chart options={this.state.options} series={this.state.series} labels={this.state.labels} type="pie" width="350"  />
+                  </Row>
+                </Col>
+            
+              
+              </Row>
               </div>
               </div>
                 <br/>
                 <div className="w3-container">
-                <button className="CancelButton" onClick={this.goBack} >Go back</button> 
+                <Button className="ButtonRes" variant="outline-danger" onClick={this.goBack} >Go back</Button> 
                 </div>
+                </Form>
             </React.Fragment>
         )
     }

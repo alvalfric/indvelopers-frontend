@@ -13,7 +13,7 @@ export const GameService = {
         return axios.get(UrlProvider.getGameUrl() + "/" + id, {
         }).catch(error => { return error.response.status })
     },
-    
+
     async findAll() {
         return AuthService.getToken().then(token => {
             return axios.get(UrlProvider.getGameUrl() + "/findAll", {
@@ -83,7 +83,7 @@ export const GameService = {
             }).catch(error => { return error })
         })
     },
-    
+
     async findGamesByDeveloperFollowed() {
         return AuthService.getToken().then(token => {
             return axios.get(UrlProvider.getFollowedGames(), {
@@ -104,20 +104,20 @@ export const GameService = {
         return axios.get(UrlProvider.getGameUrl() + '/findByNew').then(res => res.data)
             .catch(error => { return error.response.status })
     },
+
     async getGameByTitleOrCategorie(res) {
-            return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerifiedOrCategorie/' + res).then(res => res.data)
-                .catch(error => { return error.response.status })
-    
+        return axios.get(UrlProvider.getGameUrl() + '/findByTitleVerifiedOrCategorie/' + res).then(res => res.data)
+            .catch(error => { return error.response.status })
     },
 
     async getGameByPrice(price) {
-            return axios.get(UrlProvider.getGameUrl() + '/findByPrice/' + price).then(res => res.data)
-                .catch(error => { return error.response.status })
-        
+        return axios.get(UrlProvider.getGameUrl() + '/findByPrice/' + price).then(res => res.data)
+            .catch(error => { return error.response.status })
+
     },
-    async findGamesWithDiscount(){
-        return axios.get(UrlProvider.getGameUrl()+"/findAllWithDiscount").then(res=>res.data)
-        .catch(error=>{return error.response.status})
+    async findGamesWithDiscount() {
+        return axios.get(UrlProvider.getGameUrl() + "/findAllWithDiscount").then(res => res.data)
+            .catch(error => { return error.response.status })
     }
 
 }

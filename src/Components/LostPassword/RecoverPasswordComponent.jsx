@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { DeveloperService } from '../../Services/DeveloperService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 import emailjs from 'emailjs-com';
 
 var serviceID = "service_x4mybgl"
@@ -62,7 +66,7 @@ class RecoverPasswordComponent extends Component {
                     this.sendFeedback(templateId, {
                         email: this.state.email,
                         to_name: data.username,
-                        passwordReset: "https://level3-indvelopers.herokuapp.com/restorePassword/" + data.id
+                        passwordReset: "https://level4-indvelopers.herokuapp.com/restorePassword/" + data.id
                     })
                 } else {
                     this.setState({ submitError: "That email is not registered!" });
@@ -93,22 +97,27 @@ class RecoverPasswordComponent extends Component {
                 <br />
                 <br />
                 <br />
-                <h2>Recover your password!</h2>
                 <br />
-
-                <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" value={this.state.email} onChange={this.changeEmailHandler} />
-                    {this.state.emailError ? (<div className="ValidatorMessage">
+                <Form className="FormStyle">
+                <h2 style={{textAlign:"center"}}>Recover your password!</h2>
+                <br />
+                
+                <Form.Group as={Row}>
+                    <Form.Label column sm="1">Email</Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="email" className="FormInput" placeholder="Enter email" value={this.state.email} onChange={this.changeEmailHandler}/>
+                        {this.state.emailError ? (<div className="ValidatorMessage">
                         {this.state.emailError}
                     </div>) : null}
+                    </Col>
+                </Form.Group>
+                <div style={{justifyContent:"center",display:"flex"}}>
+                <Button type="submit" variant="outline-primary" onClick={this.recoverPasswordByEmail}>Recover my password!</Button>
                 </div>
-
-                <button type="submit" className="btn btn-dark btn-lg btn-block" onClick={this.recoverPasswordByEmail}>Recover my password!</button>
                 {this.state.submitError ? (<div className="ValidatorMessage">
                     {this.state.submitError}
                 </div>) : null}
-
+                </Form>
             </form>
         )
     }

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { AuthService } from '../../Services/AuthService';
 import { AdminDashboardService } from '../../Services/AdminDashboardService';
 import Chart from "react-apexcharts";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form'
+import { Col, FormText, Row,ListGroup } from 'react-bootstrap';
 
 class AdminDashboardComponent extends Component {
     constructor(props){
@@ -67,68 +70,104 @@ class AdminDashboardComponent extends Component {
                 <br/>
                 <br/>
                 <br/>
-                <h1>My admin dashboard</h1>
+                <Form className="FormStyle">
+                <h1 className="TitleRes">My admin dashboard</h1>
                 <br/>
                 
-                <div className="w3-card-4" >
-                    <div className="w3-container">
-                        <div className="sidenav">
+                <div >
+                
+                    <div >
+                    <Row>
+                        <div >
                             <br/>
-                            <header className="w3-container " >
-                                <h5>General data</h5>
+                            <header  >
+                                <h5 className="SubTitleRes">General data</h5>
                             </header>
                             <br/>
-                            <div className="w3-container">
-                                <p>Games created: {this.state.totalGamesCreated}</p>
-                            </div>
-                            <div className="w3-container">
-                                <p>Publications posted: {this.state.totalPublicationsCreated}</p>
-                            </div>
-                            <div className="w3-container">
-                                <p>Reviews created: {this.state.totalReviewsCreated}</p>
-                            </div>
-                            <div className="w3-container">
-                                <p>Games purchased: {this.state.totalGamesPurchased}</p>
-                            </div>
-                            <div className="w3-container">
-                                <p>Money earned by Developers: {this.state.totalMoneyEarnedByDevelopers}</p>
-                            </div>
-                            <div className="w3-container">
-                                <p>Developers: {this.state.totalDevelopers}</p>
-                            </div>
-                            <div className="w3-container">
-                                <p>Incidents: {this.state.totalIncident}</p>
-                            </div>
-                        </div>
-                        <div className="sidenav2">
-                            <br/>
+                          
+                            <Col xs="7">
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Games created: {this.state.totalGamesCreated}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Publications posted: {this.state.totalPublicationsCreated}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Reviews created: {this.state.totalReviewsCreated}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Games purchased: {this.state.totalGamesPurchased}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Money earned by Developers: {this.state.totalMoneyEarnedByDevelopers}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Developers: {this.state.totalDevelopers}</Form.Label>
+                            </Row>
+                            <Row md="5">
+                               <Form.Label className="TextRes" row>Incidents: {this.state.totalIncident}</Form.Label>
+                            </Row>
+                            <Row md="5">
                             <header >
                                 <h5>Chart data about games</h5>
                             </header> 
-                            <div>
-                            <Chart options={this.state.optionsGame} series={this.state.seriesGame} labels={this.state.labels} colors={this.state.colors} type="pie" width="480" />
-                            </div>
-                            <br/>
+                            <Chart options={this.state.optionsGame} series={this.state.seriesGame} labels={this.state.labels} colors={this.state.colors} type="pie" width="350" />
+                            </Row>
+                            <Row md="5">
                             <header >
                                 <h5>Chart data about incidents</h5>
                             </header> 
-                            <div>
-                            <Chart options={this.state.optionsIncidents} series={this.state.seriesIncidents} labels={this.state.labels} type="pie" width="480" />
-                            </div>
-                            <br/>
+                            <Chart options={this.state.optionsIncidents} series={this.state.seriesIncidents} labels={this.state.labels} type="pie" width="350" />
+                            
+                            </Row>
+                            <Row md="5">
                             <header >
                                 <h5>Chart data about premium users</h5>
                             </header> 
-                            <div>
-                            <Chart options={this.state.optionsPremium} series={this.state.seriespremium} labels={this.state.labels} type="pie" width="480" />
-                            </div>
+                            <Chart options={this.state.optionsPremium} series={this.state.seriespremium} labels={this.state.labels} type="pie" width="350" />
+                            </Row>
+                            </Col>
                         </div>
+                        
+                        {/* <Col >
+                        <div >
+                            <br/>
+                            
+                            <header >
+                                <h5>Chart data about games</h5>
+                            </header> 
+                            <Row md="5">
+                            <Chart options={this.state.optionsGame} series={this.state.seriesGame} labels={this.state.labels} colors={this.state.colors} type="pie" width="350" />
+                            </Row>
+                            <br/>
+                            
+                            <header >
+                                <h5>Chart data about incidents</h5>
+                            </header> 
+                            <Row md="5">
+                            <Chart options={this.state.optionsIncidents} series={this.state.seriesIncidents} labels={this.state.labels} type="pie" width="350" />
+                            
+                            </Row>
+                            <br/>
+                            
+                            <header >
+                                <h5>Chart data about premium users</h5>
+                            </header> 
+                            <Row md="5">
+                            <Chart options={this.state.optionsPremium} series={this.state.seriespremium} labels={this.state.labels} type="pie" width="350" />
+                            
+                            </Row>
+                        </div>
+                        </Col> */}
+                        </Row>
                     </div>
                 </div>
+                
                 <br/>
                 <div className="w3-container">
-                    <button className="CancelButton" onClick={this.goBack} >Go back</button> 
+                    <Button variant="outline-danger" onClick={this.goBack} >Go back</Button> 
                 </div>
+                </Form>
             </React.Fragment>
         )
     }

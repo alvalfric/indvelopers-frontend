@@ -111,6 +111,7 @@
 .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
   border-radius: unset
 }
+
 .Button{
   background-color: #1e5f74;
   border: none;
@@ -193,8 +194,7 @@
 }
 .ButtonFileLoad{
 
-  background-color: #4ea7c2fd;
-  border: none;
+  border:#1d2d50;
   color: white;
   padding: 10px 15px;
   text-align: center;
@@ -323,6 +323,23 @@ Video de youtube #9AD263
   background: blue;
 }
 
+
+.FormStyle {
+  border-radius: 20px;
+  border-color: #2c90b1;
+  border: 3px solid rgb(93, 92, 102);
+  background-color: #222933;
+  padding: 40px;
+}
+.FormInput{
+  border-radius: 20px;
+  border-color: #2c90b1;
+  border: 3px solid rgb(93, 92, 102);
+  background-color: #222933;
+  padding: 10px;
+  color: white;
+}
+
 /*W3Schools==================================================================================00*/
 .topnav {
   z-index: 2;
@@ -439,9 +456,28 @@ padding-right:80px;
     float: right;
     display: block;
   }
+
 }
 
+.GameNav{
+  width: 18rem;
+  float:right;
+  background-color: #222933;
+  border:3px solid rgb(93, 92, 102);
+}
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+.TextRes{
+  color:white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.TitleRes{
+  color:white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.SubTitleRes{
+  color:white;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
 @media screen and (max-width: 600px) {
   .topnav.responsive {position: relative;}
   .topnav.responsive a.icon {
@@ -449,6 +485,43 @@ padding-right:80px;
     right: 0;
     top: 0;
   }
+  .PanicTitle{
+    font-size: 20px;
+  }
+  .TextRes{
+    font-size: 9px;
+
+  }
+  .PanicText{
+    font-size: 8px;
+  }
+  .PanicLogo{
+    width: 100%;
+    height: auto;
+  }
+  .ButtonRes{
+    font-size: 6px;
+  }
+  .SubTitleRes{
+    font-size: 15px;
+  }
+  .TitleRes{
+    margin-top: 20px;
+    font-size: 30px;
+    text-align: center;
+    
+  }
+ 
+  .GameNav{
+    
+    size: 20px;
+  }
+  .Button{
+    font-size: 10px;
+  }
+
+ 
+ 
   .topnav.responsive a {
     float: none;
     display: block;
@@ -463,5 +536,10 @@ padding-right:80px;
   }
 }
   .basic-multi-select{
-    color: #000000;
+    border-radius: 20px;
+    border-color: #2c90b1;
+    border: 3px solid rgb(93, 92, 102);
+    background-color: #222933;
+    padding: 10px;
+    color: black;
   }

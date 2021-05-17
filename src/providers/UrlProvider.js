@@ -1,4 +1,4 @@
-const DEPLOYED_URL="https://continuous-indvelopers-backend.herokuapp.com"
+const DEPLOYED_URL="https://level4-indvelopers-backend.herokuapp.com"
 const BASE_URL = "http://localhost:8080"
 const DEVELOPERS = "/developers"
 const GAMES = "/games"
@@ -14,6 +14,8 @@ const ADMDASHBOARD="/adminDashboard"
 const FOLLOWEDGAMES = "/findGamesByFollowedDeveloper"
 const CATEGORY="/categories"
 const SPAM="/spam"
+const FORUM="/forums"
+const POST="/comments"
 
 
 export const UrlProvider = {
@@ -64,6 +66,12 @@ export const UrlProvider = {
     },
     getSpamUrl(){
         return DEPLOYED_URL + SPAM;
+    },
+    getForumUrl(){
+        return DEPLOYED_URL + FORUM;
+    },
+    getPostUrl(){
+        return DEPLOYED_URL + POST;
     }
 
 }

@@ -4,6 +4,9 @@ import OwnedGameService from '../../Services/OwnedGameService';
 import portada from '../../assets/JuegoPortada.jpg';
 import {PaypalService} from '../../Services/PaypalService';
 import paypal from 'paypal-checkout';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { Col, Form, FormText, Row,Image } from 'react-bootstrap';
 
 class OwnedGameComponent extends Component {
     constructor(props){
@@ -74,46 +77,51 @@ class OwnedGameComponent extends Component {
     getDetails=()=>{
         return(
         <React.Fragment>
-            <br/>
-                <br/>
-                
-                <h2>Finalize purchase</h2>
+
+                 <Form>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <Col>
+                <Row><h2>Finalize purchase</h2>
                 <h4 style={{color:"#838383"}}>_______________________________________________________________________________________________________</h4>
-                <div className="gridContainer">
-                <div className="sidenav">
-                <img src={"data:image/png;base64," + this.state.game.imagen}  style={{display:"block"}} style={{ maxWidth: '500px', maxHeight: '250px' }} />
-                <div style={{marginRight:"30%"}}>
-                 <br/>
-                   <div className="w3-card-4" >
+                </Row>
+                <br/>
+                <Row>
+                    <Col>
+                    <Image width="100%" height="65%" src={"data:image/png;base64," + this.state.game.imagen}   alt="Game cover" style={{ maxWidth: '800px', maxHeight: '800px', marginBottom: '20px' }}/>
+                    <br/>
+                    <div className="w3-card-4" >
                   <header className="w3-container ">
                   <img/>
-                  <h5>Description</h5>
+                  <h5 className="TextRes">Description</h5>
                   </header>
 
                   <div className="w3-container">
-                  <p>{this.state.game.description}</p>
+                  <p className="TextRes">{this.state.game.description}</p>
                   </div>
                   </div>
-                 </div>
-                </div >
-                <div className="sidenav2">
-                <h3>Game title</h3>
-                <h3>{this.state.game.title}</h3>
-                <h4 style={{color:"#838383"}}>Price:{this.state.game.price} €</h4>
-                <h4 style={{color:"#838383"}}>Discount: {this.state.game.discount*100}%</h4>
-                <h4 style={{color:"#838383"}}>______________________________________________</h4>
-                <h4 style={{color:"#838383"}}>total:{(this.state.game.price-this.state.game.discount*this.state.game.price).toFixed(2)} €</h4>
-                <h3>Purchase method</h3>
-                <h4>Paypal</h4>
-                <div class="custom-control custom-checkbox">
-                 <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
-                 <label style={{color:"#838383"}}>Click here to finalize your purchase</label>
+                    </Col>
+                    <Col>
+                    
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>Price:{this.state.game.price} €</h4></Row>
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>Discount: {this.state.game.discount*100}%</h4></Row>
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>______________________________________________</h4></Row>
+                <Row><h4 className="TextRes" style={{color:"#838383"}}>total:{(this.state.game.price-this.state.game.discount*this.state.game.price).toFixed(2)} €</h4></Row>
+                <Row><h3 className="TextRes">Purchase method</h3></Row>
+                <Row><h4 className="TextRes">Paypal</h4></Row>
+                
+                <Row className="TextRes"> <input type="checkbox" defaultChecked={this.state.acceptedPurchase} onClick={this.changeConfirmHandler} />
+                 <label className="TextRes" style={{color:"#838383"}}>Click here to finalize your purchase</label></Row>
                 {this.state.AcceptMessage?(<div className="ValidatorMessage">{this.state.AcceptMessage}</div>) : null} 
-              </div>
               
-                <button className="AceptButton"  onClick={()=>this.purchaseGame(this.state.id)}>Finalize purchase</button>
-                </div>
-                </div>
+              
+                <Button className="ButtonRes" variant="outline-success"  onClick={()=>this.purchaseGame(this.state.id)}>Finalize purchase</Button>
+                
+                    </Col>
+                </Row>
+                </Col>
+                </Form>
         </React.Fragment>
         )
     }

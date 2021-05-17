@@ -3,6 +3,10 @@ import { GameService } from '../../Services/GameService';
 import { ReviewService } from '../../Services/ReviewService';
 import { AuthService } from '../../Services/AuthService';
 import { SpamService } from '../../Services/SpamService';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { Col, FormText, Row } from 'react-bootstrap';
+import Image from 'react-bootstrap/Image';
 
 
 class CreateReviewComponent extends Component {
@@ -115,26 +119,34 @@ class CreateReviewComponent extends Component {
 				<br></br>
 				<br></br>
 				<form>
-					<h2>Add review</h2>
-					<div className="form-group">
-						<label>Text</label>
-						<textarea placeholder="Text" name="text" type="text-box" className="form-control" value={this.state.text}
+					<Form className="FormStyle">
+					<h2 style={{textAlign:"center"}}>Add review</h2>
+					<Form.Group as={Row}>
+						<Form.Label column sm="1">Text</Form.Label>
+						<Col sm="10">
+						<Form.Control as="textarea" placeholder="Text" name="text" type="text-box" className="FormInput" value={this.state.text}
 							onChange={this.changeTextHandler} />
-						{this.state.textError ? (<div className="ValidatorMessage">
+							{this.state.textError ? (<div className="ValidatorMessage">
 							{this.state.textError}
 						</div>) : null}
-					</div>
-					<div className="form-group">
-						<label> Score </label>
-						<input placeholder="Score" name="score" className="form-control" type="number" min="0" max="5" step="0.1" value={this.state.score}
-							onChange={this.changeScoreHandler}></input>
-						{this.state.scoreError ? (<div className="ValidatorMessage">
+						</Col>
+					</Form.Group>
+					<Form.Group as={Row}>
+						<Form.Label column sm="1">Score</Form.Label>
+						<Col sm="10">
+							<Form.Control placeholder="Score" name="score" className="FormInput" type="number" min="0" max="5" step="0.1" value={this.state.score}
+							onChange={this.changeScoreHandler}/>
+							{this.state.scoreError ? (<div className="ValidatorMessage">
 							{this.state.scoreError}
 						</div>) : null}
+						</Col>
+					</Form.Group>
+					<div style={{justifyContent:"center",display:"flex"}}>
+					<Button className="ButtonRes" variant="outline-success" onClick={this.saveReview}>Crear Review</Button>
+					<Button className="ButtonRes" variant="outline-danger" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</Button>
 					</div>
-					<button className="AceptButton" onClick={this.saveReview}>Crear Review</button>
-					<button className="CancelButton" onClick={this.cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancelar</button>
 					{this.state.spamError?(<p className="text-danger">{this.state.spamError}</p>):null}
+					</Form>
 				</form>
 
 			</div>

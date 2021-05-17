@@ -4,6 +4,9 @@ import { ReviewService } from '../../Services/ReviewService';
 import ReactPaginate from 'react-paginate';
 import StarRatings from 'react-star-ratings';
 import { AuthService } from '../../Services/AuthService';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image'
 
 class ListReviewComponent extends Component {
 
@@ -74,26 +77,28 @@ class ListReviewComponent extends Component {
               return (
                 <div>
                   <br />
-                  <div className="w3-card-4" >
-                    <br />
-                    <header className="w3-container ">
-                      <h5>
-                        {review.developer.username}<StarRatings rating={review.score} starDimension="20px" starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
-                        {review.edited ? <h9> (Edited review)</h9> : null}
-                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                        <button className="DeleteButton" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</button>
-                          : null}
-                        {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                          <button className="Button" style={{ float: "right" }} onClick={(e) => this.editReview(this.props.gameId,e)}>Edit review</button>
-                          : null}
-                      </h5>
-                    </header>
-                    <div className="w3-container">
+                  <Card style={{ backgroundColor: "#222933", border: "3px solid rgb(93, 92, 102)" }}>
+                    <Card.Header>
+                      {review.developer.userImage != null ?
+                        <Image variant="left" src={"data:image/png;base64," + review.developer.userImage} style={{ maxWidth: "50px", maxHeight: "50px", marginRight: "1rem" }} roundedCircle />
+                        :
+                        <Image variant="left" src={UserLogo} style={{ maxWidth: "50px", maxHeight: "50px", marginRight: "1rem" }} roundedCircle />
+                      }
+                      {review.developer.username} &nbsp; &nbsp;<StarRatings rating={review.score} starDimension="20px"
+                        starSpacing="1px" starRatedColor="yellow" numberOfStars={5} name="score" />
+                      {review.edited ? <h9> (Edited review)</h9> : null}
+                      {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
+                        <Button className="ButtonRes" variant="outline-danger" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</Button>
+                        : null}
+                      {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
+                        <Button className="ButtonRes" variant="outline-info" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</Button>
+                        : null}
+                    </Card.Header>
+                    <Card.Body>
                       <p>{review.text}</p>
+                    </Card.Body>
+                  </Card>
 
-                      <p></p>
-                    </div>
-                  </div>
                 </div>
               )
             }
@@ -109,17 +114,19 @@ class ListReviewComponent extends Component {
       <div>
         {this.showList()}
         < br />
-        <ReactPaginate previousLabel={"prev"}
-          nextLabel={"next"}
-          breakLabel={"..."}
-          breakClassName={"break-me"}
-          pageCount={this.state.pageCount}
-          marginPagesDisplayed={2}
-          pageRangeDisplayed={5}
-          onPageChange={this.handlePageClick}
-          containerClassName={"pagination"}
-          subContainerClassName={"pages pagination"}
-          activeClassName={"active"} />
+        <div style={{ justifyContent: "center", display: "flex" }}>
+          <ReactPaginate previousLabel={"prev"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"} />
+        </div>
 
       </div >
     );
