@@ -91,7 +91,7 @@ class ListReviewComponent extends Component {
                         <Button className="ButtonRes" variant="outline-danger" style={{ float: "right" }} onClick={(e) => this.deleteReview(review.id, e)}>Delete review</Button>
                         : null}
                       {(AuthService.isAuthenticated() && AuthService.getUserData()['username'] === review.developer.username) ?
-                        <Button className="ButtonRes" variant="outline-info" style={{ float: "right" }} onClick={() => this.editReview(this.props.gameId)}>Edit review</Button>
+                        <Button className="ButtonRes" variant="outline-info" style={{ float: "right" }} onClick={(e) => this.editReview(this.props.gameId,e)}>Edit review</Button>
                         : null}
                     </Card.Header>
                     <Card.Body>
